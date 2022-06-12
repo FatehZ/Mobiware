@@ -11,6 +11,7 @@ import com.ktxdevelopment.mobiware.clients.BaseClient
 import com.ktxdevelopment.mobiware.clients.BaseClient.hasInternetConnection
 import com.ktxdevelopment.mobiware.clients.BaseClient.whichModelSuits
 import com.ktxdevelopment.mobiware.clients.FirebaseClient
+import com.ktxdevelopment.mobiware.clients.Preferences
 import com.ktxdevelopment.mobiware.clients.TextInputClient.validateSignInInput
 import com.ktxdevelopment.mobiware.clients.ui.SignInClient.initializeRecyclerView
 import com.ktxdevelopment.mobiware.clients.ui.SignInClient.toastNoConnection
@@ -20,6 +21,7 @@ import com.ktxdevelopment.mobiware.models.rest.search.Phone
 import com.ktxdevelopment.mobiware.models.rest.search.SearchResponse
 import com.ktxdevelopment.mobiware.ui.recview.SelectionAdapter
 import com.ktxdevelopment.mobiware.ui.recview.SelectionAdapter.OnMobileClickListener
+import com.ktxdevelopment.mobiware.util.Constants
 import com.ktxdevelopment.mobiware.viewmodel.RetroViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Response
@@ -58,6 +60,7 @@ class SignUpActivity : BaseActivity(), OnMobileClickListener {
         if (validateSignInInput(binding.etUsernameSignIn, binding.etPasswordSignIn ,binding.etUsernameSignIn.text.toString())) {
             if (hasInternetConnection(this)) {
                 if(selectedPhoneUrl != "") {
+                    launchRegistration()
                 }else toastSelectPhone(this)
             } else toastNoConnection(this)
         }
@@ -72,14 +75,17 @@ class SignUpActivity : BaseActivity(), OnMobileClickListener {
 
     override fun onRegisterSuccess() {
         restViewModel.getResponse.observe(this) {
-            if (it.isSuccessful) {
+            if (it.isSuccessful) if (it.body()!=null) {
 
+                val mainIntent = Intent(this, MainActivity::class.java).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_NEW_TASK)
+                    putExtra(Constants.PHONE_EXTRA, it.body()!!.data)
+                }
 
-
+                hideProgressDialog()
+                startActivity(mainIntent)
+                Preferences.storeIsFirstRun(false)
             }
-
-            val mainIntent = Intent(this, MainActivity::class.java).apply {
-                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_NEW_TASK) }
         }
     }
 
