@@ -1,32 +1,34 @@
 package com.ktxdevelopment.mobiware.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.gms.auth.api.identity.SignInClient
-import com.google.firebase.auth.FirebaseAuth
+import com.ktxdevelopment.mobiware.R
 import com.ktxdevelopment.mobiware.clients.BaseClient
 import com.ktxdevelopment.mobiware.clients.BaseClient.hasInternetConnection
 import com.ktxdevelopment.mobiware.clients.BaseClient.whichModelSuits
-import com.ktxdevelopment.mobiware.clients.FirestoreClient
+import com.ktxdevelopment.mobiware.clients.FirebaseClient
 import com.ktxdevelopment.mobiware.clients.TextInputClient.validateSignInInput
 import com.ktxdevelopment.mobiware.clients.ui.SignInClient.initializeRecyclerView
-import com.ktxdevelopment.mobiware.databinding.ActivitySignInBinding
+import com.ktxdevelopment.mobiware.clients.ui.SignInClient.toastNoConnection
+import com.ktxdevelopment.mobiware.clients.ui.SignInClient.toastSelectPhone
+import com.ktxdevelopment.mobiware.databinding.ActivitySignUpBinding
 import com.ktxdevelopment.mobiware.models.rest.search.Phone
+import com.ktxdevelopment.mobiware.models.rest.search.SearchResponse
 import com.ktxdevelopment.mobiware.ui.recview.SelectionAdapter
 import com.ktxdevelopment.mobiware.ui.recview.SelectionAdapter.OnMobileClickListener
-import com.ktxdevelopment.mobiware.viewmodel.BaseViewModel
+import com.ktxdevelopment.mobiware.viewmodel.RetroViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+import retrofit2.Response
 
 
 @AndroidEntryPoint
-class SignInActivity : BaseActivity(), OnMobileClickListener {
-    private lateinit var binding: ActivitySignInBinding
-    private lateinit var restViewModel: BaseViewModel
+class SignUpActivity : BaseActivity(), OnMobileClickListener {
+    private lateinit var binding: ActivitySignUpBinding
+    private lateinit var restViewModel: RetroViewModel
     private val TAG = "SIGN_IN_TAG"
     private var isResponsePresent: MutableLiveData<Boolean> = MutableLiveData()
     private lateinit var mobileAdapter: SelectionAdapter
@@ -36,9 +38,9 @@ class SignInActivity : BaseActivity(), OnMobileClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySignInBinding.inflate(layoutInflater)
+        binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        restViewModel = ViewModelProvider(this)[BaseViewModel::class.java]
+        restViewModel = ViewModelProvider(this)[RetroViewModel::class.java]
         restViewModel.searchMobile(BaseClient.getDeviceModel())
         binding.btnSignIn.setOnClickListener { signButtonClickListener() }
 
@@ -46,11 +48,7 @@ class SignInActivity : BaseActivity(), OnMobileClickListener {
 
         restViewModel.searchResponse.observe(this) { response ->
             if (response.isSuccessful) if (response.body() != null) if (response.body()!!.data.phones.isNotEmpty()) {
-                phones = whichModelSuits(response.body()!!.data.phones)
-                mobileAdapter = SelectionAdapter(this)
-                initializeRecyclerView(this, binding, phones, mobileAdapter)
-                mobileAdapter.setData(phones)
-                binding.tvSignUseless
+                onSearchResponseResult(response)
             }
         }
     }
@@ -59,13 +57,9 @@ class SignInActivity : BaseActivity(), OnMobileClickListener {
     private fun signButtonClickListener() {
         if (validateSignInInput(binding.etUsernameSignIn, binding.etPasswordSignIn ,binding.etUsernameSignIn.text.toString())) {
             if (hasInternetConnection(this)) {
-
-                FirestoreClient.registerTest()
-
-
-            } else {
-                Toast.makeText(this, "Please check internet connection", Toast.LENGTH_SHORT).show()
-            }
+                if(selectedPhoneUrl != "") {
+                }else toastSelectPhone(this)
+            } else toastNoConnection(this)
         }
     }
 
@@ -74,6 +68,34 @@ class SignInActivity : BaseActivity(), OnMobileClickListener {
         selectedPhoneUrl = phones[position].detail
         if (binding.tvSignPhoneModel.visibility == GONE) binding.tvSignPhoneModel.visibility = VISIBLE
         binding.tvSignPhoneModel.text = phones[position].phone_name
+    }
+
+    override fun onRegisterSuccess() {
+        restViewModel.getResponse.observe(this) {
+            if (it.isSuccessful) {
+
+
+
+            }
+
+            val mainIntent = Intent(this, MainActivity::class.java).apply {
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_NEW_TASK) }
+        }
+    }
+
+
+    private fun launchRegistration() {
+        showProgressDialog(getString(R.string.registering_user))
+        restViewModel.getMobile(selectedPhoneUrl)
+        FirebaseClient.registerUserAuth(this, binding.etEmailSignIn.text!!, binding.etPasswordSignIn.text!!)
+    }
+
+    private fun onSearchResponseResult(response: Response<SearchResponse>) {
+        phones = whichModelSuits(response.body()!!.data.phones)
+        mobileAdapter = SelectionAdapter(this)
+        initializeRecyclerView(this, binding, mobileAdapter)
+        binding.cvSignUseless.visibility = VISIBLE
+        mobileAdapter.setData(phones)
     }
 }
 
@@ -86,9 +108,7 @@ class SignInActivity : BaseActivity(), OnMobileClickListener {
 
 
 
-//                val mainIntent = Intent(this@SignInActivity, MainActivity::class.java).apply {
-//                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_NEW_TASK)
-//                }
+
 
 
 //                if (isResponsePresent.value == true) {
