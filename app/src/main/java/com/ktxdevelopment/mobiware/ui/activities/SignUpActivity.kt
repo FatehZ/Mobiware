@@ -10,7 +10,7 @@ import com.ktxdevelopment.mobiware.R
 import com.ktxdevelopment.mobiware.clients.BaseClient
 import com.ktxdevelopment.mobiware.clients.BaseClient.hasInternetConnection
 import com.ktxdevelopment.mobiware.clients.BaseClient.whichModelSuits
-import com.ktxdevelopment.mobiware.clients.FirebaseClient
+import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient
 import com.ktxdevelopment.mobiware.clients.Preferences
 import com.ktxdevelopment.mobiware.clients.TextInputClient.validateSignInInput
 import com.ktxdevelopment.mobiware.clients.ui.SignInClient.initializeRecyclerView
