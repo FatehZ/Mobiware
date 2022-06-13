@@ -1,7 +1,6 @@
 package com.ktxdevelopment.mobiware.ui.activities
 
 import android.Manifest
-import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -10,9 +9,8 @@ import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import androidx.core.text.isDigitsOnly
 import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -23,7 +21,6 @@ import com.ktxdevelopment.mobiware.databinding.ActivityProfileBinding
 import com.ktxdevelopment.mobiware.models.firebase.FireUser
 import com.ktxdevelopment.mobiware.util.Constants
 import com.ktxdevelopment.mobiware.util.Constants.READ_STORAGE_CODE
-import java.io.IOException
 import java.lang.Exception
 
 class ProfileActivity : BaseActivity() {
@@ -104,7 +101,7 @@ class ProfileActivity : BaseActivity() {
         }
 
 
-    fun setUserDataInUI(user: FireUser) {
+    fun updateUserDataInProfileUI(user: FireUser) {
         mUserDetails = user
         Glide
             .with(this)
@@ -126,8 +123,7 @@ class ProfileActivity : BaseActivity() {
                     mSelectedPhotoUri
                 )
             )
-            sRef.putFile(mSelectedPhotoUri!!).addOnSuccessListener { taskSnapshot ->
-                hideProgressDialog()
+            sRef.putFile(mSelectedPhotoUri!!).addOnSuccessListener { taskSnapshot -> hideProgressDialog()
 
                 taskSnapshot.metadata?.reference?.downloadUrl?.addOnSuccessListener { uri ->
                     mProfileImageOnlineDBUri = uri.toString()
@@ -151,36 +147,36 @@ class ProfileActivity : BaseActivity() {
     }
 
     private fun updateUserProfileData() {
-        val userHashMap = HashMap<String, Any>()
+        val userUpdated = mUserDetails
         var anyChangesMade = false
 
         if (mProfileImageOnlineDBUri.isNotEmpty() && mProfileImageOnlineDBUri != mUserDetails.imageUrl){
-            userHashMap[Constants.IMAGE] = mProfileImageOnlineDBUri
+            userUpdated.imageUrl = mProfileImageOnlineDBUri
             anyChangesMade = true
         }
 
-        if (binding.etNameProfile.text.toString().isNotEmpty() && binding.etNameProfile.text.toString() != mUserDetails.name){
-            userHashMap[Constants.NAME] = binding.etNameProfile.text.toString()
+        if (binding.etUsernameProfile.text.toString().isNotEmpty() && binding.etUsernameProfile.text.toString() != mUserDetails.name){
+            userUpdated.name = binding.etUsernameProfile.text.toString()
             anyChangesMade = true
         }
 
-        if (binding.etMobileProfile.text.toString().isNotEmpty() && binding.etMobileProfile.text.toString().isDigitsOnly() && (binding.etMobileProfile.text.toString() != mUserDetails.mobile.toString())){
-            userHashMap[Constants.MOBILE] = binding.etMobileProfile.text.toString().toLong()
+        if (binding.etPhoneNumberProfile.text.toString().isNotEmpty() && binding.etPhoneNumberProfile.text.toString().isDigitsOnly() && (binding.etPhoneNumberProfile.text.toString() != mUserDetails.mobileNumber.toString())){
+            userUpdated.mobileNumber = binding.etPhoneNumberProfile.text.toString()
             anyChangesMade = true
         }
 
-        if (binding.etMobileProfile.text.toString().isEmpty() && (binding.etMobileProfile.text.toString() != mUserDetails.mobile.toString())) {
-            userHashMap[Constants.MOBILE] = 0
+        if (binding.etPhoneNumberProfile.text.toString().isEmpty() && (binding.etPhoneNumberProfile.text.toString() != mUserDetails.mobileNumber.toString())) {
+            userUpdated.mobileNumber = "0"
             anyChangesMade = true
         }
 
-        if (!binding.etMobileProfile.text.toString().isDigitsOnly()) {
+        if (!binding.etPhoneNumberProfile.text.toString().isDigitsOnly()) {
             Toast.makeText(this, "Mobile must only contain numbers", Toast.LENGTH_SHORT).show()
         }
 
         if (anyChangesMade) {
             showProgressDialog()
-            FirestoreClass().updateUserProfileData(this, userHashMap)
+            FirebaseClient.updateUserProfileData(this, userUpdated)
         }
     }
 }
