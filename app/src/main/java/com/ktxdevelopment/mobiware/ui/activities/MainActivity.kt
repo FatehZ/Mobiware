@@ -6,6 +6,7 @@ import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView
 import com.ktxdevelopment.mobiware.clients.ui.MainActivityClient
 import com.ktxdevelopment.mobiware.databinding.ActivityMainBinding
+import com.ktxdevelopment.mobiware.models.firebase.FireUser
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -49,5 +50,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     override fun onBackPressed() {
         if (mainBinding.drawerLayout.isDrawerOpen(GravityCompat.START)) closeDrawer()
         else doubleBackToExit()
+    }
+
+    fun loadUserMain(loggedUser: FireUser) {
+
     }
 }

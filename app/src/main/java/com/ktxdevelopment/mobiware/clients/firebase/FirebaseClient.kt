@@ -5,11 +5,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import com.ktxdevelopment.mobiware.clients.Preferences
 import com.ktxdevelopment.mobiware.models.firebase.FireUser
-import com.ktxdevelopment.mobiware.ui.activities.BaseActivity
-import com.ktxdevelopment.mobiware.ui.activities.MainActivity
-import com.ktxdevelopment.mobiware.ui.activities.ProfileActivity
-import com.ktxdevelopment.mobiware.ui.activities.SignUpActivity
+import com.ktxdevelopment.mobiware.ui.activities.*
 import com.ktxdevelopment.mobiware.util.Constants
 
 object FirebaseClient {
@@ -43,17 +41,30 @@ object FirebaseClient {
 
 
                 when(activity) {
-                    is ProfileActivity -> activity.loadProfile(loggedUser)
-                    is MainActivity -> activity.loadProfile(loggedUser)
-                    is SignInActivity -> activity.loadProfile(loggedUser)
+                    is ProfileActivity -> activity.loadUserProfile(loggedUser)
+                    is MainActivity -> activity.loadUserMain(loggedUser)
+                    is SignInActivity -> activity.loadUserSignIn(loggedUser)
                 }
 
             }
     }
 
-    fun loadMobileData(context: BaseActivity) {
+    fun loadMobileData(activity: BaseActivity) {
+
+        firestore.collection(Constants.MOBILES)
+            .get()
+            .addOnSuccessListener {
+
+//                val loggedUser: FireUser = it.toObject(FireUser::class.java)!!
 
 
+//                when(activity) {
+//                    is ProfileActivity -> activity.loadProfile(loggedUser)
+//                    is MainActivity -> activity.loadProfile(loggedUser)
+//                    is SignInActivity -> activity.loadProfile(loggedUser)
+//                }
+
+            }
 
     }
 

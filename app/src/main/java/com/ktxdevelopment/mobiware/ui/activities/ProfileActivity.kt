@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient
 import com.ktxdevelopment.mobiware.databinding.ActivityProfileBinding
+import com.ktxdevelopment.mobiware.models.firebase.FireUser
 
 class ProfileActivity : BaseActivity() {
     private lateinit var binding: ActivityProfileBinding
@@ -15,9 +16,13 @@ class ProfileActivity : BaseActivity() {
         setContentView(binding.root)
         FirebaseClient.loadUserData(this)
 
-        binding.civProfile.setOnClickListener{ galleryResultLauncher.launch(Intent(this, )) }
+        binding.civProfile.setOnClickListener{ galleryResultLauncher.launch() }
 
         binding.toolbarProfile.setNavigationOnClickListener { finish() }
+    }
+
+    fun loadUserProfile(loggedUser: FireUser) {
+
     }
 
 
