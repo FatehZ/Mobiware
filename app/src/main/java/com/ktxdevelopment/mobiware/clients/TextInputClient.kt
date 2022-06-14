@@ -48,7 +48,7 @@ object TextInputClient {
 
         return if (!email.matches(emailPattern.toRegex())) {
             et.error = "Enter a valid email"; false
-        }else if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        }else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             et.error = "Enter a valid email"; false
         }
         else true
