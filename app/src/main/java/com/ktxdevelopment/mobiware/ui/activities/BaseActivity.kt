@@ -8,8 +8,6 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.ktxdevelopment.mobiware.R
 import com.ktxdevelopment.mobiware.databinding.DialogProgressBinding
 

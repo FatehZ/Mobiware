@@ -39,6 +39,5 @@ class SelectionAdapter(private var onMobileClickListener: OnMobileClickListener)
 
     interface OnMobileClickListener{
         fun onMobileClick(position: Int)
-        fun onRegisterSuccess()
     }
 }

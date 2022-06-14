@@ -16,6 +16,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        doubleBackToExit()
         mainBinding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
         setupPrimaryUI()
 

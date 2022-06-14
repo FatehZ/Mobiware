@@ -12,7 +12,7 @@ import com.ktxdevelopment.mobiware.clients.BaseClient.hasInternetConnection
 import com.ktxdevelopment.mobiware.clients.BaseClient.whichModelSuits
 import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient
 import com.ktxdevelopment.mobiware.clients.Preferences
-import com.ktxdevelopment.mobiware.clients.TextInputClient.validateSignInInput
+import com.ktxdevelopment.mobiware.clients.TextInputClient.validateSignUpInput
 import com.ktxdevelopment.mobiware.clients.ui.SignInClient.initializeRecyclerView
 import com.ktxdevelopment.mobiware.clients.ui.SignInClient.toastNoConnection
 import com.ktxdevelopment.mobiware.clients.ui.SignInClient.toastSelectPhone
@@ -30,6 +30,7 @@ import retrofit2.Response
 
 @AndroidEntryPoint
 class SignUpActivity : BaseActivity(), OnMobileClickListener {
+
     private lateinit var binding: ActivitySignUpBinding
     private lateinit var restViewModel: RetroViewModel
     private val TAG = "SIGN_IN_TAG"
@@ -43,11 +44,13 @@ class SignUpActivity : BaseActivity(), OnMobileClickListener {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        doubleBackToExit()
         restViewModel = ViewModelProvider(this)[RetroViewModel::class.java]
         restViewModel.searchMobile(BaseClient.getDeviceModel())
-        binding.btnSignIn.setOnClickListener { signButtonClickListener() }
+        binding.btnSignUp.setOnClickListener { signButtonClickListener() }
         binding.btnHaveAccountSignIn.setOnClickListener { launchSignInIntent() }
 
+        startForegroundService(Intent(this, FirestoreService::class.java))
 
 
         restViewModel.searchResponse.observe(this) { response ->
@@ -59,7 +62,7 @@ class SignUpActivity : BaseActivity(), OnMobileClickListener {
 
 
     private fun signButtonClickListener() {
-        if (validateSignInInput(binding.etUsernameSignIn, binding.etPasswordSignIn , binding.etEmailSignIn)) {
+        if (validateSignUpInput(binding.etUsernameSignIn, binding.etPasswordSignIn , binding.etEmailSignIn)) {
             if (hasInternetConnection(this)) {
                 if(selectedPhoneUrl != "") {
                     launchRegistration()
@@ -75,7 +78,7 @@ class SignUpActivity : BaseActivity(), OnMobileClickListener {
         binding.tvSignPhoneModel.text = phones[position].phone_name
     }
 
-    override fun onRegisterSuccess() {
+    fun onRegisterSuccess() {
         restViewModel.getResponse.observe(this) {
             if (it.isSuccessful) if (it.body()!=null) {
 
@@ -112,31 +115,6 @@ class SignUpActivity : BaseActivity(), OnMobileClickListener {
         startActivity(Intent(this, SignInActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_ACTIVITY_CLEAR_TOP)
         })
+        finish()
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-//                if (isResponsePresent.value == true) {
-//                    BaseClient.handler.postDelayed(1000) { startActivity(mainIntent) }
-//
-//                } else {
-//                    isResponsePresent.observe(this@SignInActivity) {
-//                        if (it) {
-//                            mainIntent.putExtra(Constants.PHONE_EXTRA, phones[0])
-//                            mainIntent.putExtra(Constants.PHONE_DETAILS_EXTRA, phoneDetails)
-//                            //Write to internal db
-////                        Preferences.storeIsFirstRun(false)
-//                        }
-//                    }
-//                }

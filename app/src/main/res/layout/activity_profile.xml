@@ -82,8 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:hint="@string/email"
-                app:errorEnabled="true"
-                app:layout_constraintTop_toBottomOf="@+id/tilUseless3">
+                app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etEmailProfile"
@@ -93,23 +92,45 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilUseless9"
-                style="@style/Theme.SpecialTextInputLayout"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:hint="@string/phone_number"
-                app:errorEnabled="true"
-                app:layout_constraintTop_toBottomOf="@+id/tilUseless3">
+                android:layout_weight="0.5">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etMobileNumberProfile"
-                    android:layout_width="match_parent"
+                <com.hbb20.CountryCodePicker
+                    android:id="@+id/codePicker"
+                    app:layout_constraintVertical_bias="0.36"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_10sdp" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
 
-            </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilUseless9"
+                    style="@style/Theme.SpecialTextInputLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:hint="@string/phone_number"
+                    app:errorEnabled="true"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/codePicker">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etMobileNumberProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_10sdp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
             <Button
                 android:id="@+id/btnProfileUpdate"

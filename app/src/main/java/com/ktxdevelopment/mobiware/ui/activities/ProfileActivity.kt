@@ -36,6 +36,7 @@ class ProfileActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        doubleBackToExit()
         FirebaseClient.loadUserData(this)
 
         binding.civProfile.setOnClickListener {

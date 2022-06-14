@@ -8,9 +8,16 @@ import com.ktxdevelopment.mobiware.R
 
 object TextInputClient {
 
-    fun validateSignInInput(etUsername: TextInputEditText, etPassword:TextInputEditText,etEmail : TextInputEditText) : Boolean {
+    fun validateSignUpInput(etUsername: TextInputEditText, etPassword:TextInputEditText, etEmail : TextInputEditText) : Boolean {
         var correctInput = true
         if(!validateUsername(etUsername)) correctInput = false
+        if(!validatePassword(etPassword)) correctInput = false
+        if (!validateEmail(etEmail)) correctInput = false
+        return correctInput
+    }
+
+    fun validateSignInInput( etPassword:TextInputEditText, etEmail : TextInputEditText) : Boolean {
+        var correctInput = true
         if(!validatePassword(etPassword)) correctInput = false
         if (!validateEmail(etEmail)) correctInput = false
         return correctInput

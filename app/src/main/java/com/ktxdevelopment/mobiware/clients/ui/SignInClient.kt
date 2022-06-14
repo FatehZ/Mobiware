@@ -5,6 +5,7 @@ import android.view.View.VISIBLE
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ktxdevelopment.mobiware.databinding.ActivitySignInBinding
 import com.ktxdevelopment.mobiware.databinding.ActivitySignUpBinding
 import com.ktxdevelopment.mobiware.ui.recview.SelectionAdapter
 
@@ -20,6 +21,20 @@ object SignInClient {
 
         binding.rvSelectionMobiles.adapter = adapter
         binding.tvSignPhoneModel.visibility = VISIBLE
+    }
+
+
+    fun initializeRecyclerViewIn(
+        context: Context,
+        binding: ActivitySignInBinding,
+        adapter: SelectionAdapter
+    ) {
+        val lManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+        lManager.stackFromEnd = true
+        binding.rvSelectionMobilesIn.layoutManager = lManager
+
+        binding.rvSelectionMobilesIn.adapter = adapter
+        binding.tvSignPhoneModelIn.visibility = VISIBLE
     }
 
 

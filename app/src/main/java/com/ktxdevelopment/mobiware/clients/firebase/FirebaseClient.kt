@@ -33,6 +33,15 @@ object FirebaseClient {
             .addOnSuccessListener { context.onRegisterSuccess() }
     }
 
+    fun signInUserAuth(context: SignInActivity, email: Editable, password: Editable) {
+        Firebase.auth.signInWithEmailAndPassword(email.toString(), password.toString())
+            .addOnSuccessListener { context.onSignInSuccess() }
+    }
+
+
+
+
+
     fun loadUserData(activity: BaseActivity) {
 
         firestore.collection(Constants.USERS)
@@ -44,7 +53,7 @@ object FirebaseClient {
                 when (activity) {
                     is ProfileActivity -> activity.setUserDataInUI(loggedUser)
                     is MainActivity -> activity.loadUserMain(loggedUser)
-                    is SignInActivity -> activity.loadUserSignIn(loggedUser)
+//                    is SignInActivity -> activity.loadUserSignIn(loggedUser)
                 }
 
             }
@@ -81,12 +90,12 @@ object FirebaseClient {
             .document(getCurrentUserId())
             .update(userHashMap)
             .addOnSuccessListener {
-                Log.i("UPDATE_PROFILE", "updateUserProfileData: updated Successfully")
+                Log.i(TAG, "updateUserProfileData: updated Successfully")
                 Toast.makeText(activity, "Profile updated Successfully", Toast.LENGTH_SHORT).show()
                 activity.onProfileUpdateSuccess()
             }.addOnFailureListener { e ->
                 activity.hideProgressDialog()
-                Log.i("UPDATE_PROFILE", e.message.toString())
+                Log.i(TAG, e.message.toString())
                 Toast.makeText(activity, "Profile update error", Toast.LENGTH_SHORT).show()
 
             }

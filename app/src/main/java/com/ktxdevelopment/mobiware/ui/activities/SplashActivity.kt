@@ -5,12 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.postDelayed
 import com.ktxdevelopment.mobiware.R
-import com.ktxdevelopment.mobiware.clients.Preferences.checkIsFirstRun
 import com.ktxdevelopment.mobiware.clients.RemoteClient
-import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient
 import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient.getCurrentUserId
 import com.ktxdevelopment.mobiware.databinding.ActivitySplashBinding
 import com.ktxdevelopment.mobiware.util.Constants
@@ -35,16 +32,18 @@ class SplashActivity : BaseActivity() {
             Intent(this@SplashActivity, MainActivity::class.java).apply {
                 addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_NEW_TASK)
             }.also { startActivity(it) }
+            finish()
         }
     }
 
-    private fun signInIntent() {
+    private fun signUpIntent() {
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         handler.apply {
             postDelayed(2000) {
                 Intent(this@SplashActivity, SignUpActivity::class.java).apply {
                     addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_NEW_TASK)
                 }.also { startActivity(it) }
+                finish()
             }
         }
     }
@@ -56,6 +55,7 @@ class SplashActivity : BaseActivity() {
                     addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_NEW_TASK)
                     putExtra(Constants.UPDATE_SIGN, sign)
                 }.also { startActivity(it) }
+                finish()
             }
         }
 
@@ -65,7 +65,7 @@ class SplashActivity : BaseActivity() {
         val map = RemoteClient.checkMustUpdate(this)
         if (map[Constants.ANY_UPDATE] as Boolean) updateIntent(map[Constants.UPDATE_SIGN] as String)
         else if (getCurrentUserId().isEmpty()){
-            signInIntent()
+            signUpIntent()
         }else{
             mainIntent()
         }
