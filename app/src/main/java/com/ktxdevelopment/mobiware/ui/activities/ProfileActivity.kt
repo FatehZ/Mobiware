@@ -21,7 +21,6 @@ import com.ktxdevelopment.mobiware.databinding.ActivityProfileBinding
 import com.ktxdevelopment.mobiware.models.firebase.FireUser
 import com.ktxdevelopment.mobiware.util.Constants
 import com.ktxdevelopment.mobiware.util.Constants.READ_STORAGE_CODE
-import java.lang.Exception
 
 class ProfileActivity : BaseActivity() {
     private lateinit var binding: ActivityProfileBinding
@@ -101,7 +100,7 @@ class ProfileActivity : BaseActivity() {
         }
 
 
-    fun updateUserDataInProfileUI(user: FireUser) {
+    fun setUserDataInUI(user: FireUser) {
         mUserDetails = user
         Glide
             .with(this)
@@ -109,9 +108,11 @@ class ProfileActivity : BaseActivity() {
             .centerCrop()
             .into(binding.civProfile)
 
-        binding.etUsernameProfile.setText(user.name)
-        binding.etEmailProfile.setText(user.mobileNumber.toString())
-        binding.etEmailProfile.setText(user.mail)
+        user.username.let { if (it.isNotEmpty()) binding.etUsernameProfile.setText(it) }
+        user.email.let { if (it.isNotEmpty()) binding.etEmailProfile.setText(it) }
+        user.mobileNumber.let { if (it.isNotEmpty()) binding.etMobileNumberProfile.setText(it) }
+        binding.etEmailProfile.setText(user.email)
+        binding.etMobileNumberProfile.setText(user.mobileNumber)
     }
 
     private fun uploadUserImage() {
@@ -123,7 +124,8 @@ class ProfileActivity : BaseActivity() {
                     mSelectedPhotoUri
                 )
             )
-            sRef.putFile(mSelectedPhotoUri!!).addOnSuccessListener { taskSnapshot -> hideProgressDialog()
+            sRef.putFile(mSelectedPhotoUri!!).addOnSuccessListener { taskSnapshot ->
+                hideProgressDialog()
 
                 taskSnapshot.metadata?.reference?.downloadUrl?.addOnSuccessListener { uri ->
                     mProfileImageOnlineDBUri = uri.toString()
@@ -147,30 +149,30 @@ class ProfileActivity : BaseActivity() {
     }
 
     private fun updateUserProfileData() {
-        val userUpdated = mUserDetails
+        val userUpdated = HashMap<String, Any>()
         var anyChangesMade = false
 
         if (mProfileImageOnlineDBUri.isNotEmpty() && mProfileImageOnlineDBUri != mUserDetails.imageUrl){
-            userUpdated.imageUrl = mProfileImageOnlineDBUri
+            userUpdated[Constants.IMAGE_URL] = mProfileImageOnlineDBUri
             anyChangesMade = true
         }
 
-        if (binding.etUsernameProfile.text.toString().isNotEmpty() && binding.etUsernameProfile.text.toString() != mUserDetails.name){
-            userUpdated.name = binding.etUsernameProfile.text.toString()
+        if (binding.etUsernameProfile.text.toString().isNotEmpty() && binding.etUsernameProfile.text.toString() != mUserDetails.username){
+            userUpdated[Constants.USERNAME] = binding.etUsernameProfile.text.toString()
             anyChangesMade = true
         }
 
-        if (binding.etPhoneNumberProfile.text.toString().isNotEmpty() && binding.etPhoneNumberProfile.text.toString().isDigitsOnly() && (binding.etPhoneNumberProfile.text.toString() != mUserDetails.mobileNumber.toString())){
-            userUpdated.mobileNumber = binding.etPhoneNumberProfile.text.toString()
+        if (binding.etMobileNumberProfile.text.toString().isNotEmpty() && binding.etMobileNumberProfile.text.toString().isDigitsOnly() && (binding.etMobileNumberProfile.text.toString() != mUserDetails.mobileNumber)){
+            userUpdated[Constants.MOBILE_NUMBER] = binding.etMobileNumberProfile.text.toString().toLong()
             anyChangesMade = true
         }
 
-        if (binding.etPhoneNumberProfile.text.toString().isEmpty() && (binding.etPhoneNumberProfile.text.toString() != mUserDetails.mobileNumber.toString())) {
-            userUpdated.mobileNumber = "0"
+        if (binding.etMobileNumberProfile.text.toString().isEmpty() && (binding.etMobileNumberProfile.text.toString() != mUserDetails.mobileNumber)) {
+            userUpdated[Constants.MOBILE_NUMBER] = 0
             anyChangesMade = true
         }
 
-        if (!binding.etPhoneNumberProfile.text.toString().isDigitsOnly()) {
+        if (!binding.etMobileNumberProfile.text.toString().isDigitsOnly()) {
             Toast.makeText(this, "Mobile must only contain numbers", Toast.LENGTH_SHORT).show()
         }
 
