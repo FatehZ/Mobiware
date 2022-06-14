@@ -16,6 +16,9 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.ktxdevelopment.mobiware.clients.PermissionClient
 import com.ktxdevelopment.mobiware.clients.PermissionClient.getFileExtension
+import com.ktxdevelopment.mobiware.clients.TextInputClient.validateFilledInput
+import com.ktxdevelopment.mobiware.clients.TextInputClient.validateMobileNumber
+import com.ktxdevelopment.mobiware.clients.TextInputClient.validateUsername
 import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient
 import com.ktxdevelopment.mobiware.databinding.ActivityProfileBinding
 import com.ktxdevelopment.mobiware.models.firebase.FireUser
@@ -151,30 +154,27 @@ class ProfileActivity : BaseActivity() {
     private fun updateUserProfileData() {
         val userUpdated = HashMap<String, Any>()
         var anyChangesMade = false
+        var errorPresent = false
 
-        if (mProfileImageOnlineDBUri.isNotEmpty() && mProfileImageOnlineDBUri != mUserDetails.imageUrl){
+        if (validateFilledInput(mProfileImageOnlineDBUri) && mProfileImageOnlineDBUri != mUserDetails.imageUrl) {
             userUpdated[Constants.IMAGE_URL] = mProfileImageOnlineDBUri
             anyChangesMade = true
         }
 
-        if (binding.etUsernameProfile.text.toString().isNotEmpty() && binding.etUsernameProfile.text.toString() != mUserDetails.username){
-            userUpdated[Constants.USERNAME] = binding.etUsernameProfile.text.toString()
+
+        if (validateFilledInput(binding.etUsernameProfile.text.toString()) && binding.etUsernameProfile.text.toString() != mUserDetails.username) {
             anyChangesMade = true
+            if (validateUsername(binding.etUsernameProfile)) {
+                userUpdated[Constants.USERNAME] = binding.etUsernameProfile.text.toString()
+            } else { errorPresent = true }
         }
 
-        if (binding.etMobileNumberProfile.text.toString().isNotEmpty() && binding.etMobileNumberProfile.text.toString().isDigitsOnly() && (binding.etMobileNumberProfile.text.toString() != mUserDetails.mobileNumber)){
-            userUpdated[Constants.MOBILE_NUMBER] = binding.etMobileNumberProfile.text.toString().toLong()
+        if (validateFilledInput(binding.etMobileNumberProfile.text.toString()) && binding.etMobileNumberProfile.text.toString() != mUserDetails.mobileNumber) {
             anyChangesMade = true
-        }
-
-        if (binding.etMobileNumberProfile.text.toString().isEmpty() && (binding.etMobileNumberProfile.text.toString() != mUserDetails.mobileNumber)) {
-            userUpdated[Constants.MOBILE_NUMBER] = 0
-            anyChangesMade = true
-        }
-
-        if (!binding.etMobileNumberProfile.text.toString().isDigitsOnly()) {
-            Toast.makeText(this, "Mobile must only contain numbers", Toast.LENGTH_SHORT).show()
-        }
+            if (validateMobileNumber(binding.etMobileNumberProfile)) {
+                userUpdated[Constants.MOBILE_NUMBER] =
+                    binding.etMobileNumberProfile.text.toString()
+            } else { errorPresent = true } }
 
         if (anyChangesMade) {
             showProgressDialog()

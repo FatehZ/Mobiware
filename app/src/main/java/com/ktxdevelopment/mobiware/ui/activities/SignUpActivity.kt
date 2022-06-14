@@ -59,7 +59,7 @@ class SignUpActivity : BaseActivity(), OnMobileClickListener {
 
 
     private fun signButtonClickListener() {
-        if (validateSignInInput(binding.etUsernameSignIn, binding.etPasswordSignIn ,binding.etUsernameSignIn.text.toString())) {
+        if (validateSignInInput(binding.etUsernameSignIn, binding.etPasswordSignIn , binding.etEmailSignIn)) {
             if (hasInternetConnection(this)) {
                 if(selectedPhoneUrl != "") {
                     launchRegistration()
