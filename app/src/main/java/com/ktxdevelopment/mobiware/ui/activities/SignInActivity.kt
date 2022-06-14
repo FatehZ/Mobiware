@@ -117,6 +117,8 @@ class SignInActivity : BaseActivity(), OnMobileClickListener {
         })
         finish()
     }
+
+    override fun onBackPressed() = doubleBackToExit()
 }
 
 

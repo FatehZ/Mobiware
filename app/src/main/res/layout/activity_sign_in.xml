@@ -49,6 +49,7 @@
             android:layout_marginHorizontal="@dimen/_20sdp"
             android:hint="@string/email"
             app:errorEnabled="true"
+            app:startIconDrawable="@drawable/ic_baseline_mail_24"
             app:layout_constraintTop_toTopOf="parent">
 
           <com.google.android.material.textfield.TextInputEditText
@@ -68,6 +69,7 @@
             android:layout_marginHorizontal="@dimen/_20sdp"
             android:hint="@string/password"
             app:errorEnabled="true"
+            app:startIconDrawable="@drawable/ic_lock"
             app:layout_constraintBottom_toTopOf="@id/btnSignIn"
             app:layout_constraintTop_toBottomOf="@id/tilUseless9">
 

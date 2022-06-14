@@ -67,7 +67,7 @@ object TextInputClient {
             et.error = et.context.getString(R.string.password_at_least_6_chars) ;false
         } else if (!validString(pass)) {
             et.error = et.context.getString(R.string.no_special_symbols_allowed);false
-        }else if (!pass.isDigitsOnly()) {
+        }else if (pass.isDigitsOnly()) {
             et.error = et.context.getString(R.string.at_least_a_letter) ;false
         } else {
             true

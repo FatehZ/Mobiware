@@ -44,13 +44,10 @@ class SignUpActivity : BaseActivity(), OnMobileClickListener {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        doubleBackToExit()
         restViewModel = ViewModelProvider(this)[RetroViewModel::class.java]
         restViewModel.searchMobile(BaseClient.getDeviceModel())
         binding.btnSignUp.setOnClickListener { signButtonClickListener() }
         binding.btnHaveAccountSignIn.setOnClickListener { launchSignInIntent() }
-
-        startForegroundService(Intent(this, FirestoreService::class.java))
 
 
         restViewModel.searchResponse.observe(this) { response ->
@@ -117,4 +114,6 @@ class SignUpActivity : BaseActivity(), OnMobileClickListener {
         })
         finish()
     }
+
+    override fun onBackPressed() = doubleBackToExit()
 }

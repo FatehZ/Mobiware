@@ -30,8 +30,14 @@ open class BaseActivity: AppCompatActivity() {
     fun showProgressDialog(text: String = getString(R.string.please_wait)) {
 
         binding = DialogProgressBinding.inflate(layoutInflater).apply { textViewDialog.text = text }
-        mProgressDialog = Dialog(this).apply { setContentView(binding.root) }
+        mProgressDialog = Dialog(this).apply {
+            setContentView(binding.root)
+            setCancelable(false)
+            setOnCancelListener { doubleBackToExit() }
+        }
         mProgressDialog.show()
+
+
     }
 
     fun hideProgressDialog() {

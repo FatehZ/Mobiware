@@ -40,7 +40,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_350sdp"
+            android:layout_height="@dimen/_400sdp"
             android:orientation="vertical"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -64,6 +64,7 @@
                 android:layout_weight="0.5"
                 android:hint="@string/username"
                 app:errorEnabled="true"
+                app:startIconDrawable="@drawable/ic_baseline_account_circle_24"
                 app:layout_constraintBottom_toTopOf="@id/tilUseless4"
                 app:layout_constraintTop_toBottomOf="@+id/civProfile">
 
@@ -78,6 +79,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilUseless4"
                 style="@style/Theme.SpecialTextInputLayout"
+                app:startIconDrawable="@drawable/ic_baseline_mail_24"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"

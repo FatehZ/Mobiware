@@ -5,12 +5,14 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
-import androidx.core.text.isDigitsOnly
+import androidx.core.os.postDelayed
 import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -36,7 +38,6 @@ class ProfileActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        doubleBackToExit()
         FirebaseClient.loadUserData(this)
 
         binding.civProfile.setOnClickListener {
@@ -177,9 +178,16 @@ class ProfileActivity : BaseActivity() {
                     binding.etMobileNumberProfile.text.toString()
             } else { errorPresent = true } }
 
-        if (anyChangesMade) {
-            showProgressDialog()
-            FirebaseClient.updateUserProfileData(this, userUpdated)
+        if (!errorPresent) {
+            if (anyChangesMade) {
+                showProgressDialog()
+                FirebaseClient.updateUserProfileData(this, userUpdated)
+            }else{
+                showProgressDialog()
+                Handler(Looper.getMainLooper()).postDelayed(500) { hideProgressDialog(); finish() }
+            }
         }
     }
+
+    override fun onBackPressed() = doubleBackToExit()
 }

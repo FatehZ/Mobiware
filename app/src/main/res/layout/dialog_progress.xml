@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:background="@android:color/transparent"
     android:padding="@dimen/_16sdp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -24,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/please_wait"
-        android:textColor="@color/purple_700"
+        android:textColor="@color/white"
         android:textSize="@dimen/_24sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/progressBar"
