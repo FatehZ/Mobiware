@@ -10,6 +10,8 @@ import androidx.core.os.postDelayed
 import com.ktxdevelopment.mobiware.R
 import com.ktxdevelopment.mobiware.clients.Preferences.checkIsFirstRun
 import com.ktxdevelopment.mobiware.clients.RemoteClient
+import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient
+import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient.getCurrentUserId
 import com.ktxdevelopment.mobiware.databinding.ActivitySplashBinding
 import com.ktxdevelopment.mobiware.util.Constants
 
@@ -62,7 +64,7 @@ class SplashActivity : BaseActivity() {
     private fun checkForUpdate() {
         val map = RemoteClient.checkMustUpdate(this)
         if (map[Constants.ANY_UPDATE] as Boolean) updateIntent(map[Constants.UPDATE_SIGN] as String)
-        else if (checkIsFirstRun(this)){
+        else if (getCurrentUserId().isEmpty()){
             signInIntent()
         }else{
             mainIntent()

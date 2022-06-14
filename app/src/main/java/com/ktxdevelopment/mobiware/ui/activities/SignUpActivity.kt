@@ -19,6 +19,7 @@ import com.ktxdevelopment.mobiware.clients.ui.SignInClient.toastSelectPhone
 import com.ktxdevelopment.mobiware.databinding.ActivitySignUpBinding
 import com.ktxdevelopment.mobiware.models.rest.search.Phone
 import com.ktxdevelopment.mobiware.models.rest.search.SearchResponse
+import com.ktxdevelopment.mobiware.services.FirestoreService
 import com.ktxdevelopment.mobiware.ui.recview.SelectionAdapter
 import com.ktxdevelopment.mobiware.ui.recview.SelectionAdapter.OnMobileClickListener
 import com.ktxdevelopment.mobiware.util.Constants
@@ -45,6 +46,7 @@ class SignUpActivity : BaseActivity(), OnMobileClickListener {
         restViewModel = ViewModelProvider(this)[RetroViewModel::class.java]
         restViewModel.searchMobile(BaseClient.getDeviceModel())
         binding.btnSignIn.setOnClickListener { signButtonClickListener() }
+        binding.btnHaveAccountSignIn.setOnClickListener { launchSignInIntent() }
 
 
 
@@ -82,6 +84,8 @@ class SignUpActivity : BaseActivity(), OnMobileClickListener {
                     putExtra(Constants.PHONE_EXTRA, it.body()!!.data)
                 }
 
+                startForegroundService(Intent(this, FirestoreService::class.java))
+
                 hideProgressDialog()
                 startActivity(mainIntent)
                 Preferences.storeIsFirstRun(false)
@@ -102,6 +106,12 @@ class SignUpActivity : BaseActivity(), OnMobileClickListener {
         initializeRecyclerView(this, binding, mobileAdapter)
         binding.cvSignUseless.visibility = VISIBLE
         mobileAdapter.setData(phones)
+    }
+
+    private fun launchSignInIntent() {
+        startActivity(Intent(this, SignInActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        })
     }
 }
 
