@@ -1,8 +1,10 @@
 package com.ktxdevelopment.mobiware.clients
 
+import android.util.Patterns
 import androidx.core.text.isDigitsOnly
 import com.google.android.material.textfield.TextInputEditText
 import com.ktxdevelopment.mobiware.R
+
 
 object TextInputClient {
 
@@ -32,7 +34,7 @@ object TextInputClient {
         return if (name.trim().length < 5) {
             et.error = et.context.getString(R.string.username_5_or_more_letters); false
         } else if (name.isDigitsOnly()) {
-            et.error = et.context.getString(R.string.username_at_least_a_letter); false
+            et.error = et.context.getString(R.string.at_least_a_letter); false
         } else if (!validString(name)) {
             et.error = et.context.getString(R.string.no_special_symbols_allowed); false
         }else{
@@ -41,18 +43,25 @@ object TextInputClient {
     }
 
     fun validateEmail(et: TextInputEditText): Boolean {
-        val email = et.text.toString()
-        return if (!validateFilledInput(email)) {
-            et.error = "PLease enter a valid email"; false
-        }else true
+        val email = et.text.toString().trim { it <= ' ' }
+        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+
+        return if (!email.matches(emailPattern.toRegex())) {
+            et.error = "Enter a valid email"; false
+        }else if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            et.error = "Enter a valid email"; false
+        }
+        else true
     }
 
     fun validatePassword(et: TextInputEditText): Boolean {
         val pass = et.text.toString()
         return if (pass.length <= 6) {
-            et.error = et.context.getString(R.string.password_at_leats_6_chars) ;false
+            et.error = et.context.getString(R.string.password_at_least_6_chars) ;false
         } else if (!validString(pass)) {
-            et.error = et.context.getString(R.string.no_special_symbols_allowed) ;false
+            et.error = et.context.getString(R.string.no_special_symbols_allowed);false
+        }else if (!pass.isDigitsOnly()) {
+            et.error = et.context.getString(R.string.at_least_a_letter) ;false
         } else {
             true
         }

@@ -42,9 +42,11 @@
     <string name="already_have_account_sign_in">Already have account? Sign In</string>
     <string name="sign_out">Sign Out</string>
     <string name="username_5_or_more_letters">At leas 5 letters are required</string>
-    <string name="username_at_least_a_letter">Username must include at least a letter</string>
+    <string name="at_least_a_letter">Must include minimum a letter</string>
     <string name="no_special_symbols_allowed">No special symbols are allowed</string>
-    <string name="password_at_leats_6_chars">Minimum 6 characters</string>
+    <string name="password_at_least_6_chars">Minimum 6 characters</string>
+    <string name="sign_in">Sign In</string>
+    <string name="no_account_register">No Account? Register</string>
 
 
 </resources>
