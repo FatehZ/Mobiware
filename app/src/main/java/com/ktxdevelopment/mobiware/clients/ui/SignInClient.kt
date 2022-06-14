@@ -1,0 +1,29 @@
+package com.ktxdevelopment.mobiware.clients.ui
+
+import android.content.Context
+import android.view.View.VISIBLE
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.ktxdevelopment.mobiware.databinding.ActivitySignUpBinding
+import com.ktxdevelopment.mobiware.ui.recview.SelectionAdapter
+
+object SignInClient {
+    fun initializeRecyclerView(
+        context: Context,
+        binding: ActivitySignUpBinding,
+        adapter: SelectionAdapter
+    ) {
+        val lManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+        lManager.stackFromEnd = true
+        binding.rvSelectionMobiles.layoutManager = lManager
+
+        binding.rvSelectionMobiles.adapter = adapter
+        binding.tvSignPhoneModel.visibility = VISIBLE
+    }
+
+
+    fun toastNoConnection(context: Context) = Toast.makeText(context, "Please check internet connection", Toast.LENGTH_SHORT).show()
+
+    fun toastSelectPhone(context: Context) = Toast.makeText(context, "Please select a phone", Toast.LENGTH_SHORT).show()
+}

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/ic_nav_hardware"
+            android:icon="@drawable/ic_hard"
+            app:showAsAction="withText"
+            android:title="@string/hardware" />
+        <item
+            android:id="@+id/ic_nav_software"
+            android:icon="@drawable/ic_soft"
+            app:showAsAction="withText"
+            android:title="@string/software" />
+
+        <item
+            android:id="@+id/ic_nav_battery"
+            android:icon="@drawable/ic_battery"
+            app:showAsAction="withText"
+            android:title="@string/battery_info" />
+
+        <item
+            android:id="@+id/ic_nav_settings"
+            android:icon="@drawable/ic_profile"
+            app:showAsAction="withText"
+            android:title="@string/profile" />
+
+        <item
+            android:id="@+id/ic_nav_feedback"
+            android:icon="@drawable/ic_feedback"
+            app:showAsAction="withText"
+            android:title="@string/give_feedback" />
+
+
+        <item
+            android:id="@+id/ic_nav_sign_out"
+            android:icon="@drawable/ic_sign_out"
+            app:showAsAction="withText"
+            android:title="@string/sign_out" />
+
+    </group>
+</menu>

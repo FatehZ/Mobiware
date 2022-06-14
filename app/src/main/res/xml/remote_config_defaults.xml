@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<defaults>
+    <entry>
+        <key>version</key>
+        <value>100</value>
+    </entry>
+
+    <entry>
+        <key>update_sign</key>
+        <value>may</value>
+    </entry>
+</defaults>

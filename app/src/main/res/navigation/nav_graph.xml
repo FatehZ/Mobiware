@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragmentBattery">
+    <fragment
+        android:id="@+id/fragmentBattery"
+        android:name="com.ktxdevelopment.mobiware.ui.fragments.FragmentBattery"
+        android:label="FragmentBattery" >
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentSoftware"
+        android:name="com.ktxdevelopment.mobiware.ui.fragments.FragmentSoftware"
+        android:label="FragmentSoftware" >
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentHardware"
+        android:name="com.ktxdevelopment.mobiware.ui.fragments.FragmentHardware"
+        android:label="fragment_hardware"
+        tools:layout="@layout/fragment_hardware" >
+    </fragment>
+    <action
+        android:id="@+id/actionToSoftware"
+        app:destination="@id/fragmentSoftware" />
+    <action
+        android:id="@+id/actionToHardware"
+        app:destination="@id/fragmentHardware" />
+    <action
+        android:id="@+id/actionToBattery"
+        app:destination="@id/fragmentBattery" />
+</navigation>

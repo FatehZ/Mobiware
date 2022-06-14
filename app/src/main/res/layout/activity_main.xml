@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/drawerLayout"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:background="@color/purple_700"
+            android:layout_width="match_parent"
+            android:id="@+id/clUselessM"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintTop_toTopOf="parent" >
+
+            <androidx.appcompat.widget.Toolbar
+                app:titleMarginStart="@dimen/_20sdp"
+                app:title="@string/app_name"
+                app:titleTextColor="@color/white"
+                android:id="@+id/toolbarMainActivity"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/purple_700"
+                app:navigationIcon="@drawable/ic_action_navigation_menu"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        <fragment
+            android:id="@+id/navHost"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/clUselessM"
+            app:navGraph="@navigation/nav_graph"
+            app:defaultNavHost="true"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            tools:ignore="FragmentTagUsage" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navView"
+        android:layout_width="@dimen/_230sdp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/menu_drawer"/>
+
+
+
+</androidx.drawerlayout.widget.DrawerLayout>
