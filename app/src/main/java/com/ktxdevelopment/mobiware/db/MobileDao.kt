@@ -11,9 +11,9 @@ import com.ktxdevelopment.mobiware.models.room.RoomPhoneModel
 interface MobileDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun upsertPhone(mobileJson: RoomPhoneModel)
+    suspend fun upsertPhone(mobileJson: RoomPhoneModel)
 
     @Query("SELECT * FROM mobile_table")
-    fun getPhones() : List<RoomPhoneModel>
+    suspend fun getPhones() : List<RoomPhoneModel>
 
 }

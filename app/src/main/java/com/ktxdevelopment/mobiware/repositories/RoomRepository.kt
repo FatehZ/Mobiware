@@ -4,7 +4,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.ktxdevelopment.mobiware.db.MobileDao
-import com.ktxdevelopment.mobiware.models.rest.product.Data
 import com.ktxdevelopment.mobiware.models.room.RoomPhoneModel
 import javax.inject.Inject
 

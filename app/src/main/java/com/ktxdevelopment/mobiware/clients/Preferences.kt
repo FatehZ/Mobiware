@@ -3,6 +3,7 @@ package com.ktxdevelopment.mobiware.clients
 import android.content.Context
 import android.content.SharedPreferences
 import com.ktxdevelopment.mobiware.models.firebase.FireUser
+import com.ktxdevelopment.mobiware.models.local.LocalUser
 import com.ktxdevelopment.mobiware.util.Constants
 
 
@@ -10,32 +11,40 @@ object Preferences {
 
     // Only Read // Do Not Modify
     private lateinit var editor: SharedPreferences.Editor
-    fun instantiate(context: Context) { editor = getCurrent(context).edit() }
-    private fun getCurrent(context: Context) : SharedPreferences { return context.getSharedPreferences(Constants.PREFERENCE_LOCK_KEY, Context.MODE_PRIVATE) }
+    private suspend fun instantiate(context: Context) { editor = getCurrent(context).edit() }
+    private suspend fun getCurrent(context: Context) : SharedPreferences { return context.getSharedPreferences(Constants.PREFERENCE_LOCK_KEY, Context.MODE_PRIVATE) }
 
 
 
-    fun storeIsFirstRun(isFirstRun: Boolean) {
-        editor.putBoolean(Constants.FIRST_RUN, isFirstRun)
+    // ACCESS
+
+    suspend fun saveUserDetailsToPreferences(fUser: FireUser) {
+        val user = LocalUser(fUser.userId, fUser.username, fUser.mobileNumber, fUser.mobileId, fUser.email)
+        editor.putString(Constants.PR_userId, user.userId)
+        editor.putString(Constants.PR_username, user.username)
+        editor.putString(Constants.PR_mobileNumber, user.mobileNumber)
+        editor.putStringSet(Constants.PR_mobileId, user.mobileId.toSet())
+        editor.putString(Constants.PR_email, user.email)
         editor.apply()
     }
 
-    fun getIsFirstRun(context: Context) : Boolean {
-        return getCurrent(context).getBoolean(Constants.FIRST_RUN, true)
-    }
-
-    // Activity Checking Functions
-
-    fun checkIsFirstRun(context: Context) : Boolean {
+    suspend fun getUserDetailsFromPreferences(context: Context): LocalUser {
         instantiate(context)
-        return getIsFirstRun(context)
+        var user: LocalUser
+        getCurrent(context).apply {
+            user = LocalUser(
+                getString(Constants.PR_userId,"")!!,
+                getString(Constants.PR_username,"")!!,
+                getString(Constants.PR_mobileNumber,"")!!,
+                (getStringSet(Constants.PR_mobileId, setOf())!!).toList(),
+                getString(Constants.PR_email,"")!!
+            )
+        }
+        return user
     }
 
-    fun saveUserDetailsToPreferences(user: FireUser) {
+    suspend fun clearPreferences() {
 
     }
 
-    fun getUserDetailsFromPreferences() {
-
-    }
 }

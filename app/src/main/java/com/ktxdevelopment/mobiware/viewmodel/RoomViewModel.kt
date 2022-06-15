@@ -18,10 +18,11 @@ class RoomViewModel @Inject constructor(
     var roomMobileDetails: MutableLiveData<RoomPhoneModel> = MutableLiveData()
 
 
-    fun getRoomMobileDetails() {
-
+    suspend fun getRoomMobileDetails() {
         viewModelScope.launch {
             roomMobileDetails.value = roomRepo.getMobile()
         }
     }
+
+    suspend fun upsertMobile(model: RoomPhoneModel) = roomRepo.upsert(model)
 }

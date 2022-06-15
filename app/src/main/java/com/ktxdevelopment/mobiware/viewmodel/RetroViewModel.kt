@@ -4,12 +4,9 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.ktxdevelopment.mobiware.models.rest.product.Data
 import com.ktxdevelopment.mobiware.models.rest.product.GetResponse
 import com.ktxdevelopment.mobiware.models.rest.search.SearchResponse
-import com.ktxdevelopment.mobiware.models.room.RoomPhoneModel
 import com.ktxdevelopment.mobiware.repositories.RetrofitRepository
-import com.ktxdevelopment.mobiware.repositories.RoomRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response

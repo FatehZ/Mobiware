@@ -23,6 +23,14 @@ object Constants {
     const val MUST = "must"
 
 
+
+    const val PR_userId = "user_userId"
+    const val PR_username = "user_username"
+    const val PR_mobileNumber = "user_mobileNumber"
+    const val PR_mobileId = "user_mobileId"
+    const val PR_email = "user_email"
+
+
     // API
 
     const val BASE_URL_SEARCH = "https://api-mobilespecs.azharimm.site/v2/"

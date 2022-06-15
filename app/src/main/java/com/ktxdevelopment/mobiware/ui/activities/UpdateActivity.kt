@@ -3,6 +3,7 @@ package com.ktxdevelopment.mobiware.ui.activities
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import com.ktxdevelopment.mobiware.R
 import com.ktxdevelopment.mobiware.clients.BaseClient.playStoreIntent
 import com.ktxdevelopment.mobiware.databinding.ActivityUpdateBinding
@@ -20,13 +21,18 @@ class UpdateActivity : BaseActivity() {
         setContentView(binding.root)
         clickListeners()
 
-
+        if (intent.hasExtra(Constants.UPDATE_SIGN)) {
+            if (intent.getStringExtra(Constants.UPDATE_SIGN) == Constants.MUST) {
+                mustLayoutVisible()
+            }else{
+                mayLayoutVisible()
+            }
+        }
     }
 
     private fun clickListeners() {
         binding.btnLater.setOnClickListener {
             Intent(this, MainActivity::class.java).apply {
-                putExtra(Constants.FIRST_RUN, checkIsFirstRun(this@UpdateActivity))
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_ACTIVITY_CLEAR_TOP)
             }.also { startActivity(it) }
         }
@@ -35,8 +41,13 @@ class UpdateActivity : BaseActivity() {
         binding.btnUpdateMust.setOnClickListener { playStoreIntent(this) }
     }
 
-    private fun checkIsFirstRun(context: Context) : Boolean {
-        Preferences.instantiate(context)
-        return Preferences.getIsFirstRun(context)
+    private fun mayLayoutVisible() {
+        binding.llMay.visibility = View.VISIBLE
+        binding.llMust.visibility = View.GONE
+    }
+
+    private fun mustLayoutVisible() {
+        binding.llMay.visibility = View.GONE
+        binding.llMust.visibility = View.VISIBLE
     }
 }
