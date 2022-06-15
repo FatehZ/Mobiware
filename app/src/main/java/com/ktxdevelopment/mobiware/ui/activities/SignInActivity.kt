@@ -19,7 +19,7 @@ import com.ktxdevelopment.mobiware.clients.ui.SignInClient.toastSelectPhone
 import com.ktxdevelopment.mobiware.databinding.ActivitySignInBinding
 import com.ktxdevelopment.mobiware.models.rest.search.Phone
 import com.ktxdevelopment.mobiware.models.rest.search.SearchResponse
-import com.ktxdevelopment.mobiware.services.FirestoreService
+import com.ktxdevelopment.mobiware.ui.activities.SignUpActivity.Companion.writeToFirestoreInBackground
 import com.ktxdevelopment.mobiware.ui.recview.SelectionAdapter
 import com.ktxdevelopment.mobiware.ui.recview.SelectionAdapter.OnMobileClickListener
 import com.ktxdevelopment.mobiware.util.Constants
@@ -44,7 +44,6 @@ class SignInActivity : BaseActivity(), OnMobileClickListener {
         super.onCreate(savedInstanceState)
         binding = ActivitySignInBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        doubleBackToExit()
         restViewModel = ViewModelProvider(this)[RetroViewModel::class.java]
         restViewModel.searchMobile(BaseClient.getDeviceModel())
         binding.btnSignIn.setOnClickListener { signButtonClickListener() }
@@ -86,7 +85,9 @@ class SignInActivity : BaseActivity(), OnMobileClickListener {
                     putExtra(Constants.PHONE_EXTRA, it.body()!!.data)
                 }
 
-                startForegroundService(Intent(this, FirestoreService::class.java))
+
+
+                writeToFirestoreInBackground(this)
 
                 hideProgressDialog()
                 startActivity(mainIntent)
@@ -114,8 +115,7 @@ class SignInActivity : BaseActivity(), OnMobileClickListener {
     private fun launchSignUpIntent() {
         startActivity(Intent(this, SignUpActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        })
-        finish()
+        }); finish()
     }
 
     override fun onBackPressed() = doubleBackToExit()

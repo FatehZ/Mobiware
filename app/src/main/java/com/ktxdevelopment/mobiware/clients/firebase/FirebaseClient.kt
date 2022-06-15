@@ -52,10 +52,7 @@ object FirebaseClient {
 
                 when (activity) {
                     is ProfileActivity -> activity.setUserDataInUI(loggedUser)
-                    is MainActivity -> activity.loadUserMain(loggedUser)
-//                    is SignInActivity -> activity.loadUserSignIn(loggedUser)
                 }
-
             }
     }
 

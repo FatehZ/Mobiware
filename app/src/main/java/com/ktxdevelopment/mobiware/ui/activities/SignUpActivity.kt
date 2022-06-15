@@ -1,9 +1,11 @@
 package com.ktxdevelopment.mobiware.ui.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import androidx.core.content.ContextCompat.startForegroundService
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import com.ktxdevelopment.mobiware.R
@@ -49,6 +51,7 @@ class SignUpActivity : BaseActivity(), OnMobileClickListener {
         binding.btnSignUp.setOnClickListener { signButtonClickListener() }
         binding.btnHaveAccountSignIn.setOnClickListener { launchSignInIntent() }
 
+        showProgressDialog()
 
         restViewModel.searchResponse.observe(this) { response ->
             if (response.isSuccessful) if (response.body() != null) if (response.body()!!.data.phones.isNotEmpty()) {
@@ -83,11 +86,11 @@ class SignUpActivity : BaseActivity(), OnMobileClickListener {
                     addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_NEW_TASK)
                     putExtra(Constants.PHONE_EXTRA, it.body()!!.data)
                 }
-
-                startForegroundService(Intent(this, FirestoreService::class.java))
+                writeToFirestoreInBackground(this)
 
                 hideProgressDialog()
                 startActivity(mainIntent)
+                finish()
                 Preferences.storeIsFirstRun(false)
             }
         }
@@ -116,4 +119,15 @@ class SignUpActivity : BaseActivity(), OnMobileClickListener {
     }
 
     override fun onBackPressed() = doubleBackToExit()
+
+
+    companion object {
+
+        fun writeToFirestoreInBackground(context: Context) {
+//            startForegroundService(context, Intent(context, FirestoreService::class.java))
+
+
+
+        }
+    }
 }
