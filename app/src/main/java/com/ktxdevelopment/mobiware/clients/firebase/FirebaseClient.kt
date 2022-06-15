@@ -26,7 +26,7 @@ object FirebaseClient {
             .document(auth.currentUser!!.uid)
             .set(user)
             .addOnSuccessListener {
-                if (context is SignUpActivity) context.onRegisterSuccess()
+                if (context is SignUpActivity) context.onRegisterSuccess(user)
                 else if (context is SignInActivity) context.onSignInSuccess(user)
             }
     }

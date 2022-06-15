@@ -78,6 +78,8 @@ class SignInActivity : BaseActivity(), OnMobileClickListener {
     }
 
     fun onSignInSuccess(updatedUser: FireUser) {
+        Preferences.saveUserDetailsToPreferences(updatedUser)
+
         restViewModel.getResponse.observe(this) {
             if (it.isSuccessful) if (it.body()!=null) {
                 writePhoneToFirestoreInBackground(this)

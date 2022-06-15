@@ -10,12 +10,14 @@ import com.ktxdevelopment.mobiware.clients.BaseClient
 import com.ktxdevelopment.mobiware.clients.BaseClient.hasInternetConnection
 import com.ktxdevelopment.mobiware.clients.BaseClient.whichModelSuits
 import com.ktxdevelopment.mobiware.clients.Preferences
+import com.ktxdevelopment.mobiware.clients.Preferences.saveUserDetailsToPreferences
 import com.ktxdevelopment.mobiware.clients.TextInputClient.validateSignUpInput
 import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient
 import com.ktxdevelopment.mobiware.clients.ui.SignInUpClient.initializeRecyclerView
 import com.ktxdevelopment.mobiware.clients.ui.SignInUpClient.toastNoConnection
 import com.ktxdevelopment.mobiware.clients.ui.SignInUpClient.toastSelectPhone
 import com.ktxdevelopment.mobiware.databinding.ActivitySignUpBinding
+import com.ktxdevelopment.mobiware.models.firebase.FireUser
 import com.ktxdevelopment.mobiware.models.rest.search.Phone
 import com.ktxdevelopment.mobiware.models.rest.search.SearchResponse
 import com.ktxdevelopment.mobiware.ui.recview.SelectionAdapter
@@ -77,7 +79,9 @@ class SignUpActivity : BaseActivity(), OnMobileClickListener {
         binding.tvSignPhoneModel.text = phones[position].phone_name
     }
 
-    fun onRegisterSuccess() {
+    fun onRegisterSuccess(user: FireUser) {
+        saveUserDetailsToPreferences(user)
+
         restViewModel.getResponse.observe(this) {
             if (it.isSuccessful) if (it.body()!=null) {
                 writePhoneToFirestoreInBackground(this)
