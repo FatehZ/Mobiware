@@ -5,23 +5,19 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import androidx.core.content.ContextCompat.startForegroundService
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
-import com.ktxdevelopment.mobiware.R
 import com.ktxdevelopment.mobiware.clients.BaseClient
 import com.ktxdevelopment.mobiware.clients.BaseClient.hasInternetConnection
 import com.ktxdevelopment.mobiware.clients.BaseClient.whichModelSuits
-import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient
 import com.ktxdevelopment.mobiware.clients.Preferences
 import com.ktxdevelopment.mobiware.clients.TextInputClient.validateSignUpInput
-import com.ktxdevelopment.mobiware.clients.ui.SignInClient.initializeRecyclerView
-import com.ktxdevelopment.mobiware.clients.ui.SignInClient.toastNoConnection
-import com.ktxdevelopment.mobiware.clients.ui.SignInClient.toastSelectPhone
+import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient
+import com.ktxdevelopment.mobiware.clients.ui.SignInUpClient.initializeRecyclerView
+import com.ktxdevelopment.mobiware.clients.ui.SignInUpClient.toastNoConnection
+import com.ktxdevelopment.mobiware.clients.ui.SignInUpClient.toastSelectPhone
 import com.ktxdevelopment.mobiware.databinding.ActivitySignUpBinding
 import com.ktxdevelopment.mobiware.models.rest.search.Phone
 import com.ktxdevelopment.mobiware.models.rest.search.SearchResponse
-import com.ktxdevelopment.mobiware.services.FirestoreService
 import com.ktxdevelopment.mobiware.ui.recview.SelectionAdapter
 import com.ktxdevelopment.mobiware.ui.recview.SelectionAdapter.OnMobileClickListener
 import com.ktxdevelopment.mobiware.util.Constants
@@ -36,10 +32,9 @@ class SignUpActivity : BaseActivity(), OnMobileClickListener {
     private lateinit var binding: ActivitySignUpBinding
     private lateinit var restViewModel: RetroViewModel
     private val TAG = "SIGN_IN_TAG"
-    private var isResponsePresent: MutableLiveData<Boolean> = MutableLiveData()
     private lateinit var mobileAdapter: SelectionAdapter
 
-    private lateinit var phones: List<Phone>
+    private var phones: ArrayList<Phone> = ArrayList()
     private var selectedPhoneUrl: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,11 +46,15 @@ class SignUpActivity : BaseActivity(), OnMobileClickListener {
         binding.btnSignUp.setOnClickListener { signButtonClickListener() }
         binding.btnHaveAccountSignIn.setOnClickListener { launchSignInIntent() }
 
-        showProgressDialog()
 
-        restViewModel.searchResponse.observe(this) { response ->
-            if (response.isSuccessful) if (response.body() != null) if (response.body()!!.data.phones.isNotEmpty()) {
-                onSearchResponseResult(response)
+        if (intent.hasExtra(Constants.PHONE_LIST)) {
+            phones = intent.getParcelableArrayListExtra(Constants.PHONE_LIST)!!
+            onPhonesObtainedFromIntent()
+        }else {
+            restViewModel.searchResponse.observe(this) { response ->
+                if (response.isSuccessful) if (response.body() != null) if (response.body()!!.data.phones.isNotEmpty()) {
+                    onSearchResponseResult(response)
+                }
             }
         }
     }
@@ -81,30 +80,42 @@ class SignUpActivity : BaseActivity(), OnMobileClickListener {
     fun onRegisterSuccess() {
         restViewModel.getResponse.observe(this) {
             if (it.isSuccessful) if (it.body()!=null) {
+                writePhoneToFirestoreInBackground(this)
 
                 val mainIntent = Intent(this, MainActivity::class.java).apply {
                     addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_NEW_TASK)
                     putExtra(Constants.PHONE_EXTRA, it.body()!!.data)
                 }
-                writeToFirestoreInBackground(this)
 
                 hideProgressDialog()
                 startActivity(mainIntent)
                 finish()
-                Preferences.storeIsFirstRun(false)
             }
         }
     }
 
 
     private fun launchRegistration() {
-        showProgressDialog(getString(R.string.registering_user))
+        showProgressDialog()
         restViewModel.getMobile(selectedPhoneUrl)
-        FirebaseClient.registerUserAuth(this, binding.etEmailSignIn.text!!, binding.etPasswordSignIn.text!!)
+        FirebaseClient.registerUserAuth(
+            this,
+            binding.etUsernameSignIn.text!! ,
+            binding.etEmailSignIn.text!!,
+            binding.etPasswordSignIn.text!!,
+            selectedPhoneUrl.substring(40)
+        )
+    }
+
+    private fun onPhonesObtainedFromIntent() {
+        mobileAdapter = SelectionAdapter(this)
+        initializeRecyclerView(this, binding, mobileAdapter)
+        binding.cvSignUseless.visibility = VISIBLE
+        mobileAdapter.setData(phones)
     }
 
     private fun onSearchResponseResult(response: Response<SearchResponse>) {
-        phones = whichModelSuits(response.body()!!.data.phones)
+        phones = whichModelSuits(response.body()!!.data.phones) as ArrayList<Phone>
         mobileAdapter = SelectionAdapter(this)
         initializeRecyclerView(this, binding, mobileAdapter)
         binding.cvSignUseless.visibility = VISIBLE
@@ -112,9 +123,13 @@ class SignUpActivity : BaseActivity(), OnMobileClickListener {
     }
 
     private fun launchSignInIntent() {
-        startActivity(Intent(this, SignInActivity::class.java).apply {
+        val signInIntent = Intent(this, SignInActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        })
+            if (phones.isNotEmpty()) {
+                putExtra(Constants.PHONE_LIST, phones)
+            }
+        }
+        startActivity(signInIntent)
         finish()
     }
 
@@ -123,7 +138,7 @@ class SignUpActivity : BaseActivity(), OnMobileClickListener {
 
     companion object {
 
-        fun writeToFirestoreInBackground(context: Context) {
+        fun writePhoneToFirestoreInBackground(context: Context) {
 //            startForegroundService(context, Intent(context, FirestoreService::class.java))
 
 

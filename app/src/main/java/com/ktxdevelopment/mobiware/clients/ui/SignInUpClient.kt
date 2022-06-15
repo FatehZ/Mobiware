@@ -9,7 +9,7 @@ import com.ktxdevelopment.mobiware.databinding.ActivitySignInBinding
 import com.ktxdevelopment.mobiware.databinding.ActivitySignUpBinding
 import com.ktxdevelopment.mobiware.ui.recview.SelectionAdapter
 
-object SignInClient {
+object SignInUpClient {
     fun initializeRecyclerView(
         context: Context,
         binding: ActivitySignUpBinding,

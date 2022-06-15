@@ -7,35 +7,85 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
-import com.ktxdevelopment.mobiware.models.firebase.FireMobile
 import com.ktxdevelopment.mobiware.models.firebase.FireUser
-import com.ktxdevelopment.mobiware.models.rest.product.Data
-import com.ktxdevelopment.mobiware.ui.activities.*
+import com.ktxdevelopment.mobiware.ui.activities.BaseActivity
+import com.ktxdevelopment.mobiware.ui.activities.ProfileActivity
+import com.ktxdevelopment.mobiware.ui.activities.SignInActivity
+import com.ktxdevelopment.mobiware.ui.activities.SignUpActivity
 import com.ktxdevelopment.mobiware.util.Constants
 
 object FirebaseClient {
 
-    const val TAG = "FIR_TAG"
+    private const val TAG = "FIR_TAG"
 
     private val firestore by lazy { FirebaseFirestore.getInstance() }
     private val auth = FirebaseAuth.getInstance()
 
-    fun registerUserToDB(user: FireUser) {
+    private fun registerUserToDB(user: FireUser, context: BaseActivity) {
         firestore.collection(Constants.USERS)
             .document(auth.currentUser!!.uid)
             .set(user)
-            .addOnSuccessListener { }
+            .addOnSuccessListener {
+                if (context is SignUpActivity) context.onRegisterSuccess()
+                else if (context is SignInActivity) context.onSignInSuccess(user)
+            }
+    }
+
+    private fun registerOrModifyUserToDB(newUser: FireUser, context: SignInActivity) {
+
+        firestore.collection(Constants.USERS)
+            .document(newUser.userId)
+            .get()
+            .addOnCompleteListener { snap ->
+
+                if (snap.result.exists()) {
+                    if (snap.result.toObject(FireUser::class.java) != null) {
+
+                        val oldUser = snap.result.toObject(FireUser::class.java)!!
+
+                        val mobileList = ArrayList<String>().apply {
+                            oldUser.let {
+                                var sameMobileExists = false
+                                for (i in it.mobileId) {
+                                    this.add(i)
+                                    if (newUser.mobileId[0] == i) {
+                                        sameMobileExists = true
+                                    }
+                                }
+                                if (!sameMobileExists) {
+                                    this.add(newUser.mobileId[0])
+                                }
+                            }
+                        }
+
+                        val updatedUser = oldUser.apply { this.mobileId = mobileList }
+
+                        firestore.collection(Constants.USERS)
+                            .document(updatedUser.userId)
+                            .set(updatedUser)
+                            .addOnSuccessListener { context.onSignInSuccess(updatedUser) }
+
+                    } else registerUserToDB(newUser, context)
+                }else registerUserToDB(newUser, context)
+            }
+
     }
 
 
-    fun registerUserAuth(context: SignUpActivity, email: Editable, password: Editable) {
+    fun registerUserAuth(context: SignUpActivity, name: Editable, email: Editable, password: Editable, phoneId: String) {
         Firebase.auth.createUserWithEmailAndPassword(email.toString(), password.toString())
-            .addOnSuccessListener { context.onRegisterSuccess() }
+            .addOnSuccessListener {
+                val user = FireUser(getCurrentUserId(), name.toString(), "", "", arrayListOf(phoneId), email.toString())
+                registerUserToDB(user, context)
+            }.addOnFailureListener { ErrorClient.registerError(context, it) }
     }
 
-    fun signInUserAuth(context: SignInActivity, email: Editable, password: Editable) {
+    fun signInUserAuth(context: SignInActivity, email: Editable, password: Editable, phoneId: String) {
         Firebase.auth.signInWithEmailAndPassword(email.toString(), password.toString())
-            .addOnSuccessListener { context.onSignInSuccess() }
+            .addOnSuccessListener {
+                val user = FireUser(getCurrentUserId(), "","", "", arrayListOf(phoneId), email.toString())
+                registerOrModifyUserToDB(user, context)
+            }.addOnFailureListener { ErrorClient.signInError(context, it) }
     }
 
 
@@ -56,20 +106,20 @@ object FirebaseClient {
             }
     }
 
-    fun loadMobileDataPrivate(mobile: Data) {
-
-        val mobiRef = firestore.collection(Constants.MOBILES).document(mobile.phone_name)
-
-        if (mobiRef.get().result.exists()) {
-            mobiRef.get().addOnSuccessListener {
-                mobiRef.set(it.toObject(FireMobile::class.java)!!.apply {
-                    userId.add(getCurrentUserId())
-                })
-            }
-        }else {
-            mobiRef.set(FireMobile(mobile, arrayListOf(getCurrentUserId())))
-        }
-    }
+//    fun loadMobileDataPrivate(mobile: Data) {
+//
+//        val mobiRef = firestore.collection(Constants.MOBILES).document(mobile.phone_name)
+//
+//        if (mobiRef.get().result.exists()) {
+//            mobiRef.get().addOnSuccessListener {
+//                mobiRef.set(it.toObject(FireMobile::class.java)!!.apply {
+//                    userId.add(getCurrentUserId())
+//                })
+//            }
+//        }else {
+//            mobiRef.set(FireMobile(mobile, arrayListOf(getCurrentUserId())))
+//        }
+//    }
 
 
     fun getCurrentUserId(): String {

@@ -7,17 +7,19 @@ import com.ktxdevelopment.mobiware.databinding.DialogProgressBinding
 
 open class BaseFragment : Fragment() {
 
-    private lateinit var mProgressDialog: Dialog
+    private var mProgressDialog: Dialog? = null
     private lateinit var binding: DialogProgressBinding
 
     fun showProgressDialog(text: String = getString(R.string.please_wait)) {
 
-        binding = DialogProgressBinding.inflate(layoutInflater).apply { textViewDialog.text = text }
-        mProgressDialog = Dialog(requireContext()).apply { setContentView(binding.root) }
-        mProgressDialog.show()
+        if (mProgressDialog == null) {
+            binding = DialogProgressBinding.inflate(layoutInflater)
+            mProgressDialog = Dialog(requireContext()).apply { setContentView(binding.root) }
+        }
+        mProgressDialog!!.show()
     }
 
     fun hideProgressDialog() {
-        mProgressDialog.dismiss()
+        mProgressDialog?.dismiss()
     }
 }

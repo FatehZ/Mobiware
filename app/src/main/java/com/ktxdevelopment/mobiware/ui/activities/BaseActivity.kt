@@ -1,6 +1,8 @@
 package com.ktxdevelopment.mobiware.ui.activities
 
 import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
@@ -8,13 +10,14 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 import com.ktxdevelopment.mobiware.R
 import com.ktxdevelopment.mobiware.databinding.DialogProgressBinding
 
 open class BaseActivity: AppCompatActivity() {
 
     private var backPressedOnce = false
-    private lateinit var mProgressDialog: Dialog
+    private var mProgressDialog: Dialog? = null
     private lateinit var binding: DialogProgressBinding
 
     fun hidePhoneBar() {
@@ -27,21 +30,23 @@ open class BaseActivity: AppCompatActivity() {
     }
 
 
-    fun showProgressDialog(text: String = getString(R.string.please_wait)) {
+    fun showProgressDialog() {
 
-        binding = DialogProgressBinding.inflate(layoutInflater).apply { textViewDialog.text = text }
-        mProgressDialog = Dialog(this).apply {
-            setContentView(binding.root)
-            setCancelable(false)
-            setOnCancelListener { doubleBackToExit() }
+        if (mProgressDialog == null) {
+            mProgressDialog = Dialog(this).apply {
+                setContentView(binding.root)
+                setCancelable(false)
+                setOnCancelListener { doubleBackToExit() }
+            }
+            mProgressDialog!!.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         }
-        mProgressDialog.show()
+        mProgressDialog!!.show()
 
 
     }
 
     fun hideProgressDialog() {
-        mProgressDialog.dismiss()
+        mProgressDialog?.dismiss()
     }
 
     fun doubleBackToExit() {
@@ -59,5 +64,11 @@ open class BaseActivity: AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             backPressedOnce = false
         }, 2000)
+    }
+
+    fun showErrorSnackbar(message: String) {
+        val snackbar = Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
+        snackbar.view.setBackgroundColor(-0xffaa00)
+        snackbar.show()
     }
 }

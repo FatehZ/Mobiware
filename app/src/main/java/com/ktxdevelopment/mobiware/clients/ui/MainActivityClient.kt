@@ -53,8 +53,7 @@ object MainActivityClient {
                 FirebaseClient.signOut()
                 Intent(context, SignInActivity::class.java)
                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                    .also { context.startActivity(it) }
-                Preferences.storeIsFirstRun(true)
+                    .also { context.startActivity(it); context.finish() }
                 true;
             }
             else -> false

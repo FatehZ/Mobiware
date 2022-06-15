@@ -2,6 +2,7 @@ package com.ktxdevelopment.mobiware.util
 
 object Constants {
 
+    const val PHONE_LIST: String = "phone_list"
     const val MOBILE_NUMBER: String = "mobileNumber"
     const val USERNAME: String = "username"
     const val EMAIL: String = "email"

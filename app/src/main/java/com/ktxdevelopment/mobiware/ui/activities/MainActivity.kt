@@ -23,6 +23,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         setupPrimaryUI()
         setupNavUI()
 
+        showProgressDialog()
+
         var phoneDetails = intent.getParcelableExtra<Data>(Constants.PHONE_EXTRA)
 
 
@@ -45,7 +47,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     private fun setupNavUI() {
-        
+
     }
 
 

@@ -47,6 +47,10 @@
     <string name="password_at_least_6_chars">Minimum 6 characters</string>
     <string name="sign_in">Sign In</string>
     <string name="no_account_register">No Account? Register</string>
+    <string name="user_exists">User exists. Please sign In</string>
+    <string name="user_does_not_exist">User does not exist</string>
+    <string name="password_is_wrong">Password is invalid</string>
+    <string name="error_occurred">Error occurred</string>
 
 
 </resources>
