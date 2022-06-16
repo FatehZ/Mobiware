@@ -10,7 +10,6 @@ import androidx.lifecycle.lifecycleScope
 import com.ktxdevelopment.mobiware.clients.BaseClient
 import com.ktxdevelopment.mobiware.clients.BaseClient.hasInternetConnection
 import com.ktxdevelopment.mobiware.clients.BaseClient.whichModelSuits
-import com.ktxdevelopment.mobiware.clients.Preferences
 import com.ktxdevelopment.mobiware.clients.Preferences.saveUserDetailsToPreferences
 import com.ktxdevelopment.mobiware.clients.TextInputClient.validateSignUpInput
 import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient

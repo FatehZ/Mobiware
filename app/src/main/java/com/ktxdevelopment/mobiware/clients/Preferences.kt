@@ -11,6 +11,9 @@ import okhttp3.internal.notify
 object Preferences {
 
     // Only Read // Do Not Modify
+
+    //todo implement editor by lazy
+
     private lateinit var editor: SharedPreferences.Editor
     private suspend fun instantiate(context: Context) {
         editor = getCurrent(context).edit()
