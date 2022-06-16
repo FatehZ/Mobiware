@@ -5,20 +5,24 @@ import android.content.SharedPreferences
 import com.ktxdevelopment.mobiware.models.firebase.FireUser
 import com.ktxdevelopment.mobiware.models.local.LocalUser
 import com.ktxdevelopment.mobiware.util.Constants
+import okhttp3.internal.notify
 
 
 object Preferences {
 
     // Only Read // Do Not Modify
     private lateinit var editor: SharedPreferences.Editor
-    private suspend fun instantiate(context: Context) { editor = getCurrent(context).edit() }
+    private suspend fun instantiate(context: Context) {
+        editor = getCurrent(context).edit()
+    }
     private suspend fun getCurrent(context: Context) : SharedPreferences { return context.getSharedPreferences(Constants.PREFERENCE_LOCK_KEY, Context.MODE_PRIVATE) }
 
 
 
     // ACCESS
 
-    suspend fun saveUserDetailsToPreferences(fUser: FireUser) {
+    suspend fun saveUserDetailsToPreferences(context: Context, fUser: FireUser) {
+        instantiate(context)
         val user = LocalUser(fUser.userId, fUser.username, fUser.mobileNumber, fUser.mobileId, fUser.email)
         editor.putString(Constants.PR_userId, user.userId)
         editor.putString(Constants.PR_username, user.username)
@@ -43,8 +47,9 @@ object Preferences {
         return user
     }
 
-    suspend fun clearPreferences() {
-
+    suspend fun clearPreferences(context: Context) {
+        instantiate(context)
+        editor.clear()
+        editor.apply()
     }
-
 }
