@@ -2,14 +2,18 @@ package com.ktxdevelopment.mobiware.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.ktxdevelopment.mobiware.R
 import com.ktxdevelopment.mobiware.clients.BaseClient
+import com.ktxdevelopment.mobiware.clients.BaseClient.getDeviceModel
+import com.ktxdevelopment.mobiware.clients.BaseClient.handler
 import com.ktxdevelopment.mobiware.clients.BaseClient.hasInternetConnection
 import com.ktxdevelopment.mobiware.clients.BaseClient.whichModelSuits
-import com.ktxdevelopment.mobiware.clients.Preferences
 import com.ktxdevelopment.mobiware.clients.Preferences.saveUserDetailsToPreferences
 import com.ktxdevelopment.mobiware.clients.TextInputClient.validateSignInInput
 import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient
@@ -26,6 +30,7 @@ import com.ktxdevelopment.mobiware.ui.recview.SelectionAdapter.OnMobileClickList
 import com.ktxdevelopment.mobiware.util.Constants
 import com.ktxdevelopment.mobiware.viewmodel.RetroViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Runnable
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
@@ -46,7 +51,9 @@ class SignInActivity : BaseActivity(), OnMobileClickListener {
         binding = ActivitySignInBinding.inflate(layoutInflater)
         setContentView(binding.root)
         restViewModel = ViewModelProvider(this)[RetroViewModel::class.java]
-        restViewModel.searchMobile(BaseClient.getDeviceModel())
+        val handler = Handler(Looper.getMainLooper())
+
+        restViewModel.searchMobile(getDeviceModel())
         binding.btnSignIn.setOnClickListener { signButtonClickListener() }
         binding.btnNoAccountSignUp.setOnClickListener { launchSignUpIntent() }
 
@@ -56,8 +63,14 @@ class SignInActivity : BaseActivity(), OnMobileClickListener {
             onPhonesObtainedFromIntentIn()
         }else{
             restViewModel.searchResponse.observe(this) { response ->
-                if (response.isSuccessful) if (response.body() != null) if (response.body()!!.data.phones.isNotEmpty()) {
-                    onSearchResponseResult(response)
+
+                if (response != null) {
+                    if (response.isSuccessful) if (response.body() != null) if (response.body()!!.data.phones.isNotEmpty()) {
+                        onSearchResponseResult(response)
+                    }
+                }else{
+                    showErrorSnackbar(getString(R.string.no_connection_error))
+                    searchAgainIfNoConnection()
                 }
             }
         }
@@ -140,10 +153,20 @@ class SignInActivity : BaseActivity(), OnMobileClickListener {
         finish()
     }
 
+
+    private fun searchAgainIfNoConnection() {
+        handler.post(object : Runnable {
+            override fun run() {
+                restViewModel.searchMobile(getDeviceModel())
+                handler.postDelayed(this,600)
+            }
+        })
+
+    }
+
+
     override fun onBackPressed() = doubleBackToExit()
 }
-
-
 
 
 //fun loadUserSignIn(loggedUser: FireUser) {

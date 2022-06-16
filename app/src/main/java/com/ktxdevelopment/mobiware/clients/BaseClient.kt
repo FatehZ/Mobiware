@@ -122,8 +122,7 @@ object BaseClient {
     }
 
     fun getDeviceModel(): String {
-        Log.i("MAIN_TAG", "Device Model : ${Build.PRODUCT}}")
-        return "Xiaomi Redmi Note 10"
+        return Build.MODEL
     }
 
     object DModel {

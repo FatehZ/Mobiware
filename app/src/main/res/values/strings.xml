@@ -10,7 +10,7 @@
     <string name="device_name">Device Name</string>
     <string name="please_wait">Please Wait</string>
 
-    <string name="please_click_back_again">Please Click Back Again To Exit</string>
+    <string name="please_click_back_again">Click Again To Exit</string>
     <string name="hardware">Hardware</string>
     <string name="software">Software</string>
     <string name="battery_info">Battery Info</string>
@@ -41,7 +41,7 @@
     <string name="phone_number">Phone Number</string>
     <string name="already_have_account_sign_in">Already have account? Sign In</string>
     <string name="sign_out">Sign Out</string>
-    <string name="username_5_or_more_letters">At leas 5 letters are required</string>
+    <string name="username_5_or_more_letters">At least 5 letters are required</string>
     <string name="at_least_a_letter">Must include minimum a letter</string>
     <string name="no_special_symbols_allowed">No special symbols are allowed</string>
     <string name="password_at_least_6_chars">Minimum 6 characters</string>
@@ -51,6 +51,8 @@
     <string name="user_does_not_exist">User does not exist</string>
     <string name="password_is_wrong">Password is invalid</string>
     <string name="error_occurred">Error occurred</string>
+    <string name="no_connection_error">Please check internet connection</string>
+    <string name="select_a_phone_error">Please select a phone</string>
 
 
 </resources>

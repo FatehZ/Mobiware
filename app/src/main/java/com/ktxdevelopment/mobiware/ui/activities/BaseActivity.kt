@@ -18,7 +18,7 @@ open class BaseActivity: AppCompatActivity() {
 
     private var backPressedOnce = false
     private var mProgressDialog: Dialog? = null
-    private lateinit var binding: DialogProgressBinding
+    private var binding: DialogProgressBinding? = null
 
     fun hidePhoneBar() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -33,8 +33,9 @@ open class BaseActivity: AppCompatActivity() {
     fun showProgressDialog() {
 
         if (mProgressDialog == null) {
+            binding = DialogProgressBinding.inflate(layoutInflater)
             mProgressDialog = Dialog(this).apply {
-                setContentView(binding.root)
+                setContentView(binding!!.root)
                 setCancelable(false)
                 setOnCancelListener { doubleBackToExit() }
             }
@@ -70,5 +71,10 @@ open class BaseActivity: AppCompatActivity() {
         val snackbar = Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
         snackbar.view.setBackgroundColor(-0xffaa00)
         snackbar.show()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }

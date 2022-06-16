@@ -3,10 +3,12 @@ package com.ktxdevelopment.mobiware.ui.activities
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.ktxdevelopment.mobiware.R
 import com.ktxdevelopment.mobiware.clients.BaseClient
 import com.ktxdevelopment.mobiware.clients.BaseClient.hasInternetConnection
 import com.ktxdevelopment.mobiware.clients.BaseClient.whichModelSuits
@@ -27,6 +29,7 @@ import com.ktxdevelopment.mobiware.viewmodel.RetroViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import java.net.UnknownHostException
 
 
 @AndroidEntryPoint
@@ -45,6 +48,7 @@ class SignUpActivity : BaseActivity(), OnMobileClickListener {
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
         restViewModel = ViewModelProvider(this)[RetroViewModel::class.java]
+
         restViewModel.searchMobile(BaseClient.getDeviceModel())
         binding.btnSignUp.setOnClickListener { signButtonClickListener() }
         binding.btnHaveAccountSignIn.setOnClickListener { launchSignInIntent() }

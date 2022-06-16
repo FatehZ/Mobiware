@@ -6,22 +6,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
     tools:context=".ui.activities.SplashActivity"
-    android:background="@color/black">
+    android:background="@drawable/splash_gradient">
 
-  <pl.droidsonroids.gif.GifImageView
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-    android:src="@drawable/splah_anim" />
 
   <de.hdodenhof.circleimageview.CircleImageView
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
+      android:layout_width="0dp"
+      app:civ_border_color="#0af"
+      app:civ_border_width="@dimen/_10sdp"
+      android:layout_height="@dimen/_240sdp"
       android:contentDescription="@string/app_name"
-      app:layout_constraintTop_toTopOf="parent"
+      android:src="@mipmap/ic_launcher"
       app:layout_constraintBottom_toBottomOf="parent"
-      android:src="@mipmap/ic_launcher_foreground"/>
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintVertical_bias="0.3"
+      app:layout_constraintStart_toStartOf="parent" />
 
 
 
