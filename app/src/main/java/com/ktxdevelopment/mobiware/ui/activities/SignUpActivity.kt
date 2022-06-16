@@ -58,10 +58,15 @@ class SignUpActivity : BaseActivity(), OnMobileClickListener {
             phones = intent.getParcelableArrayListExtra(Constants.PHONE_LIST)!!
             onPhonesObtainedFromIntent()
         }else {
+
             restViewModel.searchResponse.observe(this) { response ->
-                if (response.isSuccessful) if (response.body() != null) if (response.body()!!.data.phones.isNotEmpty()) {
-                    onSearchResponseResult(response)
-                }
+
+                //todo resource type response
+
+
+//                if (response.isSuccessful) if (response.body() != null) if (response.body()!!.data.phones.isNotEmpty()) {
+//                    onSearchResponseResult(response)
+//                }
             }
         }
     }
@@ -91,18 +96,23 @@ class SignUpActivity : BaseActivity(), OnMobileClickListener {
         }
 
         restViewModel.getResponse.observe(this) {
-            if (it.isSuccessful) if (it.body()!=null) {
-                writePhoneToFirestoreInBackground(this)
 
-                val mainIntent = Intent(this, MainActivity::class.java).apply {
-                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_NEW_TASK)
-                    putExtra(Constants.PHONE_EXTRA, it.body()!!.data)
-                }
+            //todo resource type response
 
-                hideProgressDialog()
-                startActivity(mainIntent)
-                finish()
-            }
+
+
+//            if (it.isSuccessful) if (it.body()!=null) {
+//                writePhoneToFirestoreInBackground(this)
+//
+//                val mainIntent = Intent(this, MainActivity::class.java).apply {
+//                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_NEW_TASK)
+//                    putExtra(Constants.PHONE_EXTRA, it.body()!!.data)
+//                }
+//
+//                hideProgressDialog()
+//                startActivity(mainIntent)
+//                finish()
+//            }
         }
     }
 

@@ -9,7 +9,6 @@ import android.view.View.VISIBLE
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.ktxdevelopment.mobiware.R
-import com.ktxdevelopment.mobiware.clients.BaseClient
 import com.ktxdevelopment.mobiware.clients.BaseClient.getDeviceModel
 import com.ktxdevelopment.mobiware.clients.BaseClient.handler
 import com.ktxdevelopment.mobiware.clients.BaseClient.hasInternetConnection
@@ -22,6 +21,7 @@ import com.ktxdevelopment.mobiware.clients.ui.SignInUpClient.toastNoConnection
 import com.ktxdevelopment.mobiware.clients.ui.SignInUpClient.toastSelectPhone
 import com.ktxdevelopment.mobiware.databinding.ActivitySignInBinding
 import com.ktxdevelopment.mobiware.models.firebase.FireUser
+import com.ktxdevelopment.mobiware.models.rest.Resource
 import com.ktxdevelopment.mobiware.models.rest.search.Phone
 import com.ktxdevelopment.mobiware.models.rest.search.SearchResponse
 import com.ktxdevelopment.mobiware.ui.activities.SignUpActivity.Companion.writePhoneToFirestoreInBackground
@@ -64,14 +64,15 @@ class SignInActivity : BaseActivity(), OnMobileClickListener {
         }else{
             restViewModel.searchResponse.observe(this) { response ->
 
-                if (response != null) {
-                    if (response.isSuccessful) if (response.body() != null) if (response.body()!!.data.phones.isNotEmpty()) {
-                        onSearchResponseResult(response)
-                    }
-                }else{
-                    showErrorSnackbar(getString(R.string.no_connection_error))
-                    searchAgainIfNoConnection()
-                }
+                //todo resource type response
+//                if (response != null) {
+//                    if (response.isSuccessful) if (response.body() != null) if (response.body()!!.data.phones.isNotEmpty()) {
+//                        onSearchResponseResult(response)
+//                    }
+//                }else{
+//                    showErrorSnackbar(getString(R.string.no_connection_error))
+//                    searchAgainIfNoConnection()
+//                }
             }
         }
     }
@@ -98,18 +99,29 @@ class SignInActivity : BaseActivity(), OnMobileClickListener {
             saveUserDetailsToPreferences(this@SignInActivity, updatedUser)
         }
 
-        restViewModel.getResponse.observe(this) {
-            if (it.isSuccessful) if (it.body()!=null) {
-                writePhoneToFirestoreInBackground(this)
+        restViewModel.getResponse.observe(this) { re->
 
-                val mainIntent = Intent(this, MainActivity::class.java).apply {
-                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_NEW_TASK)
-                    putExtra(Constants.PHONE_EXTRA, it.body()!!.data)
-                }
-                hideProgressDialog()
-                startActivity(mainIntent)
-                finish()
+            //todo resource type response
+
+
+            when (re) {
+                is Resource.Success -> {}
+                is Resource.Error -> {}
+                is Resource.Loading -> {}
             }
+
+
+//            if (it.isSuccessful) if (it.body()!=null) {
+//                writePhoneToFirestoreInBackground(this)
+//
+//                val mainIntent = Intent(this, MainActivity::class.java).apply {
+//                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_NEW_TASK)
+//                    putExtra(Constants.PHONE_EXTRA, it.body()!!.data)
+//                }
+//                hideProgressDialog()
+//                startActivity(mainIntent)
+//                finish()
+//            }
         }
     }
 

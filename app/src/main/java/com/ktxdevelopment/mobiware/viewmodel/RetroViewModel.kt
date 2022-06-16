@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.ktxdevelopment.mobiware.models.rest.Resource
 import com.ktxdevelopment.mobiware.models.rest.product.GetResponse
 import com.ktxdevelopment.mobiware.models.rest.search.SearchResponse
 import com.ktxdevelopment.mobiware.repositories.RetrofitRepository
@@ -18,8 +19,8 @@ class RetroViewModel @Inject constructor(
     private var restRepo: RetrofitRepository,
     application: Application) : AndroidViewModel(application) {
 
-    var searchResponse: MutableLiveData<Response<SearchResponse>> = MutableLiveData()
-    var getResponse: MutableLiveData<Response<GetResponse>> = MutableLiveData()
+    var searchResponse: MutableLiveData<Resource<SearchResponse>> = MutableLiveData()
+    var getResponse: MutableLiveData<Resource<GetResponse>> = MutableLiveData()
 
 
     fun searchMobile(query: String) {
