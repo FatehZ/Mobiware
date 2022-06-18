@@ -147,6 +147,75 @@
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/cvSignUselessIn" />
 
+      <LinearLayout
+          android:visibility="gone"
+          app:layout_constraintVertical_bias="0.1"
+          android:id="@+id/llInsertPhoneManually"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:layout_constraintTop_toBottomOf="@id/cvSignUselessIn"
+          app:layout_constraintBottom_toBottomOf="parent"
+          android:orientation="vertical">
+
+
+        <TextView
+            android:text="@string/could_not_find_your_phone_model"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:textColor="@color/purple_700"
+            android:textSize="@dimen/_14ssp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/cvSignUseless"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Theme.SpecialTextInputLayout"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:hint="@string/phone_model"
+            app:errorEnabled="true"
+            app:startIconDrawable="@drawable/ic_phone_android"
+            app:layout_constraintBottom_toTopOf="@id/btnSignUp"
+            app:layout_constraintTop_toBottomOf="@id/tilUseless2">
+
+          <com.google.android.material.textfield.TextInputEditText
+              android:id="@+id/etMobileInsertManuallyIn"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:inputType="textPassword"
+              android:textSize="@dimen/_12ssp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <Button
+            android:id="@+id/btnSubmitPhoneModelIn"
+            style="@style/Theme.SpecialButton"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_6sdp"
+            android:text="@string/submit"
+            android:textSize="@dimen/_15sdp"
+            android:layout_gravity="center_horizontal"
+            app:layout_constraintTop_toBottomOf="@id/tilUseless8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+      </LinearLayout>
+
+      <pl.droidsonroids.gif.GifImageView
+          android:src="@drawable/output_onlinegils"
+          android:layout_width="@dimen/_600sdp"
+          android:id="@+id/gifProgressSignIn"
+          android:layout_height="0dp"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/cvSignUselessIn" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
   </androidx.cardview.widget.CardView>

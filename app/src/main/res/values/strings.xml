@@ -53,6 +53,12 @@
     <string name="error_occurred">Error occurred</string>
     <string name="no_connection_error">Please check internet connection</string>
     <string name="select_a_phone_error">Please select a phone</string>
+    <string name="smth_went_wrong">Something went wrong. Try again later</string>
+    <string name="could_not_find_your_phone_model">Search system could not find your phone model. Please insert manually:</string>
+    <string name="phone_model">Phone Model</string>
+    <string name="submit">Submit</string>
+    <string name="no_empty_input">Input is empty</string>
+    <string name="too_short_enter_valid">Model is too short</string>
 
 
 </resources>

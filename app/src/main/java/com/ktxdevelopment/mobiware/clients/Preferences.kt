@@ -5,16 +5,14 @@ import android.content.SharedPreferences
 import com.ktxdevelopment.mobiware.models.firebase.FireUser
 import com.ktxdevelopment.mobiware.models.local.LocalUser
 import com.ktxdevelopment.mobiware.util.Constants
-import okhttp3.internal.notify
 
 
 object Preferences {
 
     // Only Read // Do Not Modify
 
-    //todo implement editor by lazy
-
     private lateinit var editor: SharedPreferences.Editor
+
     private suspend fun instantiate(context: Context) {
         editor = getCurrent(context).edit()
     }

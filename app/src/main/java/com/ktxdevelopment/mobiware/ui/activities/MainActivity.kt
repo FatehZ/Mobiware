@@ -6,7 +6,6 @@ import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView
 import com.ktxdevelopment.mobiware.clients.ui.MainActivityClient
 import com.ktxdevelopment.mobiware.databinding.ActivityMainBinding
-import com.ktxdevelopment.mobiware.models.firebase.FireUser
 import com.ktxdevelopment.mobiware.models.rest.product.Data
 import com.ktxdevelopment.mobiware.util.Constants
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,10 +22,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         setupPrimaryUI()
         setupNavUI()
 
-        showProgressDialog()
-
         var phoneDetails = intent.getParcelableExtra<Data>(Constants.PHONE_EXTRA)
-
 
     }
 

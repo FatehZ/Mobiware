@@ -47,4 +47,5 @@ object Constants {
 //    const val INTEREST_URL = "https://api-mobilespecs.azharimm.site/v2/top-by-interest"
 
     const val isDarkMode = false
+
 }

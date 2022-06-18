@@ -1,11 +1,11 @@
 package com.ktxdevelopment.mobiware.repositories
 
+import com.ktxdevelopment.mobiware.clients.exceptions.RequestBodyEmptyException
+import com.ktxdevelopment.mobiware.clients.exceptions.RequestUnsuccessfulException
 import com.ktxdevelopment.mobiware.models.rest.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import retrofit2.HttpException
 import retrofit2.Response
-import java.io.IOException
 
 open class BaseRepository {
 
@@ -16,17 +16,17 @@ open class BaseRepository {
                 val response: Response<T> = apiToBeCalled()
 
                 if (response.isSuccessful) {
-                    Resource.Success(data = response.body()!!)
+                    if (response.body()!= null) {
+                        Resource.Success(data = response.body()!!)
+                    }else{
+                        Resource.Error(RequestBodyEmptyException())
+                    }
                 }else {
-                    Resource.Error(errorMessage = "Something went wrong")
+                    Resource.Error(mError = RequestUnsuccessfulException())
                 }
 
-            } catch (e: HttpException) {
-                Resource.Error(errorMessage = e.message ?: "Something went wrong")
-            } catch (e: IOException) {
-                Resource.Error("Check Internet connection")
             } catch (e: Exception) {
-                Resource.Error(errorMessage = "Something went wrong")
+                Resource.Error(e)
             }
         }
     }

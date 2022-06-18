@@ -49,7 +49,7 @@ object TextInputClient {
         }
     }
 
-    fun validateEmail(et: TextInputEditText): Boolean {
+    private fun validateEmail(et: TextInputEditText): Boolean {
         val email = et.text.toString().trim { it <= ' ' }
         val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
 
@@ -61,9 +61,9 @@ object TextInputClient {
         else true
     }
 
-    fun validatePassword(et: TextInputEditText): Boolean {
+    private fun validatePassword(et: TextInputEditText): Boolean {
         val pass = et.text.toString()
-        return if (pass.length <= 6) {
+        return if (pass.length < 6) {
             et.error = et.context.getString(R.string.password_at_least_6_chars) ;false
         } else if (!validString(pass)) {
             et.error = et.context.getString(R.string.no_special_symbols_allowed);false
@@ -72,5 +72,13 @@ object TextInputClient {
         } else {
             true
         }
+    }
+
+    fun validatePhoneModel(et: TextInputEditText): Boolean {
+        return if (!validateFilledInput(et.text.toString())) {
+            et.error = et.context.getString(R.string.no_empty_input); false
+        }else if (et.text.toString().trim().length < 6){
+            et.error = et.context.getString(R.string.too_short_enter_valid); false
+        }else true
     }
 }

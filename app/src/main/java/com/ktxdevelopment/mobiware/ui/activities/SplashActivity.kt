@@ -17,6 +17,8 @@ class SplashActivity : BaseActivity() {
 
     private lateinit var binding: ActivitySplashBinding
     private val handler = Handler(Looper.getMainLooper())
+    val duration = 1000L
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,9 +28,8 @@ class SplashActivity : BaseActivity() {
 
     }
 
-
     private fun mainIntent() = handler.apply {
-        postDelayed(2000) {
+        postDelayed(duration) {
             Intent(this@SplashActivity, MainActivity::class.java).apply {
                 addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_NEW_TASK)
             }.also { startActivity(it) }
@@ -39,7 +40,7 @@ class SplashActivity : BaseActivity() {
     private fun signUpIntent() {
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         handler.apply {
-            postDelayed(2000) {
+            postDelayed(duration) {
                 Intent(this@SplashActivity, SignUpActivity::class.java).apply {
                     addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_NEW_TASK)
                 }.also { startActivity(it) }
@@ -50,7 +51,7 @@ class SplashActivity : BaseActivity() {
 
     private fun updateIntent(sign: String) = handler.apply {
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-            postDelayed(2000) {
+            postDelayed(duration) {
                 Intent(this@SplashActivity, UpdateActivity::class.java).apply {
                     addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_NEW_TASK)
                     putExtra(Constants.UPDATE_SIGN, sign)
@@ -64,10 +65,7 @@ class SplashActivity : BaseActivity() {
     private fun checkForUpdate() {
         val map = RemoteClient.checkMustUpdate(this)
         if (map[Constants.ANY_UPDATE] as Boolean) updateIntent(map[Constants.UPDATE_SIGN] as String)
-        else if (getCurrentUserId().isEmpty()){
-            signUpIntent()
-        }else{
-            mainIntent()
-        }
+        else if (getCurrentUserId().isEmpty()) signUpIntent()
+        else mainIntent()
     }
 }

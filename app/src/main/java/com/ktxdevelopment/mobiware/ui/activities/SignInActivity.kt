@@ -2,29 +2,29 @@ package com.ktxdevelopment.mobiware.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
+import android.util.Log
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.textfield.TextInputEditText
 import com.ktxdevelopment.mobiware.R
+import com.ktxdevelopment.mobiware.clients.BaseClient
 import com.ktxdevelopment.mobiware.clients.BaseClient.getDeviceModel
 import com.ktxdevelopment.mobiware.clients.BaseClient.handler
 import com.ktxdevelopment.mobiware.clients.BaseClient.hasInternetConnection
 import com.ktxdevelopment.mobiware.clients.BaseClient.whichModelSuits
 import com.ktxdevelopment.mobiware.clients.Preferences.saveUserDetailsToPreferences
+import com.ktxdevelopment.mobiware.clients.TextInputClient
 import com.ktxdevelopment.mobiware.clients.TextInputClient.validateSignInInput
 import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient
+import com.ktxdevelopment.mobiware.clients.ui.SignInUpClient
 import com.ktxdevelopment.mobiware.clients.ui.SignInUpClient.initializeRecyclerViewIn
-import com.ktxdevelopment.mobiware.clients.ui.SignInUpClient.toastNoConnection
-import com.ktxdevelopment.mobiware.clients.ui.SignInUpClient.toastSelectPhone
 import com.ktxdevelopment.mobiware.databinding.ActivitySignInBinding
 import com.ktxdevelopment.mobiware.models.firebase.FireUser
 import com.ktxdevelopment.mobiware.models.rest.Resource
 import com.ktxdevelopment.mobiware.models.rest.search.Phone
 import com.ktxdevelopment.mobiware.models.rest.search.SearchResponse
-import com.ktxdevelopment.mobiware.ui.activities.SignUpActivity.Companion.writePhoneToFirestoreInBackground
 import com.ktxdevelopment.mobiware.ui.recview.SelectionAdapter
 import com.ktxdevelopment.mobiware.ui.recview.SelectionAdapter.OnMobileClickListener
 import com.ktxdevelopment.mobiware.util.Constants
@@ -32,7 +32,6 @@ import com.ktxdevelopment.mobiware.viewmodel.RetroViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Runnable
 import kotlinx.coroutines.launch
-import retrofit2.Response
 
 
 @AndroidEntryPoint
@@ -50,19 +49,28 @@ class SignInActivity : BaseActivity(), OnMobileClickListener {
         super.onCreate(savedInstanceState)
         binding = ActivitySignInBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        restViewModel = ViewModelProvider(this)[RetroViewModel::class.java]
-        val handler = Handler(Looper.getMainLooper())
 
-        restViewModel.searchMobile(getDeviceModel())
-        binding.btnSignIn.setOnClickListener { signButtonClickListener() }
-        binding.btnNoAccountSignUp.setOnClickListener { launchSignUpIntent() }
-
+        setupSignInUI()
 
         if (intent.hasExtra(Constants.PHONE_LIST)) {
             phones = intent.getParcelableArrayListExtra(Constants.PHONE_LIST)!!
             onPhonesObtainedFromIntentIn()
         }else{
-            restViewModel.searchResponse.observe(this) { response ->
+            Log.i(TAG, "onCreate: Worked")
+            restViewModel.searchResponse.observe(this) { res ->
+                when (res) {
+                    is Resource.Success -> {
+                        binding.gifProgressSignIn.visibility = GONE
+                        if (res.data != null) if (res.data.data.phones.isNotEmpty()) {
+                            onSearchResponseResult(res.data)
+                        }
+                    }
+                    is Resource.Error -> {
+                        binding.gifProgressSignIn.visibility = GONE
+                        SignInUpClient.handleErrorIn(this,binding, res.error)
+                    }
+                    else -> Unit
+                }
 
                 //todo resource type response
 //                if (response != null) {
@@ -83,8 +91,8 @@ class SignInActivity : BaseActivity(), OnMobileClickListener {
             if (hasInternetConnection(this)) {
                 if(selectedPhoneUrl != "") {
                     launchSignIn()
-                }else toastSelectPhone(this)
-            } else toastNoConnection(this)
+                }else showErrorSnackbar(getString(R.string.select_a_phone_error))
+            } else showErrorSnackbar(getString(R.string.no_connection_error))
         }
     }
 
@@ -99,16 +107,23 @@ class SignInActivity : BaseActivity(), OnMobileClickListener {
             saveUserDetailsToPreferences(this@SignInActivity, updatedUser)
         }
 
-        restViewModel.getResponse.observe(this) { re->
+        restViewModel.getResponse.observe(this) { res->
 
             //todo resource type response
 
 
-            when (re) {
-                is Resource.Success -> {}
-                is Resource.Error -> {}
-                is Resource.Loading -> {}
-            }
+//            when (res) {
+//                is Resource.Success -> {
+//                    binding.gifProgressSignIn.visibility = GONE
+//                    if (res.data != null) if (res.data.data.phones.isNotEmpty()) {
+//                        onSearchResponseResult(res.data)
+//                    }
+//                }
+//                is Resource.Error -> {
+//                    SignInUpClient.handleError(binding, res)
+//                }
+//                else -> Unit
+//            }
 
 
 //            if (it.isSuccessful) if (it.body()!=null) {
@@ -140,14 +155,15 @@ class SignInActivity : BaseActivity(), OnMobileClickListener {
 
 
     private fun onPhonesObtainedFromIntentIn() {
+        binding.gifProgressSignIn.visibility = GONE
         mobileAdapter = SelectionAdapter(this)
         initializeRecyclerViewIn(this, binding, mobileAdapter)
         binding.cvSignUselessIn.visibility = VISIBLE
         mobileAdapter.setData(phones)
     }
 
-    private fun onSearchResponseResult(response: Response<SearchResponse>) {
-        phones = whichModelSuits(response.body()!!.data.phones) as ArrayList<Phone>
+    private fun onSearchResponseResult(response: SearchResponse) {
+        phones = whichModelSuits(response.data.phones) as ArrayList<Phone>
         mobileAdapter = SelectionAdapter(this)
         initializeRecyclerViewIn(this, binding, mobileAdapter)
         binding.cvSignUselessIn.visibility = VISIBLE
@@ -166,21 +182,26 @@ class SignInActivity : BaseActivity(), OnMobileClickListener {
     }
 
 
-    private fun searchAgainIfNoConnection() {
-        handler.post(object : Runnable {
-            override fun run() {
-                restViewModel.searchMobile(getDeviceModel())
-                handler.postDelayed(this,600)
-            }
-        })
+    fun searchAgainIfNoConnection() { restViewModel.searchMobile(BaseClient.getDeviceModel()) }
 
+
+    private fun setupSignInUI() {
+        restViewModel = ViewModelProvider(this)[RetroViewModel::class.java]
+        restViewModel.searchMobile(getDeviceModel())
+        binding.btnSignIn.setOnClickListener { signButtonClickListener() }
+        binding.btnSubmitPhoneModelIn.setOnClickListener { submitPhoneSearchAgain(binding.etMobileInsertManuallyIn) }
+        binding.btnNoAccountSignUp.setOnClickListener { launchSignUpIntent() }
+
+    }
+
+
+    private fun submitPhoneSearchAgain(et: TextInputEditText) {
+        if (TextInputClient.validatePhoneModel(et)){
+            restViewModel.searchMobile(et.text.toString())
+            SignInUpClient.phoneNotFoundLayoutDisappear(binding)
+        }
     }
 
 
     override fun onBackPressed() = doubleBackToExit()
 }
-
-
-//fun loadUserSignIn(loggedUser: FireUser) {
-//
-//}

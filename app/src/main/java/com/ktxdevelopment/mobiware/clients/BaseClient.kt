@@ -122,7 +122,7 @@ object BaseClient {
     }
 
     fun getDeviceModel(): String {
-        return Build.MODEL
+        return "xiaomi mi note 10 lite"
     }
 
     object DModel {
