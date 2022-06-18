@@ -66,7 +66,6 @@ class SignUpActivity : BaseActivity(), OnMobileClickListener {
                         }
                     }
                     is Resource.Error -> {
-                        binding.gifProgressSignUp.visibility = GONE
                         SignInUpClient.handleErrorUp(this, binding, res.error)
                     }
                     else -> Unit

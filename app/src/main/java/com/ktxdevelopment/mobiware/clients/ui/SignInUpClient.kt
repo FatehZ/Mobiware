@@ -55,7 +55,7 @@ object SignInUpClient {
             is IOException -> Handler(Looper.getMainLooper()).postDelayed(1000) {
                 context.searchAgainIfNoConnection()
             }
-            is RequestBodyEmptyException -> phoneNotFoundLayoutVisible(binding)
+            is RequestBodyEmptyException -> { phoneNotFoundLayoutVisible(binding) }
             is RequestUnsuccessfulException -> context.showErrorSnackbar(context.getString(R.string.smth_went_wrong))
         }
     }

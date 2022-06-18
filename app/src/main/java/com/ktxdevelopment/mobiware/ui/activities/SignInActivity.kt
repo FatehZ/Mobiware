@@ -11,7 +11,6 @@ import com.google.android.material.textfield.TextInputEditText
 import com.ktxdevelopment.mobiware.R
 import com.ktxdevelopment.mobiware.clients.BaseClient
 import com.ktxdevelopment.mobiware.clients.BaseClient.getDeviceModel
-import com.ktxdevelopment.mobiware.clients.BaseClient.handler
 import com.ktxdevelopment.mobiware.clients.BaseClient.hasInternetConnection
 import com.ktxdevelopment.mobiware.clients.BaseClient.whichModelSuits
 import com.ktxdevelopment.mobiware.clients.Preferences.saveUserDetailsToPreferences
@@ -30,7 +29,6 @@ import com.ktxdevelopment.mobiware.ui.recview.SelectionAdapter.OnMobileClickList
 import com.ktxdevelopment.mobiware.util.Constants
 import com.ktxdevelopment.mobiware.viewmodel.RetroViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Runnable
 import kotlinx.coroutines.launch
 
 

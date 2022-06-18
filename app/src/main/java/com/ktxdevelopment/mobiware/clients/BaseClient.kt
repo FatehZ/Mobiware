@@ -122,7 +122,7 @@ object BaseClient {
     }
 
     fun getDeviceModel(): String {
-        return "xiaomi mi note 10 lite"
+        return "gh emulatror"
     }
 
     object DModel {
