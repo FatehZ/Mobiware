@@ -1,6 +1,5 @@
 package com.ktxdevelopment.mobiware.repositories
 
-import com.ktxdevelopment.mobiware.clients.exceptions.RequestBodyEmptyException
 import com.ktxdevelopment.mobiware.clients.exceptions.RequestUnsuccessfulException
 import com.ktxdevelopment.mobiware.models.rest.Resource
 import kotlinx.coroutines.Dispatchers
@@ -16,11 +15,7 @@ open class BaseRepository {
                 val response: Response<T> = apiToBeCalled()
 
                 if (response.isSuccessful) {
-                    if (response.body()!= null) {
-                        Resource.Success(data = response.body()!!)
-                    }else{
-                        Resource.Error(RequestBodyEmptyException())
-                    }
+                    Resource.Success(data = response.body()!!)
                 }else {
                     Resource.Error(mError = RequestUnsuccessfulException())
                 }
