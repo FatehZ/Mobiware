@@ -2,7 +2,6 @@ package com.ktxdevelopment.mobiware.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.lifecycle.ViewModelProvider
@@ -10,7 +9,6 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.textfield.TextInputEditText
 import com.ktxdevelopment.mobiware.R
 import com.ktxdevelopment.mobiware.clients.BaseClient
-import com.ktxdevelopment.mobiware.clients.BaseClient.handler
 import com.ktxdevelopment.mobiware.clients.BaseClient.hasInternetConnection
 import com.ktxdevelopment.mobiware.clients.BaseClient.whichModelSuits
 import com.ktxdevelopment.mobiware.clients.Preferences.saveUserDetailsToPreferences
@@ -27,7 +25,6 @@ import com.ktxdevelopment.mobiware.models.rest.search.SearchResponse
 import com.ktxdevelopment.mobiware.ui.recview.SelectionAdapter
 import com.ktxdevelopment.mobiware.ui.recview.SelectionAdapter.OnMobileClickListener
 import com.ktxdevelopment.mobiware.util.Constants
-import com.ktxdevelopment.mobiware.util.Result
 import com.ktxdevelopment.mobiware.viewmodel.RetroViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

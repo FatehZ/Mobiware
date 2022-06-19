@@ -9,16 +9,12 @@ import android.net.ConnectivityManager.TYPE_WIFI
 import android.net.NetworkCapabilities.*
 import android.net.Uri
 import android.os.Build
-import android.os.Handler
-import android.os.Looper
 import android.provider.ContactsContract.CommonDataKinds.Email.TYPE_MOBILE
 import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
 import com.ktxdevelopment.mobiware.models.rest.search.Phone
 
 object BaseClient {
-
-    val handler: Handler = Handler(Looper.getMainLooper())
 
     fun playStoreIntent(context: Context) {
         try {
@@ -41,6 +37,7 @@ object BaseClient {
     }
 
 
+    @Suppress("DEPRECATION")
     fun hasInternetConnection(context: Context) : Boolean {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
