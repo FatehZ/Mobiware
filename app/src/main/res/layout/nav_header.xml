@@ -9,42 +9,53 @@
     android:orientation="vertical"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <ImageView
-        android:id="@+id/ivNavProfileImage"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvUselessNav"
         android:layout_width="@dimen/_120sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        style="?attr/actionModeSelectAllDrawable"
-        android:scaleType="centerCrop"
         android:layout_height="@dimen/_120sdp"
-        android:src="@mipmap/ic_launcher_foreground"
-        android:layout_marginHorizontal="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_20sdp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:civ_border_color="@color/white"
-        app:civ_border_width="@dimen/_2sdp"
-        android:contentDescription="@string/profile_image"/>
+        app:cardCornerRadius="@dimen/_20sdp"
+        app:cardElevation="@dimen/_10sdp">
+
+        <ImageView
+            android:id="@+id/ivNavProfileImage"
+            android:layout_width="match_parent"
+            style="?attr/actionModeSelectAllDrawable"
+            android:scaleType="centerCrop"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_account"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:contentDescription="@string/profile_image"/>
+
+
+    </androidx.cardview.widget.CardView>
 
 
     <TextView
         android:id="@+id/tvUserName"
-        app:layout_constraintTop_toBottomOf="@+id/ivNavProfileImage"
-        app:layout_constraintEnd_toEndOf="@+id/ivNavProfileImage"
-        app:layout_constraintStart_toStartOf="@id/ivNavProfileImage"
-        android:layout_width="wrap_content"
-        android:textSize="@dimen/_14sdp"
-        android:textColor="#0000FF"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
         android:text="@string/device_name"
-        android:layout_marginHorizontal="@dimen/_16sdp"
-        android:layout_marginTop="@dimen/_8sdp"
-        app:layout_constraintBottom_toTopOf="@+id/navDivider"/>
+        android:layout_marginEnd="@dimen/_40sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/black"
+        android:fontFamily="@font/dosis_bold"
+        android:textSize="@dimen/_16ssp"
+        app:layout_constraintBottom_toTopOf="@+id/navDivider"
+        app:layout_constraintStart_toStartOf="@id/cvUselessNav"
+        app:layout_constraintTop_toBottomOf="@+id/cvUselessNav" />
 
     <View
         android:id="@+id/navDivider"
         android:layout_width="match_parent"
         app:layout_constraintTop_toBottomOf="@id/tvUserName"
         android:layout_marginTop="@dimen/_8sdp"
-        android:layout_height="@dimen/_1sdp"
-        android:background="@color/purple_700"/>
+        android:layout_height="@dimen/_2sdp"
+        android:background="@color/main_900"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

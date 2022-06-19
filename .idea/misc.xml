@@ -8,6 +8,7 @@
         <entry key="..\:/Users/fateh/Desktop/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/feedback_button_style.xml" value="0.1265" />
         <entry key="..\:/Users/fateh/Desktop/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/gradient_nav_header.xml" value="0.1295" />
         <entry key="..\:/Users/fateh/Desktop/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/gradient_splash.xml" value="0.136" />
+        <entry key="..\:/Users/fateh/Desktop/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/ic_account.xml" value="0.1885" />
         <entry key="..\:/Users/fateh/Desktop/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/ic_action_navigation_menu.xml" value="0.1295" />
         <entry key="..\:/Users/fateh/Desktop/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/ic_back.xml" value="0.1245" />
         <entry key="..\:/Users/fateh/Desktop/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/ic_baseline.xml" value="0.1295" />
@@ -22,11 +23,12 @@
         <entry key="..\:/Users/fateh/Desktop/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/ic_soft.xml" value="0.1295" />
         <entry key="..\:/Users/fateh/Desktop/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/mobiware.xml" value="0.2175" />
         <entry key="..\:/Users/fateh/Desktop/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/splash_gradient.xml" value="0.188" />
+        <entry key="..\:/Users/fateh/Desktop/Projects/KotlinAndroid/Mobiware/app/src/main/res/font/dosis_extrabold.xml" value="0.2501068832834545" />
         <entry key="..\:/Users/fateh/Desktop/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/activity_feedback.xml" value="0.2" />
-        <entry key="..\:/Users/fateh/Desktop/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/activity_main.xml" value="0.16" />
+        <entry key="..\:/Users/fateh/Desktop/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/fateh/Desktop/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/activity_profile.xml" value="0.2" />
         <entry key="..\:/Users/fateh/Desktop/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/activity_settings.xml" value="0.264" />
-        <entry key="..\:/Users/fateh/Desktop/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/activity_sign_in.xml" value="0.2" />
+        <entry key="..\:/Users/fateh/Desktop/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/activity_sign_in.xml" value="0.264" />
         <entry key="..\:/Users/fateh/Desktop/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/activity_sign_up.xml" value="0.2" />
         <entry key="..\:/Users/fateh/Desktop/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/activity_signin.xml" value="0.22530996152201796" />
         <entry key="..\:/Users/fateh/Desktop/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/activity_splash.xml" value="0.176" />
@@ -44,7 +46,7 @@
         <entry key="..\:/Users/fateh/Desktop/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/layout_selection.xml" value="0.22245673279864922" />
         <entry key="..\:/Users/fateh/Desktop/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/main_content.xml" value="0.16927083333333334" />
         <entry key="..\:/Users/fateh/Desktop/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/main_details_item.xml" value="0.22445489525438223" />
-        <entry key="..\:/Users/fateh/Desktop/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/nav_header.xml" value="0.176" />
+        <entry key="..\:/Users/fateh/Desktop/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/nav_header.xml" value="0.2" />
         <entry key="..\:/Users/fateh/Desktop/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/selection_item.xml" value="0.264" />
         <entry key="..\:/Users/fateh/Desktop/Projects/KotlinAndroid/Mobiware/app/src/main/res/menu/menu_drawer.xml" value="0.2" />
         <entry key="..\:/Users/fateh/Desktop/Projects/KotlinAndroid/Mobiware/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1305" />

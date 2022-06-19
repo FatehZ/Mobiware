@@ -23,8 +23,7 @@ class SelectionAdapter(private var onMobileClickListener: OnMobileClickListener)
             .fitCenter()
             .into(holder.binding.civSelection)
 
-        holder.binding.tvSelectionTitle.text = list[position].phone_name
-
+        holder.binding.tvSelectionTitle.text = (list[position].brand + " " + list[position].phone_name)
         holder.binding.root.setOnClickListener { onMobileClickListener.onMobileClick(position) }
     }
 

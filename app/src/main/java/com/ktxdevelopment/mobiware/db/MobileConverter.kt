@@ -2,7 +2,6 @@ package com.ktxdevelopment.mobiware.db
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.ktxdevelopment.mobiware.models.rest.product.Data
 
 class MobileConverter {

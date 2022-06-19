@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.ktxdevelopment.mobiware.models.rest.search.Phone
 
 object BaseClient {
+    private val TAG = "BASE_TAG"
 
     fun playStoreIntent(context: Context) {
         try {
@@ -119,7 +120,7 @@ object BaseClient {
     }
 
     fun getDeviceModel(): String {
-        return "gh emulatror"
+        return "mi note 10 lite"
     }
 
     object DModel {

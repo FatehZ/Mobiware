@@ -29,6 +29,7 @@ object Constants {
     const val PR_mobileNumber = "user_mobileNumber"
     const val PR_mobileId = "user_mobileId"
     const val PR_email = "user_email"
+    const val PR_imageString: String = "user_image"
 
 
     // API

@@ -64,7 +64,7 @@
                 android:layout_weight="0.5"
                 android:hint="@string/username"
                 app:errorEnabled="true"
-                app:startIconDrawable="@drawable/ic_baseline_account_circle_24"
+                app:startIconDrawable="@drawable/ic_account"
                 app:layout_constraintBottom_toTopOf="@id/tilUseless4"
                 app:layout_constraintTop_toBottomOf="@+id/civProfile">
 

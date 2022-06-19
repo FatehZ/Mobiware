@@ -6,6 +6,7 @@ import com.ktxdevelopment.mobiware.models.rest.product.Data
 
 @Entity(tableName = "mobile_table")
 class RoomPhoneModel (
-    @PrimaryKey(autoGenerate = true)
-    var id: Int = 0,
-    var data: Data)
+    @PrimaryKey(autoGenerate = false)
+    var id: String,
+    var data: Data
+    )

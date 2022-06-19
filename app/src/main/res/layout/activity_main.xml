@@ -34,7 +34,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
         <fragment
             android:id="@+id/navHost"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -57,6 +56,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        android:background="@color/main"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/menu_drawer"/>
 

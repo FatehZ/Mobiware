@@ -1,14 +1,20 @@
 package com.ktxdevelopment.mobiware.hilt
 
 import android.app.Application
-import com.ktxdevelopment.mobiware.clients.BaseClient.setDarkMode
-import com.ktxdevelopment.mobiware.util.Constants.isDarkMode
+import androidx.work.Configuration
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.ktx.initialize
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class BaseApplication : Application() {
+class BaseApplication : Application(), Configuration.Provider {
     override fun onCreate() {
         super.onCreate()
-        setDarkMode(isDarkMode)
+        Firebase.initialize(applicationContext)
     }
+
+    override fun getWorkManagerConfiguration(): Configuration =
+        Configuration.Builder()
+            .setMinimumLoggingLevel(android.util.Log.DEBUG)
+            .build()
 }

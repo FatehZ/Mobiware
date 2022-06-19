@@ -1,6 +1,7 @@
 package com.ktxdevelopment.mobiware.ui.activities
 
 import android.app.Dialog
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
@@ -8,6 +9,8 @@ import android.os.Handler
 import android.os.Looper
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
@@ -29,6 +32,10 @@ open class BaseActivity: AppCompatActivity() {
         }
     }
 
+    fun hideKeyboard(vararg et: EditText) {
+        val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        for (i in et){ imm.hideSoftInputFromWindow(i.windowToken, 0) }
+    }
 
     fun showProgressDialog() {
 

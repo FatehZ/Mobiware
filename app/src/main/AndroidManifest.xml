@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
+
     <application
         android:name="com.ktxdevelopment.mobiware.hilt.BaseApplication"
         android:allowBackup="true"
@@ -19,6 +20,16 @@
         android:theme="@style/Theme.Mobiware"
         android:usesCleartextTraffic="true"
         tools:targetApi="31" >
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data
+                android:name="androidx.work.WorkManagerInitializer"
+                android:value="androidx.startup"
+                tools:node="remove" />
+        </provider>
         <activity
             android:name=".ui.activities.SignInActivity"
             android:exported="false"
@@ -52,8 +63,6 @@
         <activity
             android:name=".ui.activities.UpdateActivity"
             android:exported="false" />
-        <service android:name=".services.FirestoreService"
-            />
 
         <meta-data
             android:name="preloaded_fonts"

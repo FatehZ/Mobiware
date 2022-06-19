@@ -2,8 +2,10 @@ package com.ktxdevelopment.mobiware.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.textfield.TextInputEditText
@@ -22,9 +24,11 @@ import com.ktxdevelopment.mobiware.models.firebase.FireUser
 import com.ktxdevelopment.mobiware.models.rest.Resource
 import com.ktxdevelopment.mobiware.models.rest.search.Phone
 import com.ktxdevelopment.mobiware.models.rest.search.SearchResponse
+import com.ktxdevelopment.mobiware.models.room.RoomPhoneModel
 import com.ktxdevelopment.mobiware.ui.recview.SelectionAdapter
 import com.ktxdevelopment.mobiware.ui.recview.SelectionAdapter.OnMobileClickListener
 import com.ktxdevelopment.mobiware.util.Constants
+import com.ktxdevelopment.mobiware.viewmodel.LocalViewModel
 import com.ktxdevelopment.mobiware.viewmodel.RetroViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -45,22 +49,19 @@ class SignUpActivity : BaseActivity(), OnMobileClickListener {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setUpSignInUI()
 
 
         if (intent.hasExtra(Constants.PHONE_LIST)) {
             phones = intent.getParcelableArrayListExtra(Constants.PHONE_LIST)!!
             onPhonesObtainedFromIntent()
-        }else {
+        } else {
+            restViewModel.searchMobile(BaseClient.getDeviceModel())
             restViewModel.searchResponse.observe(this) { res ->
-
                 when (res) {
                     is Resource.Success -> {
                         binding.gifProgressSignUp.visibility = GONE
-                        if (res.data != null) if (res.data.data.phones.isNotEmpty()) {
-                            onSearchResponseResult(res.data)
-                        }
+                        SignInUpClient.handleSearchSuccessUp(this, binding, res)
                     }
                     is Resource.Error -> {
                         SignInUpClient.handleErrorUp(this, binding, res.error)
@@ -71,11 +72,12 @@ class SignUpActivity : BaseActivity(), OnMobileClickListener {
         }
     }
 
+
     fun searchAgainIfNoConnection() { restViewModel.searchMobile(BaseClient.getDeviceModel()) }
 
 
-
     private fun signButtonClickListener() {
+        hideKeyboardInternal()
         if (validateSignUpInput(binding.etUsernameSignIn, binding.etPasswordSignIn , binding.etEmailSignIn)) {
             if (hasInternetConnection(this)) {
                 if(selectedPhoneUrl != "") {
@@ -94,28 +96,25 @@ class SignUpActivity : BaseActivity(), OnMobileClickListener {
 
     fun onRegisterSuccess(user: FireUser) {
 
-        lifecycleScope.launch {
-            saveUserDetailsToPreferences(this@SignUpActivity,user)
-        }
+        lifecycleScope.launch { saveUserDetailsToPreferences(this@SignUpActivity,user) }
 
-        restViewModel.getResponse.observe(this) {
+        restViewModel.getResponse.observe(this) { res ->
 
-            //todo resource type response
+            when (res) {
+                is Resource.Success -> {
+                    hideProgressDialog()
+                    Intent(this, MainActivity::class.java).apply {
+                        addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_NEW_TASK)
+                        putExtra(Constants.PHONE_EXTRA, res.data!!.data)
+                    }.also { startActivity(it); finish() }
 
-
-
-//            if (it.isSuccessful) if (it.body()!=null) {
-//                writePhoneToFirestoreInBackground(this)
-//
-//                val mainIntent = Intent(this, MainActivity::class.java).apply {
-//                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_NEW_TASK)
-//                    putExtra(Constants.PHONE_EXTRA, it.body()!!.data)
-//                }
-//
-//                hideProgressDialog()
-//                startActivity(mainIntent)
-//                finish()
-//            }
+                }
+                is Resource.Error -> {
+                    hideProgressDialog()
+                    SignInUpClient.handleGetError(this, res.error)
+                }
+                else -> Unit
+            }
         }
     }
 
@@ -140,7 +139,7 @@ class SignUpActivity : BaseActivity(), OnMobileClickListener {
         mobileAdapter.setData(phones)
     }
 
-    private fun onSearchResponseResult(response: SearchResponse) {
+    fun onSearchResponseResult(response: SearchResponse) {
         phones = whichModelSuits(response.data.phones) as ArrayList<Phone>
         mobileAdapter = SelectionAdapter(this)
         initializeRecyclerView(this, binding, mobileAdapter)
@@ -178,4 +177,5 @@ class SignUpActivity : BaseActivity(), OnMobileClickListener {
 
     override fun onBackPressed() = doubleBackToExit()
 
+    private fun hideKeyboardInternal() = hideKeyboard(binding.etEmailSignIn, binding.etPasswordSignIn, binding.etUsernameSignIn, binding.etMobileInsertManually)
 }

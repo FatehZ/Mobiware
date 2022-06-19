@@ -23,12 +23,10 @@
           android:id="@+id/tvSignUselessIn"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:fontFamily="cursive"
           android:gravity="center_horizontal"
-          android:text="@string/sign_in"
+          android:text="@string/login"
           android:textColor="@color/purple_700"
           android:textSize="@dimen/_40ssp"
-          android:textStyle="bold"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintTop_toTopOf="parent" />
 
@@ -89,7 +87,7 @@
             android:layout_width="@dimen/_120sdp"
             android:layout_height="wrap_content"
             android:padding="@dimen/_6sdp"
-            android:text="@string/sign_in"
+            android:text="@string/login"
             android:textSize="@dimen/_15sdp"
             app:layout_constraintTop_toBottomOf="@id/tilUseless10"
             app:layout_constraintEnd_toEndOf="parent"
@@ -185,7 +183,7 @@
               android:id="@+id/etMobileInsertManuallyIn"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:inputType="textPassword"
+              android:inputType="text"
               android:textSize="@dimen/_12ssp" />
 
         </com.google.android.material.textfield.TextInputLayout>

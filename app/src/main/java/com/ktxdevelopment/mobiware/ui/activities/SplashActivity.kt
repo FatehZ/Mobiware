@@ -2,6 +2,7 @@ package com.ktxdevelopment.mobiware.ui.activities
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -17,13 +18,15 @@ class SplashActivity : BaseActivity() {
 
     private lateinit var binding: ActivitySplashBinding
     private val handler = Handler(Looper.getMainLooper())
-    val duration = 1000L
-
+    private var duration = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) duration = 1500L
+
         checkForUpdate()
 
     }
@@ -59,7 +62,6 @@ class SplashActivity : BaseActivity() {
                 finish()
             }
         }
-
 
 
     private fun checkForUpdate() {

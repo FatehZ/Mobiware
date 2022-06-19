@@ -2,14 +2,12 @@ package com.ktxdevelopment.mobiware.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.textfield.TextInputEditText
 import com.ktxdevelopment.mobiware.R
-import com.ktxdevelopment.mobiware.clients.BaseClient
 import com.ktxdevelopment.mobiware.clients.BaseClient.getDeviceModel
 import com.ktxdevelopment.mobiware.clients.BaseClient.hasInternetConnection
 import com.ktxdevelopment.mobiware.clients.BaseClient.whichModelSuits
@@ -54,37 +52,24 @@ class SignInActivity : BaseActivity(), OnMobileClickListener {
             phones = intent.getParcelableArrayListExtra(Constants.PHONE_LIST)!!
             onPhonesObtainedFromIntentIn()
         }else{
-            Log.i(TAG, "onCreate: Worked")
             restViewModel.searchResponse.observe(this) { res ->
                 when (res) {
                     is Resource.Success -> {
                         binding.gifProgressSignIn.visibility = GONE
-                        if (res.data != null) if (res.data.data.phones.isNotEmpty()) {
-                            onSearchResponseResult(res.data)
-                        }
+                        SignInUpClient.handleSearchSuccessIn(this, binding, res)
                     }
                     is Resource.Error -> {
-                        binding.gifProgressSignIn.visibility = GONE
                         SignInUpClient.handleErrorIn(this,binding, res.error)
                     }
                     else -> Unit
                 }
-
-                //todo resource type response
-//                if (response != null) {
-//                    if (response.isSuccessful) if (response.body() != null) if (response.body()!!.data.phones.isNotEmpty()) {
-//                        onSearchResponseResult(response)
-//                    }
-//                }else{
-//                    showErrorSnackbar(getString(R.string.no_connection_error))
-//                    searchAgainIfNoConnection()
-//                }
             }
         }
     }
 
 
     private fun signButtonClickListener() {
+        hideKeyboardInternal()
         if (validateSignInInput(binding.etPasswordSignIn , binding.etEmailSignIn)) {
             if (hasInternetConnection(this)) {
                 if(selectedPhoneUrl != "") {
@@ -105,36 +90,23 @@ class SignInActivity : BaseActivity(), OnMobileClickListener {
             saveUserDetailsToPreferences(this@SignInActivity, updatedUser)
         }
 
-        restViewModel.getResponse.observe(this) { res->
+        restViewModel.getResponse.observe(this) { res ->
 
-            //todo resource type response
+            when (res) {
+                is Resource.Success -> {
+                    hideProgressDialog()
+                    Intent(this, MainActivity::class.java).apply {
+                        addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_NEW_TASK)
+                        putExtra(Constants.PHONE_EXTRA, res.data!!.data)
+                    }.also { startActivity(it); finish() }
 
-
-//            when (res) {
-//                is Resource.Success -> {
-//                    binding.gifProgressSignIn.visibility = GONE
-//                    if (res.data != null) if (res.data.data.phones.isNotEmpty()) {
-//                        onSearchResponseResult(res.data)
-//                    }
-//                }
-//                is Resource.Error -> {
-//                    SignInUpClient.handleError(binding, res)
-//                }
-//                else -> Unit
-//            }
-
-
-//            if (it.isSuccessful) if (it.body()!=null) {
-//                writePhoneToFirestoreInBackground(this)
-//
-//                val mainIntent = Intent(this, MainActivity::class.java).apply {
-//                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_NEW_TASK)
-//                    putExtra(Constants.PHONE_EXTRA, it.body()!!.data)
-//                }
-//                hideProgressDialog()
-//                startActivity(mainIntent)
-//                finish()
-//            }
+                }
+                is Resource.Error -> {
+                    hideProgressDialog()
+                    SignInUpClient.handleGetError(this, res.error)
+                }
+                else -> Unit
+            }
         }
     }
 
@@ -160,7 +132,7 @@ class SignInActivity : BaseActivity(), OnMobileClickListener {
         mobileAdapter.setData(phones)
     }
 
-    private fun onSearchResponseResult(response: SearchResponse) {
+    fun onSearchResponseResult(response: SearchResponse) {
         phones = whichModelSuits(response.data.phones) as ArrayList<Phone>
         mobileAdapter = SelectionAdapter(this)
         initializeRecyclerViewIn(this, binding, mobileAdapter)
@@ -180,7 +152,7 @@ class SignInActivity : BaseActivity(), OnMobileClickListener {
     }
 
 
-    fun searchAgainIfNoConnection() { restViewModel.searchMobile(BaseClient.getDeviceModel()) }
+    fun searchAgainIfNoConnection() { restViewModel.searchMobile(getDeviceModel()) }
 
 
     private fun setupSignInUI() {
@@ -200,6 +172,7 @@ class SignInActivity : BaseActivity(), OnMobileClickListener {
         }
     }
 
-
     override fun onBackPressed() = doubleBackToExit()
+
+    private fun hideKeyboardInternal() = hideKeyboard(binding.etEmailSignIn, binding.etPasswordSignIn, binding.etMobileInsertManuallyIn)
 }
