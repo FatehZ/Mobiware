@@ -19,9 +19,12 @@
 
     <color name="least">#00FF00</color>
     <color name="main">#00FFFF</color>
-    <color name="main_500">#00FF80</color>
-    <color name="main_250">#00FF40</color>
-    <color name="main_800">#00FFC0</color>
-    <color name="main_900">#00FFE0</color>
+<!--    <color name="main_500">#00FF80</color>-->
+<!--    <color name="main_250">#00FF40</color>-->
+<!--    <color name="main_800">#00FFC0</color>-->
+<!--    <color name="main_900">#00FFE0</color>-->
     <color name="blue">#0000FF</color>
+    <color name="green">#00FF00</color>
+
+    <color name="orange">#ff8800</color>
 </resources>

@@ -3,46 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary_background">
+    android:background="@drawable/artboard_1">
 
 
     <androidx.appcompat.widget.Toolbar
         app:title="@string/profile"
         app:titleTextColor="@color/white"
+        android:backgroundTint="@color/main"
         android:id="@+id/toolbarProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/purple_700"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:navigationIcon="@drawable/ic_back"
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/_20sdp"
-        app:cardCornerRadius="@dimen/_15sdp"
-        app:cardElevation="@dimen/_10sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbarProfile">
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/_2sdp"
-        app:cardBackgroundColor="@color/primary_background"
-        app:cardCornerRadius="@dimen/_15sdp"
-        app:cardElevation="@dimen/_10sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarProfile">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/_400sdp"
             android:orientation="vertical"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/toolbarProfile">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/civProfile"
@@ -50,7 +32,7 @@
                 android:layout_height="0dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="10"
-                android:src="@mipmap/ic_launcher"
+                android:src="@drawable/ic_account"
                 app:civ_border_color="@color/civ_border"
                 app:civ_border_width="@dimen/_2sdp"
                 app:layout_constraintBottom_toTopOf="@id/tilUseless3"
@@ -88,6 +70,9 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etEmailProfile"
+                    android:focusable="false"
+                    android:textColor="@color/teal_700"
+                    android:enabled="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp" />
@@ -147,8 +132,5 @@
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
-
-    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

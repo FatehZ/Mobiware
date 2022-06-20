@@ -3,8 +3,8 @@
     <style name="Theme.Mobiware" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="fontFamily">@font/dosis_medium</item>
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/orange</item>
+        <item name="colorPrimaryVariant">@color/main</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -18,7 +18,7 @@
 
     <style name="Theme.SpecialButton" parent="ThemeOverlay.Material3.Button">
         <item name="cornerRadius">@dimen/_12sdp</item>
-        <item name="backgroundTint">@android:color/holo_orange_dark</item>
+        <item name="backgroundTint">@color/orange</item>
     </style>
 
     <style name="Theme.SpecialTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">

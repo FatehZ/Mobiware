@@ -52,11 +52,11 @@
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navView"
-        android:layout_width="@dimen/_230sdp"
+        android:layout_width="@dimen/_200sdp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        android:background="@color/main"
+        android:background="@drawable/gradient_nav_header"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/menu_drawer"/>
 

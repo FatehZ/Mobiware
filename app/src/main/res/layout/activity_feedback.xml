@@ -3,19 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/artboard_1">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clUselessF"
         android:layout_width="match_parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/purple_700"
+        android:background="@color/main"
         android:paddingHorizontal="@dimen/_10sdp">
 
         <androidx.appcompat.widget.Toolbar
             app:title="@string/give_feedback"
             app:titleTextColor="@color/white"
+            android:backgroundTint="@color/main"
             android:id="@+id/toolbarFeedback"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -32,8 +34,8 @@
         android:layout_height="0dp"
         android:layout_margin="@dimen/_12sdp"
         android:elevation="@dimen/_200sdp"
-        app:cardBackgroundColor="@color/white"
-        app:cardElevation="@dimen/_10sdp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardElevation="@dimen/_5sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:cardCornerRadius="@dimen/_20sdp"
@@ -45,19 +47,22 @@
             android:layout_height="match_parent">
 
             <EditText
-                android:padding="@dimen/_20sdp"
-                android:hint="@string/type_message_feedback"
-                android:textColorHint="@color/teal_700"
-                android:gravity="top"
-                android:layout_margin="@dimen/_10sdp"
-                android:background="@drawable/edit_text_design"
                 android:id="@+id/etFeedback"
+                app:layout_constraintVertical_bias="0.02"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_200sdp"
-                app:layout_constraintTop_toTopOf="parent"
-                android:inputType="textMultiLine"
+                android:layout_margin="@dimen/_10sdp"
+                android:background="@drawable/edit_text_design"
+                android:gravity="top"
+                android:hint="@string/type_message_feedback"
                 android:importantForAutofill="no"
-                tools:ignore="LabelFor" />
+                android:inputType="textMultiLine"
+                android:padding="@dimen/_20sdp"
+                android:textColorHint="@color/teal_700"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="LabelFor"
+                tools:layout_editor_absoluteX="13dp" />
 
             <Button
                 android:id="@+id/btnSendFeedback"

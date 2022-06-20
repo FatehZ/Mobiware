@@ -161,7 +161,11 @@ class SignInActivity : BaseActivity(), OnMobileClickListener {
         binding.btnSignIn.setOnClickListener { signButtonClickListener() }
         binding.btnSubmitPhoneModelIn.setOnClickListener { submitPhoneSearchAgain(binding.etMobileInsertManuallyIn) }
         binding.btnNoAccountSignUp.setOnClickListener { launchSignUpIntent() }
+        binding.btnForgotPasswordSignIn.setOnClickListener { launchForgotPassword() }
+    }
 
+    private fun launchForgotPassword() {
+        startActivity(Intent(this, ForgotPasswordActivity::class.java))
     }
 
 

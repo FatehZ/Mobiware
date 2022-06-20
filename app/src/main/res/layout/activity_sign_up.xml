@@ -4,14 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.SignUpActivity">
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/_5sdp"
-        app:cardCornerRadius="@dimen/_20sdp"
-        app:cardElevation="@dimen/_10sdp" >
+    tools:context=".ui.activities.SignUpActivity"
+    android:background="@drawable/artboard_1">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,17 +13,13 @@
             android:layout_height="match_parent">
 
             <TextView
-                app:layout_constraintVertical_bias="0.01"
                 android:id="@+id/tvSignUseless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="cursive"
                 android:gravity="center_horizontal"
                 android:text="@string/sign_up"
-                android:textColor="@color/purple_700"
-                android:textSize="@dimen/_40ssp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/_30ssp"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -112,6 +102,7 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/_6sdp"
                     android:text="@string/sign_up"
+                    android:textColor="@color/main"
                     android:textSize="@dimen/_15sdp"
                     app:layout_constraintTop_toBottomOf="@id/tilUseless8"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -121,7 +112,7 @@
                     android:id="@+id/btn_have_account_sign_in"
                     android:background="@android:color/transparent"
                     android:layout_width="match_parent"
-                    android:textColor="@color/teal_700"
+                    android:textColor="@color/blue"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_10ssp"
                     android:gravity="center_horizontal"
@@ -135,12 +126,12 @@
             <androidx.cardview.widget.CardView
                 android:layout_marginVertical="@dimen/_5sdp"
                 android:id="@+id/cvSignUseless"
-                android:layout_width="match_parent"
                 android:visibility="gone"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/white"
+                app:cardBackgroundColor="@color/orange"
                 app:cardElevation="@dimen/_1sdp"
-                android:layout_marginHorizontal="@dimen/_15sdp"
+                android:layout_marginHorizontal="@dimen/_20sdp"
                 app:cardCornerRadius="@dimen/_10sdp"
                 app:layout_constraintTop_toBottomOf="@id/clUselessSign">
 
@@ -153,9 +144,8 @@
                     android:gravity="center_horizontal"
                     android:maxLines="1"
                     android:text="@string/select_your_phone_model"
-                    android:textColor="@color/purple_700"
+                    android:textColor="@color/main"
                     android:textSize="@dimen/_16ssp"
-                    android:textStyle="bold"
                     />
 
             </androidx.cardview.widget.CardView>
@@ -243,5 +233,4 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

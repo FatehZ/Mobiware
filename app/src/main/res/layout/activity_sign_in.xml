@@ -4,14 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/artboard_1"
     tools:context=".ui.activities.SignUpActivity">
-
-  <androidx.cardview.widget.CardView
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_margin="@dimen/_5sdp"
-      app:cardCornerRadius="@dimen/_20sdp"
-      app:cardElevation="@dimen/_10sdp" >
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,15 +13,13 @@
         android:layout_height="match_parent">
 
       <TextView
-          app:layout_constraintVertical_bias="0.01"
           android:id="@+id/tvSignUselessIn"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:gravity="center_horizontal"
           android:text="@string/login"
-          android:textColor="@color/purple_700"
-          android:textSize="@dimen/_40ssp"
-          app:layout_constraintBottom_toBottomOf="parent"
+          android:textColor="@color/orange"
+          android:textSize="@dimen/_30ssp"
           app:layout_constraintTop_toTopOf="parent" />
 
       <androidx.constraintlayout.widget.ConstraintLayout
@@ -67,9 +59,9 @@
             android:layout_marginHorizontal="@dimen/_20sdp"
             android:hint="@string/password"
             app:errorEnabled="true"
+            app:layout_constraintTop_toBottomOf="@id/tilUseless9"
             app:startIconDrawable="@drawable/ic_lock"
-            app:layout_constraintBottom_toTopOf="@id/btnSignIn"
-            app:layout_constraintTop_toBottomOf="@id/tilUseless9">
+            tools:layout_editor_absoluteX="26dp">
 
           <com.google.android.material.textfield.TextInputEditText
               android:id="@+id/etPasswordSignIn"
@@ -80,6 +72,16 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <TextView
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/blue"
+            android:layout_width="wrap_content"
+            android:textSize="@dimen/_11ssp"
+            android:layout_height="wrap_content"
+            android:text="@string/forgot_password"
+            app:layout_constraintTop_toBottomOf="@id/tilUseless10"
+            android:id="@+id/btnForgotPasswordSignIn" />
 
         <Button
             android:id="@+id/btnSignIn"
@@ -89,7 +91,7 @@
             android:padding="@dimen/_6sdp"
             android:text="@string/login"
             android:textSize="@dimen/_15sdp"
-            app:layout_constraintTop_toBottomOf="@id/tilUseless10"
+            app:layout_constraintTop_toBottomOf="@id/btnForgotPasswordSignIn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -97,7 +99,7 @@
             android:id="@+id/btn_no_account_sign_up"
             android:background="@android:color/transparent"
             android:layout_width="match_parent"
-            android:textColor="@color/teal_700"
+            android:textColor="@color/blue"
             android:layout_height="wrap_content"
             android:textSize="@dimen/_10ssp"
             android:gravity="center_horizontal"
@@ -112,11 +114,11 @@
           android:layout_marginVertical="@dimen/_5sdp"
           android:id="@+id/cvSignUselessIn"
           android:layout_width="match_parent"
-          android:visibility="gone"
           android:layout_height="wrap_content"
-          app:cardBackgroundColor="@color/white"
+          app:cardBackgroundColor="@color/orange"
+          android:visibility="gone"
           app:cardElevation="@dimen/_1sdp"
-          android:layout_marginHorizontal="@dimen/_15sdp"
+          android:layout_marginHorizontal="@dimen/_20sdp"
           app:cardCornerRadius="@dimen/_10sdp"
           app:layout_constraintTop_toBottomOf="@id/clUselessSignIn">
 
@@ -129,9 +131,8 @@
             android:gravity="center_horizontal"
             android:maxLines="1"
             android:text="@string/select_your_phone_model"
-            android:textColor="@color/purple_700"
+            android:textColor="@color/blue"
             android:textSize="@dimen/_16ssp"
-            android:textStyle="bold"
             />
 
       </androidx.cardview.widget.CardView>
@@ -216,5 +217,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-  </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

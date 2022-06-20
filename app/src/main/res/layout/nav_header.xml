@@ -5,17 +5,18 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="bottom"
-    android:background="@drawable/gradient_nav_header"
+    android:background="@color/main"
     android:orientation="vertical"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvUselessNav"
-        android:layout_width="@dimen/_120sdp"
-        android:layout_height="@dimen/_120sdp"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_100sdp"
         android:layout_marginTop="@dimen/_20sdp"
         android:layout_marginStart="@dimen/_20sdp"
         app:layout_constraintTop_toTopOf="parent"
+        app:cardBackgroundColor="@color/main"
         app:layout_constraintStart_toStartOf="parent"
         app:cardCornerRadius="@dimen/_20sdp"
         app:cardElevation="@dimen/_10sdp">
@@ -56,6 +57,6 @@
         app:layout_constraintTop_toBottomOf="@id/tvUserName"
         android:layout_marginTop="@dimen/_8sdp"
         android:layout_height="@dimen/_2sdp"
-        android:background="@color/main_900"/>
+        android:background="@color/main"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

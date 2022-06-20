@@ -65,6 +65,7 @@
     <string name="reset_password">Reset Password</string>
     <string name="reset">Reset</string>
     <string name="reset_email_has_sent">Email for resetting password is sent</string>
+    <string name="a_email_for_resetting">A email for resetting password will be sent to your email address</string>
 
 
 </resources>

@@ -3,6 +3,7 @@ package com.ktxdevelopment.mobiware.ui.activities
 import android.content.Intent
 import android.os.Bundle
 import com.ktxdevelopment.mobiware.R
+import com.ktxdevelopment.mobiware.clients.BaseClient
 import com.ktxdevelopment.mobiware.clients.TextInputClient
 import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient
 import com.ktxdevelopment.mobiware.databinding.ActivityForgotPasswordBinding
@@ -30,8 +31,13 @@ class ForgotPasswordActivity : BaseActivity() {
         binding.btnResetPassword.setOnClickListener {
             hideKeyboardInternal()
             if (TextInputClient.validateEmail(binding.etResetPasswordEmail)) {
-                showProgressDialog()
-                FirebaseClient.resetPasswordWithEmail(this, binding.etResetPasswordEmail.text.toString())
+                if (BaseClient.hasInternetConnection(this)) {
+                    showProgressDialog()
+                    FirebaseClient.resetPasswordWithEmail(
+                        this,
+                        binding.etResetPasswordEmail.text.toString()
+                    )
+                }else{ showErrorSnackbar(getString(R.string.no_connection_error)) }
             }
         }
     }

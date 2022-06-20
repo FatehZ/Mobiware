@@ -16,6 +16,7 @@ import androidx.core.os.postDelayed
 import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.ktxdevelopment.mobiware.R
 import com.ktxdevelopment.mobiware.clients.PermissionClient
 import com.ktxdevelopment.mobiware.clients.PermissionClient.getFileExtension
 import com.ktxdevelopment.mobiware.clients.TextInputClient.validateFilledInput
@@ -112,6 +113,7 @@ class ProfileActivity : BaseActivity() {
         Glide
             .with(this)
             .load(user.imageUrl)
+            .placeholder(R.drawable.ic_account)
             .centerCrop()
             .into(binding.civProfile)
 

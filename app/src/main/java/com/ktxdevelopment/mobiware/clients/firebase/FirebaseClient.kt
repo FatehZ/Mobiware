@@ -148,12 +148,15 @@ object FirebaseClient {
     }
 
     fun resetPasswordWithEmail(context: BaseActivity, email: String) {
-        //todo reset password
-
         if (context is ForgotPasswordActivity) {
-            context.onResetPasswordSuccess()
+            auth.sendPasswordResetEmail(email).addOnSuccessListener {
+                context.onResetPasswordSuccess()
+                Log.i(TAG, "reset: Success")
 
+            }.addOnFailureListener {
+                Log.i(TAG, "reset: ${it.message}")
+//                context.onResetPasswordError()
+            }
         }
-
     }
 }
