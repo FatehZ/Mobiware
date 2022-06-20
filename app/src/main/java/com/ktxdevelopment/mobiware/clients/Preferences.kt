@@ -24,7 +24,7 @@ object Preferences {
 
     suspend fun saveUserDetailsToPreferences(context: Context, fUser: FireUser) {
         instantiate(context)
-        val user = LocalUser(fUser.userId, fUser.username, fUser.mobileNumber, fUser.mobileId, fUser.email, fUser.imageUrl)
+        val user = LocalUser(fUser.userId, fUser.username, fUser.mobileNumber, fUser.mobileId, fUser.email, PermissionClient.getBaseImageFromString(fUser.imageUrl))
         editor.putString(Constants.PR_imageString, user.image)
         editor.putString(Constants.PR_userId, user.userId)
         editor.putString(Constants.PR_username, user.username)
