@@ -38,14 +38,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         if (intent.hasExtra(Constants.PHONE_EXTRA)) {
             phoneDetails = intent.getParcelableExtra(Constants.PHONE_EXTRA)!!
-
             viewModel.writeMobileToRoomDB(this, phoneDetails)
-
-        }else{
-            viewModel.getRoomMobileDetails()
-            viewModel.roomMobileDetails.observe(this) {
-                //todo  send to fragment or declare in fragment -- mostly second one
-            }
+            viewModel.writeMobileToFirestore(this, phoneDetails)
         }
     }
 

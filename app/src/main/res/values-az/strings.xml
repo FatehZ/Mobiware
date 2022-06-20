@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="profile_image">Profile Image</string>
+    <string name="device_name">Device Name</string>
+    <string name="please_wait">Gözləyin…</string>
+
+    <string name="please_click_back_again">Çıxmaq üçün yenidən basın</string>
+    <string name="hardware">Telefonum</string>
+    <string name="software">Software</string>
+    <string name="battery_info">Batereya</string>
+    <string name="settings">Tənzimləmələr</string>
+    <string name="give_feedback">Şərh bildir</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="email">Email</string>
+    <string name="text_update_activity">Tətbiqin yeni versiyası mövcuddur</string>
+    <string name="later">Keç</string>
+    <string name="update">Yenilə</string>
+    <string name="dont_show_again">Yenidən göstərmə</string>
+    <string name="type_message_feedback">Şərhinizi yazın…</string>
+    <string name="send">Göndər</string>
+    <string name="dark_mode">Qaranlıq Fon</string>
+    <string name="getting_device_specs">Telefon məlumatları yüklənir</string>
+
+    <string name="process_name">Əməliyyat Adı</string>
+    <string name="sign_up">Qeydiyyat</string>
+    <string name="username">İstifadəçi Adı</string>
+    <string name="optional">İstəyə bağlı</string>
+    <string name="blank_username">İstifadəçi Adınızı daxil edin</string>
+    <string name="registering_user">Qeydiyyat Aparılır</string>
+    <string name="profile">Profile</string>
+    <string name="please_update_to_continue">Tətbiqə keçid etmək üçün yeniləyin</string>
+    <string name="select_your_phone_model">telefon modelinizi seçin:</string>
+    <string name="password">Şifrə</string>
+    <string name="phone_number">Mobil Nömrə</string>
+    <string name="already_have_account_sign_in">Hesabınız var? Giriş edin</string>
+    <string name="sign_out">Heabdan Çıx</string>
+    <string name="username_5_or_more_letters">Minimum 5 simvol daxil edin</string>
+    <string name="at_least_a_letter">Minimum bir hərf daxil edin</string>
+    <string name="no_special_symbols_allowed">Xüsusi simvola aşkarlandı</string>
+    <string name="password_at_least_6_chars">Minimum 6 simvol daxil edin</string>
+    <string name="sign_in">Giriş</string>
+    <string name="no_account_register">Heabınız yoxdur? Qeydiyyatdan keçin</string>
+    <string name="user_exists">İstifadəçi mövcuddur. Giriş edin</string>
+    <string name="user_does_not_exist">İstifadəçi mövcud deyil</string>
+    <string name="password_is_wrong">Şifrə yanlışdır</string>
+    <string name="error_occurred">Problem yarandı</string>
+    <string name="no_connection_error">İnternet bağlantınızı yoxlayın</string>
+    <string name="select_a_phone_error">Telefon modelinizi seçin</string>
+    <string name="smth_went_wrong">Problem yarandı. Daha sonra yenidən cəhd edin</string>
+    <string name="could_not_find_your_phone_model">Sistem telefonunuzu müəyyənləşdirə bilmədi. Xahiş olunur telefon modelinizi daxil edin:</string>
+    <string name="phone_model">Telefon Modeli</string>
+    <string name="submit">Göndər</string>
+    <string name="no_empty_input">Telefonu daxil edin</string>
+    <string name="too_short_enter_valid">Model adı çox qısadır</string>
+    <string name="login">Giriş</string>
+    <string name="profile_updated_success">Profil detalları yeniləndi</string>
+    <string name="forgot_password">Şifrəni Unutmusunuz?</string>
+    <string name="reset_password">Şifrəni yenilə</string>
+    <string name="reset">Yenilə</string>
+    <string name="reset_email_has_sent">Email for resetting password is sent</string>
+</resources>

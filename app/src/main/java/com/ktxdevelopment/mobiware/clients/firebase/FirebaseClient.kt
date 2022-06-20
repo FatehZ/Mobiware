@@ -7,11 +7,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import com.ktxdevelopment.mobiware.R
+import com.ktxdevelopment.mobiware.models.firebase.FireMobile
 import com.ktxdevelopment.mobiware.models.firebase.FireUser
-import com.ktxdevelopment.mobiware.ui.activities.BaseActivity
-import com.ktxdevelopment.mobiware.ui.activities.ProfileActivity
-import com.ktxdevelopment.mobiware.ui.activities.SignInActivity
-import com.ktxdevelopment.mobiware.ui.activities.SignUpActivity
+import com.ktxdevelopment.mobiware.models.rest.product.Data
+import com.ktxdevelopment.mobiware.ui.activities.*
 import com.ktxdevelopment.mobiware.util.Constants
 
 object FirebaseClient {
@@ -106,20 +106,20 @@ object FirebaseClient {
             }
     }
 
-//    fun loadMobileDataPrivate(mobile: Data) {
-//
-//        val mobiRef = firestore.collection(Constants.MOBILES).document(mobile.phone_name)
-//
-//        if (mobiRef.get().result.exists()) {
-//            mobiRef.get().addOnSuccessListener {
-//                mobiRef.set(it.toObject(FireMobile::class.java)!!.apply {
-//                    userId.add(getCurrentUserId())
-//                })
-//            }
-//        }else {
-//            mobiRef.set(FireMobile(mobile, arrayListOf(getCurrentUserId())))
-//        }
-//    }
+    fun loadMobileDataInBack(mobile: Data) {
+
+        val mobiRef = firestore.collection(Constants.MOBILES).document(mobile.phone_name)
+
+        if (mobiRef.get().result.exists()) {
+            mobiRef.get().addOnSuccessListener {
+                mobiRef.set(it.toObject(FireMobile::class.java)!!.apply {
+                    userId.add(getCurrentUserId())
+                })
+            }
+        }else {
+            mobiRef.set(FireMobile(mobile, arrayListOf(getCurrentUserId())))
+        }
+    }
 
 
     fun getCurrentUserId(): String {
@@ -138,13 +138,22 @@ object FirebaseClient {
             .update(userHashMap)
             .addOnSuccessListener {
                 Log.i(TAG, "updateUserProfileData: updated Successfully")
-                Toast.makeText(activity, "Profile updated Successfully", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, activity.getString(R.string.profile_updated_success), Toast.LENGTH_SHORT).show()
                 activity.onProfileUpdateSuccess()
             }.addOnFailureListener { e ->
                 activity.hideProgressDialog()
                 Log.i(TAG, e.message.toString())
-                Toast.makeText(activity, "Profile update error", Toast.LENGTH_SHORT).show()
-
+                Toast.makeText(activity, activity.getString(R.string.smth_went_wrong), Toast.LENGTH_SHORT).show()
             }
+    }
+
+    fun resetPasswordWithEmail(context: BaseActivity, email: String) {
+        //todo reset password
+
+        if (context is ForgotPasswordActivity) {
+            context.onResetPasswordSuccess()
+
+        }
+
     }
 }

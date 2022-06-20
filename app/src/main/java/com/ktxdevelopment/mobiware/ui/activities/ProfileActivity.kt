@@ -32,6 +32,7 @@ class ProfileActivity : BaseActivity() {
     private var mSelectedPhotoUri: Uri? = null
     private var mProfileImageOnlineDBUri: String = ""
     private lateinit var mUserDetails: FireUser
+    private val TAG = "PR_TAG"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -99,6 +100,7 @@ class ProfileActivity : BaseActivity() {
                             .centerCrop()
                             .into(binding.civProfile)
                     } catch (e: Exception) {
+                        Log.i( TAG, "Error : ${e.message}")
                     }
                 }
             }
@@ -150,7 +152,7 @@ class ProfileActivity : BaseActivity() {
     fun onProfileUpdateSuccess() {
         hideProgressDialog()
         setResult(RESULT_OK)
-        finish()
+        //todo removed finish()
     }
 
     private fun updateUserProfileData() {
