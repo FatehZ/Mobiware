@@ -190,7 +190,7 @@ class FragmentProfile : BaseFragment() {
           setUserDataInUI(userDetails)
           mProfileImageOnlineDBUri = ""
           mSelectedPhotoUri = null
-          tryEr { roomViewModel.writeUserToPreferences(context!!, userDetails) }
+          tryEr { roomViewModel.writeUserToPreferences(context!!, user) }
      }
 
      fun onProfileUpdateSuccess() {

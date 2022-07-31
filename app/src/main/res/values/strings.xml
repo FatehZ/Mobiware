@@ -58,7 +58,7 @@
     <string name="could_not_find_your_phone_model">Search system could not find your phone model. Please insert manually:</string>
     <string name="phone_model">Phone Model</string>
     <string name="submit">Submit</string>
-    <string name="no_empty_input">Input text is empty</string>
+    <string name="no_empty_input">Please enter text or attach image</string>
     <string name="too_short_enter_valid">Model is too short</string>
     <string name="login">Log In</string>
     <string name="profile_updated_success">Profile updated successfully</string>

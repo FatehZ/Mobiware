@@ -48,7 +48,7 @@ class FragmentFeedback : BaseFragment(),  LinkedImageAdapter.OnLinkedImageClickL
 
      override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
           super.onViewCreated(view, savedInstanceState)
-          val userEmail: String = activity!!.intent.getStringExtra(Constants.USER_EXTRA) ?: getString(R.string.null_email_placeholder_for_feedback)
+          val userEmail: String = activity?.intent?.getStringExtra(Constants.USER_EXTRA) ?: getString(R.string.null_email_placeholder_for_feedback)
 
           viewModel = ViewModelProvider(requireActivity())[LocalViewModel::class.java]
 
@@ -60,12 +60,10 @@ class FragmentFeedback : BaseFragment(),  LinkedImageAdapter.OnLinkedImageClickL
           photoList = ArrayList()
 
           binding.btnSendFeedback.setOnClickListener {
-               if (TextInputClient.validateFilledInput(binding.etFeedback.text.toString())) {
+               if (TextInputClient.validateFilledInput(binding.etFeedback.text.toString()) || photoList.size > 0) {
                     showProgressDialogCancellable()
                     FirebaseClient.sendFeedback(this, userEmail, binding.etFeedback.text.toString())
-               } else {
-                    binding.etFeedback.error = getString(R.string.no_empty_input)
-               }
+               } else binding.etFeedback.error = getString(R.string.no_empty_input)
           }
 
           binding.cvInsertImage.setOnClickListener {
