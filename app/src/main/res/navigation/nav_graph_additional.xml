@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_additional"
+    app:startDestination="@id/fragmentProfile">
+
+    <fragment
+        android:id="@+id/fragmentProfile"
+        android:name="com.ktxdevelopment.mobiware.ui.fragments.additional.FragmentProfile"
+        android:label="FragmentProfile" />
+
+    <fragment
+        android:id="@+id/fragmentFeedback"
+        android:name="com.ktxdevelopment.mobiware.ui.fragments.additional.FragmentFeedback"
+        android:label="FragmentFeedback" />
+
+    <action android:id="@+id/actionToFeedback"
+        app:destination="@id/fragmentFeedback" />
+
+
+    <action android:id="@+id/actionToProfile"
+        app:destination="@id/fragmentProfile" />
+
+</navigation>

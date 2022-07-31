@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragmentHardware">
+
+    <fragment
+        android:id="@+id/fragmentLatest"
+        android:name="com.ktxdevelopment.mobiware.ui.fragments.main.FragmentLatest"
+        android:label="FragmentLatest"
+        tools:layout="@layout/fragment_latest" >
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentHardware"
+        android:name="com.ktxdevelopment.mobiware.ui.fragments.main.FragmentHardware"
+        android:label="fragment_hardware"
+        tools:layout="@layout/fragment_hardware" />
+    <fragment
+        android:id="@+id/fragmentMyDevices"
+        android:name="com.ktxdevelopment.mobiware.ui.fragments.main.FragmentMyDevices"
+        android:label="FragmentMyDevices" >
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentSecondaryHardware"
+        android:name="com.ktxdevelopment.mobiware.ui.fragments.main.FragmentSecondaryHardware"
+        android:label="FragmentSecondaryHardware" >
+        <action
+            android:id="@+id/action_fragmentSecondaryHardware_to_fragmentLatest"
+            app:popUpToInclusive="true"
+            app:destination="@id/fragmentLatest" />
+    </fragment>
+
+    <action
+        android:id="@+id/actionToLatest"
+        app:destination="@id/fragmentLatest">
+    </action>
+
+    <action
+        android:id="@+id/actionToHardware"
+        app:destination="@id/fragmentHardware" />
+
+    <action
+        android:id="@+id/actionToMyDevices"
+        app:destination="@id/fragmentMyDevices" />
+
+    <action
+        android:id="@+id/actionToSecondaryHardware"
+        app:destination="@id/fragmentSecondaryHardware" />
+
+</navigation>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/cyan">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:cardCornerRadius="@dimen/_25sdp"
+        app:cardElevation="@dimen/_5sdp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="@drawable/artboard_1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_marginTop="@dimen/_30sdp"
+                android:layout_marginHorizontal="@dimen/_40sdp"
+                android:id="@+id/ivUpdateActivity"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_80sdp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_play_store_splash"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvUpdateUseless"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/text_update_activity"
+                android:textColor="@color/purple_700"
+                android:textSize="@dimen/_24sdp"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:lineSpacingExtra="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                app:layout_constraintTop_toBottomOf="@+id/ivUpdateActivity" />
+
+
+            <ImageView
+                android:id="@+id/ivUselessUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_160sdp"
+                android:src="@drawable/update_image_adjust"
+                app:layout_constraintTop_toBottomOf="@id/tvUpdateUseless"
+                android:contentDescription="@string/app_name" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:visibility="visible"
+                android:id="@+id/llMay"
+                app:layout_constraintVertical_bias="0.7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivUselessUpdate">
+
+
+                <LinearLayout
+                    android:id="@+id/ll1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:weightSum="16"
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <Button
+                        android:id="@+id/btnLater"
+                        style="@style/Theme.SpecialOutButton"
+                        android:textStyle="bold"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="7"
+                        android:padding="@dimen/_8sdp"
+                        android:text="@string/later"
+                        android:textSize="@dimen/_16sdp" />
+
+
+                    <View
+                        android:layout_width="@dimen/_1sdp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5" />
+
+
+                    <Button
+                        android:id="@+id/btnUpdateMay"
+                        style="@style/Widget.Material3.Button.UnelevatedButton"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="7"
+                        android:backgroundTint="@color/blue"
+                        android:textColor="@color/white"
+                        android:padding="@dimen/_8sdp"
+                        android:text="@string/update"
+                        android:textSize="@dimen/_16sdp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:visibility="gone"
+                android:id="@+id/llMust"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivUselessUpdate"
+                app:layout_constraintVertical_bias="0.8">
+
+                <LinearLayout
+                    android:id="@+id/ll2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:weightSum="16"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <Button
+                        android:id="@+id/btnUpdateMust"
+                        style="@style/Widget.Material3.Button.UnelevatedButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="11"
+                        android:padding="@dimen/_12sdp"
+                        android:text="@string/update"
+                        android:textSize="@dimen/_16sdp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/please_update_to_continue"
+                    android:textColor="@color/splash_text_color"
+                    android:textSize="@dimen/_14sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ll2" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

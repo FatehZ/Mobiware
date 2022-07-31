@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/artboard_1">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvSignUselessIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:text="@string/login"
+            android:textColor="@color/orange"
+            android:textSize="@dimen/_30ssp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clUselessSignIn"
+            app:layout_constraintVertical_bias="0.01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvSignUselessIn">
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilUseless9"
+                style="@style/Theme.SpecialTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:hint="@string/email"
+                app:errorEnabled="true"
+                app:startIconDrawable="@drawable/ic_baseline_mail_24"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEmailSignIn"
+                    android:inputType="textEmailAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="@dimen/_12ssp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilUseless10"
+                app:passwordToggleEnabled="true"
+                style="@style/Theme.SpecialTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:hint="@string/password"
+                app:errorEnabled="true"
+                app:layout_constraintTop_toBottomOf="@id/tilUseless9"
+                app:startIconDrawable="@drawable/ic_lock"
+                tools:layout_editor_absoluteX="26dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPasswordSignIn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textPassword"
+                    android:textSize="@dimen/_12ssp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textColor="@color/blue"
+                android:layout_width="wrap_content"
+                android:textSize="@dimen/_11ssp"
+                android:layout_height="wrap_content"
+                android:text="@string/forgot_password"
+                app:layout_constraintTop_toBottomOf="@id/tilUseless10"
+                android:id="@+id/btnForgotPasswordSignIn" />
+
+            <Button
+                android:id="@+id/btnSignIn"
+                style="@style/Theme.SpecialButton"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_6sdp"
+                android:text="@string/login"
+                android:textSize="@dimen/_15ssp"
+                app:layout_constraintTop_toBottomOf="@id/btnForgotPasswordSignIn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/btn_no_account_sign_up"
+                android:background="@android:color/transparent"
+                android:paddingVertical="@dimen/_3sdp"
+                android:layout_width="match_parent"
+                android:textColor="@color/blue"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_10ssp"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@id/btnSignIn"
+                android:text="@string/no_account_register" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_marginVertical="@dimen/_5sdp"
+            android:id="@+id/cvSignUselessIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/orange"
+            app:cardElevation="@dimen/_1sdp"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            app:cardCornerRadius="@dimen/_10sdp"
+            app:layout_constraintTop_toBottomOf="@id/clUselessSignIn">
+
+            <TextView
+                android:layout_marginVertical="@dimen/_5ssp"
+                android:id="@+id/tvSignPhoneModelIn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/coustard"
+                android:gravity="center_horizontal"
+                android:maxLines="1"
+                android:text="@string/select_your_phone_model"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_16ssp"
+                />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSelectionMobilesIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cvSignUselessIn" />
+
+        <LinearLayout
+            android:visibility="gone"
+            app:layout_constraintVertical_bias="0.1"
+            android:id="@+id/llInsertPhoneManually"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/cvSignUselessIn"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:text="@string/could_not_find_your_phone_model"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:textColor="@color/purple_700"
+                android:textSize="@dimen/_14ssp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/tvSignPhoneModel"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Theme.SpecialTextInputLayout"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:hint="@string/phone_model"
+                app:errorEnabled="true"
+                app:startIconDrawable="@drawable/ic_phone_android"
+                app:layout_constraintBottom_toTopOf="@id/btnSignUp"
+                app:layout_constraintTop_toBottomOf="@id/tilUseless2">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etMobileInsertManuallyIn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="text"
+                    android:textSize="@dimen/_12ssp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <Button
+                android:id="@+id/btnSubmitPhoneModelIn"
+                style="@style/Theme.SpecialButton"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_6sdp"
+                android:text="@string/submit"
+                android:textSize="@dimen/_15sdp"
+                android:layout_gravity="center_horizontal"
+                app:layout_constraintTop_toBottomOf="@id/tilUseless8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </LinearLayout>
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/gifProgressSignIn"
+            android:layout_width="@dimen/_600sdp"
+            android:layout_height="0dp"
+            android:src="@drawable/output_onlinegils"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cvSignUselessIn" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

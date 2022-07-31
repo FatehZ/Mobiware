@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/artboard_1">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvSignUseless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/sign_up"
+            android:textColor="@color/orange"
+            android:textSize="@dimen/_30ssp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clUselessSign"
+            app:layout_constraintVertical_bias="0.01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvSignUseless">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilUseless1"
+                style="@style/Theme.SpecialTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:hint="@string/username"
+                app:startIconDrawable="@drawable/ic_account"
+                app:errorEnabled="true"
+                app:layout_constraintBottom_toTopOf="@id/tilUseless2"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etUsernameSignIn"
+                    android:inputType="textPersonName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="@dimen/_12ssp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilUseless2"
+                style="@style/Theme.SpecialTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:hint="@string/email"
+                app:startIconDrawable="@drawable/ic_baseline_mail_24"
+                app:errorEnabled="true"
+                app:layout_constraintTop_toBottomOf="@id/tilUseless1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEmailSignIn"
+                    android:inputType="textEmailAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="@dimen/_12ssp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilUseless8"
+                style="@style/Theme.SpecialTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:hint="@string/password"
+                app:errorEnabled="true"
+                app:startIconDrawable="@drawable/ic_lock"
+                app:passwordToggleEnabled="true"
+                app:layout_constraintBottom_toTopOf="@id/btnSignUp"
+                app:layout_constraintTop_toBottomOf="@id/tilUseless2">
+
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:id="@+id/etPasswordSignIn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textPassword"
+                    android:textSize="@dimen/_12ssp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <Button
+                android:id="@+id/btnSignUp"
+                style="@style/Theme.SpecialButton"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_6sdp"
+                android:text="@string/sign_up"
+                android:textSize="@dimen/_15ssp"
+                app:layout_constraintTop_toBottomOf="@id/tilUseless8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/btn_have_account_sign_in"
+                android:background="@android:color/transparent"
+                android:layout_width="match_parent"
+                android:textColor="@color/blue"
+                android:paddingVertical="@dimen/_3sdp"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_12ssp"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@id/btnSignUp"
+                android:text="@string/already_have_account_sign_in" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:layout_marginVertical="@dimen/_5sdp"
+            android:fontFamily="@font/coustard"
+            android:gravity="center_horizontal"
+            android:maxLines="1"
+            android:text="@string/select_your_phone_model"
+            android:textColor="@color/orange"
+            android:textSize="@dimen/_20ssp"
+            app:cardBackgroundColor="@color/orange"
+            app:cardCornerRadius="@dimen/_10sdp"
+            app:cardElevation="@dimen/_1sdp"
+            app:layout_constraintTop_toBottomOf="@id/clUselessSign"
+            tools:layout_editor_absoluteX="26dp">
+
+            <TextView
+                android:id="@+id/tvSignPhoneModel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/_5ssp"
+                android:fontFamily="@font/coustard"
+                android:gravity="center_horizontal"
+                android:maxLines="1"
+                android:text="@string/select_your_phone_model"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_16ssp" />
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSelectionMobiles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:foregroundGravity="bottom"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView4"/>
+
+        <LinearLayout
+            android:id="@+id/llInsertPhoneManually"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView4"
+            app:layout_constraintVertical_bias="0.1">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:gravity="center"
+                android:text="@string/could_not_find_your_phone_model"
+                android:textColor="@color/purple_700"
+                android:textSize="@dimen/_14ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvSignPhoneModel" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Theme.SpecialTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:hint="@string/phone_model"
+                app:errorEnabled="true"
+                app:layout_constraintBottom_toTopOf="@id/btnSignUp"
+                app:layout_constraintTop_toBottomOf="@id/tilUseless2"
+                app:startIconDrawable="@drawable/ic_phone_android">
+
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:id="@+id/etMobileInsertManually"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="text"
+                    android:textSize="@dimen/_12ssp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <Button
+                android:id="@+id/btnSubmitPhoneModel"
+                style="@style/Theme.SpecialButton"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:padding="@dimen/_6sdp"
+                android:text="@string/submit"
+                android:textSize="@dimen/_15sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tilUseless8" />
+
+        </LinearLayout>
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/gifProgressSignUp"
+            android:layout_width="@dimen/_600sdp"
+            android:layout_height="0dp"
+            android:src="@drawable/output_onlinegils"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView4" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

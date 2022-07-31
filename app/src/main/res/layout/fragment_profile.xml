@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/artboard_1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_360sdp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.cardview.widget.CardView
+                android:layout_marginTop="@dimen/_3sdp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/_20sdp"
+                android:padding="@dimen/_3sdp"
+                app:cardElevation="@dimen/_4sdp"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:adjustViewBounds="true"
+                    android:id="@+id/civProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_120sdp"
+                    android:src="@drawable/ic_account_big"
+                    android:contentDescription="@string/profile_image" />
+
+            </androidx.cardview.widget.CardView>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilUseless3"
+                style="@style/Theme.SpecialTextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/username"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:errorEnabled="true"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                app:startIconDrawable="@drawable/ic_account"
+                app:layout_constraintBottom_toTopOf="@id/tilUseless4"
+                app:layout_constraintTop_toBottomOf="@+id/civProfile">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etUsernameProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilUseless4"
+                style="@style/Theme.SpecialTextInputLayout"
+                app:startIconDrawable="@drawable/ic_baseline_mail_24"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/email"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEmailProfile"
+                    android:focusable="false"
+                    android:textColor="@color/teal_700"
+                    android:enabled="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <com.hbb20.CountryCodePicker
+                    android:id="@+id/codePicker"
+                    app:ccp_defaultPhoneCode="994"
+                    app:layout_constraintVertical_bias="0.36"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilUseless9"
+                    style="@style/Theme.SpecialTextInputLayout"
+                    android:layout_width="0dp"
+                    android:hint="@string/phone_number"
+                    android:layout_height="wrap_content"
+                    app:errorEnabled="true"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:inputType="number"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/codePicker">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etMobileNumberProfile"
+                        android:layout_width="match_parent"
+                        android:maxLength="15"
+                        android:inputType="number"
+                        android:letterSpacing="0.1"
+                        android:layout_height="wrap_content" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+            <Button
+                android:id="@+id/btnProfileUpdate"
+                style="@style/Theme.SpecialButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingHorizontal="@dimen/_30sdp"
+                android:paddingVertical="@dimen/_6sdp"
+                android:text="@string/update"
+                android:textSize="@dimen/_14ssp" />
+
+        </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

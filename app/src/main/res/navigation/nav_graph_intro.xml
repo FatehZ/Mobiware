@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_intro"
+    app:startDestination="@id/fragmentSplash">
+
+    <fragment
+        android:id="@+id/fragmentSignIn"
+        android:name="com.ktxdevelopment.mobiware.ui.fragments.intro.FragmentSignIn"
+        android:label="FragmentSignIn" >
+        <action
+            android:id="@+id/action_fragmentSignIn_to_fragmentForgotPassword"
+            app:destination="@id/fragmentForgotPassword" />
+        <action
+            android:id="@+id/action_fragmentSignIn_to_fragmentSignUp"
+            app:destination="@id/fragmentSignUp" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentSignUp"
+        android:name="com.ktxdevelopment.mobiware.ui.fragments.intro.FragmentSignUp"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_fragmentSignUp_to_fragmentSignIn"
+            app:destination="@id/fragmentSignIn" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentForgotPassword"
+        android:name="com.ktxdevelopment.mobiware.ui.fragments.intro.FragmentForgotPassword"
+        android:label="fragment_forgot_password"
+        tools:layout="@layout/fragment_forgot_password" >
+        <action
+            android:id="@+id/action_fragmentForgotPassword_to_fragmentSignIn"
+            app:destination="@id/fragmentSignIn" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentSplash"
+        android:name="com.ktxdevelopment.mobiware.ui.fragments.intro.FragmentSplash"
+        android:label="FragmentSplash" >
+        <action
+            android:id="@+id/action_fragmentSplash_to_fragmentSignUp"
+            app:destination="@id/fragmentSignUp" />
+        <action
+            android:id="@+id/action_fragmentSplash_to_fragmentUpdate"
+            app:destination="@id/fragmentUpdate" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentUpdate"
+        android:name="com.ktxdevelopment.mobiware.ui.fragments.intro.FragmentUpdate"
+        android:label="FragmentUpdate" >
+        <action
+            android:id="@+id/action_fragmentUpdate_to_fragmentSignUp"
+            app:destination="@id/fragmentSignUp" />
+    </fragment>
+
+    <action
+         android:id="@+id/actionToFragmentSignUp"
+         app:destination="@id/fragmentSignUp" />
+
+</navigation>

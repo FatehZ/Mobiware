@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/_150sdp"
+    android:layout_height="@dimen/_170sdp">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingHorizontal="@dimen/_10sdp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/_110sdp"
+            android:layout_height="@dimen/_110sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:cardCornerRadius="@dimen/_10sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:cardBackgroundColor="@color/shimmer_color"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:id="@+id/civ_s1"/>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/tv_s1"
+            android:layout_width="@dimen/_110sdp"
+            android:layout_height="@dimen/_15sdp"
+            app:cardBackgroundColor="@color/shimmer_color"
+            app:cardCornerRadius="@dimen/_4sdp"
+            android:gravity="center_horizontal"
+            app:layout_constraintBottom_toTopOf="@id/tv_s2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/civ_s1"/>
+
+        <androidx.cardview.widget.CardView
+            app:cardCornerRadius="@dimen/_4sdp"
+            android:id="@+id/tv_s2"
+            android:layout_width="@dimen/_110sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:gravity="center_horizontal"
+            app:cardBackgroundColor="@color/shimmer_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_s1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.facebook.shimmer.ShimmerFrameLayout>

@@ -1,0 +1,100 @@
+<resources>
+    <string name="app_name" translatable="false">MobiWare</string>
+    <string name="title_activity_splash" translatable="false">MobiWare</string>
+
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="profile_image">Profile Image</string>
+    <string name="device_name">Device Name</string>
+    <string name="please_wait">Please Wait</string>
+
+    <string name="please_click_back_again">Click Again To Exit</string>
+    <string name="hardware">Hardware</string>
+    <string name="software">Software</string>
+    <string name="battery_info">Battery Info</string>
+    <string name="settings">Settings</string>
+    <string name="send_feedback">Send Feedback</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="email">Email</string>
+    <string name="text_update_activity">An update is available!</string>
+    <string name="later">Later</string>
+    <string name="update">Update</string>
+    <string name="dont_show_again">Don\'t show again</string>
+    <string name="type_message_feedback">Type your message here…</string>
+    <string name="send">Send</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="getting_device_specs">Retrieving Phone Specifications</string>
+
+    <string name="process_name">process_name</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="username">Username</string>
+    <string name="optional">Optional</string>
+    <string name="blank_username">Username is required!</string>
+    <string name="registering_user">Registering User…</string>
+    <string name="profile">Profile</string>
+    <string name="please_update_to_continue">Please update to continue</string>
+    <string name="select_your_phone_model">Select your phone model:</string>
+    <string name="password">Password</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="already_have_account_sign_in">Already have account? Sign In</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="username_5_or_more_letters">At least 5 letters are required</string>
+    <string name="at_least_a_letter">Must include minimum a letter</string>
+    <string name="no_special_symbols_allowed">No special symbols are allowed</string>
+    <string name="password_at_least_6_chars">Minimum 6 characters</string>
+    <string name="sign_in">Sign In</string>
+    <string name="no_account_register">No Account? Register</string>
+    <string name="user_exists">User exists. Please sign In</string>
+    <string name="user_does_not_exist">User does not exist</string>
+    <string name="password_is_wrong">Password is invalid</string>
+    <string name="error_occurred">Error occurred</string>
+    <string name="no_connection_error">Please check internet connection</string>
+    <string name="select_a_phone_error">Please select a phone</string>
+    <string name="smth_went_wrong">Something went wrong. Try again later</string>
+    <string name="smth_went_wrong_check_connection">Something went wrong. Check connection</string>
+    <string name="could_not_find_your_phone_model">Search system could not find your phone model. Please insert manually:</string>
+    <string name="phone_model">Phone Model</string>
+    <string name="submit">Submit</string>
+    <string name="no_empty_input">Input text is empty</string>
+    <string name="too_short_enter_valid">Model is too short</string>
+    <string name="login">Log In</string>
+    <string name="profile_updated_success">Profile updated successfully</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="reset">Reset</string>
+    <string name="reset_email_has_sent">Email for resetting password is sent</string>
+    <string name="a_email_for_resetting">An email for resetting password will be sent to your email address</string>
+    <string name="no_profile_detail_change">No profile detail found to update</string>
+    <string name="only_numbers">Enter only digits</string>
+    <string name="error_mobile_short">At least 9 digits</string>
+    <string name="smth_went_wrong_only">Something went wrong</string>
+    <string name="check_connection_if_too_long">Check connection, if process took too long</string>
+    <string name="denied_permission">You denied the permission for storage. You can change it from app settings</string>
+    <string name="feedback_successfully">Feedback sent successfully</string>
+    <string name="cpu" translatable="false">CPU</string>
+    <string name="ram" translatable="false">RAM</string>
+    <string name="os" translatable="false">OS</string>
+    <string name="display">Display</string>
+    <string name="brands">Brands</string>
+    <string name="top_devices">Top Devices</string>
+    <string name="latest_devices">Latest Devices</string>
+    <string name="memory">Memory</string>
+    <string name="platform">Platform</string>
+    <string name="main_camera">Main Camera</string>
+    <string name="selfie_camera">Selfie Camera</string>
+    <string name="launch">Launch</string>
+    <string name="body">Body</string>
+    <string name="battery">Battery</string>
+    <string name="comms">Communication</string>
+    <string name="my_devices">My Devices</string>
+    <string name="add_image">Add Image</string>
+    <string name="image">Image</string>
+    <string name="null_email_placeholder_for_feedback">ktx.development@gmail.com</string>
+    <string name="feedback">Feedback</string>
+    <string name="email_cannot_change">Email cannot be changed</string>
+
+
+</resources>
