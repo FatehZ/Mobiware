@@ -101,7 +101,7 @@ class FragmentFeedback : BaseFragment(),  LinkedImageAdapter.OnLinkedImageClickL
           super.onRequestPermissionsResult(requestCode, permissions, grantResults)
           if (requestCode == Constants.READ_STORAGE_CODE) {
                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) showImageChooser()
-               else Toast.makeText(context, getString(R.string.denied_permission), Toast.LENGTH_SHORT).show()
+               else showErrorSnackbar(getString(R.string.denied_permission))
           }
      }
 

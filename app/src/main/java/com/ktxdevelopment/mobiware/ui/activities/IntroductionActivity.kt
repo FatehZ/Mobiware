@@ -9,6 +9,8 @@ import androidx.core.os.postDelayed
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.ktxdevelopment.mobiware.R
 import com.ktxdevelopment.mobiware.clients.RemoteClient
 import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient
@@ -75,6 +77,13 @@ class IntroductionActivity : BaseActivity() {
                navController.navigate(R.id.action_fragmentSplash_to_fragmentUpdate, bundle)
           }
      }
+
+     override fun signOut() {
+          hideProgressDialog()
+          roomViewModel.clearDatabase()
+          Firebase.auth.signOut()
+     }
+
 }
 
 

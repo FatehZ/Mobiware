@@ -1,6 +1,5 @@
 package com.ktxdevelopment.mobiware.models.local
 
-import android.graphics.Bitmap
 import android.os.Parcel
 import android.os.Parcelable
 
@@ -11,7 +10,8 @@ data class LocalUser(
     var mobileCountryCode: String = "",
     var mobileId: List<String> = ArrayList(),
     var email: String = "",
-    var image: String = ""
+    var image64: String = "",
+    var imageOnline: String = ""
 ): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
@@ -20,9 +20,9 @@ data class LocalUser(
         parcel.readString()!!,
         parcel.createStringArrayList()!!,
         parcel.readString()!!,
+        parcel.readString()!!,
         parcel.readString()!!
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(userId)
@@ -31,7 +31,8 @@ data class LocalUser(
         parcel.writeString(mobileCountryCode)
         parcel.writeStringList(mobileId)
         parcel.writeString(email)
-        parcel.writeString(image)
+        parcel.writeString(image64)
+        parcel.writeString(imageOnline)
     }
 
     override fun describeContents(): Int {

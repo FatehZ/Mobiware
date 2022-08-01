@@ -26,7 +26,8 @@ object PreferenceClient {
         editor.putString(Constants.PR_mobileNumberCountryCode, user.mobileCountryCode)
         editor.putStringSet(Constants.PR_mobileId, user.mobileId.toSet())
         editor.putString(Constants.PR_email, user.email)
-        editor.putString(Constants.PR_imageBase64, user.image)
+        editor.putString(Constants.PR_imageBase64, user.image64)
+        editor.putString(Constants.PR_imageOnline, user.imageOnline)
         editor.apply()
     }
 
@@ -41,7 +42,8 @@ object PreferenceClient {
                 getString(Constants.PR_mobileNumberCountryCode,"994")!!,
                 (getStringSet(Constants.PR_mobileId, setOf())!!).toList(),
                 getString(Constants.PR_email,"")!!,
-                getString(Constants.PR_imageBase64,"")!!
+                getString(Constants.PR_imageBase64,"")!!,
+                getString(Constants.PR_imageOnline,"")!!
             )
         }
         return user

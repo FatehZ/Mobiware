@@ -23,7 +23,8 @@ object Constants {
      const val MOBILE_NUMBER_CODE: String = "mobileNumberCode"
      const val USERNAME: String = "username"
      const val EMAIL: String = "email"
-     const val IMAGE_URL: String = "imageUrl"
+     const val IMAGE_64: String = "image64"
+     const val IMAGE_ONLINE: String = "imageOnline"
      const val READ_STORAGE_CODE: Int = 1
      const val PHONE_EXTRA = "main_phone_extra"
      const val PREFERENCE_LOCK_KEY: String = "com.ktxdevelopment.mobiware.MY_PREFERENCE_FILE"
@@ -47,6 +48,7 @@ object Constants {
      const val PR_mobileId = "user_mobileId"
      const val PR_email = "user_email"
      const val PR_imageBase64: String = "user_image"
+     const val PR_imageOnline: String = "user_image_url"
 
 
      const val XIAOMI = "xiaomi"

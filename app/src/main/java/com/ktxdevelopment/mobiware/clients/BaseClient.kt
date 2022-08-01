@@ -12,7 +12,6 @@ import android.net.Uri
 import android.os.Build
 import android.provider.ContactsContract.CommonDataKinds.Email.TYPE_MOBILE
 import com.ktxdevelopment.mobiware.clients.PermissionClient.getImageFileName
-import com.ktxdevelopment.mobiware.models.firebase.FireUser
 import com.ktxdevelopment.mobiware.models.local.LocalUser
 import com.ktxdevelopment.mobiware.models.rest.product.Data
 import com.ktxdevelopment.mobiware.models.rest.search.Phone
@@ -51,17 +50,19 @@ object BaseClient {
         }
 
 
-        fun convertFireToLocalUser(fUser: FireUser): LocalUser {
-                return LocalUser(
-                        fUser.userId,
-                        fUser.username,
-                        fUser.mobileNumberBase,
-                        fUser.mobileNumberCode,
-                        fUser.mobileId,
-                        fUser.email,
-                        PermissionClient.getBaseImageFromString(fUser.imageUrl)
-                )
+        fun convertFireToLocalUser(fUser: LocalUser): LocalUser {
+                fUser.image64 = PermissionClient.getBaseImageFromString(fUser.imageOnline)
+                return fUser
         }
+
+        fun convertLocalToFireUser(lUser : LocalUser): LocalUser {
+                lUser.image64 = ""
+                return lUser
+        }
+
+
+
+
 
         @Suppress("DEPRECATION")
         fun hasInternetConnection(context: Context): Boolean {

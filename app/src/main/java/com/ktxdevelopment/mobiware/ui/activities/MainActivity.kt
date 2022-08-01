@@ -20,7 +20,6 @@ import com.ktxdevelopment.mobiware.clients.ui.MainActivityClient
 import com.ktxdevelopment.mobiware.clients.ui.MainActivityClient.launchProfileIntent
 import com.ktxdevelopment.mobiware.databinding.ActivityMainBinding
 import com.ktxdevelopment.mobiware.databinding.NavHeaderBinding
-import com.ktxdevelopment.mobiware.models.firebase.FireUser
 import com.ktxdevelopment.mobiware.models.local.LocalUser
 import com.ktxdevelopment.mobiware.models.rest.product.Data
 import com.ktxdevelopment.mobiware.util.Constants
@@ -46,12 +45,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
           tryEr {
                if (intent.hasExtra(Constants.PHONE_EXTRA)) {
                     mobile.postValue(intent.getParcelableExtra(Constants.PHONE_EXTRA)!!)
-                    user.postValue(intent.getParcelableExtra(Constants.USER_EXTRA)!!)
+                    user.postValue(BaseClient.convertFireToLocalUser(intent.getParcelableExtra(Constants.USER_EXTRA)!!))
                } else { getUserAndMobile() }
 
-               user.observe(this) {
-                    if (it != null) setupNavUI(it)
-               }
+               user.observe(this) { if (it != null) setupNavUI(it) }
           }
           retrieveUserDataOnline()
      }
@@ -104,7 +101,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
           val headerBinding = NavHeaderBinding.bind(mainBinding.navView.getHeaderView(0))
           headerBinding.tvUserName.text = user.username
           Glide.with(this)
-               .load(PermissionClient.getBitmapFromBase64(user.image))
+               .load(PermissionClient.getBitmapFromBase64(user.image64))
                .placeholder(R.drawable.ic_account)
                .into(headerBinding.ivNavProfileImage)
 
@@ -144,15 +141,16 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
           FirebaseClient.loadUserData(this)
      }
 
-     fun onUserDataObtainedFromFirestore(mUser: FireUser) {
+     fun onUserDataObtainedFromFirestore(mUser: LocalUser) {
           user.postValue(BaseClient.convertFireToLocalUser(mUser))
      }
 
 
      fun getLocalUser() = user
 
-     fun signOut() {
-          Firebase.auth.signOut()
+     override fun signOut() {
+          hideProgressDialog()
           viewModel.clearDatabase()
+          Firebase.auth.signOut()
      }
 }

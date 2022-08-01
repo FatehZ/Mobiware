@@ -19,12 +19,13 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.ktxdevelopment.mobiware.R
 import com.ktxdevelopment.mobiware.clients.BaseClient
+import com.ktxdevelopment.mobiware.clients.BaseClient.convertFireToLocalUser
+import com.ktxdevelopment.mobiware.clients.BaseClient.convertLocalToFireUser
 import com.ktxdevelopment.mobiware.clients.BaseClient.hasInternetConnection
 import com.ktxdevelopment.mobiware.clients.PermissionClient
 import com.ktxdevelopment.mobiware.clients.TextInputClient
 import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient
 import com.ktxdevelopment.mobiware.databinding.FragmentProfileBinding
-import com.ktxdevelopment.mobiware.models.firebase.FireUser
 import com.ktxdevelopment.mobiware.models.local.LocalUser
 import com.ktxdevelopment.mobiware.ui.fragments.main.BaseFragment
 import com.ktxdevelopment.mobiware.util.Constants
@@ -32,6 +33,7 @@ import com.ktxdevelopment.mobiware.util.Constants.READ_STORAGE_CODE
 import com.ktxdevelopment.mobiware.util.tryEr
 import com.ktxdevelopment.mobiware.viewmodel.LocalViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.File
 
 @AndroidEntryPoint
 class FragmentProfile : BaseFragment() {
@@ -83,7 +85,17 @@ class FragmentProfile : BaseFragment() {
      }
 
      private fun showImageChooser() {
-          val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)   //todo - I lost original intent action code
+          val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+//          File.createTempFile("IMG_${System.currentTimeMillis()}")
+
+          galleryIntent.type = "image/*"
+          galleryIntent.putExtra("crop","true")
+          galleryIntent.putExtra("outputX",200)
+          galleryIntent.putExtra("outputY",200)
+          galleryIntent.putExtra("aspectX",1)
+          galleryIntent.putExtra("aspectY",1)
+          galleryIntent.putExtra("scale",true)
+          galleryIntent.putExtra(MediaStore.EXTRA_OUTPUT,"/Documents/abc9797.jpg")
           galleryResultLauncher.launch(galleryIntent)
      }
 
@@ -95,7 +107,7 @@ class FragmentProfile : BaseFragment() {
                               mSelectedPhotoUri = result.data!!.data
                               Glide.with(this)
                                    .load(mSelectedPhotoUri)
-                                   .error(userDetails.image)
+                                   .error(userDetails.image64)
                                    .centerCrop()
                                    .placeholder(R.drawable.ic_account)
                                    .into(binding.civProfile)
@@ -113,7 +125,7 @@ class FragmentProfile : BaseFragment() {
      private fun setUserDataInUI(user: LocalUser) {
           Glide
                .with(this)
-               .load(PermissionClient.getBitmapFromBase64(user.image))
+               .load(PermissionClient.getBitmapFromBase64(user.image64))
                .placeholder(R.drawable.ic_account_big)
                .centerCrop()
                .into(binding.civProfile)
@@ -135,7 +147,7 @@ class FragmentProfile : BaseFragment() {
                          )
                     sRef.putFile(mSelectedPhotoUri!!).addOnSuccessListener { taskSnapshot -> taskSnapshot.metadata?.reference?.downloadUrl?.addOnSuccessListener { uri ->
                               mProfileImageOnlineDBUri = uri.toString()
-                              userDetails.image = PermissionClient.getBaseImageFromString(mProfileImageOnlineDBUri)
+                              userDetails.image64 = PermissionClient.getBaseImageFromString(mProfileImageOnlineDBUri)
                               updateUserProfileData()
                          }
                     }.addOnFailureListener {
@@ -152,7 +164,7 @@ class FragmentProfile : BaseFragment() {
           var errorPresent = false
 
           if (TextInputClient.validateFilledInput(mProfileImageOnlineDBUri)) {
-               userUpdated[Constants.IMAGE_URL] = mProfileImageOnlineDBUri
+               userUpdated[Constants.IMAGE_ONLINE] = mProfileImageOnlineDBUri
                anyChangesMade = true
           }
 
@@ -185,25 +197,24 @@ class FragmentProfile : BaseFragment() {
           }
      }
 
-     fun onProfileLoadOnlineSuccess(user: FireUser) {
-          userDetails = BaseClient.convertFireToLocalUser(user)
+     fun onProfileLoadOnlineSuccess(user: LocalUser) {
+          userDetails = convertFireToLocalUser(user)
           setUserDataInUI(userDetails)
           mProfileImageOnlineDBUri = ""
           mSelectedPhotoUri = null
-          tryEr { roomViewModel.writeUserToPreferences(context!!, user) }
+          tryEr { roomViewModel.writeUserToPreferences(context!!, convertLocalToFireUser(user)) }
      }
 
      fun onProfileUpdateSuccess() {
           mProfileImageOnlineDBUri = ""
           mSelectedPhotoUri = null
           hideProgressDialog()
-          tryEr { roomViewModel.writeUserToPreferences(context!!, userDetails) }
+          tryEr { roomViewModel.writeUserToPreferences(context!!, convertLocalToFireUser(userDetails)) }
      }
 
      fun onProfileUpdateFailure() {
           hideProgressDialog()
-          shortToast(R.string.smth_went_wrong)
-     }
+          shortToast(R.string.smth_went_wrong) }
 
      override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
           binding = FragmentProfileBinding.inflate(inflater, container, false)

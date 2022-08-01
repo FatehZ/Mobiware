@@ -42,4 +42,10 @@ open class BaseFragment : Fragment() {
      fun shortToast(m: Int) {
           tryEr { Toast.makeText(context!!, getString(m), Toast.LENGTH_SHORT).show() }
      }
+
+     fun signOut() {
+          tryEr {
+               (activity as IntroductionActivity).signOut()
+          }
+     }
 }

@@ -10,9 +10,7 @@ import androidx.work.Data
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import com.google.gson.Gson
-import com.ktxdevelopment.mobiware.clients.BaseClient
 import com.ktxdevelopment.mobiware.models.firebase.FireFeedback
-import com.ktxdevelopment.mobiware.models.firebase.FireUser
 import com.ktxdevelopment.mobiware.models.local.LocalUser
 import com.ktxdevelopment.mobiware.models.room.RoomPhoneModel
 import com.ktxdevelopment.mobiware.repositories.LocalRepository
@@ -91,7 +89,7 @@ class LocalViewModel @Inject constructor(private var localRepo: LocalRepository,
      }
 
 
-     fun writeUserToPreferences(context: Context, user: FireUser) {
+     fun writeUserToPreferences(context: Context, user: LocalUser) {
 
           viewModelScope.launch {
                val data = Data.Builder()

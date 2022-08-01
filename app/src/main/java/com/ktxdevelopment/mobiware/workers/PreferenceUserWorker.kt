@@ -6,7 +6,6 @@ import androidx.work.WorkerParameters
 import com.google.gson.Gson
 import com.ktxdevelopment.mobiware.clients.BaseClient
 import com.ktxdevelopment.mobiware.clients.PreferenceClient
-import com.ktxdevelopment.mobiware.models.firebase.FireUser
 import com.ktxdevelopment.mobiware.models.local.LocalUser
 import com.ktxdevelopment.mobiware.util.Constants
 
@@ -14,7 +13,7 @@ class PreferenceUserWorker(appContext: Context, params: WorkerParameters) : Coro
 
     override suspend fun doWork(): Result {
 
-        val user: LocalUser = BaseClient.convertFireToLocalUser(Gson().fromJson(inputData.getString(Constants.LOCAL_USER), FireUser::class.java))
+        val user: LocalUser = BaseClient.convertFireToLocalUser(Gson().fromJson(inputData.getString(Constants.LOCAL_USER), LocalUser::class.java))
 
         return try {
             PreferenceClient.saveUserDetailsToPreferences(applicationContext, user)
