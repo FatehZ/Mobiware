@@ -6,7 +6,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.InputFilter
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +17,6 @@ import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.ktxdevelopment.mobiware.R
-import com.ktxdevelopment.mobiware.clients.BaseClient
 import com.ktxdevelopment.mobiware.clients.BaseClient.convertFireToLocalUser
 import com.ktxdevelopment.mobiware.clients.BaseClient.convertLocalToFireUser
 import com.ktxdevelopment.mobiware.clients.BaseClient.hasInternetConnection
@@ -33,7 +31,6 @@ import com.ktxdevelopment.mobiware.util.Constants.READ_STORAGE_CODE
 import com.ktxdevelopment.mobiware.util.tryEr
 import com.ktxdevelopment.mobiware.viewmodel.LocalViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.File
 
 @AndroidEntryPoint
 class FragmentProfile : BaseFragment() {
@@ -41,14 +38,12 @@ class FragmentProfile : BaseFragment() {
      private var mSelectedPhotoUri: Uri? = null
      private var mProfileImageOnlineDBUri: String = ""
      private lateinit var userDetails: LocalUser
-     private val TAG = "PR_TAG"
      private lateinit var roomViewModel: LocalViewModel
 
 
 
      override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
           super.onViewCreated(view, savedInstanceState)
-
           tryEr {
                roomViewModel = ViewModelProvider(this)[LocalViewModel::class.java]
                roomViewModel.getLocalUser(context!!)
@@ -86,16 +81,6 @@ class FragmentProfile : BaseFragment() {
 
      private fun showImageChooser() {
           val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-//          File.createTempFile("IMG_${System.currentTimeMillis()}")
-
-          galleryIntent.type = "image/*"
-          galleryIntent.putExtra("crop","true")
-          galleryIntent.putExtra("outputX",200)
-          galleryIntent.putExtra("outputY",200)
-          galleryIntent.putExtra("aspectX",1)
-          galleryIntent.putExtra("aspectY",1)
-          galleryIntent.putExtra("scale",true)
-          galleryIntent.putExtra(MediaStore.EXTRA_OUTPUT,"/Documents/abc9797.jpg")
           galleryResultLauncher.launch(galleryIntent)
      }
 
@@ -107,16 +92,11 @@ class FragmentProfile : BaseFragment() {
                               mSelectedPhotoUri = result.data!!.data
                               Glide.with(this)
                                    .load(mSelectedPhotoUri)
-                                   .error(userDetails.image64)
                                    .centerCrop()
                                    .placeholder(R.drawable.ic_account)
                                    .into(binding.civProfile)
                          } catch (e: Exception) {
-                              showErrorSnackbar("Image size is too big for profile. Please select a different image")
-                              Log.i(TAG, "$e")
-                              Log.i(TAG, "${e.message}")
-                              Log.i(TAG, "${e.stackTrace}")
-                              e.localizedMessage?.let { it1 -> Log.i(TAG, it1) }   //todo limit image size
+                              showErrorSnackbar(getString(R.string.smth_went_wrong))
                          }
                     }
                }
@@ -138,13 +118,11 @@ class FragmentProfile : BaseFragment() {
      }
 
      private fun uploadUserImage() {
-          showProgressDialog()
+          showProgressDialogCancellable()
           if (mSelectedPhotoUri != null) {
                tryEr {
-                    val sRef: StorageReference =
-                         FirebaseStorage.getInstance().getReference("profile_images").child(
-                              "USER_IMAGE_" + System.currentTimeMillis() + "." + PermissionClient.getFileExtension(activity!!, mSelectedPhotoUri)
-                         )
+                    val sRef: StorageReference = FirebaseStorage.getInstance().getReference("profile_images").child(
+                              "USER_IMAGE_" + System.currentTimeMillis() + "." + PermissionClient.getFileExtension(activity!!, mSelectedPhotoUri))
                     sRef.putFile(mSelectedPhotoUri!!).addOnSuccessListener { taskSnapshot -> taskSnapshot.metadata?.reference?.downloadUrl?.addOnSuccessListener { uri ->
                               mProfileImageOnlineDBUri = uri.toString()
                               userDetails.image64 = PermissionClient.getBaseImageFromString(mProfileImageOnlineDBUri)

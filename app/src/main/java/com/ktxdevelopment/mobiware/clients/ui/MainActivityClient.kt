@@ -118,7 +118,6 @@ object MainActivityClient {
                Intent(context, AdditionalActivity::class.java).apply {
                     action = Constants.FR_FEEDBACK
                     putExtra(Constants.USER_EXTRA, context.getLocalUser().value?.email)
-                    addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
                }.also { context.startActivity(it) }
           }
      }

@@ -18,7 +18,6 @@
                app:layout_constraintStart_toStartOf="parent"
                app:layout_constraintEnd_toEndOf="parent"
                app:layout_constraintTop_toTopOf="parent"
-               app:titleMarginStart="@dimen/_20sdp"
                app:title="@string/app_name"
                app:titleTextColor="@color/cyan"
                android:id="@+id/toolbarMainActivity"

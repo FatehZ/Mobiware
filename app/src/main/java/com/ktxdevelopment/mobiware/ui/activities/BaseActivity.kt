@@ -95,7 +95,7 @@ open class BaseActivity: AppCompatActivity() {
           snackbar.show()
      }
 
-     fun shortToast(m: Int) {
+     private fun shortToast(m: Int) {
           tryEr { Toast.makeText(this, getString(m), Toast.LENGTH_SHORT).show() }
      }
 

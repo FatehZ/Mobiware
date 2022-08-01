@@ -2,18 +2,13 @@ package com.ktxdevelopment.mobiware.ui.fragments.main
 
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.ktxdevelopment.mobiware.R
-import com.ktxdevelopment.mobiware.databinding.DialogProgressBinding
 import com.ktxdevelopment.mobiware.ui.activities.BaseActivity
 import com.ktxdevelopment.mobiware.ui.activities.IntroductionActivity
 import com.ktxdevelopment.mobiware.util.tryEr
-import kotlin.coroutines.coroutineContext
 
 open class BaseFragment : Fragment() {
 
-     private lateinit var binding: DialogProgressBinding
-
-     fun showProgressDialog(text: String = getString(R.string.please_wait)) {
+     fun showProgressDialog() {
           tryEr {
                (activity as BaseActivity).showProgressDialog()
           }
@@ -25,7 +20,7 @@ open class BaseFragment : Fragment() {
           }
      }
 
-     fun showProgressDialogCancellable(text: String = getString(R.string.please_wait)) {
+     fun showProgressDialogCancellable() {
           tryEr {
                (activity as BaseActivity).showProgressDialogCancellable()
           }

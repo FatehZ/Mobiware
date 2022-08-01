@@ -1,6 +1,7 @@
 package com.ktxdevelopment.mobiware.ui.fragments.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -11,7 +12,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ktxdevelopment.mobiware.R
+import com.ktxdevelopment.mobiware.clients.BaseClient
+import com.ktxdevelopment.mobiware.clients.BaseClient.checkIfUrlExistsInPhones
+import com.ktxdevelopment.mobiware.clients.BaseClient.convertDataToPhone
 import com.ktxdevelopment.mobiware.databinding.FragmentMyDevicesBinding
+import com.ktxdevelopment.mobiware.models.rest.Resource
 import com.ktxdevelopment.mobiware.models.rest.search.Phone
 import com.ktxdevelopment.mobiware.ui.activities.MainActivity
 import com.ktxdevelopment.mobiware.ui.recview.LatestMobileAdapter
@@ -41,19 +46,26 @@ class FragmentMyDevices: BaseFragment(), OnMobileClickListener {
 
      override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
           super.onViewCreated(view, savedInstanceState)
+
+//          (activity as MainActivity).getMobile().observe(viewLifecycleOwner) {
+//               if (it != null) {
+//                    myMobiles.value = myMobiles.value.add(convertDataToPhone(it))
+//               }
+//          }
+
           (activity as MainActivity).getLocalUser().observe(viewLifecycleOwner) {
                if (it?.mobileId != null && it.mobileId.isNotEmpty()) {
                     onMobileListDerived(it.mobileId)
                }
           }
 
+
+
           myMobiles.observe(viewLifecycleOwner) {
-               if (it.size > 0) {
-                    topAdapter.submitList(it)
-                    binding.shimmerLayout.stopShimmer()
-                    binding.shimmerLayout.visibility = GONE
-                    binding.rvLatest.visibility = VISIBLE
-               }
+               topAdapter.submitList(it)
+               binding.shimmerLayout.stopShimmer()
+               binding.shimmerLayout.visibility = GONE
+               binding.rvLatest.visibility = VISIBLE
           }
      }
 
@@ -68,11 +80,6 @@ class FragmentMyDevices: BaseFragment(), OnMobileClickListener {
           errorMessageShown = false
      }
 
-     private fun onMobileListDerived(mobileList: List<String>) {
-          val viewModel = ViewModelProvider(requireActivity())[RetroViewModel::class.java]
-          viewModel.getMassiveSearchResponses(mobileList)
-          //todo
-     }
 
 
 
@@ -85,32 +92,35 @@ class FragmentMyDevices: BaseFragment(), OnMobileClickListener {
 
 
 
-//    private fun onMobileListDerived(mobileIdList: List<String>) {
-//        for (i in mobileIdList) {
-//            if (!BaseClient.checkIfUrlExistsInPhones(i, myMobiles.value!!)) {
-//                postNewMobiles(i)
-//            }
-//        }
-//    }
-//
-//
-//    private fun postNewMobiles(url: String) {
-//        val viewModel = ViewModelProvider(requireActivity())[RetroViewModel::class.java]
-//        viewModel.getMobile(url)
-//
-//        viewModel.getResponse.observe(viewLifecycleOwner) {
-//            if (it is Resource.Success) {
-//                if (it.data?.data != null) {
-//                    val vl = myMobiles.value
-//                    convertDataToPhone(it.data.data, url).apply {
-//                        if (!BaseClient.checkIfPhoneExistsInList(this, vl!!)) {
-//                            vl.add(this)
-//                            topAdapter.notifyDataSetChanged()
-//                        }
-//                    }
-//                    myMobiles.postValue(vl)
-//                }
-//            }
-//        }
-//    }
+
+    private fun onMobileListDerived(mobileIdList: List<String>) {
+         Log.i(TAG, "mobile size : ${mobileIdList.size}")
+        for (i in mobileIdList) {
+             Log.i(TAG, "onMobileListDerived: $i")
+            if (!checkIfUrlExistsInPhones(i, myMobiles.value!!)) {
+                postNewMobiles(i)
+            }
+        }
+    }
+
+
+    private fun postNewMobiles(url: String) {
+        val viewModel = ViewModelProvider(requireActivity())[RetroViewModel::class.java]
+        viewModel.getMobile(url)
+
+        viewModel.getResponse.observe(viewLifecycleOwner) {
+            if (it is Resource.Success) {
+                if (it.data?.data != null) {
+                    val vl = myMobiles.value
+                    convertDataToPhone(it.data.data, url).apply {
+                        if (!BaseClient.checkIfPhoneExistsInList(this, vl!!)) {
+                            vl.add(this)
+                            topAdapter.notifyDataSetChanged()
+                        }
+                    }
+                    myMobiles.postValue(vl)
+                }
+            }
+        }
+    }
 }

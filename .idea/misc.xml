@@ -94,6 +94,9 @@
         <entry key="app/src/main/res/drawable/bg_gradient_purple.xml" value="0.246" />
         <entry key="app/src/main/res/drawable/ic_back.xml" value="0.327" />
         <entry key="app/src/main/res/drawable/ic_baseline_mail_24.xml" value="0.327" />
+        <entry key="app/src/main/res/drawable/ic_cancel.xml" value="0.2465" />
+        <entry key="app/src/main/res/drawable/ic_image_linked.xml" value="0.2465" />
+        <entry key="app/src/main/res/drawable/ic_insert_picture.xml" value="0.2465" />
         <entry key="app/src/main/res/drawable/ic_menu.xml" value="0.327" />
         <entry key="app/src/main/res/drawable/ic_soft.xml" value="0.327" />
         <entry key="app/src/main/res/drawable/snackbar_background_color.xml" value="0.246" />
@@ -102,7 +105,7 @@
         <entry key="app/src/main/res/layout/activity_feedback.xml" value="0.2877297990594271" />
         <entry key="app/src/main/res/layout/activity_forgot_password.xml" value="0.34791666666666665" />
         <entry key="app/src/main/res/layout/activity_introduction.xml" value="0.27943840579710144" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.35052083333333334" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.2877297990594271" />
         <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.34739583333333335" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.34739583333333335" />
@@ -117,6 +120,7 @@
         <entry key="app/src/main/res/layout/fragment_sign_up.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_splash.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_update.xml" value="0.2877297990594271" />
+        <entry key="app/src/main/res/layout/linked_image_item.xml" value="0.2877297990594271" />
         <entry key="app/src/main/res/layout/nav_header.xml" value="0.2747053490480508" />
         <entry key="app/src/main/res/menu/menu_drawer.xml" value="0.2877297990594271" />
       </map>

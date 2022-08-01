@@ -11,7 +11,6 @@ import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -38,12 +37,12 @@ class FragmentFeedback : BaseFragment(),  LinkedImageAdapter.OnLinkedImageClickL
      private lateinit var photoList: ArrayList<Uri>
      private lateinit var mAdapter: LinkedImageAdapter
      private lateinit var viewModel: LocalViewModel
-     val TAG = "FD_TAG"
 
      override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
           binding = FragmentFeedbackBinding.inflate(inflater, container, false)
           return binding.root
      }
+
 
 
      override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -98,7 +97,6 @@ class FragmentFeedback : BaseFragment(),  LinkedImageAdapter.OnLinkedImageClickL
 
      @Deprecated("Deprecated in Java")
      override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-          super.onRequestPermissionsResult(requestCode, permissions, grantResults)
           if (requestCode == Constants.READ_STORAGE_CODE) {
                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) showImageChooser()
                else showErrorSnackbar(getString(R.string.denied_permission))
@@ -107,7 +105,8 @@ class FragmentFeedback : BaseFragment(),  LinkedImageAdapter.OnLinkedImageClickL
 
 
      private fun showImageChooser() {
-          val galleryIntent = Intent(Intent.ACTION_GET_CONTENT, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+          val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+          galleryIntent.type = "image/*"
           galleryResultLauncher.launch(galleryIntent)
      }
 

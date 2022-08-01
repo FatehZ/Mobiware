@@ -83,7 +83,6 @@ class IntroductionActivity : BaseActivity() {
           roomViewModel.clearDatabase()
           Firebase.auth.signOut()
      }
-
 }
 
 
