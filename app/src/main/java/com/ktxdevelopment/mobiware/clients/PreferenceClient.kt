@@ -12,13 +12,17 @@ object PreferenceClient {
 
     private lateinit var editor: SharedPreferences.Editor
 
-    private suspend fun instantiate(context: Context) {
+    private fun instantiate(context: Context) {
         editor = getCurrent(context).edit()
     }
-    private suspend fun getCurrent(context: Context) : SharedPreferences { return context.getSharedPreferences(Constants.PREFERENCE_LOCK_KEY, Context.MODE_PRIVATE) }
+    private fun getCurrent(context: Context) : SharedPreferences { return context.getSharedPreferences(Constants.PREFERENCE_LOCK_KEY, Context.MODE_PRIVATE) }
 
+    fun getCurrentPhoneSlug(context: Context): String {
+        instantiate(context)
+        return getCurrent(context).getString(Constants.PR_currentSlug,"")!!
+    }
 
-    suspend fun saveUserDetailsToPreferences(context: Context, user: LocalUser) {
+    fun saveUserDetailsToPreferences(context: Context, user: LocalUser, slug: String?) {
         instantiate(context)
         editor.putString(Constants.PR_userId, user.userId)
         editor.putString(Constants.PR_username, user.username)
@@ -28,10 +32,11 @@ object PreferenceClient {
         editor.putString(Constants.PR_email, user.email)
         editor.putString(Constants.PR_imageBase64, user.image64)
         editor.putString(Constants.PR_imageOnline, user.imageOnline)
+        if (slug != null && slug.isNotBlank()) editor.putString(Constants.PR_currentSlug, slug)
         editor.apply()
     }
 
-    suspend fun getUserDetailsFromPreferences(context: Context): LocalUser {
+    fun getUserDetailsFromPreferences(context: Context): LocalUser {
         instantiate(context)
         var user: LocalUser
         getCurrent(context).apply {

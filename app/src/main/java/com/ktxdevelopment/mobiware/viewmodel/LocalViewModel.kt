@@ -84,11 +84,12 @@ class LocalViewModel @Inject constructor(private var localRepo: LocalRepository,
      }
 
 
-     fun writeUserToPreferences(context: Context, user: LocalUser) {
+     fun writeUserToPreferences(context: Context, user: LocalUser, slug: String = "") {
 
           viewModelScope.launch {
                val data = Data.Builder()
                     .putString(Constants.LOCAL_USER, Gson().toJson(user))
+                    .putString(Constants.PR_currentSlug, slug)
                     .build()
 
                val preferenceUserWorker = OneTimeWorkRequest.Builder(PreferenceUserWorker::class.java)

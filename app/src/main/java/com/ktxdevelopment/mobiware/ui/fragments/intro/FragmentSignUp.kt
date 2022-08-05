@@ -102,7 +102,7 @@ class FragmentSignUp : BaseFragment(), SelectionAdapter.OnMobileClickListener {
                when (res) {
                     is Resource.Success -> {
                          (activity as BaseActivity).hideProgressDialog()
-                         roomViewModel.writeUserToPreferences(requireContext(), user)
+                         roomViewModel.writeUserToPreferences(requireContext(), user, selectedPhoneUrl)
                          roomViewModel.writeMobileToRoomDB(requireContext(), res.data!!.data, selectedPhoneUrl)
 //                         roomViewModel.writeMobileToFirestore(requireContext(), res.data.data)
 

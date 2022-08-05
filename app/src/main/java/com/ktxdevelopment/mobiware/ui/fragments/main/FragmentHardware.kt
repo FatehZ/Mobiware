@@ -59,7 +59,6 @@ class FragmentHardware : BaseFragment() {
 
         if (arguments?.getString(Constants.PHONE_EXTRA) != null) {
             viewModel.getMobile(arguments!!.getString(Constants.PHONE_EXTRA)!!)
-
             viewModel.getResponse.observe(requireActivity()) {
                 if (it is Resource.Success && it.data != null) {
                     checkThenSetDataInUI(it.data.data)

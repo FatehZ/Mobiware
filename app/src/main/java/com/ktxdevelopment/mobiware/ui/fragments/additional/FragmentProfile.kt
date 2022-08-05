@@ -180,14 +180,20 @@ class FragmentProfile : BaseFragment() {
           setUserDataInUI(userDetails)
           mProfileImageOnlineDBUri = ""
           mSelectedPhotoUri = null
-          tryEr { roomViewModel.writeUserToPreferences(context!!, convertLocalToFireUser(user)) }
+          tryEr { roomViewModel.writeUserToPreferences(
+               context!!,
+               convertLocalToFireUser(user)
+          ) }
      }
 
      fun onProfileUpdateSuccess() {
           mProfileImageOnlineDBUri = ""
           mSelectedPhotoUri = null
           hideProgressDialog()
-          tryEr { roomViewModel.writeUserToPreferences(context!!, convertLocalToFireUser(userDetails)) }
+          tryEr { roomViewModel.writeUserToPreferences(
+               context!!,
+               convertLocalToFireUser(userDetails),
+          ) }
      }
 
      fun onProfileUpdateFailure() {

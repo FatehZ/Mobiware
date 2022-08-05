@@ -71,9 +71,7 @@ class FragmentLatest : BaseFragment(), LatestMobileAdapter.OnMobileClickListener
     }
 
     override fun onPosClick(pos: Int) {
-        val bundle = Bundle().apply {
-            putString(Constants.PHONE_EXTRA, latestMobileAdapter.currentList[pos].detail)
-        }
+        val bundle = Bundle().apply { putString(Constants.PHONE_EXTRA, latestMobileAdapter.currentList[pos].detail) }
         findNavController().navigate(R.id.actionToSecondaryHardware, bundle)
     }
 

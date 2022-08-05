@@ -52,6 +52,7 @@ object Constants {
      const val PR_email = "user_email"
      const val PR_imageBase64: String = "user_image"
      const val PR_imageOnline: String = "user_image_url"
+     const val PR_currentSlug:String = "user_phone_slug"
 
 
      const val XIAOMI = "xiaomi"
