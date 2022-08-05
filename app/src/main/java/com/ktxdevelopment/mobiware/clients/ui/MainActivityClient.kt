@@ -5,7 +5,9 @@ import android.os.Handler
 import android.os.Looper
 import android.view.MenuItem
 import androidx.core.os.postDelayed
+import androidx.core.view.GravityCompat
 import androidx.core.view.GravityCompat.START
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.ktxdevelopment.mobiware.R
 import com.ktxdevelopment.mobiware.databinding.ActivityMainBinding
@@ -127,6 +129,26 @@ object MainActivityClient {
                Intent(context, AdditionalActivity::class.java).apply {
                     action = Constants.FR_PROFILE
                }.also { context.startActivity(it) }
+          }
+     }
+
+     fun onCustomBackPressed(activity: MainActivity, mainBinding: ActivityMainBinding, nav: NavController) {
+          if (mainBinding.drawerLayout.isDrawerOpen(START)) activity.closeDrawer()
+          else {
+               nav.apply {
+                    if (currentDestination!!.id == R.id.fragmentHardware) {
+                         activity.doubleBackToExit()
+                    }
+                    if (currentDestination!!.id == R.id.fragmentLatest) {
+                         navigate(R.id.actionToHardware)
+                    }
+                    if (currentDestination!!.id == R.id.fragmentMyDevices) {
+                         navigate(R.id.actionToHardware)
+                    }
+                    if (currentDestination!!.id == R.id.fragmentSecondaryHardware) {
+                         this.navigateUp()
+                    }
+               }
           }
      }
 }

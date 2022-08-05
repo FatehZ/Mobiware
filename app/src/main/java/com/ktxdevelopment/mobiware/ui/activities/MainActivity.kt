@@ -50,7 +50,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
                user.observe(this) { if (it != null) setupNavUI(it) }
           }
-          retrieveUserDataOnline()
+          FirebaseClient.loadUserData(this)
      }
 
      override fun onResume() {
@@ -105,38 +105,14 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
      }
 
 
-     fun closeDrawer() {
-          if (mainBinding.drawerLayout.isDrawerOpen(GravityCompat.START)) mainBinding.drawerLayout.closeDrawer(
-               GravityCompat.START
-          )
-     }
+     fun closeDrawer() { if (mainBinding.drawerLayout.isDrawerOpen(GravityCompat.START)) mainBinding.drawerLayout.closeDrawer(GravityCompat.START) }
 
      fun getMobile() = mobile
 
      override fun onBackPressed() {
-          if (mainBinding.drawerLayout.isDrawerOpen(GravityCompat.START)) closeDrawer()
-          else {
-               findNavController(R.id.navHost).apply {
-                    if (currentDestination!!.id == R.id.fragmentHardware) {
-                         doubleBackToExit()
-                    }
-                    if (currentDestination!!.id == R.id.fragmentLatest) {
-                         navigate(R.id.actionToHardware)
-                    }
-                    if (currentDestination!!.id == R.id.fragmentMyDevices) {
-                         navigate(R.id.actionToHardware)
-                    }
-                    if (currentDestination!!.id == R.id.fragmentSecondaryHardware) {
-                         this.navigateUp()
-                    }
-               }
-          }
+          MainActivityClient.onCustomBackPressed(this, mainBinding, findNavController(R.id.navHost))
      }
 
-
-     private fun retrieveUserDataOnline() {
-          FirebaseClient.loadUserData(this)
-     }
 
      fun onUserDataObtainedFromFirestore(mUser: LocalUser) {
           user.postValue(BaseClient.convertFireToLocalUser(mUser))
