@@ -8,7 +8,7 @@ data class LocalUser(
     var username: String = "",
     var mobileNumberBase: String = "",
     var mobileCountryCode: String = "",
-    var mobileId: List<String> = ArrayList(),
+    var mobileId: ArrayList<String> = ArrayList(),
     var email: String = "",
     var image64: String = "",
     var imageOnline: String = ""

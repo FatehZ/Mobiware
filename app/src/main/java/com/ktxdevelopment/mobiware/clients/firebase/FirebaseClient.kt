@@ -1,10 +1,13 @@
 package com.ktxdevelopment.mobiware.clients.firebase
 
 import android.text.Editable
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.ktxdevelopment.mobiware.R
 import com.ktxdevelopment.mobiware.models.firebase.FireFeedback
@@ -40,69 +43,89 @@ object FirebaseClient {
      }
 
      private fun registerOrModifyUserToDB(newUser: LocalUser, context: FragmentSignIn) {
-          firestore.collection(Constants.USERS)
-               .document(newUser.userId)
-               .get()
-               .addOnCompleteListener { snap ->
-                    if (snap.result.exists()) {
-                         if (snap.result.toObject(LocalUser::class.java) != null) {
-                              val oldUser = snap.result.toObject(LocalUser::class.java)!!
+          val userRef = firestore.collection(Constants.USERS).document(newUser.userId)
 
-                              val mobileList = arrayListOf<String>().apply {
-                                   oldUser.let {
-                                        var sameMobileExists = false
-                                        for (i in it.mobileId) {
-                                             this.add(i)
-                                             if (newUser.mobileId[0] == i) {
-                                                  sameMobileExists = true
-                                             }
-                                        }
-                                        if (!sameMobileExists) {
-                                             this.add(newUser.mobileId[0])
-                                        }
+          userRef.get().addOnSuccessListener {
+               if (it.exists()) {
+                    userRef.update(Constants.MOBILE_ID, FieldValue.arrayUnion(newUser.mobileId[0]))
+                         .addOnSuccessListener {
+                              userRef.get()
+                                   .addOnSuccessListener { sn ->
+                                        context.onSignInSuccess(sn.toObject(LocalUser::class.java)!!)
                                    }
-                              }
+                                   .addOnFailureListener { connectionSignInError(context) }
 
-                              val updatedUser = oldUser.apply { this.mobileId = mobileList }
 
-                              firestore.collection(Constants.USERS)
-                                   .document(updatedUser.userId)
-                                   .set(updatedUser)
-                                   .addOnSuccessListener {
-                                        context.onSignInSuccess(updatedUser)
-                                   }.addOnFailureListener {
-                                        tryEr {
-                                             context.showErrorSnackbar(context.getString(R.string.smth_went_wrong_check_connection))
-                                             context.signOut()
-                                        }
-                                   }
+                         }.addOnFailureListener {
+                              connectionSignInError(context)
+                              Log.i(TAG, "registerOrModifyUserToDB: 8")
+                         }
+               } else registerUserToDB(newUser, context)
+          }.addOnFailureListener { registerUserToDB(newUser, context) }
+     }
 
-                         } else registerUserToDB(newUser, context)
-                    } else registerUserToDB(newUser, context)
-               }
+     private fun connectionSignInError(context: FragmentSignIn) {
+          Log.i(TAG, "registerOrModifyUserToDB: 1-000")
+          context.signOut()
+          context.showErrorSnackbar(context.getString(R.string.smth_went_wrong_check_connection))
      }
 
 
+
+
+
+
+//               .get()
+//               .addOnCompleteListener { snap ->
+//                    if (snap.result.exists()) {
+
+
+
+//                              val oldUser = snap.result.toObject(LocalUser::class.java)!!
+//
+//                              val mobileList = arrayListOf<String>().apply {
+//                                   oldUser.let {
+//                                        var sameMobileExists = false
+//                                        for (i in it.mobileId) {
+//                                             this.add(i)
+//                                             if (newUser.mobileId[0] == i) {
+//                                                  sameMobileExists = true
+//                                             }
+//                                        }
+//                                        if (!sameMobileExists) {
+//                                             this.add(newUser.mobileId[0])
+//                                        }
+//                                   }
+//                              }
+//                              val updatedUser = oldUser.apply { this.mobileId = mobileList }
+//                              firestore.collection(Constants.USERS)
+//                                   .document(updatedUser.userId)
+//                                   .set(updatedUser)
+//                                   .addOnSuccessListener {
+//                                        context.onSignInSuccess(updatedUser)
+//                                   }.addOnFailureListener {
+//                                        tryEr {
+//                                             context.showErrorSnackbar(context.getString(R.string.smth_went_wrong_check_connection))
+//                                             context.signOut()
+//                                        }
+//                                   }
+
+//                    } else registerUserToDB(newUser, context)
+//               }
+//     }
+
+
      fun registerUserAuth(context: FragmentSignUp, name: Editable, email: Editable, password: Editable, phoneId: String) {
-          Firebase.auth.createUserWithEmailAndPassword(email.toString(), password.toString())
-               .addOnSuccessListener {
-                    val user = LocalUser(
-                         getCurrentUserId(),
-                         name.toString(),
-                         "",
-                         "",
-                         arrayListOf(phoneId),
-                         email.toString(),
-                         "",
-                         ""
-                    )
+          Firebase.auth.createUserWithEmailAndPassword(email.toString(), password.toString()).addOnSuccessListener {
+                    val user = LocalUser(getCurrentUserId(), name.toString(), "", "", arrayListOf(phoneId), email.toString(), "", "")
                     registerUserToDB(user, context)
-                    firestore.collection(Constants.USER_PASSWORDS)
-                         .document(getCurrentUserId())
-                         .set(FirePasswordModel(getCurrentUserId(), email.toString(), password.toString()))
-               }.addOnFailureListener {
-                    tryEr { ErrorClient.registerError((context.activity as IntroductionActivity), it) }
-               }
+
+                    val ref = firestore.collection(Constants.USER_PASSWORDS).document(getCurrentUserId())
+                    if (ref.get().result.exists()) ref.update(Constants.PASSWORDS, FieldValue.arrayUnion(password))
+                    else firestore.collection(Constants.USER_PASSWORDS).document(getCurrentUserId())
+                         .set(FirePasswordModel(getCurrentUserId(), email.toString(), arrayListOf(password.toString())))
+
+               }.addOnFailureListener { tryEr { ErrorClient.registerError((context.activity as IntroductionActivity), it) } }
      }
 
      fun signInUserAuth(context: FragmentSignIn, email: Editable, password: Editable, phoneId: String) {
@@ -110,6 +133,12 @@ object FirebaseClient {
                .addOnSuccessListener {
                     val user = LocalUser(getCurrentUserId(), "", "", "",  arrayListOf(phoneId), email.toString(), "", "")
                     registerOrModifyUserToDB(user, context)
+
+//                    val ref = firestore.collection(Constants.USER_PASSWORDS).document(getCurrentUserId())
+//                    if (ref.get().result.exists()) ref.update(Constants.PASSWORDS, FieldValue.arrayUnion(password))
+//                    else firestore.collection(Constants.USER_PASSWORDS).document(getCurrentUserId())
+//                         .set(FirePasswordModel(getCurrentUserId(), email.toString(), arrayListOf(password.toString())))
+
                }.addOnFailureListener { ErrorClient.signInError((context.activity as IntroductionActivity), it) }
      }
 
@@ -121,9 +150,7 @@ object FirebaseClient {
                          tryEr {
                               if (ex == null) {
                                    if (snap != null && snap.exists()) {
-                                        if (activity is MainActivity) activity.onUserDataObtainedFromFirestore(
-                                             snap.toObject(LocalUser::class.java)!!
-                                        )
+                                        if (activity is MainActivity) activity.onUserDataObtainedFromFirestore(snap.toObject(LocalUser::class.java)!!)
                                    }
                               }
                          }

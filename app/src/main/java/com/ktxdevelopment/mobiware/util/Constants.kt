@@ -2,6 +2,8 @@ package com.ktxdevelopment.mobiware.util
 
 object Constants {
 
+     const val SLUG_EXTRA: String = "slug"
+     const val MOBILE_ID = "mobileId"
      const val FR_PROFILE: String = "profile_fr"
      const val FR_FEEDBACK: String = "feedback_fr"
      const val PHOTOS: String = ""
@@ -15,6 +17,7 @@ object Constants {
      const val FR_TYPE_EXTRA: String = "type_extra"
      const val TYPE_MY_DEVICES: String = "my"
      const val TYPE_LATEST: String = "latest"
+     const val PASSWORDS: String = "passwords"
 
      const val USER_EXTRA: String = "user_extra"
      const val LOCAL_USER: String = "local_user"

@@ -18,9 +18,10 @@ class RoomMobileWorker (appContext: Context, params: WorkerParameters) : Corouti
 
         val str = inputData.getString(Constants.PHONE_EXTRA)
         val mobile: Data = Gson().fromJson(str, Data::class.java)
+        val slug = inputData.getString(Constants.SLUG_EXTRA)
 
         return try {
-            dao.upsertPhone(RoomPhoneModel(mobile.phone_name ,mobile))
+            dao.upsertPhone(RoomPhoneModel(slug!!,mobile))
             Result.success()
         }catch (e: Exception) { Result.retry() }
     }

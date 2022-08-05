@@ -70,8 +70,8 @@ class FragmentHardware : BaseFragment() {
         } else {
             (activity as MainActivity).getMobile().observe(requireActivity()) {
                 if (it != null) {
-                    mobile = it
-                    checkThenSetDataInUI(it)
+                    mobile = it.data
+                    checkThenSetDataInUI(it.data)
                     Handler(Looper.getMainLooper()).postDelayed(800) {
                         loadContentVisible()
                     }

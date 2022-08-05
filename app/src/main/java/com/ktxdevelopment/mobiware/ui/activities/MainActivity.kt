@@ -21,7 +21,7 @@ import com.ktxdevelopment.mobiware.clients.ui.MainActivityClient.launchProfileIn
 import com.ktxdevelopment.mobiware.databinding.ActivityMainBinding
 import com.ktxdevelopment.mobiware.databinding.NavHeaderBinding
 import com.ktxdevelopment.mobiware.models.local.LocalUser
-import com.ktxdevelopment.mobiware.models.rest.product.Data
+import com.ktxdevelopment.mobiware.models.room.RoomPhoneModel
 import com.ktxdevelopment.mobiware.util.Constants
 import com.ktxdevelopment.mobiware.util.tryEr
 import com.ktxdevelopment.mobiware.viewmodel.LocalViewModel
@@ -33,7 +33,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
      private lateinit var mainBinding: ActivityMainBinding
      private val TAG = "MAIN_TAG"
      private lateinit var viewModel: LocalViewModel
-     private var mobile: MutableLiveData<Data> = MutableLiveData()
+     private var mobile: MutableLiveData<RoomPhoneModel> = MutableLiveData()
      private var user: MutableLiveData<LocalUser> = MutableLiveData()
 
      override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +55,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
      override fun onResume() {
           super.onResume()
-          viewModel.getLocalUser(this)
      }
 
      override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -85,9 +84,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
           viewModel.getRoomMobileDetails()
 
           viewModel.roomMobileDetails.observe(this) { us ->
-               if (us != null) {
-                    mobile.postValue(us.data)
-               }
+               if (us != null) mobile.postValue(us)
           }
 
           viewModel.localUser.observe(this) {
@@ -150,7 +147,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
      override fun signOut() {
           hideProgressDialog()
-          viewModel.clearDatabase()
+          viewModel.clearDatabaseWithWork(this)
           Firebase.auth.signOut()
      }
 }

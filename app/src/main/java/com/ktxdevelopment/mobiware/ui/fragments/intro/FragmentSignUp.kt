@@ -20,6 +20,7 @@ import com.ktxdevelopment.mobiware.models.local.LocalUser
 import com.ktxdevelopment.mobiware.models.rest.Resource
 import com.ktxdevelopment.mobiware.models.rest.search.Phone
 import com.ktxdevelopment.mobiware.models.rest.search.SearchResponse
+import com.ktxdevelopment.mobiware.models.room.RoomPhoneModel
 import com.ktxdevelopment.mobiware.ui.activities.BaseActivity
 import com.ktxdevelopment.mobiware.ui.activities.IntroductionActivity
 import com.ktxdevelopment.mobiware.ui.activities.MainActivity
@@ -89,9 +90,8 @@ class FragmentSignUp : BaseFragment(), SelectionAdapter.OnMobileClickListener {
      }
 
      override fun onMobileClick(position: Int) {
-          selectedPhoneUrl = phones[position].detail
-          if (binding.tvSignPhoneModel.visibility == View.GONE) binding.tvSignPhoneModel.visibility =
-               View.VISIBLE
+          selectedPhoneUrl = phones[position].slug
+          if (binding.tvSignPhoneModel.visibility == View.GONE) binding.tvSignPhoneModel.visibility = View.VISIBLE
           binding.tvSignPhoneModel.text = phones[position].phone_name
      }
 
@@ -103,12 +103,12 @@ class FragmentSignUp : BaseFragment(), SelectionAdapter.OnMobileClickListener {
                     is Resource.Success -> {
                          (activity as BaseActivity).hideProgressDialog()
                          roomViewModel.writeUserToPreferences(requireContext(), user)
-                         roomViewModel.writeMobileToRoomDB(requireContext(), res.data!!.data)
-                         roomViewModel.writeMobileToFirestore(requireContext(), res.data.data)
+                         roomViewModel.writeMobileToRoomDB(requireContext(), res.data!!.data, selectedPhoneUrl)
+//                         roomViewModel.writeMobileToFirestore(requireContext(), res.data.data)
 
                          Intent(requireActivity(), MainActivity::class.java).apply {
                               addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_NEW_TASK)
-                              putExtra(Constants.PHONE_EXTRA, res.data.data)
+                              putExtra(Constants.PHONE_EXTRA, RoomPhoneModel(selectedPhoneUrl, res.data.data))
                               putExtra(Constants.USER_EXTRA, BaseClient.convertFireToLocalUser(user))
                          }.also { startActivity(it); activity?.finish() }
 
@@ -125,14 +125,14 @@ class FragmentSignUp : BaseFragment(), SelectionAdapter.OnMobileClickListener {
 
 
      private fun launchRegistration() {
-          (activity as BaseActivity).showProgressDialog()
+          showProgressDialog()
           restViewModel.getMobile(selectedPhoneUrl)
           FirebaseClient.registerUserAuth(
                this,
                binding.etUsernameSignIn.text!! ,
                binding.etEmailSignIn.text!!,
                binding.etPasswordSignIn.text!!,
-               selectedPhoneUrl.substring(40)
+               selectedPhoneUrl
           )
      }
 

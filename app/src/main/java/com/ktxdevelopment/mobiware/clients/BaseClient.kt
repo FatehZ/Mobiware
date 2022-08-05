@@ -35,18 +35,11 @@ object BaseClient {
                                         Uri.parse("https://play.google.com/store/apps/details?id=${context.packageName}")
                                 )
                         )
-                } catch (e: Exception) {
-                }
+                } catch (e: Exception) { }
         }
 
         fun convertDataToPhone(data: Data, detail: String): Phone {
-                return Phone(
-                        data.brand,
-                        detail,
-                        data.thumbnail,
-                        data.phone_name,
-                        ""
-                )
+                return Phone(data.brand, Constants.BASE_URL + detail, data.thumbnail, data.phone_name, detail)
         }
 
 

@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
 import com.ktxdevelopment.mobiware.models.room.RoomPhoneModel
 import com.ktxdevelopment.mobiware.util.Constants
 
-@Database(entities = [RoomPhoneModel::class], version = 1, exportSchema = false)
+@Database(entities = [RoomPhoneModel::class], version = 1 , exportSchema = false)
 @TypeConverters(MobileConverter::class)
 abstract class MobileDatabase : RoomDatabase() {
 

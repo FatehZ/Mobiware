@@ -80,7 +80,7 @@ class IntroductionActivity : BaseActivity() {
 
      override fun signOut() {
           hideProgressDialog()
-          roomViewModel.clearDatabase()
+          roomViewModel.clearDatabaseWithWork(this)
           Firebase.auth.signOut()
      }
 }

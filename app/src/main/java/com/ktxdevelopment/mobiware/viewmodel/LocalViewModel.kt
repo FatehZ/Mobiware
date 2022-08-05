@@ -41,11 +41,6 @@ class LocalViewModel @Inject constructor(private var localRepo: LocalRepository,
      }
 
 
-     fun clearDatabase() {
-          viewModelScope.launch {
-               localRepo.clearDB()
-          }
-     }
 
 
 
@@ -57,16 +52,16 @@ class LocalViewModel @Inject constructor(private var localRepo: LocalRepository,
      }
 
 
-     fun writeMobileToRoomDB(context: Context, mobile: DataMobile) {
+     fun writeMobileToRoomDB(context: Context, mobile: DataMobile, slug: String) {
 
           viewModelScope.launch {
                val data: Data = Data.Builder()
                     .putString(Constants.PHONE_EXTRA, Gson().toJson(mobile))
+                    .putString(Constants.SLUG_EXTRA, slug)
                     .build()
 
                val roomMobileRequest = OneTimeWorkRequest.Builder(RoomMobileWorker::class.java)
-                    .setInputData(data)
-                    .build()
+                    .setInputData(data).build()
 
                WorkManager.getInstance(context).enqueue(roomMobileRequest)
           }

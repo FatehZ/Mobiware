@@ -43,7 +43,7 @@
     <string name="sign_out">Sign Out</string>
     <string name="username_5_or_more_letters">At least 5 letters are required</string>
     <string name="at_least_a_letter">Must include minimum a letter</string>
-    <string name="no_special_symbols_allowed">No special symbols are allowed</string>
+    <string name="no_special_symbols_allowed">Special symbols are not allowed</string>
     <string name="password_at_least_6_chars">Minimum 6 characters</string>
     <string name="sign_in">Sign In</string>
     <string name="no_account_register">No Account? Register</string>
@@ -59,7 +59,7 @@
     <string name="phone_model">Phone Model</string>
     <string name="submit">Submit</string>
     <string name="no_empty_input">Please enter text or attach image</string>
-    <string name="too_short_enter_valid">Model is too short</string>
+    <string name="too_short_enter_valid">Model name is too short</string>
     <string name="login">Log In</string>
     <string name="profile_updated_success">Profile updated successfully</string>
     <string name="forgot_password">Forgot Password</string>
@@ -95,6 +95,7 @@
     <string name="null_email_placeholder_for_feedback">ktx.development@gmail.com</string>
     <string name="feedback">Feedback</string>
     <string name="email_cannot_change">Email cannot be changed</string>
+    <string name="no_free_spaces_allowed">Free spaces are not allowed</string>
 
 
 </resources>
