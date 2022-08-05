@@ -35,7 +35,6 @@ object AppModule {
     fun provideDao(db: MobileDatabase) = db.getDao()
 
 
-    @Singleton
     @Provides
     fun provideSearchApi(): RetrofitApi = Retrofit.Builder()
         .baseUrl(Constants.BASE_URL)

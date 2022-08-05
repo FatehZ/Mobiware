@@ -1,6 +1,7 @@
 package com.ktxdevelopment.mobiware.ui.activities
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
@@ -14,6 +15,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.ktxdevelopment.mobiware.R
 import com.ktxdevelopment.mobiware.clients.BaseClient
+import com.ktxdevelopment.mobiware.clients.BaseClient.convertDataToPhone
 import com.ktxdevelopment.mobiware.clients.PermissionClient
 import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient
 import com.ktxdevelopment.mobiware.clients.ui.MainActivityClient
@@ -21,10 +23,13 @@ import com.ktxdevelopment.mobiware.clients.ui.MainActivityClient.launchProfileIn
 import com.ktxdevelopment.mobiware.databinding.ActivityMainBinding
 import com.ktxdevelopment.mobiware.databinding.NavHeaderBinding
 import com.ktxdevelopment.mobiware.models.local.LocalUser
+import com.ktxdevelopment.mobiware.models.rest.Resource
+import com.ktxdevelopment.mobiware.models.rest.search.Phone
 import com.ktxdevelopment.mobiware.models.room.RoomPhoneModel
 import com.ktxdevelopment.mobiware.util.Constants
 import com.ktxdevelopment.mobiware.util.tryEr
 import com.ktxdevelopment.mobiware.viewmodel.LocalViewModel
+import com.ktxdevelopment.mobiware.viewmodel.RetroViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,11 +40,13 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
      private lateinit var viewModel: LocalViewModel
      private var mobile: MutableLiveData<RoomPhoneModel> = MutableLiveData()
      private var user: MutableLiveData<LocalUser> = MutableLiveData()
+     private lateinit var myMobiles: ArrayList<Phone>
 
      override fun onCreate(savedInstanceState: Bundle?) {
           super.onCreate(savedInstanceState)
           mainBinding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
           viewModel = ViewModelProvider(this)[LocalViewModel::class.java]
+          myMobiles = ArrayList()
           setupPrimaryUI()
 
           tryEr {
@@ -51,6 +58,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                user.observe(this) { if (it != null) setupNavUI(it) }
           }
           FirebaseClient.loadUserData(this)
+          launchMyDevices()
      }
 
      override fun onResume() {
@@ -126,4 +134,36 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
           viewModel.clearDatabaseWithWork(this)
           Firebase.auth.signOut()
      }
+
+     private fun launchMyDevices() {
+          mobile.observe(this) {
+               if (it != null) {
+                    myMobiles.add(convertDataToPhone(it.data, it.slug))
+                    user.observe(this) { us->
+                        us.mobileId.forEach { str->
+                             if (str != it.slug) {
+                                  postNewMobiles(str)
+                             }
+                        }
+                    }
+               }
+          }
+     }
+
+     private fun postNewMobiles(url: String) {
+          val viewModel = ViewModelProvider(this)[RetroViewModel::class.java]
+          viewModel.getMyDevices(url)
+
+          viewModel.getMyDeviceResponse.observe(this) {
+               if (it is Resource.Success) {
+                    if (it.data?.data != null) {
+                         convertDataToPhone(it.data.data, url).apply {
+                              myMobiles.add(this)
+                         }
+                    }
+               }
+          }
+     }
+
+     fun getMyMobiles() = myMobiles
 }

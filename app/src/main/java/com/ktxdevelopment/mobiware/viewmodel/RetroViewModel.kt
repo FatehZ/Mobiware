@@ -15,12 +15,11 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class RetroViewModel @Inject constructor(
-    private var restRepo: RetrofitRepository,
-    application: Application) : AndroidViewModel(application) {
+class RetroViewModel @Inject constructor(private var restRepo: RetrofitRepository, application: Application) : AndroidViewModel(application) {
 
     var searchResponse: MutableLiveData<Resource<SearchResponse>> = MutableLiveData()
     var getResponse: MutableLiveData<Resource<GetResponse>> = MutableLiveData()
+    var getMyDeviceResponse: MutableLiveData<Resource<GetResponse>> = MutableLiveData()
 
     fun searchMobile(query: String) {
         viewModelScope.launch {
@@ -40,7 +39,10 @@ class RetroViewModel @Inject constructor(
         }
     }
 
-    fun getMassiveSearchResponses(list: List<String>) {
-
+    fun getMyDevices(url: String) {
+        viewModelScope.launch {
+            getMyDeviceResponse.postValue(restRepo.getMyDevices(url))
+        }
     }
+
 }

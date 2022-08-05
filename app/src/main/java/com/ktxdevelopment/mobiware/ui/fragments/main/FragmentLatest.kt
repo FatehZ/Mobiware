@@ -24,7 +24,7 @@ import com.ktxdevelopment.mobiware.viewmodel.RetroViewModel
 
 class FragmentLatest : BaseFragment(), LatestMobileAdapter.OnMobileClickListener {
 
-    private lateinit var topAdapter: LatestMobileAdapter
+    private lateinit var latestMobileAdapter: LatestMobileAdapter
     private lateinit var binding: FragmentLatestBinding
     private lateinit var restViewModel: RetroViewModel
     private var errorMessageShown = false
@@ -35,13 +35,13 @@ class FragmentLatest : BaseFragment(), LatestMobileAdapter.OnMobileClickListener
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        topAdapter = LatestMobileAdapter(this)
+        latestMobileAdapter = LatestMobileAdapter(this)
         restViewModel = ViewModelProvider(requireActivity())[RetroViewModel::class.java]
         myMobiles = MutableLiveData()
 
         binding.rvLatest.apply {
             layoutManager = GridLayoutManager(requireContext(), 2)
-            adapter = topAdapter }
+            adapter = latestMobileAdapter }
 
         restViewModel.searchLatest()
         restViewModel.searchResponse.observe(requireActivity()) {
@@ -50,7 +50,7 @@ class FragmentLatest : BaseFragment(), LatestMobileAdapter.OnMobileClickListener
                     binding.shimmerLayout.visibility = GONE
                     binding.shimmerLayout.stopShimmer()
                     binding.rvLatest.visibility = VISIBLE
-                    topAdapter.submitList(it.data!!.data.phones)
+                    latestMobileAdapter.submitList(it.data!!.data.phones)
                 }
                 is Resource.Error -> {
                     Handler(Looper.getMainLooper()).postDelayed(500) { searchAgain() }
@@ -72,7 +72,7 @@ class FragmentLatest : BaseFragment(), LatestMobileAdapter.OnMobileClickListener
 
     override fun onPosClick(pos: Int) {
         val bundle = Bundle().apply {
-            putString(Constants.PHONE_EXTRA, topAdapter.currentList[pos].detail)
+            putString(Constants.PHONE_EXTRA, latestMobileAdapter.currentList[pos].detail)
         }
         findNavController().navigate(R.id.actionToSecondaryHardware, bundle)
     }

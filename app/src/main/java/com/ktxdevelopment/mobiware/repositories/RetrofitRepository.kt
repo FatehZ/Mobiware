@@ -13,5 +13,7 @@ class RetrofitRepository @Inject constructor(private var api: RetrofitApi) : Bas
 
     suspend fun getMobile(url: String): Resource<GetResponse> = safeApiCall { api.getMobile(url) }
 
+    suspend fun getMyDevices(url: String): Resource<GetResponse> = safeApiCall { api.getMobile(url) }
+
     suspend fun searchLatest(): Resource<SearchResponse> = safeApiCall { api.searchLatest() }
 }
