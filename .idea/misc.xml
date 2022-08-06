@@ -114,8 +114,10 @@
         <entry key="app/src/main/res/layout/fragment_battery.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_feedback.xml" value="0.2747053490480508" />
         <entry key="app/src/main/res/layout/fragment_forgot_password.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_hardware.xml" value="0.2877297990594271" />
         <entry key="app/src/main/res/layout/fragment_latest.xml" value="0.28547008547008546" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.2384406165004533" />
+        <entry key="app/src/main/res/layout/fragment_secondary_hardware.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_sign_in.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_sign_up.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_splash.xml" value="0.25" />
