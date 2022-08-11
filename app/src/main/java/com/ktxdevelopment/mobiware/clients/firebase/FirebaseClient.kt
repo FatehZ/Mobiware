@@ -7,7 +7,6 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.ktxdevelopment.mobiware.R
 import com.ktxdevelopment.mobiware.models.firebase.FireFeedback
@@ -22,6 +21,7 @@ import com.ktxdevelopment.mobiware.ui.fragments.intro.FragmentForgotPassword
 import com.ktxdevelopment.mobiware.ui.fragments.intro.FragmentSignIn
 import com.ktxdevelopment.mobiware.ui.fragments.intro.FragmentSignUp
 import com.ktxdevelopment.mobiware.ui.fragments.main.BaseFragment
+import com.ktxdevelopment.mobiware.ui.fragments.main.FragmentSettings
 import com.ktxdevelopment.mobiware.util.Constants
 import com.ktxdevelopment.mobiware.util.tryEr
 
@@ -199,6 +199,7 @@ object FirebaseClient {
      }
 
      fun resetPasswordWithEmail(context: BaseFragment, email: String) {
+          auth.useAppLanguage()
           if (context is FragmentForgotPassword) {
                auth.sendPasswordResetEmail(email).addOnSuccessListener {
                     context.onResetPasswordSuccess()
@@ -206,6 +207,13 @@ object FirebaseClient {
                     context.hideProgressDialog()
                     if (it is FirebaseAuthInvalidUserException) context.onResetPasswordError(context.getString(R.string.user_does_not_exist))
                     else context.onResetPasswordError(context.getString(R.string.smth_went_wrong_only))
+               }
+          }
+          else if (context is FragmentSettings) {
+               auth.sendPasswordResetEmail(email).addOnSuccessListener {
+                    context.onResetPasswordSuccess()
+               }.addOnFailureListener {
+                    context.onReceivedError()
                }
           }
      }
@@ -221,6 +229,14 @@ object FirebaseClient {
                     activity.onFeedbackError()
                }
 
+     }
+
+     fun deleteCurrentUserAccount(context: FragmentSettings) {
+          auth.currentUser!!.delete().addOnSuccessListener {
+               context.onDeleteAccountSuccess()
+          }.addOnFailureListener {
+               context.onReceivedError()
+          }
      }
 }
 

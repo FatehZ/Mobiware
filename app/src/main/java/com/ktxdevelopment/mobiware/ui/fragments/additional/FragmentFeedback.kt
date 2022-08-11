@@ -18,9 +18,9 @@ import androidx.core.os.postDelayed
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ktxdevelopment.mobiware.R
-import com.ktxdevelopment.mobiware.clients.BaseClient
-import com.ktxdevelopment.mobiware.clients.PermissionClient
-import com.ktxdevelopment.mobiware.clients.TextInputClient
+import com.ktxdevelopment.mobiware.clients.main.BaseClient
+import com.ktxdevelopment.mobiware.clients.main.PermissionClient
+import com.ktxdevelopment.mobiware.clients.main.TextInputClient
 import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient
 import com.ktxdevelopment.mobiware.databinding.FragmentFeedbackBinding
 import com.ktxdevelopment.mobiware.models.firebase.FireFeedback

@@ -1,9 +1,13 @@
 package com.ktxdevelopment.mobiware.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.os.postDelayed
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
@@ -13,8 +17,8 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.ktxdevelopment.mobiware.R
-import com.ktxdevelopment.mobiware.clients.BaseClient
-import com.ktxdevelopment.mobiware.clients.PermissionClient
+import com.ktxdevelopment.mobiware.clients.main.BaseClient
+import com.ktxdevelopment.mobiware.clients.main.PermissionClient
 import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient
 import com.ktxdevelopment.mobiware.clients.ui.MainActivityClient
 import com.ktxdevelopment.mobiware.clients.ui.MainActivityClient.launchProfileIntent
@@ -39,8 +43,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
      override fun onCreate(savedInstanceState: Bundle?) {
           super.onCreate(savedInstanceState)
           mainBinding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
-          viewModel = ViewModelProvider(this)[LocalViewModel::class.java]
           setupPrimaryUI()
+          viewModel = ViewModelProvider(this)[LocalViewModel::class.java]
 
           tryEr {
                if (intent.hasExtra(Constants.PHONE_EXTRA)) {
@@ -120,10 +124,15 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
 
      fun getLocalUser() = user
+     fun getLocalViewModel() = viewModel
 
      override fun signOut() {
           hideProgressDialog()
           viewModel.clearDatabaseWithWork(this)
           Firebase.auth.signOut()
+          Intent(this, IntroductionActivity::class.java)
+               .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_ACTIVITY_CLEAR_TOP)
+               .setAction("")
+               .also { startActivity(it); finish() }
      }
 }

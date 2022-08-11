@@ -18,6 +18,7 @@
 
      <color name="primary_background">#00ff00</color>
      <color name="civ_border">@color/purple_700</color>
+     <color name="dark_text">@color/teal_700</color>
 
      <color name="least">#00FF00</color>
      <color name="white">#ffFFFF</color>

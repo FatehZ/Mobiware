@@ -1,4 +1,4 @@
-package com.ktxdevelopment.mobiware.clients
+package com.ktxdevelopment.mobiware.clients.main
 
 import android.Manifest
 import android.content.ContentResolver
@@ -11,10 +11,8 @@ import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy
 import android.provider.OpenableColumns
 import android.util.Base64
-import android.util.Log
 import android.webkit.MimeTypeMap
 import androidx.core.content.ContextCompat
-import com.ktxdevelopment.mobiware.ui.activities.BaseActivity
 import java.io.ByteArrayOutputStream
 import java.net.URL
 

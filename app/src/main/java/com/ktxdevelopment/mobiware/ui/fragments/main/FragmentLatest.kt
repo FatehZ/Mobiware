@@ -1,5 +1,6 @@
 package com.ktxdevelopment.mobiware.ui.fragments.main
 
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -71,7 +72,7 @@ class FragmentLatest : BaseFragment(), LatestMobileAdapter.OnMobileClickListener
     }
 
     override fun onPosClick(pos: Int) {
-        val bundle = Bundle().apply { putString(Constants.PHONE_EXTRA, latestMobileAdapter.currentList[pos].detail) }
+        val bundle = Bundle().apply { putString(Constants.PHONE_EXTRA, latestMobileAdapter.currentList[pos].slug) }
         findNavController().navigate(R.id.actionToSecondaryHardware, bundle)
     }
 

@@ -1,6 +1,5 @@
 package com.ktxdevelopment.mobiware.ui.fragments.main
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,10 +12,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ktxdevelopment.mobiware.R
-import com.ktxdevelopment.mobiware.clients.BaseClient.checkIfUrlExistsInPhones
-import com.ktxdevelopment.mobiware.clients.BaseClient.convertDataToPhone
-import com.ktxdevelopment.mobiware.clients.PermissionClient
-import com.ktxdevelopment.mobiware.clients.PreferenceClient
+import com.ktxdevelopment.mobiware.clients.main.BaseClient.checkIfUrlExistsInPhones
+import com.ktxdevelopment.mobiware.clients.main.BaseClient.convertDataToPhone
+import com.ktxdevelopment.mobiware.clients.main.PreferenceClient
 import com.ktxdevelopment.mobiware.databinding.FragmentMyDevicesBinding
 import com.ktxdevelopment.mobiware.models.rest.Resource
 import com.ktxdevelopment.mobiware.models.rest.search.Phone

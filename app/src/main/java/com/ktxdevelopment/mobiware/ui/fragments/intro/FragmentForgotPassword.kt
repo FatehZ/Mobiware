@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.ktxdevelopment.mobiware.R
-import com.ktxdevelopment.mobiware.clients.BaseClient
-import com.ktxdevelopment.mobiware.clients.TextInputClient
+import com.ktxdevelopment.mobiware.clients.main.BaseClient
+import com.ktxdevelopment.mobiware.clients.main.TextInputClient
 import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient
 import com.ktxdevelopment.mobiware.databinding.FragmentForgotPasswordBinding
 import com.ktxdevelopment.mobiware.ui.activities.BaseActivity

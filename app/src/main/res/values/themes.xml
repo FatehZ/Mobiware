@@ -4,7 +4,7 @@
         <!-- Primary brand color. -->
         <item name="fontFamily">@font/dosis_medium</item>
         <item name="colorPrimary">@color/cyan</item>
-        <item name="colorPrimaryVariant">@color/white</item>
+        <item name="colorPrimaryVariant">@color/cyan</item>
         <item name="colorOnPrimary">@color/cyan</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -36,4 +36,17 @@
         <item name="boxCornerRadiusBottomEnd">@dimen/_20sdp</item>
         <item name="boxCornerRadiusBottomStart">@dimen/_20sdp</item>
     </style>
+
+    <style name="Theme.SpecialEditText" parent="Widget.Material3.TextInputEditText.OutlinedBox">
+        <item name="android:background">@drawable/edit_text_design</item>
+    </style>
+
+    <style name="Theme.OutlinedCardView" parent="Widget.Material3.CardView.Outlined" >
+        <item name="cardCornerRadius">@dimen/_5sdp</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="strokeWidth">@dimen/_1sdp</item>
+        <item name="strokeColor">@color/blue</item>
+    </style>
+
 </resources>

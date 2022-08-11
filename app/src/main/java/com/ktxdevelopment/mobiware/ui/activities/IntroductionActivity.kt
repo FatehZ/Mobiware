@@ -12,7 +12,7 @@ import androidx.navigation.findNavController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.ktxdevelopment.mobiware.R
-import com.ktxdevelopment.mobiware.clients.RemoteClient
+import com.ktxdevelopment.mobiware.clients.main.RemoteClient
 import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient
 import com.ktxdevelopment.mobiware.databinding.ActivityIntroductionBinding
 import com.ktxdevelopment.mobiware.util.Constants

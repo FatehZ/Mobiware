@@ -55,9 +55,7 @@ class FragmentSecondaryHardware : Fragment() {
      override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
           super.onViewCreated(view, savedInstanceState)
 
-          if (binding == null) {
-               binding = FragmentSecondaryHardwareBinding.inflate(layoutInflater)
-          }
+          if (binding == null) binding = FragmentSecondaryHardwareBinding.inflate(layoutInflater)
 
           viewModel = ViewModelProvider(requireActivity())[RetroViewModel::class.java]
           loadShimmerVisible()

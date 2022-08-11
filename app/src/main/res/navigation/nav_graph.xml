@@ -25,11 +25,12 @@
         android:id="@+id/fragmentSecondaryHardware"
         android:name="com.ktxdevelopment.mobiware.ui.fragments.main.FragmentSecondaryHardware"
         android:label="FragmentSecondaryHardware" >
-        <action
-            android:id="@+id/action_fragmentSecondaryHardware_to_fragmentLatest"
-            app:popUpToInclusive="true"
-            app:destination="@id/fragmentLatest" />
     </fragment>
+    <fragment
+         android:id="@+id/fragmentSettings"
+         android:name="com.ktxdevelopment.mobiware.ui.fragments.main.FragmentSettings"
+         android:label="fragment_settings"
+         tools:layout="@layout/fragment_settings" />
 
     <action
         android:id="@+id/actionToLatest"
@@ -47,5 +48,9 @@
     <action
         android:id="@+id/actionToSecondaryHardware"
         app:destination="@id/fragmentSecondaryHardware" />
+
+    <action
+        android:id="@+id/actionToSettings"
+        app:destination="@id/fragmentSettings" />
 
 </navigation>

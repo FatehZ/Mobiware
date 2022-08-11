@@ -119,4 +119,19 @@ class LocalViewModel @Inject constructor(private var localRepo: LocalRepository,
                }
           }
      }
+
+     fun deleteUserFromFirestore(context: Context, userId: String) {
+
+          viewModelScope.launch {
+               val data: Data = Data.Builder()
+                    .putString(Constants.ID_EXTRA, userId)
+                    .build()
+
+               val deleteUserRequest = OneTimeWorkRequest.Builder(FirestoreDeleteUserWorker::class.java)
+                    .setInputData(data)
+                    .build()
+
+               WorkManager.getInstance(context).enqueue(deleteUserRequest)
+          }
+     }
 }

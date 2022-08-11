@@ -11,8 +11,8 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.ktxdevelopment.mobiware.R
-import com.ktxdevelopment.mobiware.clients.BaseClient
-import com.ktxdevelopment.mobiware.clients.TextInputClient
+import com.ktxdevelopment.mobiware.clients.main.BaseClient
+import com.ktxdevelopment.mobiware.clients.main.TextInputClient
 import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient
 import com.ktxdevelopment.mobiware.clients.ui.SignInUpClient
 import com.ktxdevelopment.mobiware.databinding.FragmentSignUpBinding

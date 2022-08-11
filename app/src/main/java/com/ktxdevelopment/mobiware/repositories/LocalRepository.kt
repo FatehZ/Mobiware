@@ -1,7 +1,7 @@
 package com.ktxdevelopment.mobiware.repositories
 
 import android.content.Context
-import com.ktxdevelopment.mobiware.clients.PreferenceClient
+import com.ktxdevelopment.mobiware.clients.main.PreferenceClient
 import com.ktxdevelopment.mobiware.db.MobileDao
 import javax.inject.Inject
 

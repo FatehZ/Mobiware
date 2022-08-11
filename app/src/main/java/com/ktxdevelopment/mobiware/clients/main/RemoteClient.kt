@@ -1,4 +1,4 @@
-package com.ktxdevelopment.mobiware.clients
+package com.ktxdevelopment.mobiware.clients.main
 
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings

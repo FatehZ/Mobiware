@@ -17,11 +17,11 @@ import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.ktxdevelopment.mobiware.R
-import com.ktxdevelopment.mobiware.clients.BaseClient.convertFireToLocalUser
-import com.ktxdevelopment.mobiware.clients.BaseClient.convertLocalToFireUser
-import com.ktxdevelopment.mobiware.clients.BaseClient.hasInternetConnection
-import com.ktxdevelopment.mobiware.clients.PermissionClient
-import com.ktxdevelopment.mobiware.clients.TextInputClient
+import com.ktxdevelopment.mobiware.clients.main.BaseClient.convertFireToLocalUser
+import com.ktxdevelopment.mobiware.clients.main.BaseClient.convertLocalToFireUser
+import com.ktxdevelopment.mobiware.clients.main.BaseClient.hasInternetConnection
+import com.ktxdevelopment.mobiware.clients.main.PermissionClient
+import com.ktxdevelopment.mobiware.clients.main.TextInputClient
 import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient
 import com.ktxdevelopment.mobiware.databinding.FragmentProfileBinding
 import com.ktxdevelopment.mobiware.models.local.LocalUser

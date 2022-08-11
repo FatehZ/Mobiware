@@ -28,6 +28,12 @@
             android:title="@string/profile" />
 
         <item
+             android:id="@+id/ic_nav_settings"
+             android:icon="@drawable/ic_settings"
+             app:showAsAction="withText"
+             android:title="@string/settings" />
+
+        <item
             android:id="@+id/ic_nav_feedback"
             android:icon="@drawable/ic_feedback"
             app:showAsAction="withText"

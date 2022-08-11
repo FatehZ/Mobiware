@@ -2,7 +2,6 @@ package com.ktxdevelopment.mobiware.workers
 
 import android.content.Context
 import android.net.Uri
-import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.google.firebase.firestore.FieldValue
@@ -10,7 +9,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.gson.Gson
-import com.ktxdevelopment.mobiware.clients.PermissionClient
+import com.ktxdevelopment.mobiware.clients.main.PermissionClient
 import com.ktxdevelopment.mobiware.models.firebase.FireFeedback
 import com.ktxdevelopment.mobiware.util.Constants
 

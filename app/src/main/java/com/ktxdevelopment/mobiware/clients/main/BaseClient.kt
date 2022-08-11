@@ -1,4 +1,4 @@
-package com.ktxdevelopment.mobiware.clients
+package com.ktxdevelopment.mobiware.clients.main
 
 import android.content.ActivityNotFoundException
 import android.content.ContentResolver
@@ -11,7 +11,7 @@ import android.net.NetworkCapabilities.*
 import android.net.Uri
 import android.os.Build
 import android.provider.ContactsContract.CommonDataKinds.Email.TYPE_MOBILE
-import com.ktxdevelopment.mobiware.clients.PermissionClient.getImageFileName
+import com.ktxdevelopment.mobiware.clients.main.PermissionClient.getImageFileName
 import com.ktxdevelopment.mobiware.models.local.LocalUser
 import com.ktxdevelopment.mobiware.models.rest.product.Data
 import com.ktxdevelopment.mobiware.models.rest.search.Phone

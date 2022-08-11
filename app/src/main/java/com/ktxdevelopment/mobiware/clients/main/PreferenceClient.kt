@@ -1,4 +1,4 @@
-package com.ktxdevelopment.mobiware.clients
+package com.ktxdevelopment.mobiware.clients.main
 
 import android.content.Context
 import android.content.SharedPreferences

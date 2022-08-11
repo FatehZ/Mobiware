@@ -4,11 +4,10 @@ import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.google.gson.Gson
-import com.ktxdevelopment.mobiware.clients.BaseClient
-import com.ktxdevelopment.mobiware.clients.PreferenceClient
+import com.ktxdevelopment.mobiware.clients.main.BaseClient
+import com.ktxdevelopment.mobiware.clients.main.PreferenceClient
 import com.ktxdevelopment.mobiware.models.local.LocalUser
 import com.ktxdevelopment.mobiware.util.Constants
-import okhttp3.internal.wait
 
 class PreferenceUserWorker(appContext: Context, params: WorkerParameters) : CoroutineWorker(appContext, params) {
 

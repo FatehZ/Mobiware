@@ -1,4 +1,4 @@
-package com.ktxdevelopment.mobiware.clients
+package com.ktxdevelopment.mobiware.clients.main
 
 import android.util.Patterns
 import android.widget.EditText

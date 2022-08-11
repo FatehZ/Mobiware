@@ -5,7 +5,6 @@ import android.os.Handler
 import android.os.Looper
 import android.view.MenuItem
 import androidx.core.os.postDelayed
-import androidx.core.view.GravityCompat
 import androidx.core.view.GravityCompat.START
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -47,7 +46,6 @@ object MainActivityClient {
                }
                R.id.ic_nav_sign_out -> {
                     context.signOut()
-                    signOutIntent(context)
                     true
                }
                R.id.ic_nav_latest -> {
@@ -78,6 +76,16 @@ object MainActivityClient {
                     }
                     true
                }
+               R.id.ic_nav_settings -> {
+                    when (context.findNavController(R.id.navHost).currentDestination!!.id) {
+                         R.id.fragmentSettings -> context.closeDrawer()
+                         else -> {
+                              context.closeDrawer()
+                              navigateToSettings(context)
+                         }
+                    }
+                    true
+               }
                else -> false
           }
      }
@@ -98,20 +106,19 @@ object MainActivityClient {
           }
      }
 
-     private fun signOutIntent(context: MainActivity) {
-          hl.postDelayed(200 ) {
-               Intent(context, IntroductionActivity::class.java)
-                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                    .setAction("")
-                    .also { context.startActivity(it); context.finish() }
-          }
-     }
 
      private fun navigateToHardware(context: MainActivity) {
           hl.postDelayed(200) {
                context.findNavController(R.id.navHost)
                     .navigate(R.id.actionToHardware)
                context.supportActionBar?.title = context.getString(R.string.app_name)
+          }
+     }
+
+     private fun navigateToSettings(context: MainActivity) {
+          hl.postDelayed(200) {
+               context.findNavController(R.id.navHost).navigate(R.id.actionToSettings)
+               context.supportActionBar?.title = context.getString(R.string.settings)
           }
      }
 
@@ -136,17 +143,10 @@ object MainActivityClient {
           if (mainBinding.drawerLayout.isDrawerOpen(START)) activity.closeDrawer()
           else {
                nav.apply {
-                    if (currentDestination!!.id == R.id.fragmentHardware) {
-                         activity.doubleBackToExit()
-                    }
-                    if (currentDestination!!.id == R.id.fragmentLatest) {
-                         navigate(R.id.actionToHardware)
-                    }
-                    if (currentDestination!!.id == R.id.fragmentMyDevices) {
-                         navigate(R.id.actionToHardware)
-                    }
-                    if (currentDestination!!.id == R.id.fragmentSecondaryHardware) {
-                         this.navigateUp()
+                    when (currentDestination!!.id) {
+                         R.id.fragmentHardware -> activity.doubleBackToExit()
+                         R.id.fragmentSecondaryHardware -> this.navigateUp()
+                         else -> navigate(R.id.actionToHardware)
                     }
                }
           }
