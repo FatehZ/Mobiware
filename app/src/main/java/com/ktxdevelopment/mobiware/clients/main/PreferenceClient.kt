@@ -47,7 +47,7 @@ object PreferenceClient {
                     getString(Constants.PR_username,"")!!,
                     getString(Constants.PR_mobileNumberBase,"")!!,
                     getString(Constants.PR_mobileNumberCountryCode,"994")!!,
-                    (getStringSet(Constants.PR_mobileId, setOf())!!).toList() as ArrayList<String>,
+                    (getStringSet(Constants.PR_mobileId, setOf())!!).toMutableList() as ArrayList,
                     getString(Constants.PR_email,"")!!,
                     getString(Constants.PR_imageBase64,"")!!,
                     getString(Constants.PR_imageOnline,"")!!

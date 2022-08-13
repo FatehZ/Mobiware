@@ -3,8 +3,8 @@
      xmlns:app="http://schemas.android.com/apk/res-auto"
      xmlns:tools="http://schemas.android.com/tools"
      android:layout_width="match_parent"
-     android:layout_height="match_parent"
-     android:background="@drawable/artboard_1">
+     android:background="@drawable/artboard_1"
+     android:layout_height="match_parent">
 
 
      <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,8 +15,8 @@
                android:id="@+id/tvSignUselessIn"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
-               android:gravity="center_horizontal"
                android:layout_marginTop="@dimen/_5sdp"
+               android:gravity="center_horizontal"
                android:text="@string/login"
                android:textColor="@color/orange"
                android:textSize="@dimen/_30ssp"
@@ -24,11 +24,11 @@
 
           <androidx.constraintlayout.widget.ConstraintLayout
                android:id="@+id/clUselessSignIn"
-               app:layout_constraintVertical_bias="0.01"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                app:layout_constraintBottom_toBottomOf="parent"
-               app:layout_constraintTop_toBottomOf="@id/tvSignUselessIn">
+               app:layout_constraintTop_toBottomOf="@id/tvSignUselessIn"
+               app:layout_constraintVertical_bias="0.01">
 
 
                <com.google.android.material.textfield.TextInputLayout
@@ -39,22 +39,23 @@
                     android:layout_marginHorizontal="@dimen/_20sdp"
                     android:hint="@string/email"
                     app:errorEnabled="true"
-                    app:startIconDrawable="@drawable/ic_baseline_mail_24"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:startIconDrawable="@drawable/ic_baseline_mail_24">
 
                     <com.google.android.material.textfield.TextInputEditText
-                         style="@style/Theme.SpecialEditText"
                          android:id="@+id/etEmailSignIn"
-                         android:inputType="textEmailAddress"
+                         android:maxLength="@integer/email_max_length"
+                         style="@style/SpecialEdiText"
                          android:layout_width="match_parent"
                          android:layout_height="match_parent"
+                         android:inputType="textEmailAddress"
                          android:textSize="@dimen/_12ssp" />
 
                </com.google.android.material.textfield.TextInputLayout>
 
                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tilUseless10"
-                    app:passwordToggleEnabled="true"
+                    app:counterMaxLength="@integer/password_max_length"
                     style="@style/Theme.SpecialTextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -62,6 +63,7 @@
                     android:hint="@string/password"
                     app:errorEnabled="true"
                     app:layout_constraintTop_toBottomOf="@id/tilUseless9"
+                    app:passwordToggleEnabled="true"
                     app:startIconDrawable="@drawable/ic_lock"
                     tools:layout_editor_absoluteX="26dp">
 
@@ -69,21 +71,22 @@
                          android:id="@+id/etPasswordSignIn"
                          android:layout_width="match_parent"
                          android:layout_height="match_parent"
+                         style="@style/SpecialEdiText"
                          android:inputType="textPassword"
                          android:textSize="@dimen/_12ssp" />
 
                </com.google.android.material.textfield.TextInputLayout>
 
                <TextView
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:textColor="@color/blue"
+                    android:id="@+id/btnForgotPasswordSignIn"
                     android:layout_width="wrap_content"
-                    android:textSize="@dimen/_11ssp"
                     android:layout_height="wrap_content"
                     android:text="@string/forgot_password"
-                    app:layout_constraintTop_toBottomOf="@id/tilUseless10"
-                    android:id="@+id/btnForgotPasswordSignIn" />
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/_11ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tilUseless10" />
 
                <Button
                     android:id="@+id/btnSignIn"
@@ -93,49 +96,47 @@
                     android:padding="@dimen/_6sdp"
                     android:text="@string/login"
                     android:textSize="@dimen/_15ssp"
-                    app:layout_constraintTop_toBottomOf="@id/btnForgotPasswordSignIn"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btnForgotPasswordSignIn" />
 
                <Button
                     android:id="@+id/btn_no_account_sign_up"
-                    android:background="@android:color/transparent"
-                    android:paddingVertical="@dimen/_3sdp"
                     android:layout_width="match_parent"
-                    android:textColor="@color/blue"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/_10ssp"
+                    android:background="@android:color/transparent"
                     android:gravity="center"
-                    app:layout_constraintTop_toBottomOf="@id/btnSignIn"
-                    android:text="@string/no_account_register" />
+                    android:paddingVertical="@dimen/_3sdp"
+                    android:text="@string/no_account_register"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintTop_toBottomOf="@id/btnSignIn" />
 
 
           </androidx.constraintlayout.widget.ConstraintLayout>
 
 
           <androidx.cardview.widget.CardView
-               android:layout_marginVertical="@dimen/_5sdp"
                android:id="@+id/cvSignUselessIn"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
-               app:cardBackgroundColor="@color/orange"
-               app:cardElevation="@dimen/_1sdp"
                android:layout_marginHorizontal="@dimen/_20sdp"
+               android:layout_marginVertical="@dimen/_5sdp"
+               app:cardBackgroundColor="@color/cvSelectPhoneColor"
                app:cardCornerRadius="@dimen/_10sdp"
+               app:cardElevation="@dimen/_1sdp"
                app:layout_constraintTop_toBottomOf="@id/clUselessSignIn">
 
                <TextView
-                    android:layout_marginVertical="@dimen/_5ssp"
                     android:id="@+id/tvSignPhoneModelIn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/coustard"
+                    android:layout_marginVertical="@dimen/_5ssp"
                     android:gravity="center_horizontal"
                     android:maxLines="1"
                     android:text="@string/select_your_phone_model"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_16ssp"
-                    />
+                    android:textSize="@dimen/_16ssp" />
 
           </androidx.cardview.widget.CardView>
 
@@ -149,38 +150,38 @@
                app:layout_constraintTop_toBottomOf="@id/cvSignUselessIn" />
 
           <LinearLayout
-               android:visibility="gone"
-               app:layout_constraintVertical_bias="0.1"
                android:id="@+id/llInsertPhoneManually"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
-               app:layout_constraintTop_toBottomOf="@id/cvSignUselessIn"
+               android:orientation="vertical"
+               android:visibility="gone"
                app:layout_constraintBottom_toBottomOf="parent"
-               android:orientation="vertical">
+               app:layout_constraintTop_toBottomOf="@id/cvSignUselessIn"
+               app:layout_constraintVertical_bias="0.1">
 
 
                <TextView
-                    android:text="@string/could_not_find_your_phone_model"
-                    android:layout_marginHorizontal="@dimen/_20sdp"
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_20sdp"
                     android:gravity="center"
+                    android:text="@string/could_not_find_your_phone_model"
                     android:textColor="@color/purple_700"
                     android:textSize="@dimen/_14ssp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/tvSignPhoneModel"
-                    app:layout_constraintBottom_toBottomOf="parent" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvSignPhoneModel" />
 
                <com.google.android.material.textfield.TextInputLayout
                     style="@style/Theme.SpecialTextInputLayout"
-                    android:layout_marginTop="@dimen/_20sdp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
                     android:hint="@string/phone_model"
                     app:errorEnabled="true"
-                    app:startIconDrawable="@drawable/ic_phone_android"
                     app:layout_constraintBottom_toTopOf="@id/btnSignUp"
-                    app:layout_constraintTop_toBottomOf="@id/tilUseless2">
+                    app:layout_constraintTop_toBottomOf="@id/tilUseless2"
+                    app:startIconDrawable="@drawable/ic_phone_android">
 
                     <com.google.android.material.textfield.TextInputEditText
                          android:id="@+id/etMobileInsertManuallyIn"
@@ -197,13 +198,13 @@
                     style="@style/Theme.SpecialButton"
                     android:layout_width="@dimen/_120sdp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
                     android:padding="@dimen/_6sdp"
                     android:text="@string/submit"
                     android:textSize="@dimen/_15sdp"
-                    android:layout_gravity="center_horizontal"
-                    app:layout_constraintTop_toBottomOf="@id/tilUseless8"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tilUseless8" />
 
           </LinearLayout>
 

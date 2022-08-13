@@ -36,7 +36,7 @@
      <string name="registering_user">Registering User…</string>
      <string name="profile">Profile</string>
      <string name="please_update_to_continue">Please update to continue</string>
-     <string name="select_your_phone_model">Select your phone model:</string>
+     <string name="select_your_phone_model">Select your phone model</string>
      <string name="password">Password</string>
      <string name="phone_number">Phone Number</string>
      <string name="already_have_account_sign_in">Already have account? Sign In</string>

@@ -1,52 +1,54 @@
 <resources>
-    <!-- Base application theme. -->
-    <style name="Theme.Mobiware" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="fontFamily">@font/dosis_medium</item>
-        <item name="colorPrimary">@color/cyan</item>
-        <item name="colorPrimaryVariant">@color/cyan</item>
-        <item name="colorOnPrimary">@color/cyan</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <item name="android:textColor">@color/cyan</item>
-        <!-- Customize your theme here. -->
-    </style>
+     <!-- Base application theme. -->
+     <style name="Theme.Mobiware" parent="Theme.MaterialComponents.Light.NoActionBar">
+          <!-- Primary brand color. -->
+          <item name="fontFamily">@font/dosis_medium</item>
+          <item name="colorPrimary">@color/cyan</item>
+          <item name="colorPrimaryVariant">@color/cyan</item>
+          <item name="colorOnPrimary">@color/cyan</item>
+          <!-- Secondary brand color. -->
+          <item name="colorSecondary">@color/teal_200</item>
+          <item name="colorSecondaryVariant">@color/teal_700</item>
+          <item name="colorOnSecondary">@color/black</item>
+          <!-- Status bar color. -->
+          <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+          <item name="android:textColor">@color/cyan</item>
+          <!-- EditText color -->
+          <item name="colorOnSurface">#000</item>
+     </style>
 
 
-    <style name="Theme.SpecialButton" parent="ThemeOverlay.Material3.Button">
-        <item name="cornerRadius">@dimen/_14sdp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="backgroundTint">@color/cyan</item>
-    </style>
+     <style name="Theme.SpecialButton" parent="ThemeOverlay.Material3.Button">
+          <item name="cornerRadius">@dimen/_14sdp</item>
+          <item name="android:textStyle">bold</item>
+          <item name="android:textColor">@color/white</item>
+          <item name="backgroundTint">@color/cyan</item>
+     </style>
 
-    <style name="Theme.SpecialOutButton" parent="Widget.Material3.Button.OutlinedButton">
-        <item name="android:textColor">@color/blue</item>
-        <item name="strokeWidth">@dimen/_2sdp</item>
-        <item name="strokeColor">@color/blue</item>
-    </style>
+     <style name="Theme.SpecialOutButton" parent="Widget.Material3.Button.OutlinedButton">
+          <item name="android:textColor">@color/blue</item>
+          <item name="strokeWidth">@dimen/_2sdp</item>
+          <item name="strokeColor">@color/blue</item>
+     </style>
 
-    <style name="Theme.SpecialTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="boxCornerRadiusTopEnd">@dimen/_20sdp</item>
-        <item name="boxCornerRadiusTopStart">@dimen/_20sdp</item>
-        <item name="boxCornerRadiusBottomEnd">@dimen/_20sdp</item>
-        <item name="boxCornerRadiusBottomStart">@dimen/_20sdp</item>
-    </style>
+     <style name="Theme.SpecialTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+          <item name="boxCornerRadiusTopEnd">@dimen/_20sdp</item>
+          <item name="boxCornerRadiusTopStart">@dimen/_20sdp</item>
+          <item name="boxCornerRadiusBottomEnd">@dimen/_20sdp</item>
+          <item name="boxCornerRadiusBottomStart">@dimen/_20sdp</item>
+          <item name="colorOnSurface">#fff</item>
+     </style>
 
-    <style name="Theme.SpecialEditText" parent="Widget.Material3.TextInputEditText.OutlinedBox">
-        <item name="android:background">@drawable/edit_text_design</item>
-    </style>
+     <style name="SpecialEdiText">
 
-    <style name="Theme.OutlinedCardView" parent="Widget.Material3.CardView.Outlined" >
-        <item name="cardCornerRadius">@dimen/_5sdp</item>
-        <item name="android:focusable">true</item>
-        <item name="android:clickable">true</item>
-        <item name="strokeWidth">@dimen/_1sdp</item>
-        <item name="strokeColor">@color/blue</item>
-    </style>
+     </style>
+
+     <style name="Theme.OutlinedCardView" parent="Widget.Material3.CardView.Outlined" >
+          <item name="cardCornerRadius">@dimen/_5sdp</item>
+          <item name="android:focusable">true</item>
+          <item name="android:clickable">true</item>
+          <item name="strokeWidth">@dimen/_1sdp</item>
+          <item name="strokeColor">@color/blue</item>
+     </style>
 
 </resources>

@@ -25,11 +25,11 @@
             android:id="@+id/shimmerLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:animateLayoutChanges="false"
+            android:animateLayoutChanges="true"
             android:animationCache="true"
             app:shimmer_repeat_mode="restart"
             app:shimmer_shape="linear">
-<!--todo. animateLayoutChanges above changed from true to false-->
+
 
             <LinearLayout
                 android:layout_width="match_parent"

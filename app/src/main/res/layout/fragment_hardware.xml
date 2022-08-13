@@ -56,7 +56,6 @@
                                    app:layout_constraintBottom_toBottomOf="parent"
                                    app:layout_constraintStart_toStartOf="parent" />
 
-
                          </androidx.cardview.widget.CardView>
 
 
@@ -109,7 +108,7 @@
                               android:focusable="true"
                               android:clickable="true"
                               android:background="?attr/selectableItemBackground"
-                              app:strokeWidth="@dimen/_2sdp"
+                              app:strokeWidth="@dimen/stroke_1dp"
                               app:strokeColor="@color/cyan"
                               android:id="@+id/cv_platform"
                               android:layout_width="match_parent"
@@ -150,7 +149,7 @@
                                         android:paddingStart="@dimen/_8sdp"
                                         android:paddingEnd="@dimen/_5sdp"
                                         android:text="@string/app_name"
-                                        android:textColor="@color/cyan"
+                                        android:textColor="@color/hardware_3_cv_tv_color"
                                         android:textSize="@dimen/_13ssp"
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent"
@@ -161,7 +160,7 @@
                          </com.google.android.material.card.MaterialCardView>
 
                          <com.google.android.material.card.MaterialCardView
-                              app:strokeWidth="@dimen/_2sdp"
+                              app:strokeWidth="@dimen/stroke_1dp"
                               app:cardBackgroundColor="@color/white"
                               app:strokeColor="@color/cyan"
                               android:layout_marginVertical="@dimen/_8sdp"
@@ -205,7 +204,7 @@
                                         android:paddingStart="@dimen/_8sdp"
                                         android:paddingEnd="@dimen/_5sdp"
                                         android:text="@string/app_name"
-                                        android:textColor="@color/cyan"
+                                        android:textColor="@color/hardware_3_cv_tv_color"
                                         android:textSize="@dimen/_13ssp"
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent"
@@ -217,7 +216,7 @@
 
                          <com.google.android.material.card.MaterialCardView
                               app:strokeColor="@color/cyan"
-                              app:strokeWidth="@dimen/_2sdp"
+                              app:strokeWidth="@dimen/stroke_1dp"
                               android:id="@+id/cv_m3"
                               app:layout_constraintBottom_toBottomOf="parent"
                               app:layout_constraintTop_toBottomOf="@id/cv_display"
@@ -259,7 +258,7 @@
                                         android:paddingStart="@dimen/_8sdp"
                                         android:paddingEnd="@dimen/_5sdp"
                                         android:text="@string/app_name"
-                                        android:textColor="@color/cyan"
+                                        android:textColor="@color/hardware_3_cv_tv_color"
                                         android:textSize="@dimen/_13ssp"
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent"

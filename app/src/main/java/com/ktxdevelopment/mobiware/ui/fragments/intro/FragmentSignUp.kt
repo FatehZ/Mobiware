@@ -34,7 +34,6 @@ class FragmentSignUp : BaseFragment(), SelectionAdapter.OnMobileClickListener {
      private lateinit var binding: FragmentSignUpBinding
 
      private lateinit var restViewModel: RetroViewModel
-     private val TAG = "SIGN_IN_TAG"
      private lateinit var mobileAdapter: SelectionAdapter
 
      private var phones: ArrayList<Phone> = ArrayList()
@@ -62,17 +61,16 @@ class FragmentSignUp : BaseFragment(), SelectionAdapter.OnMobileClickListener {
                }
           }
 
+
           binding.etUsernameSignIn.filters = arrayOf(InputFilter { cs, _, _, _, _, _ ->
                if (cs == "") { return@InputFilter cs }
-               if (cs.toString().matches(("[a-zA-Z ]+").toRegex())) { cs } else ""
-          })
+               if (cs.toString().matches(("[0-9a-zA-Z ]+").toRegex())) { cs } else ""
+          },
+               InputFilter.LengthFilter(20)
+          )
 
           return binding.root
      }
-
-
-
-
 
 
      fun searchAgainIfNoConnection() { restViewModel.searchMobile(BaseClient.getDeviceModel()) }

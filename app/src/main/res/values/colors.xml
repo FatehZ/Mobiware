@@ -32,13 +32,17 @@
      <color name="orange">#00ffff</color>
      <color name="red">#ff0000</color>
      <color name="blue_200">#00d</color>
-     <color name="text_main_color">#000044</color>
-
-
+     <color name="text_main_color">#044</color>
 
 
      <color name="gradient_main_nav">#fff</color>
      <color name="gradient_end_nav">#0ff</color>
      <color name="hardware_cv_stroke_color">#FFFFFF</color>
      <color name="hardware_title_text_color">#119BA0</color>
+     <color name="hardware_spec_text_color">@color/teal_700</color>
+     <color name="cvSelectPhoneColor">#00B5B5</color>
+     <color name="cvProfileBackground">#00f</color>
+     <color name="whiteOnly">#FFFFFF</color>
+     <color name="hardware_3_cv_tv_color">#00FFFF</color>
+
 </resources>

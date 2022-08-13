@@ -15,6 +15,11 @@
           <item name="android:textColor">@color/cyan</item>
           <item name="background">?attr/colorPrimaryVariant</item>
           <!-- Customize your theme here. -->
+          <item name="colorOnSurface">#fff</item>
+     </style>
+
+     <style name="SpecialEdiText">
+          <item name="android:textColor">#fff</item>
      </style>
 
 
@@ -31,10 +36,4 @@
           <item name="strokeColor">@color/blue</item>
      </style>
 
-     <style name="Theme.SpecialTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-          <item name="boxCornerRadiusTopEnd">@dimen/_20sdp</item>
-          <item name="boxCornerRadiusTopStart">@dimen/_20sdp</item>
-          <item name="boxCornerRadiusBottomEnd">@dimen/_20sdp</item>
-          <item name="boxCornerRadiusBottomStart">@dimen/_20sdp</item>
-     </style>
 </resources>

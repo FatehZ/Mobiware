@@ -28,6 +28,7 @@ object TextInputClient {
 
 
      private fun validString(str: String) = str.matches("\\p{Alnum}*".toRegex())
+     private fun validUsernameString(str: String) = str.matches("[0-9a-zA-Z ]+".toRegex())
      private fun validLong(str: String) = str.isDigitsOnly()
      fun validateFilledInput(str: String) = str.isNotEmpty()
 
@@ -51,12 +52,12 @@ object TextInputClient {
                getParentTilOf(et).error = et.context.getString(R.string.username_5_or_more_letters); false
           } else if (name.isDigitsOnly()) {
                getParentTilOf(et).error = et.context.getString(R.string.at_least_a_letter); false
-          } else if (!validString(name)) {
+          } else if (!validUsernameString(name)) {
                getParentTilOf(et).error = et.context.getString(R.string.no_special_symbols_allowed); false
           }else{
                getParentTilOf(et).error = ""
                true
-          }    // todo enter a valid email domain ".ru, .com ..."
+          }
      }
 
      fun validateEmail(et: TextInputEditText): Boolean {

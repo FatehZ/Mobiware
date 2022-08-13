@@ -1,58 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:id="@+id/navHeaderLinearLayout"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:gravity="bottom"
+     android:layout_width="match_parent"
+     android:id="@+id/navHeaderLinearLayout"
+     android:layout_height="wrap_content"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     android:gravity="bottom"
      android:paddingBottom="@dimen/_5sdp"
-    android:background="@color/gradient_main_nav"
-    android:orientation="vertical"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+     android:background="@color/gradient_main_nav"
+     android:orientation="vertical"
+     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cvUselessNav"
-        android:layout_width="@dimen/_110sdp"
-        android:layout_height="@dimen/_110sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        app:cardBackgroundColor="@color/gradient_main_nav"
-        app:cardCornerRadius="@dimen/_20sdp"
-        app:cardElevation="@dimen/_10sdp"
-        app:layout_constraintHorizontal_bias="0.15"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+     <com.google.android.material.card.MaterialCardView
+          app:strokeWidth="1dp"
+          app:strokeColor="@color/whiteOnly"
+          android:id="@+id/cvUselessNav"
+          android:layout_width="@dimen/_110sdp"
+          android:layout_height="@dimen/_110sdp"
+          android:layout_marginTop="@dimen/_20sdp"
+          app:cardBackgroundColor="@color/gradient_main_nav"
+          app:cardCornerRadius="@dimen/_20sdp"
+          app:cardElevation="@dimen/_10sdp"
+          app:layout_constraintHorizontal_bias="0.15"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/ivNavProfileImage"
-            style="?attr/actionModeSelectAllDrawable"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:contentDescription="@string/profile_image"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_account"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+          <ImageView
+               android:id="@+id/ivNavProfileImage"
+               style="?attr/actionModeSelectAllDrawable"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:contentDescription="@string/profile_image"
+               android:scaleType="centerCrop"
+               android:src="@drawable/ic_account"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toTopOf="parent" />
 
 
-    </androidx.cardview.widget.CardView>
+     </com.google.android.material.card.MaterialCardView>
 
 
-    <TextView
-         android:id="@+id/tvUserName"
-         android:layout_width="0dp"
-         android:layout_height="wrap_content"
-         android:layout_marginStart="@dimen/_5sdp"
-         android:layout_marginTop="@dimen/_10sdp"
-         android:layout_marginEnd="@dimen/_40sdp"
-         android:fontFamily="@font/dosis_bold"
-         android:text="@string/device_name"
-         android:textColor="@color/text_main_color"
-         android:textSize="@dimen/_16ssp"
-         app:layout_constraintBottom_toBottomOf="parent"
-         app:layout_constraintEnd_toEndOf="parent"
-         app:layout_constraintStart_toStartOf="@id/cvUselessNav"
-         app:layout_constraintTop_toBottomOf="@+id/cvUselessNav" />
+     <TextView
+          android:id="@+id/tvUserName"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/_5sdp"
+          android:layout_marginTop="@dimen/_10sdp"
+          android:layout_marginEnd="@dimen/_40sdp"
+          android:fontFamily="@font/dosis_bold"
+          android:text="@string/device_name"
+          android:textColor="@color/text_main_color"
+          android:textSize="@dimen/_16ssp"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="@id/cvUselessNav"
+          app:layout_constraintTop_toBottomOf="@+id/cvUselessNav" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

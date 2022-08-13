@@ -165,12 +165,12 @@ class FragmentProfile : BaseFragment() {
 
           if (!errorPresent) {
                if (anyChangesMade) {
-                    //  try {   //todo
+                    tryEr {
                          if (hasInternetConnection(context!!)) {
                               showProgressDialogCancellable()
                               FirebaseClient.updateUserProfileData(this, userUpdated)
-                         }else showErrorSnackbar(getString(R.string.no_connection_error))
-
+                         } else showErrorSnackbar(getString(R.string.no_connection_error))
+                    }
                }else showErrorSnackbar(getString(R.string.no_profile_detail_change))
           }
      }

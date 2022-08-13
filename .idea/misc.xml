@@ -100,10 +100,13 @@
         <entry key="app/src/main/res/drawable/bg_gradient_purple.xml" value="0.246" />
         <entry key="app/src/main/res/drawable/cardview_design.xml" value="0.2465" />
         <entry key="app/src/main/res/drawable/edit_text_design.xml" value="0.2465" />
+        <entry key="app/src/main/res/drawable/edit_text_layout_color.xml" value="0.2465" />
         <entry key="app/src/main/res/drawable/gradient_nav_header.xml" value="0.2465" />
         <entry key="app/src/main/res/drawable/ic_account.xml" value="0.2465" />
         <entry key="app/src/main/res/drawable/ic_back.xml" value="0.327" />
         <entry key="app/src/main/res/drawable/ic_baseline_mail_24.xml" value="0.327" />
+        <entry key="app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.2465" />
+        <entry key="app/src/main/res/drawable/ic_baseline_whatshot_24.xml" value="0.2465" />
         <entry key="app/src/main/res/drawable/ic_cancel.xml" value="0.2465" />
         <entry key="app/src/main/res/drawable/ic_image_linked.xml" value="0.2465" />
         <entry key="app/src/main/res/drawable/ic_insert_picture.xml" value="0.2465" />
@@ -128,7 +131,7 @@
         <entry key="app/src/main/res/layout/fragment_forgot_password.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_hardware.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_latest.xml" value="0.28547008547008546" />
-        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.2384406165004533" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_secondary_hardware.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_sign_in.xml" value="0.33" />
@@ -136,8 +139,10 @@
         <entry key="app/src/main/res/layout/fragment_splash.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_update.xml" value="0.2877297990594271" />
         <entry key="app/src/main/res/layout/linked_image_item.xml" value="0.2877297990594271" />
-        <entry key="app/src/main/res/layout/nav_header.xml" value="0.2747053490480508" />
+        <entry key="app/src/main/res/layout/mobile_spec_item.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/nav_header.xml" value="0.33" />
         <entry key="app/src/main/res/layout/settings_dialog.xml" value="0.2877297990594271" />
+        <entry key="app/src/main/res/layout/shimmer_details.xml" value="0.2877297990594271" />
         <entry key="app/src/main/res/menu/menu_drawer.xml" value="0.2877297990594271" />
       </map>
     </option>
