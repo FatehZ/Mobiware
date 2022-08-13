@@ -2,6 +2,7 @@ package com.ktxdevelopment.mobiware.util
 
 object Constants {
 
+     const val THEME_MODE: String = "theme_mode"
      const val ID_EXTRA: String = "uid_worker"
      const val SLUG_EXTRA: String = "slug"
      const val MOBILE_ID = "mobileId"

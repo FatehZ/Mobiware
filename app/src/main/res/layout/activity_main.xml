@@ -5,6 +5,7 @@
      xmlns:tools="http://schemas.android.com/tools"
      android:layout_width="match_parent"
      android:layout_height="match_parent"
+     android:background="@color/white"
      android:id="@+id/drawerLayout"
      android:fitsSystemWindows="true"
      tools:openDrawer="start">
@@ -46,9 +47,9 @@
 
      <com.google.android.material.navigation.NavigationView
           android:id="@+id/navView"
-          android:layout_width="@dimen/_240sdp"
+          android:layout_width="@dimen/_230sdp"
           app:itemIconTint="@color/orange"
-          app:itemBackground="@color/white"
+          app:itemBackground="@color/gradient_main_nav"
           app:itemTextColor="@color/text_main_color"
           app:dividerInsetStart="@dimen/_25sdp"
           android:layout_height="match_parent"

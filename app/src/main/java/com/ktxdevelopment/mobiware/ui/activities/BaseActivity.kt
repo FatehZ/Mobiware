@@ -1,6 +1,7 @@
 package com.ktxdevelopment.mobiware.ui.activities
 
 import android.app.Dialog
+import android.app.UiModeManager
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -101,6 +102,7 @@ open class BaseActivity: AppCompatActivity() {
 
      open fun signOut() {
           hideProgressDialog()
+          (getSystemService(Context.UI_MODE_SERVICE) as UiModeManager).setApplicationNightMode(UiModeManager.MODE_NIGHT_AUTO)
           Firebase.auth.signOut()
      }
 }

@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="bottom"
-    android:background="@color/white"
+     android:paddingBottom="@dimen/_5sdp"
+    android:background="@color/gradient_main_nav"
     android:orientation="vertical"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
@@ -14,7 +15,7 @@
         android:layout_width="@dimen/_110sdp"
         android:layout_height="@dimen/_110sdp"
         android:layout_marginTop="@dimen/_20sdp"
-        app:cardBackgroundColor="@color/white"
+        app:cardBackgroundColor="@color/gradient_main_nav"
         app:cardCornerRadius="@dimen/_20sdp"
         app:cardElevation="@dimen/_10sdp"
         app:layout_constraintHorizontal_bias="0.15"
@@ -38,27 +39,20 @@
 
 
     <TextView
-        android:id="@+id/tvUserName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:text="@string/device_name"
-        android:layout_marginStart="@dimen/_5sdp"
-        android:layout_marginEnd="@dimen/_40sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textColor="@color/text_main_color"
-        android:fontFamily="@font/dosis_bold"
-        android:textSize="@dimen/_16ssp"
-        app:layout_constraintBottom_toTopOf="@+id/navDivider"
-        app:layout_constraintStart_toStartOf="@id/cvUselessNav"
-        app:layout_constraintTop_toBottomOf="@+id/cvUselessNav" />
+         android:id="@+id/tvUserName"
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+         android:layout_marginStart="@dimen/_5sdp"
+         android:layout_marginTop="@dimen/_10sdp"
+         android:layout_marginEnd="@dimen/_40sdp"
+         android:fontFamily="@font/dosis_bold"
+         android:text="@string/device_name"
+         android:textColor="@color/text_main_color"
+         android:textSize="@dimen/_16ssp"
+         app:layout_constraintBottom_toBottomOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="@id/cvUselessNav"
+         app:layout_constraintTop_toBottomOf="@+id/cvUselessNav" />
 
-    <View
-        android:id="@+id/navDivider"
-        android:layout_width="match_parent"
-        app:layout_constraintTop_toBottomOf="@id/tvUserName"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:layout_height="@dimen/_2sdp"
-        android:background="@color/white"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

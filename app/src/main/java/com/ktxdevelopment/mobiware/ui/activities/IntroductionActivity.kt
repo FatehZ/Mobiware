@@ -1,5 +1,7 @@
 package com.ktxdevelopment.mobiware.ui.activities
 
+import android.app.UiModeManager
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -81,6 +83,7 @@ class IntroductionActivity : BaseActivity() {
      override fun signOut() {
           hideProgressDialog()
           roomViewModel.clearDatabaseWithWork(this)
+          (getSystemService(Context.UI_MODE_SERVICE) as UiModeManager).setApplicationNightMode(UiModeManager.MODE_NIGHT_AUTO)
           Firebase.auth.signOut()
      }
 }

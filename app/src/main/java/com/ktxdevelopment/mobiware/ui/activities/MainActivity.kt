@@ -1,13 +1,14 @@
 package com.ktxdevelopment.mobiware.ui.activities
 
+import android.app.UiModeManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
+import android.util.Log
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.os.postDelayed
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
@@ -17,9 +18,9 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.ktxdevelopment.mobiware.R
+import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient
 import com.ktxdevelopment.mobiware.clients.main.BaseClient
 import com.ktxdevelopment.mobiware.clients.main.PermissionClient
-import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient
 import com.ktxdevelopment.mobiware.clients.ui.MainActivityClient
 import com.ktxdevelopment.mobiware.clients.ui.MainActivityClient.launchProfileIntent
 import com.ktxdevelopment.mobiware.databinding.ActivityMainBinding
@@ -42,6 +43,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
      override fun onCreate(savedInstanceState: Bundle?) {
           super.onCreate(savedInstanceState)
+
+          Log.i(TAG, "onCreate: ${AppCompatDelegate.getDefaultNightMode()}")
+
+
           mainBinding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
           setupPrimaryUI()
           viewModel = ViewModelProvider(this)[LocalViewModel::class.java]
@@ -129,6 +134,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
      override fun signOut() {
           hideProgressDialog()
           viewModel.clearDatabaseWithWork(this)
+          (getSystemService(Context.UI_MODE_SERVICE) as UiModeManager).setApplicationNightMode(UiModeManager.MODE_NIGHT_AUTO)
           Firebase.auth.signOut()
           Intent(this, IntroductionActivity::class.java)
                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_ACTIVITY_CLEAR_TOP)

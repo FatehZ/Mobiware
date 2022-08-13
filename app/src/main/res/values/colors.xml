@@ -33,4 +33,12 @@
      <color name="red">#ff0000</color>
      <color name="blue_200">#00d</color>
      <color name="text_main_color">#000044</color>
+
+
+
+
+     <color name="gradient_main_nav">#fff</color>
+     <color name="gradient_end_nav">#0ff</color>
+     <color name="hardware_cv_stroke_color">#FFFFFF</color>
+     <color name="hardware_title_text_color">#119BA0</color>
 </resources>

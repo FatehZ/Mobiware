@@ -105,6 +105,7 @@
      <string name="confirm">Confirm</string>
      <string name="system_default">System default</string>
      <string name="light_mode">Light Mode</string>
+     <string name="app_will_restart_once">App will restart once the theme changes</string>
 
 
 </resources>

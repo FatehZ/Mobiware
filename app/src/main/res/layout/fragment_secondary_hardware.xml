@@ -14,8 +14,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
              app:layout_constraintTop_toTopOf="parent"
-             android:visibility="gone"
              android:id="@+id/mainLayout"
+             android:visibility="gone"
              android:layout_width="match_parent"
              android:layout_height="wrap_content">
 
@@ -282,7 +282,9 @@
                  android:orientation="vertical"
                  app:layout_constraintTop_toBottomOf="@id/ll1_main">
 
-                <androidx.cardview.widget.CardView
+                <com.google.android.material.card.MaterialCardView
+                     app:strokeColor="@color/hardware_cv_stroke_color"
+                     app:strokeWidth="@dimen/hardware_cv_stroke"
                      android:layout_width="match_parent"
                      android:layout_height="match_parent"
                      android:layout_margin="@dimen/_5sdp"
@@ -300,7 +302,7 @@
                              android:layout_width="wrap_content"
                              android:layout_height="wrap_content"
                              android:text="@string/platform"
-                             android:textColor="@color/orange"
+                             android:textColor="@color/hardware_title_text_color"
                              android:textSize="@dimen/_15ssp"
                              android:textStyle="bold"
                              app:layout_constraintStart_toStartOf="parent"
@@ -318,13 +320,15 @@
                              app:layout_constraintTop_toBottomOf="@id/tvTitlePlatform" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </androidx.cardview.widget.CardView>
+                </com.google.android.material.card.MaterialCardView>
 
-                <androidx.cardview.widget.CardView
+                <com.google.android.material.card.MaterialCardView
                      android:layout_width="match_parent"
                      android:layout_height="match_parent"
                      android:layout_margin="@dimen/_5sdp"
                      app:cardBackgroundColor="@color/white"
+                     app:strokeColor="@color/hardware_cv_stroke_color"
+                     app:strokeWidth="@dimen/hardware_cv_stroke"
                      app:cardCornerRadius="@dimen/main_card_spec_radius"
                      app:cardElevation="@dimen/_5sdp">
 
@@ -339,7 +343,7 @@
                              android:layout_width="wrap_content"
                              android:layout_height="wrap_content"
                              android:text="@string/display"
-                             android:textColor="@color/orange"
+                             android:textColor="@color/hardware_title_text_color"
                              android:textSize="@dimen/_15ssp"
                              android:textStyle="bold"
                              app:layout_constraintStart_toStartOf="parent"
@@ -358,10 +362,12 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </androidx.cardview.widget.CardView>
+                </com.google.android.material.card.MaterialCardView>
 
-                <androidx.cardview.widget.CardView
+                <com.google.android.material.card.MaterialCardView
                      android:layout_width="match_parent"
+                     app:strokeColor="@color/hardware_cv_stroke_color"
+                     app:strokeWidth="@dimen/hardware_cv_stroke"
                      android:layout_height="match_parent"
                      android:layout_margin="@dimen/_5sdp"
                      app:cardBackgroundColor="@color/white"
@@ -379,7 +385,7 @@
                              android:layout_width="wrap_content"
                              android:layout_height="wrap_content"
                              android:text="@string/memory"
-                             android:textColor="@color/orange"
+                             android:textColor="@color/hardware_title_text_color"
                              android:textSize="@dimen/_15ssp"
                              android:textStyle="bold"
                              app:layout_constraintStart_toStartOf="parent"
@@ -398,11 +404,13 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </androidx.cardview.widget.CardView>
+                </com.google.android.material.card.MaterialCardView>
 
-                <androidx.cardview.widget.CardView
+                <com.google.android.material.card.MaterialCardView
                      android:layout_width="match_parent"
                      android:layout_height="match_parent"
+                     app:strokeColor="@color/hardware_cv_stroke_color"
+                     app:strokeWidth="@dimen/hardware_cv_stroke"
                      android:layout_margin="@dimen/_5sdp"
                      app:cardBackgroundColor="@color/white"
                      app:cardCornerRadius="@dimen/main_card_spec_radius"
@@ -418,7 +426,7 @@
                              android:layout_width="wrap_content"
                              android:layout_height="wrap_content"
                              android:text="@string/main_camera"
-                             android:textColor="@color/orange"
+                             android:textColor="@color/hardware_title_text_color"
                              android:textSize="@dimen/_15ssp"
                              android:textStyle="bold"
                              app:layout_constraintStart_toStartOf="parent"
@@ -436,13 +444,15 @@
                              app:layout_constraintTop_toBottomOf="@id/tvTitleMainCamera" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </androidx.cardview.widget.CardView>
+                </com.google.android.material.card.MaterialCardView>
 
-                <androidx.cardview.widget.CardView
+                <com.google.android.material.card.MaterialCardView
                      android:layout_width="match_parent"
                      android:layout_height="match_parent"
                      android:layout_margin="@dimen/_5sdp"
                      app:cardBackgroundColor="@color/white"
+                     app:strokeColor="@color/hardware_cv_stroke_color"
+                     app:strokeWidth="@dimen/hardware_cv_stroke"
                      app:cardCornerRadius="@dimen/main_card_spec_radius"
                      app:cardElevation="@dimen/_5sdp">
 
@@ -456,7 +466,7 @@
                              android:layout_width="wrap_content"
                              android:layout_height="wrap_content"
                              android:text="@string/selfie_camera"
-                             android:textColor="@color/orange"
+                             android:textColor="@color/hardware_title_text_color"
                              android:textSize="@dimen/_15ssp"
                              android:textStyle="bold"
                              app:layout_constraintStart_toStartOf="parent"
@@ -474,11 +484,13 @@
                              app:layout_constraintTop_toBottomOf="@id/tvTitleSelfieCamera" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </androidx.cardview.widget.CardView>
+                </com.google.android.material.card.MaterialCardView>
 
-                <androidx.cardview.widget.CardView
+                <com.google.android.material.card.MaterialCardView
                      android:layout_width="match_parent"
                      android:layout_height="match_parent"
+                     app:strokeColor="@color/hardware_cv_stroke_color"
+                     app:strokeWidth="@dimen/hardware_cv_stroke"
                      android:layout_margin="@dimen/_5sdp"
                      app:cardBackgroundColor="@color/white"
                      app:cardCornerRadius="@dimen/main_card_spec_radius"
@@ -494,7 +506,7 @@
                              android:layout_width="wrap_content"
                              android:layout_height="wrap_content"
                              android:text="@string/battery"
-                             android:textColor="@color/orange"
+                             android:textColor="@color/hardware_title_text_color"
                              android:textSize="@dimen/_15ssp"
                              android:textStyle="bold"
                              app:layout_constraintStart_toStartOf="parent"
@@ -512,11 +524,13 @@
                              app:layout_constraintTop_toBottomOf="@id/tvTitleBattery" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </androidx.cardview.widget.CardView>
+                </com.google.android.material.card.MaterialCardView>
 
-                <androidx.cardview.widget.CardView
+                <com.google.android.material.card.MaterialCardView
                      android:layout_width="match_parent"
                      android:layout_height="match_parent"
+                     app:strokeColor="@color/hardware_cv_stroke_color"
+                     app:strokeWidth="@dimen/hardware_cv_stroke"
                      android:layout_margin="@dimen/_5sdp"
                      app:cardBackgroundColor="@color/white"
                      app:cardCornerRadius="@dimen/main_card_spec_radius"
@@ -532,7 +546,7 @@
                              android:layout_width="wrap_content"
                              android:layout_height="wrap_content"
                              android:text="@string/launch"
-                             android:textColor="@color/orange"
+                             android:textColor="@color/hardware_title_text_color"
                              android:textSize="@dimen/_15ssp"
                              android:textStyle="bold"
                              app:layout_constraintStart_toStartOf="parent"
@@ -551,12 +565,14 @@
                              app:layout_constraintTop_toBottomOf="@id/tvTitleLaunch" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </androidx.cardview.widget.CardView>
+                </com.google.android.material.card.MaterialCardView>
 
-                <androidx.cardview.widget.CardView
+                <com.google.android.material.card.MaterialCardView
                      android:layout_width="match_parent"
                      android:layout_height="match_parent"
                      android:layout_margin="@dimen/_5sdp"
+                     app:strokeColor="@color/hardware_cv_stroke_color"
+                     app:strokeWidth="@dimen/hardware_cv_stroke"
                      app:cardBackgroundColor="@color/white"
                      app:cardCornerRadius="@dimen/main_card_spec_radius"
                      app:cardElevation="@dimen/_5sdp">
@@ -571,7 +587,7 @@
                              android:layout_width="wrap_content"
                              android:layout_height="wrap_content"
                              android:text="@string/body"
-                             android:textColor="@color/orange"
+                             android:textColor="@color/hardware_title_text_color"
                              android:textSize="@dimen/_15ssp"
                              android:textStyle="bold"
                              app:layout_constraintStart_toStartOf="parent"
@@ -590,11 +606,13 @@
                              app:layout_constraintTop_toBottomOf="@id/tvTitleBody" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </androidx.cardview.widget.CardView>
+                </com.google.android.material.card.MaterialCardView>
 
-                <androidx.cardview.widget.CardView
+                <com.google.android.material.card.MaterialCardView
                      android:layout_width="match_parent"
                      android:layout_height="match_parent"
+                     app:strokeColor="@color/hardware_cv_stroke_color"
+                     app:strokeWidth="@dimen/hardware_cv_stroke"
                      android:layout_margin="@dimen/_5sdp"
                      app:cardBackgroundColor="@color/white"
                      app:cardCornerRadius="@dimen/main_card_spec_radius"
@@ -610,7 +628,7 @@
                              android:layout_width="wrap_content"
                              android:layout_height="wrap_content"
                              android:text="@string/comms"
-                             android:textColor="@color/orange"
+                             android:textColor="@color/hardware_title_text_color"
                              android:textSize="@dimen/_15ssp"
                              android:textStyle="bold"
                              app:layout_constraintStart_toStartOf="parent"
@@ -629,7 +647,7 @@
                              app:layout_constraintTop_toBottomOf="@id/tvTitleComm" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </androidx.cardview.widget.CardView>
+                </com.google.android.material.card.MaterialCardView>
 
             </LinearLayout>
 

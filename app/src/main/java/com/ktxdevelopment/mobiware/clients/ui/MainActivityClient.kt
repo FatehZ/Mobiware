@@ -11,7 +11,6 @@ import androidx.navigation.findNavController
 import com.ktxdevelopment.mobiware.R
 import com.ktxdevelopment.mobiware.databinding.ActivityMainBinding
 import com.ktxdevelopment.mobiware.ui.activities.AdditionalActivity
-import com.ktxdevelopment.mobiware.ui.activities.IntroductionActivity
 import com.ktxdevelopment.mobiware.ui.activities.MainActivity
 import com.ktxdevelopment.mobiware.util.Constants
 

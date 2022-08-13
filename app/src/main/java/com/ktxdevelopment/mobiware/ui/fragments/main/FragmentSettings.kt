@@ -1,6 +1,8 @@
 package com.ktxdevelopment.mobiware.ui.fragments.main
 
 import android.app.Dialog
+import android.app.UiModeManager
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -27,6 +29,7 @@ class FragmentSettings : BaseFragment() {
      private lateinit var dialogDark: Dialog
      private var confirmBinding: DialogSettingsBinding? = null
      private var darkBinding: DialogDarkModeBinding? = null
+     private lateinit var ui: UiModeManager
 
      override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
           binding = FragmentSettingsBinding.inflate(inflater, container, false)
@@ -36,12 +39,8 @@ class FragmentSettings : BaseFragment() {
 
      override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
           super.onViewCreated(view, savedInstanceState)
-          confirmBinding = DialogSettingsBinding.inflate(layoutInflater)
-          darkBinding = DialogDarkModeBinding.inflate(layoutInflater)
-
-          dialog = Dialog(requireContext()).apply { window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)); setContentView(confirmBinding!!.root) }
-          dialogDark = Dialog(requireContext()).apply { window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));  setContentView(darkBinding!!.root) }
-
+          ui = activity!!.getSystemService(Context.UI_MODE_SERVICE) as UiModeManager
+          launchDialogLayouts()
           launchClickListeners()
      }
 
@@ -50,7 +49,6 @@ class FragmentSettings : BaseFragment() {
           binding!!.cvNightModeSettings.setOnClickListener { dialogNightMode() }
           binding!!.cvDeleteAccountSettings.setOnClickListener { dialogDeleteAccount() }
           binding!!.cvContactSettings.setOnClickListener { launchContactIntent() }
-          confirmBinding!!.btnNo.setOnClickListener { dialog.dismiss() }
      }
 
      private fun dialogResetPassword() {
@@ -62,6 +60,11 @@ class FragmentSettings : BaseFragment() {
 
      private fun dialogNightMode() {
           dialogDark.show()
+          when(ui.currentModeType) {
+               UiModeManager.MODE_NIGHT_YES -> darkBinding!!.rgSetDl.check(R.id.radDark)
+               UiModeManager.MODE_NIGHT_NO -> darkBinding!!.rgSetDl.check(R.id.radLight)
+               UiModeManager.MODE_NIGHT_AUTO -> darkBinding!!.rgSetDl.check(R.id.radSysDef)
+          }
      }
 
      private fun dialogDeleteAccount() {
@@ -106,7 +109,41 @@ class FragmentSettings : BaseFragment() {
                (activity as MainActivity).getLocalViewModel().deleteUserFromFirestore(activity!!, Firebase.auth.currentUser!!.uid)
           }
           (activity as MainActivity).signOut()
+
      }
+
+
+     private fun launchDialogLayouts() {
+          confirmBinding = DialogSettingsBinding.inflate(layoutInflater)
+          darkBinding = DialogDarkModeBinding.inflate(layoutInflater)
+
+          dialog = Dialog(requireContext()).apply { window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)); setContentView(confirmBinding!!.root) }
+          dialogDark = Dialog(requireContext()).apply { window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));  setContentView(darkBinding!!.root) }
+
+          confirmBinding!!.btnNo.setOnClickListener { dialog.dismiss() }
+          darkBinding!!.btnNo.setOnClickListener { dialogDark.dismiss() }
+
+          darkBinding!!.btnYes.setOnClickListener {
+               when (darkBinding!!.rgSetDl.checkedRadioButtonId) {
+                    R.id.radSysDef -> {
+                         ui.setApplicationNightMode(UiModeManager.MODE_NIGHT_AUTO)
+                         dialogDark.dismiss()
+                    }
+                    R.id.radDark -> {
+                         ui.setApplicationNightMode(UiModeManager.MODE_NIGHT_YES)
+                         dialogDark.dismiss()
+                    }
+                    R.id.radLight -> {
+                         ui.setApplicationNightMode(UiModeManager.MODE_NIGHT_NO)
+                         dialogDark.dismiss()
+                    }
+               }
+          }
+     }
+
+
+
+
 
      override fun onDestroyView() {
           super.onDestroyView()

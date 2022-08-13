@@ -1,130 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-     xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
      xmlns:app="http://schemas.android.com/apk/res-auto"
      android:layout_width="wrap_content"
      android:layout_height="wrap_content"
-     app:strokeColor="@color/cyan"
-     app:strokeWidth="@dimen/_1sdp"
-     app:cardElevation="@dimen/_20sdp"
+     app:cardBackgroundColor="@color/white"
      app:cardCornerRadius="@dimen/_10sdp"
-     app:cardBackgroundColor="@color/white">
+     app:cardElevation="0dp">
+<!--     app:strokeColor="@color/cyan"-->
+<!--     app:strokeWidth="@dimen/_2sdp"-->
+
 
      <androidx.constraintlayout.widget.ConstraintLayout
+          android:layout_margin="@dimen/_10sdp"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content">
 
-
-          <TextView
-               android:id="@+id/tvDlSetUseless"
-               android:layout_margin="@dimen/_20sdp"
+          <RadioGroup
+               android:id="@+id/rgSetDl"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:text="App will restart once the theme changes"
-               android:textColor="@color/dark_text"
-               android:textSize="@dimen/settings_text_size"
                app:layout_constraintEnd_toEndOf="parent"
                app:layout_constraintStart_toStartOf="parent"
-               app:layout_constraintTop_toTopOf="parent" />
+               app:layout_constraintTop_toTopOf="parent">
 
-          <LinearLayout
-               android:layout_width="0dp"
+
+               <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/radSysDef"
+                    android:paddingHorizontal="@dimen/_10sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/system_default"
+                    android:textColor="@color/dark_text"
+                    android:letterSpacing="0.02"
+                    android:textSize="@dimen/theme_dialog_text_size"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+               <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/radDark"
+                    android:layout_width="match_parent"
+                    android:paddingHorizontal="@dimen/_10sdp"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing="0.02"
+                    android:text="@string/dark_mode"
+                    android:textColor="@color/dark_text"
+                    android:textSize="@dimen/theme_dialog_text_size"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+               <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/radLight"
+                    android:letterSpacing="0.02"
+                    android:layout_width="match_parent"
+                    android:paddingHorizontal="@dimen/_10sdp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/light_mode"
+                    android:textColor="@color/dark_text"
+                    android:textSize="@dimen/theme_dialog_text_size"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+          </RadioGroup>
+
+          <Button
+               style="@style/Theme.SpecialButton"
+               android:backgroundTint="@color/red"
+               android:layout_margin="@dimen/_10sdp"
+               android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:orientation="vertical"
-               android:paddingVertical="@dimen/_10sdp"
-               app:layout_constraintEnd_toEndOf="parent"
+               android:text="@string/cancel"
+               app:layout_constraintTop_toBottomOf="@+id/rgSetDl"
+               android:id="@+id/btnNo"
                app:layout_constraintStart_toStartOf="parent"
-               app:layout_constraintTop_toBottomOf="@id/tvDlSetUseless">
+               app:layout_constraintEnd_toStartOf="@id/btnYes"/>
 
+          <Button
+               style="@style/Theme.SpecialButton"
+               android:text="@string/confirm"
+               android:backgroundTint="@color/cyan"
+               android:layout_margin="@dimen/_10sdp"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toEndOf="@id/btnNo"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/btnYes"
+               app:layout_constraintTop_toBottomOf="@id/rgSetDl"/>
 
-               <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clSystemDef"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/selectableItemBackground"
-                    android:paddingHorizontal="@dimen/settings_dark_dialog_end_margin">
-
-                    <com.google.android.material.radiobutton.MaterialRadioButton
-                         android:id="@+id/radSysDef"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         app:layout_constraintBottom_toBottomOf="parent"
-                         app:layout_constraintStart_toStartOf="parent"
-                         app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                         android:layout_width="0dp"
-                         android:layout_height="0dp"
-                         android:gravity="center_vertical"
-                         android:lines="1"
-                         android:text="@string/system_default"
-                         android:textColor="@color/dark_text"
-                         android:textSize="@dimen/settings_text_size"
-                         app:layout_constraintBottom_toBottomOf="parent"
-                         app:layout_constraintEnd_toEndOf="parent"
-                         app:layout_constraintStart_toEndOf="@+id/radSysDef"
-                         app:layout_constraintTop_toTopOf="parent" />
-
-               </androidx.constraintlayout.widget.ConstraintLayout>
-
-               <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clDark"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/selectableItemBackground"
-                    android:paddingHorizontal="@dimen/settings_dark_dialog_end_margin">
-
-                    <com.google.android.material.radiobutton.MaterialRadioButton
-                         android:id="@+id/radDark"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         app:layout_constraintBottom_toBottomOf="parent"
-                         app:layout_constraintStart_toStartOf="parent"
-                         app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                         android:layout_width="0dp"
-                         android:layout_height="0dp"
-                         android:gravity="center_vertical"
-                         android:text="@string/dark_mode"
-                         android:textColor="@color/dark_text"
-                         android:textSize="@dimen/settings_text_size"
-                         app:layout_constraintBottom_toBottomOf="parent"
-                         app:layout_constraintEnd_toEndOf="parent"
-                         app:layout_constraintStart_toEndOf="@+id/radDark"
-                         app:layout_constraintTop_toTopOf="parent" />
-
-               </androidx.constraintlayout.widget.ConstraintLayout>
-
-               <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clLight"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/selectableItemBackground"
-                    android:paddingHorizontal="@dimen/settings_dark_dialog_end_margin">
-
-                    <com.google.android.material.radiobutton.MaterialRadioButton
-                         android:id="@+id/radLight"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         app:layout_constraintBottom_toBottomOf="parent"
-                         app:layout_constraintStart_toStartOf="parent"
-                         app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                         android:layout_width="0dp"
-                         android:layout_height="0dp"
-                         android:gravity="center_vertical"
-                         android:text="@string/light_mode"
-                         android:textColor="@color/dark_text"
-                         android:textSize="@dimen/settings_text_size"
-                         app:layout_constraintBottom_toBottomOf="parent"
-                         app:layout_constraintEnd_toEndOf="parent"
-                         app:layout_constraintStart_toEndOf="@+id/radLight"
-                         app:layout_constraintTop_toTopOf="parent" />
-
-               </androidx.constraintlayout.widget.ConstraintLayout>
-          </LinearLayout>
 
      </androidx.constraintlayout.widget.ConstraintLayout>
 
