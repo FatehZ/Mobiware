@@ -1,119 +1,120 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/artboard_1">
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:background="@drawable/artboard_1">
 
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_10sdp"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="@dimen/_16sdp"
-        app:cardElevation="@dimen/_10sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+     <androidx.cardview.widget.CardView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_margin="@dimen/_10sdp"
+          app:cardBackgroundColor="@color/white"
+          app:cardCornerRadius="@dimen/_16sdp"
+          app:cardElevation="@dimen/_10sdp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="@dimen/_8sdp">
+          <androidx.constraintlayout.widget.ConstraintLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:paddingBottom="@dimen/_8sdp">
 
-            <EditText
-                android:id="@+id/etFeedback"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_240sdp"
-                android:layout_margin="@dimen/_10sdp"
-                android:background="@drawable/edit_text_design"
-                android:gravity="top"
-                android:hint="@string/type_message_feedback"
-                android:importantForAutofill="no"
-                android:inputType="textMultiLine"
-                android:letterSpacing="0.04"
-                android:lineSpacingExtra="@dimen/_2sdp"
-                android:padding="@dimen/_20sdp"
-                android:textColor="#444"
-                android:textColorHint="#444"
-                android:textSize="@dimen/_14ssp"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="LabelFor" />
+               <EditText
+                    android:id="@+id/etFeedback"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_240sdp"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:background="@drawable/edit_text_design"
+                    android:gravity="top"
+                    android:hint="@string/type_message_feedback"
+                    android:importantForAutofill="no"
+                    android:textColor="@color/text_main_color"
+                    android:inputType="textMultiLine"
+                    android:letterSpacing="0.04"
+                    android:lineSpacingExtra="@dimen/_2sdp"
+                    android:maxLines="20"
+                    android:padding="@dimen/_20sdp"
+                    android:textColorHint="#444"
+                    android:textSize="@dimen/_14ssp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="LabelFor" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cvInsertImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                app:cardElevation="0dp"
-                app:cardBackgroundColor="@color/white"
-                android:layout_marginTop="@dimen/_6sdp"
-                app:cardCornerRadius="@dimen/_8sdp"
-                app:layout_constraintStart_toStartOf="@+id/etFeedback"
-                app:layout_constraintTop_toBottomOf="@id/etFeedback">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_marginHorizontal="@dimen/_6sdp"
+               <androidx.cardview.widget.CardView
+                    android:id="@+id/cvInsertImage"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/_8sdp"
+                    app:cardElevation="0dp"
+                    app:layout_constraintStart_toStartOf="@+id/etFeedback"
+                    app:layout_constraintTop_toBottomOf="@id/etFeedback">
 
-                    <ImageView
-                        android:id="@+id/image_p1"
-                        android:layout_width="@dimen/_30sdp"
-                        android:layout_height="@dimen/_30sdp"
-                        android:background="@android:color/transparent"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/ic_insert_picture"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:contentDescription="@string/app_name" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_marginHorizontal="@dimen/_6sdp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_marginStart="@dimen/_5sdp"
-                        android:gravity="center_vertical"
-                        android:text="@string/add_image"
-                        android:textSize="@dimen/_12ssp"
-                        app:layout_constraintBottom_toBottomOf="@id/image_p1"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/image_p1"
-                        app:layout_constraintTop_toTopOf="@+id/image_p1" />
+                         <ImageView
+                              android:id="@+id/image_p1"
+                              android:layout_width="@dimen/_30sdp"
+                              android:layout_height="@dimen/_30sdp"
+                              android:background="@android:color/transparent"
+                              android:contentDescription="@string/app_name"
+                              android:scaleType="fitXY"
+                              android:src="@drawable/ic_insert_picture"
+                              app:layout_constraintBottom_toBottomOf="parent"
+                              app:layout_constraintStart_toStartOf="parent"
+                              app:layout_constraintTop_toTopOf="parent" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                         <TextView
+                              android:layout_width="wrap_content"
+                              android:layout_height="0dp"
+                              android:layout_marginStart="@dimen/_5sdp"
+                              android:gravity="center_vertical"
+                              android:text="@string/add_image"
+                              android:textSize="@dimen/_12ssp"
+                              app:layout_constraintBottom_toBottomOf="@id/image_p1"
+                              app:layout_constraintEnd_toEndOf="parent"
+                              app:layout_constraintStart_toEndOf="@id/image_p1"
+                              app:layout_constraintTop_toTopOf="@+id/image_p1" />
 
-            </androidx.cardview.widget.CardView>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                tools:listitem="@layout/linked_image_item"
-                tools:itemCount="3"
-                android:id="@+id/rvLinkedImages"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@+id/cvInsertImage"
-                app:layout_constraintTop_toBottomOf="@id/cvInsertImage" />
+               </androidx.cardview.widget.CardView>
+
+               <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvLinkedImages"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@+id/cvInsertImage"
+                    app:layout_constraintTop_toBottomOf="@id/cvInsertImage"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/linked_image_item" />
 
 
-            <Button
-                android:id="@+id/btnSendFeedback"
-                style="@style/Theme.SpecialButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="@dimen/_40sdp"
-                android:paddingVertical="@dimen/_6sdp"
-                android:text="@string/send"
-                android:textSize="@dimen/_16sdp"
-                app:layout_constraintEnd_toEndOf="@+id/etFeedback"
-                app:layout_constraintStart_toStartOf="@+id/etFeedback"
-                app:layout_constraintTop_toBottomOf="@+id/rvLinkedImages"
-                app:layout_goneMarginTop="@dimen/_8sdp" />
+               <Button
+                    android:id="@+id/btnSendFeedback"
+                    style="@style/Theme.SpecialButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/_40sdp"
+                    android:paddingVertical="@dimen/_6sdp"
+                    android:text="@string/send"
+                    android:textSize="@dimen/_16sdp"
+                    app:layout_constraintEnd_toEndOf="@+id/etFeedback"
+                    app:layout_constraintStart_toStartOf="@+id/etFeedback"
+                    app:layout_constraintTop_toBottomOf="@+id/rvLinkedImages"
+                    app:layout_goneMarginTop="@dimen/_8sdp" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+          </androidx.constraintlayout.widget.ConstraintLayout>
+     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

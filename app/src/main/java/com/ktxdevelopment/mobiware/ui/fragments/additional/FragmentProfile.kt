@@ -66,7 +66,9 @@ class FragmentProfile : BaseFragment() {
           binding.etUsernameProfile.filters = arrayOf(InputFilter { cs, _, _, _, _, _ ->
                if (cs == "") { return@InputFilter cs }
                if (cs.toString().matches(("[a-zA-Z ]+").toRegex())) { cs } else ""
-          })
+          },
+               InputFilter.LengthFilter(20)
+          )
 
           binding.btnProfileUpdate.setOnClickListener {
                if (mSelectedPhotoUri != null) { uploadUserImage() }
