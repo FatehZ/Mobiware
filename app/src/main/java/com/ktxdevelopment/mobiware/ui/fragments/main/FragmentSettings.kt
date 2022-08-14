@@ -7,8 +7,8 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +16,9 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.ktxdevelopment.mobiware.R
 import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient
+import com.ktxdevelopment.mobiware.clients.main.BaseClient
 import com.ktxdevelopment.mobiware.databinding.DialogDarkModeBinding
+import com.ktxdevelopment.mobiware.databinding.DialogSettingsAboutBinding
 import com.ktxdevelopment.mobiware.databinding.DialogSettingsBinding
 import com.ktxdevelopment.mobiware.databinding.FragmentSettingsBinding
 import com.ktxdevelopment.mobiware.ui.activities.MainActivity
@@ -26,10 +28,16 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FragmentSettings : BaseFragment() {
      private var binding: FragmentSettingsBinding? = null
+
+     //
      private lateinit var dialog: Dialog
      private lateinit var dialogDark: Dialog
+     private lateinit var dialogAbout: Dialog
+     //
      private var confirmBinding: DialogSettingsBinding? = null
      private var darkBinding: DialogDarkModeBinding? = null
+     private var aboutBinding: DialogSettingsAboutBinding? = null
+     //
      private lateinit var ui: UiModeManager
 
      override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -50,6 +58,7 @@ class FragmentSettings : BaseFragment() {
           binding!!.cvNightModeSettings.setOnClickListener { dialogNightMode() }
           binding!!.cvDeleteAccountSettings.setOnClickListener { dialogDeleteAccount() }
           binding!!.cvContactSettings.setOnClickListener { launchContactIntent() }
+          tryEr { binding!!.cvRateAppSettings.setOnClickListener { BaseClient.playStoreIntent(context!!) } }
      }
 
      private fun dialogResetPassword() {
@@ -61,7 +70,7 @@ class FragmentSettings : BaseFragment() {
 
      private fun dialogNightMode() {
           dialogDark.show()
-          when(ui.currentModeType) {
+          when (ui.currentModeType) {
                UiModeManager.MODE_NIGHT_YES -> darkBinding!!.rgSetDl.check(R.id.radDark)
                UiModeManager.MODE_NIGHT_NO -> darkBinding!!.rgSetDl.check(R.id.radLight)
                UiModeManager.MODE_NIGHT_AUTO -> darkBinding!!.rgSetDl.check(R.id.radSysDef)
@@ -88,7 +97,9 @@ class FragmentSettings : BaseFragment() {
                (activity as MainActivity).getLocalUser().observe(viewLifecycleOwner) {
                     FirebaseClient.resetPasswordWithEmail(this, it.email)
                }
-          }catch (e: Exception) { hideProgressDialog() }
+          } catch (e: Exception) {
+               hideProgressDialog()
+          }
      }
 
      private fun launchContactIntent() {
@@ -96,18 +107,24 @@ class FragmentSettings : BaseFragment() {
                Intent(Intent.ACTION_SENDTO).apply {
                     data = Uri.parse("mailto:ktx.mobiware@gmail.com")
                     putExtra(Intent.EXTRA_SUBJECT, "Mobiware App")
-               }.also{ startActivity(it) }
+               }.also { startActivity(it) }
 
           }
      }
 
-     fun onResetPasswordSuccess() { hideProgressDialog() }
-     fun onReceivedError(m: String = getString(R.string.smth_went_wrong_only)) { showErrorSnackbar(m); hideProgressDialog() }
+     fun onResetPasswordSuccess() {
+          hideProgressDialog()
+     }
+
+     fun onReceivedError(m: String = getString(R.string.smth_went_wrong_only)) {
+          showErrorSnackbar(m); hideProgressDialog()
+     }
 
      fun onDeleteAccountSuccess() {
           hideProgressDialog()
           tryEr {
-               (activity as MainActivity).getLocalViewModel().deleteUserFromFirestore(activity!!, Firebase.auth.currentUser!!.uid)
+               (activity as MainActivity).getLocalViewModel()
+                    .deleteUserFromFirestore(activity!!, Firebase.auth.currentUser!!.uid)
           }
           (activity as MainActivity).signOut()
 
@@ -115,14 +132,13 @@ class FragmentSettings : BaseFragment() {
 
 
      private fun launchDialogLayouts() {
-          confirmBinding = DialogSettingsBinding.inflate(layoutInflater)
-          darkBinding = DialogDarkModeBinding.inflate(layoutInflater)
+          confirmBinding = DialogSettingsBinding.inflate(layoutInflater).apply { btnNo.setOnClickListener { dialog.dismiss() } }
+          darkBinding = DialogDarkModeBinding.inflate(layoutInflater).apply { btnNo.setOnClickListener { dialogDark.dismiss() } }
+          aboutBinding = DialogSettingsAboutBinding.inflate(layoutInflater).apply { btnDismiss.setOnClickListener { dialogAbout.dismiss() } }
 
           dialog = Dialog(requireContext()).apply { window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)); setContentView(confirmBinding!!.root) }
-          dialogDark = Dialog(requireContext()).apply { window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));  setContentView(darkBinding!!.root) }
-
-          confirmBinding!!.btnNo.setOnClickListener { dialog.dismiss() }
-          darkBinding!!.btnNo.setOnClickListener { dialogDark.dismiss() }
+          dialogDark = Dialog(requireContext()).apply { window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)); setContentView(darkBinding!!.root) }
+          dialogAbout = Dialog(requireContext()).apply { window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)); setContentView(aboutBinding!!.root) }
 
           darkBinding!!.btnYes.setOnClickListener {
                when (darkBinding!!.rgSetDl.checkedRadioButtonId) {
@@ -140,14 +156,17 @@ class FragmentSettings : BaseFragment() {
                     }
                }
           }
+
+
+          aboutBinding!!.tvVersionAbout.text = Build.VERSION.SDK_INT.toString()
+          aboutBinding!!.cvPrivacyPolicyAbout.setOnClickListener { //todo open privacy policy
+          }
      }
-
-
-
 
 
      override fun onDestroyView() {
           super.onDestroyView()
+          aboutBinding = null
           darkBinding = null
           confirmBinding = null
           binding = null

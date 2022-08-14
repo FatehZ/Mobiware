@@ -44,5 +44,9 @@
      <color name="cvProfileBackground">#00f</color>
      <color name="whiteOnly">#FFFFFF</color>
      <color name="hardware_3_cv_tv_color">#00FFFF</color>
+     <color name="cv_settings_background">#fff</color>
+     <color name="dialog_text_color">#003232</color>
+     <color name="icon_foreground_color">#55f</color>
+     <color name="settings_text_color">#3C3C3C</color>
 
 </resources>

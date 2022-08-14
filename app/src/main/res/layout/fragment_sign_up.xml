@@ -60,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_20sdp"
                     android:hint="@string/email"
-                    app:startIconDrawable="@drawable/ic_baseline_mail_24"
+                    app:startIconDrawable="@drawable/ic_mail"
                     app:errorEnabled="true"
                     app:layout_constraintTop_toBottomOf="@id/tilUseless1">
 

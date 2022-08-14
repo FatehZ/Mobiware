@@ -44,7 +44,7 @@
                     android:paddingHorizontal="@dimen/_10sdp"
                     android:layout_height="wrap_content"
                     android:letterSpacing="0.02"
-                    android:text="@string/dark_mode"
+                    android:text="@string/application_theme"
                     android:textColor="@color/dark_text"
                     android:textSize="@dimen/theme_dialog_text_size"
                     app:layout_constraintBottom_toBottomOf="parent"

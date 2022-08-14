@@ -60,7 +60,7 @@
           <com.google.android.material.textfield.TextInputLayout
                android:id="@+id/tilUseless4"
                style="@style/Theme.SpecialTextInputLayout"
-               app:startIconDrawable="@drawable/ic_baseline_mail_24"
+               app:startIconDrawable="@drawable/ic_mail"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:layout_weight="1"
@@ -116,7 +116,7 @@
                          android:maxLength="15"
                          style="@style/SpecialEdiText"
                          android:inputType="number"
-                         android:letterSpacing="0.1"
+                         android:letterSpacing="0.14"
                          android:layout_height="wrap_content" />
 
                </com.google.android.material.textfield.TextInputLayout>

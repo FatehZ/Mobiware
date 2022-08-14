@@ -37,5 +37,10 @@
      <color name="gradient_end_nav">#002</color>
      <color name="hardware_spec_text_color">#fff</color>
      <color name="hardware_3_cv_tv_color">#FFF</color>
+     <color name="cv_settings_background">#000</color>
+     <color name="dialog_text_color">#ccc</color>
+     <color name="icon_foreground_color">#0ff</color>
+     <color name="settings_text_color">#acacac</color>
+
 
 </resources>

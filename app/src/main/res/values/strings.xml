@@ -25,7 +25,7 @@
      <string name="dont_show_again">Don\'t show again</string>
      <string name="type_message_feedback">Type your message here…</string>
      <string name="send">Send</string>
-     <string name="dark_mode">Dark Mode</string>
+     <string name="application_theme">Application Theme</string>
      <string name="getting_device_specs">Retrieving Phone Specifications</string>
 
      <string name="process_name">process_name</string>
@@ -63,7 +63,7 @@
      <string name="login">Log In</string>
      <string name="profile_updated_success">Profile updated successfully</string>
      <string name="forgot_password">Forgot Password</string>
-     <string name="reset_password">Reset Password</string>
+     <string name="reset_password">Change your password</string>
      <string name="reset">Reset</string>
      <string name="reset_email_has_sent">Email for resetting password is sent</string>
      <string name="reset_email_confirm_send">A link for resetting password will be sent by mail</string>
@@ -106,6 +106,13 @@
      <string name="system_default">System default</string>
      <string name="light_mode">Light Mode</string>
      <string name="app_will_restart_once">App will restart once the theme changes</string>
+     <string name="about">About</string>
+     <string name="rate_app">Rate App</string>
+     <string name="api_url">github.com.azharimm/phone-specs-api</string>
+     <string name="privacy_policy">Privacy Policy</string>
+     <string name="close">Close</string>
+     <string name="application_version">Application Version:</string>
+     <string name="api_database">API (Database):</string>
 
 
 </resources>
