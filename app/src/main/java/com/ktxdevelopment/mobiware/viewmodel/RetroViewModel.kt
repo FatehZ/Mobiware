@@ -30,10 +30,8 @@ class RetroViewModel @Inject constructor(private var restRepo: RetrofitRepositor
 
 
      var searchResponse: MutableLiveData<Resource<SearchResponse>> = MutableLiveData()
-     fun searchMobile(query: String) {
-          viewModelScope.launch {
-               searchResponse.postValue(restRepo.searchMobile(query))
-          }
+     fun searchMobiles(query: String) {
+          viewModelScope.launch { searchResponse.postValue(restRepo.searchMobile(query)) }
      }
 
 
@@ -51,13 +49,15 @@ class RetroViewModel @Inject constructor(private var restRepo: RetrofitRepositor
      }
 
 
-
-
      var getMyDeviceResponse: MutableLiveData<Resource<GetResponse>> = MutableLiveData()
      fun getMyDevices(url: String) {
           viewModelScope.launch {
                getMyDeviceResponse.postValue(restRepo.getMyDevices(url))
           }
+     }
+
+     fun getMultiplePhones(list: ArrayList<String>) {
+
      }
 
 }

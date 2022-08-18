@@ -50,10 +50,6 @@ object MainActivityClient {
                R.id.ic_nav_latest -> {
                     when (context.findNavController(R.id.navHost).currentDestination!!.id) {
                          R.id.fragmentLatest -> context.closeDrawer()
-                         R.id.fragmentSecondaryHardware -> {
-                              context.closeDrawer()
-                              navigateToLatest(context)
-                         }
                          else -> {
                               context.closeDrawer()
                               navigateToLatest(context)
@@ -64,10 +60,6 @@ object MainActivityClient {
                R.id.ic_nav_my_devices -> {
                     when (context.findNavController(R.id.navHost).currentDestination!!.id) {
                          R.id.fragmentMyDevices -> context.closeDrawer()
-                         R.id.fragmentSecondaryHardware -> {
-                              context.closeDrawer()
-                              navigateToMyDevices(context)
-                         }
                          else -> {
                               context.closeDrawer()
                               navigateToMyDevices(context)
@@ -85,9 +77,20 @@ object MainActivityClient {
                     }
                     true
                }
+               R.id.ic_nav_brands -> {
+                    when (context.findNavController(R.id.navHost).currentDestination!!.id) {
+                         R.id.fragmentBrands -> context.closeDrawer()
+                         else -> {
+                              context.closeDrawer()
+                              navigateToBrands(context)
+                         }
+                    }
+                    true
+               }
                else -> false
           }
      }
+
 
      private fun navigateToMyDevices(context: MainActivity) {
           hl.postDelayed(200) {
@@ -121,6 +124,13 @@ object MainActivityClient {
           }
      }
 
+     private fun navigateToBrands(context: MainActivity) {
+          hl.postDelayed(200) {
+               context.findNavController(R.id.navHost).navigate(R.id.actionToBrands)
+               context.supportActionBar?.title = context.getString(R.string.brands)
+          }
+     }
+
      private fun launchFeedbackIntent(context: MainActivity) {
           hl.postDelayed(200) {
                Intent(context, AdditionalActivity::class.java).apply {
@@ -145,6 +155,7 @@ object MainActivityClient {
                     when (currentDestination!!.id) {
                          R.id.fragmentHardware -> activity.doubleBackToExit()
                          R.id.fragmentSecondaryHardware -> this.navigateUp()
+                         R.id.fragmentBrandPhones -> this.navigateUp()
                          else -> navigate(R.id.actionToHardware)
                     }
                }

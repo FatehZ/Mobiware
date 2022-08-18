@@ -150,12 +150,12 @@ class FragmentSignIn : BaseFragment(), SelectionAdapter.OnMobileClickListener {
      }
 
 
-     fun searchAgainIfNoConnection() = restViewModel.searchMobile(BaseClient.getDeviceModel())
+     fun searchAgainIfNoConnection() = restViewModel.searchMobiles(BaseClient.getDeviceModel())
 
 
      private fun setupSignInUI() {
           restViewModel = (activity as IntroductionActivity).getRetroViewModel()
-          restViewModel.searchMobile(BaseClient.getDeviceModel())
+          restViewModel.searchMobiles(BaseClient.getDeviceModel())
           binding.btnSignIn.setOnClickListener { signButtonClickListener() }
           binding.btnSubmitPhoneModelIn.setOnClickListener { submitPhoneSearchAgain(binding.etMobileInsertManuallyIn) }
           binding.btnNoAccountSignUp.setOnClickListener { launchSignUpIntent() }
@@ -169,7 +169,7 @@ class FragmentSignIn : BaseFragment(), SelectionAdapter.OnMobileClickListener {
 
      private fun submitPhoneSearchAgain(et: TextInputEditText) {
           if (TextInputClient.validatePhoneModel(et)){
-               restViewModel.searchMobile(et.text.toString())
+               restViewModel.searchMobiles(et.text.toString())
                SignInUpClient.phoneNotFoundLayoutDisappear(binding)
           }
      }

@@ -62,10 +62,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
           FirebaseClient.loadUserData(this)
      }
 
-     override fun onResume() {
-          super.onResume()
-     }
-
      override fun onNavigationItemSelected(item: MenuItem): Boolean {
           return MainActivityClient.setUpMainNavigationClickListeners(item, this@MainActivity)
      }
@@ -118,9 +114,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
      fun getMobile() = mobile
 
-     override fun onBackPressed() {
-          MainActivityClient.onCustomBackPressed(this, mainBinding, findNavController(R.id.navHost))
-     }
+     override fun onBackPressed() = MainActivityClient.onCustomBackPressed(this, mainBinding, findNavController(R.id.navHost))
 
 
      fun onUserDataObtainedFromFirestore(mUser: LocalUser) {

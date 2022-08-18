@@ -48,7 +48,7 @@ class FragmentSignUp : BaseFragment(), SelectionAdapter.OnMobileClickListener {
                phones = arguments?.getParcelableArrayList(Constants.PHONE_LIST)!!
                onPhonesObtainedFromIntent()
           }else{
-               restViewModel.searchMobile(BaseClient.getDeviceModel())
+               restViewModel.searchMobiles(BaseClient.getDeviceModel())
                restViewModel.searchResponse.observe(viewLifecycleOwner) { res ->
                     when (res) {
                          is Resource.Success -> {
@@ -73,7 +73,7 @@ class FragmentSignUp : BaseFragment(), SelectionAdapter.OnMobileClickListener {
      }
 
 
-     fun searchAgainIfNoConnection() { restViewModel.searchMobile(BaseClient.getDeviceModel()) }
+     fun searchAgainIfNoConnection() { restViewModel.searchMobiles(BaseClient.getDeviceModel()) }
 
 
      private fun signButtonClickListener() {
@@ -162,7 +162,7 @@ class FragmentSignUp : BaseFragment(), SelectionAdapter.OnMobileClickListener {
 
      private fun setUpSignInUI() {
           restViewModel = (activity as IntroductionActivity).getRetroViewModel()
-          restViewModel.searchMobile(BaseClient.getDeviceModel())
+          restViewModel.searchMobiles(BaseClient.getDeviceModel())
           binding.btnSignUp.setOnClickListener { signButtonClickListener() }
           binding.btnSubmitPhoneModel.setOnClickListener { submitPhoneSearchAgain(binding.etMobileInsertManually) }
           binding.btnHaveAccountSignIn.setOnClickListener { launchSignInIntent() }
@@ -170,7 +170,7 @@ class FragmentSignUp : BaseFragment(), SelectionAdapter.OnMobileClickListener {
 
      private fun submitPhoneSearchAgain(et: TextInputEditText) {
           if (TextInputClient.validatePhoneModel(et)){
-               restViewModel.searchMobile(et.text.toString())
+               restViewModel.searchMobiles(et.text.toString())
                SignInUpClient.phoneNotFoundLayoutDisappear(binding)
           }
      }
