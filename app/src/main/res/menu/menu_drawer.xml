@@ -1,48 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/ic_nav_hardware"
-            android:icon="@drawable/ic_hard"
-            app:showAsAction="withText"
-            android:title="@string/hardware" />
+     xmlns:app="http://schemas.android.com/apk/res-auto">
+     <group android:checkableBehavior="single">
+          <item
+               android:id="@+id/ic_nav_hardware"
+               android:icon="@drawable/ic_hard"
+               app:showAsAction="withText"
+               android:title="@string/hardware" />
 
-        <item
-            android:id="@+id/ic_nav_latest"
-            android:icon="@drawable/ic_latest"
-            app:showAsAction="withText"
-            android:title="@string/latest_devices" />
+          <item
+               android:id="@+id/ic_nav_latest"
+               android:icon="@drawable/ic_latest"
+               app:showAsAction="withText"
+               android:title="@string/latest_devices" />
 
-        <item
-            android:title="@string/my_devices"
-            app:showAsAction="withText"
-            android:id="@+id/ic_nav_my_devices"
-            android:icon="@drawable/ic_my_mobiles" />
+          <item
+               android:title="@string/my_devices"
+               app:showAsAction="withText"
+               android:id="@+id/ic_nav_my_devices"
+               android:icon="@drawable/ic_my_mobiles" />
+
+          <item
+               android:title="@string/brands"
+               app:showAsAction="withText"
+               android:id="@+id/ic_nav_brands"
+               android:icon="@drawable/ic_brands" />
 
 
-        <item
-            android:id="@+id/ic_nav_profile"
-            android:icon="@drawable/ic_profile"
-            app:showAsAction="withText"
-            android:title="@string/profile" />
+          <item
+               android:id="@+id/ic_nav_profile"
+               android:icon="@drawable/ic_profile"
+               app:showAsAction="withText"
+               android:title="@string/profile" />
 
-        <item
-             android:id="@+id/ic_nav_settings"
-             android:icon="@drawable/ic_settings"
-             app:showAsAction="withText"
-             android:title="@string/settings" />
+          <item
+               android:id="@+id/ic_nav_settings"
+               android:icon="@drawable/ic_settings"
+               app:showAsAction="withText"
+               android:title="@string/settings" />
 
-        <item
-            android:id="@+id/ic_nav_feedback"
-            android:icon="@drawable/ic_feedback"
-            app:showAsAction="withText"
-            android:title="@string/send_feedback" />
+          <item
+               android:id="@+id/ic_nav_feedback"
+               android:icon="@drawable/ic_feedback"
+               app:showAsAction="withText"
+               android:title="@string/send_feedback" />
 
-        <item
-            android:id="@+id/ic_nav_sign_out"
-            android:icon="@drawable/ic_sign_out"
-            app:showAsAction="withText"
-            android:title="@string/sign_out" />
-    </group>
+          <item
+               android:id="@+id/ic_nav_sign_out"
+               android:icon="@drawable/ic_sign_out"
+               app:showAsAction="withText"
+               android:title="@string/sign_out" />
+     </group>
 </menu>

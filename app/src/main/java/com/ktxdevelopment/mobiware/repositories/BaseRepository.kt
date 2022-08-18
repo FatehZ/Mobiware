@@ -13,13 +13,11 @@ open class BaseRepository {
         return withContext(Dispatchers.IO) {
             try {
                 val response: Response<T> = apiToBeCalled()
-
                 if (response.isSuccessful) {
                     Resource.Success(data = response.body()!!)
                 }else {
                     Resource.Error(mError = RequestUnsuccessfulException())
                 }
-
             } catch (e: Exception) {
                 Resource.Error(e)
             }

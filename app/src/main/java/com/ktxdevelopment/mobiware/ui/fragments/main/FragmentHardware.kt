@@ -29,194 +29,194 @@ import com.ktxdevelopment.mobiware.viewmodel.RetroViewModel
 
 
 class FragmentHardware : BaseFragment() {
-    private lateinit var binding: FragmentHardwareBinding
-    private lateinit var mobile: Data
-    private lateinit var viewModel: RetroViewModel
-    private val TAG = "HRD_TAG"
+     private lateinit var binding: FragmentHardwareBinding
+     private lateinit var mobile: Data
+     private lateinit var viewModel: RetroViewModel
+     private val TAG = "HRD_TAG"
 
-    private var rPlatform: MobileSpecsAdapter? = null
-    private var rDisplay: MobileSpecsAdapter? = null
-    private var rMemory: MobileSpecsAdapter? = null
-    private var rBody: MobileSpecsAdapter? = null
-    private var rLaunch: MobileSpecsAdapter? = null
-    private var rComms: MobileSpecsAdapter? = null
-    private var rBattery: MobileSpecsAdapter? = null
-    private var rMainCam: MobileSpecsAdapter? = null
-    private var rSelfCam: MobileSpecsAdapter? = null
+     private var rPlatform: MobileSpecsAdapter? = null
+     private var rDisplay: MobileSpecsAdapter? = null
+     private var rMemory: MobileSpecsAdapter? = null
+     private var rBody: MobileSpecsAdapter? = null
+     private var rLaunch: MobileSpecsAdapter? = null
+     private var rComms: MobileSpecsAdapter? = null
+     private var rBattery: MobileSpecsAdapter? = null
+     private var rMainCam: MobileSpecsAdapter? = null
+     private var rSelfCam: MobileSpecsAdapter? = null
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentHardwareBinding.inflate(inflater)
-        return binding.root
-    }
+     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+          binding = FragmentHardwareBinding.inflate(inflater)
+          return binding.root
+     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity())[RetroViewModel::class.java]
-        loadShimmerVisible()
+     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+          super.onViewCreated(view, savedInstanceState)
+          viewModel = ViewModelProvider(requireActivity())[RetroViewModel::class.java]
+          loadShimmerVisible()
 
-        setupRecyclerViews()
+          setupRecyclerViews()
 
-        if (arguments?.getString(Constants.PHONE_EXTRA) != null) {
-            viewModel.getMobile(arguments!!.getString(Constants.PHONE_EXTRA)!!)
-            viewModel.getResponse.observe(requireActivity()) {
-                if (it is Resource.Success && it.data != null) {
-                    checkThenSetDataInUI(it.data.data)
-                    loadContentVisible()
-                }
-            }
-
-        } else {
-            (activity as MainActivity).getMobile().observe(requireActivity()) {
-                if (it != null) {
-                    mobile = it.data
-                    checkThenSetDataInUI(it.data)
-                    Handler(Looper.getMainLooper()).postDelayed(800) {
-                        loadContentVisible()
+          if (arguments?.getString(Constants.PHONE_EXTRA) != null) {
+               viewModel.getMobile(arguments!!.getString(Constants.PHONE_EXTRA)!!)
+               viewModel.getResponse.observe(requireActivity()) {
+                    if (it is Resource.Success && it.data != null) {
+                         checkThenSetDataInUI(it.data.data)
+                         loadContentVisible()
                     }
-                }
-            }
-        }
-    }
+               }
 
-    private fun checkThenSetDataInUI(data: Data) {
-        try {
-            setDataInUI(data)
-        } catch (e: Exception) { }
-    }
+          } else {
+               (activity as MainActivity).getMobile().observe(requireActivity()) {
+                    if (it != null) {
+                         mobile = it.data
+                         checkThenSetDataInUI(it.data)
+                         Handler(Looper.getMainLooper()).postDelayed(800) {
+                              loadContentVisible()
+                         }
+                    }
+               }
+          }
+     }
 
-    private fun setDataInUI(data: Data) {
-        mobile = data
-        Glide.with(requireActivity())
-            .load(mobile.thumbnail)
-            .placeholder(R.color.white)
-            .into(binding.ivMainPhone)
+     private fun checkThenSetDataInUI(data: Data) {
+          try {
+               setDataInUI(data)
+          } catch (e: Exception) { }
+     }
 
-        Glide.with(requireActivity())
-            .load(getDeviceModelLogo(mobile.brand))
-            .listener(object : RequestListener<Drawable> {
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any?,
-                    target: Target<Drawable>?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    binding.ivMainLogo.visibility = GONE
-                    binding.tvMainModel.text = (data.brand + " " + data.phone_name)
-                    return false
-                }
+     private fun setDataInUI(data: Data) {
+          mobile = data
+          Glide.with(requireActivity())
+               .load(mobile.thumbnail)
+               .placeholder(R.color.white)
+               .into(binding.ivMainPhone)
 
-                override fun onResourceReady(
-                    resource: Drawable?,
-                    model: Any?,
-                    target: Target<Drawable>?,
-                    dataSource: DataSource?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    binding.tvMainModel.text = (data.phone_name)
-                    return false
-                }
-            })
-            .placeholder(R.color.white)
-            .into(binding.ivMainLogo)
+          Glide.with(requireActivity())
+               .load(getDeviceModelLogo(mobile.brand))
+               .listener(object : RequestListener<Drawable> {
+                    override fun onLoadFailed(
+                         e: GlideException?,
+                         model: Any?,
+                         target: Target<Drawable>?,
+                         isFirstResource: Boolean
+                    ): Boolean {
+                         binding.ivMainLogo.visibility = GONE
+                         binding.tvMainModel.text = (data.brand + " " + data.phone_name)
+                         return false
+                    }
 
-
-        for (i in data.specifications[4].specs) {
-            if (i.key.lowercase() == Constants.CHIPSET) {
-                binding.tvMainCPU.text = (i.`val`[0])
-                break
-            }
-        }
-
-        for (i in data.specifications[3].specs) {
-            if (i.key.lowercase() == Constants.DISPLAY) {
-                binding.tvMainCPU.text = (i.`val`[0])
-                break
-            }
-        }
-
-        binding.tvMainOS.text = (data.os)
-        binding.tvMainDisplay.text = (data.specifications[3].specs[0].`val`[0])
-
-        submitRecyclerViewItems(data)
-    }
-
-    private fun setupRecyclerViews() {
-
-        rPlatform = MobileSpecsAdapter()
-        rMemory = MobileSpecsAdapter()
-        rDisplay = MobileSpecsAdapter()
-        rBody = MobileSpecsAdapter()
-        rLaunch = MobileSpecsAdapter()
-        rComms = MobileSpecsAdapter()
-        rBattery = MobileSpecsAdapter()
-        rMainCam = MobileSpecsAdapter()
-        rSelfCam = MobileSpecsAdapter()
+                    override fun onResourceReady(
+                         resource: Drawable?,
+                         model: Any?,
+                         target: Target<Drawable>?,
+                         dataSource: DataSource?,
+                         isFirstResource: Boolean
+                    ): Boolean {
+                         binding.tvMainModel.text = (data.phone_name)
+                         return false
+                    }
+               })
+               .placeholder(R.color.white)
+               .into(binding.ivMainLogo)
 
 
-        binding.rvMainPlatform.apply {
-            layoutManager = LinearLayoutManager(requireContext()); adapter = rPlatform
-        }
-        binding.rvMainDisplay.apply {
-            layoutManager = LinearLayoutManager(requireContext()); adapter = rDisplay
-        }
-        binding.rvMainMemory.apply {
-            layoutManager = LinearLayoutManager(requireContext()); adapter = rMemory
-        }
-        binding.rvMainBattery.apply {
-            layoutManager = LinearLayoutManager(requireContext()); adapter = rBattery
-        }
-        binding.rvMainBody.apply {
-            layoutManager = LinearLayoutManager(requireContext()); adapter = rBody
-        }
-        binding.rvMainComm.apply {
-            layoutManager = LinearLayoutManager(requireContext()); adapter = rComms
-        }
-        binding.rvMainLaunch.apply {
-            layoutManager = LinearLayoutManager(requireContext()); adapter = rLaunch
-        }
-        binding.rvMainMainCamera.apply {
-            layoutManager = LinearLayoutManager(requireContext()); adapter = rMainCam
-        }
-        binding.rvMainSelfieCamera.apply {
-            layoutManager = LinearLayoutManager(requireContext()); adapter = rSelfCam
-        }
-    }
+          for (i in data.specifications[4].specs) {
+               if (i.key.lowercase() == Constants.CHIPSET) {
+                    binding.tvMainCPU.text = (i.`val`[0])
+                    break
+               }
+          }
+
+          for (i in data.specifications[3].specs) {
+               if (i.key.lowercase() == Constants.DISPLAY) {
+                    binding.tvMainCPU.text = (i.`val`[0])
+                    break
+               }
+          }
+
+          binding.tvMainOS.text = (data.os)
+          binding.tvMainDisplay.text = (data.specifications[3].specs[0].`val`[0])
+
+          submitRecyclerViewItems(data)
+     }
+
+     private fun setupRecyclerViews() {
+
+          rPlatform = MobileSpecsAdapter()
+          rMemory = MobileSpecsAdapter()
+          rDisplay = MobileSpecsAdapter()
+          rBody = MobileSpecsAdapter()
+          rLaunch = MobileSpecsAdapter()
+          rComms = MobileSpecsAdapter()
+          rBattery = MobileSpecsAdapter()
+          rMainCam = MobileSpecsAdapter()
+          rSelfCam = MobileSpecsAdapter()
 
 
-    private fun loadContentVisible() {
-        binding.mainLayout.visibility = VISIBLE
-        binding.shimmerLayout.stopShimmer()
-        binding.shimmerLayout.visibility = GONE
-    }
+          binding.rvMainPlatform.apply {
+               layoutManager = LinearLayoutManager(requireContext()); adapter = rPlatform
+          }
+          binding.rvMainDisplay.apply {
+               layoutManager = LinearLayoutManager(requireContext()); adapter = rDisplay
+          }
+          binding.rvMainMemory.apply {
+               layoutManager = LinearLayoutManager(requireContext()); adapter = rMemory
+          }
+          binding.rvMainBattery.apply {
+               layoutManager = LinearLayoutManager(requireContext()); adapter = rBattery
+          }
+          binding.rvMainBody.apply {
+               layoutManager = LinearLayoutManager(requireContext()); adapter = rBody
+          }
+          binding.rvMainComm.apply {
+               layoutManager = LinearLayoutManager(requireContext()); adapter = rComms
+          }
+          binding.rvMainLaunch.apply {
+               layoutManager = LinearLayoutManager(requireContext()); adapter = rLaunch
+          }
+          binding.rvMainMainCamera.apply {
+               layoutManager = LinearLayoutManager(requireContext()); adapter = rMainCam
+          }
+          binding.rvMainSelfieCamera.apply {
+               layoutManager = LinearLayoutManager(requireContext()); adapter = rSelfCam
+          }
+     }
 
-    private fun loadShimmerVisible() {
-        binding.mainLayout.visibility = GONE
-        binding.shimmerLayout.visibility = VISIBLE
-        binding.shimmerLayout.startShimmer()
-    }
 
-    private fun submitRecyclerViewItems(data: Data) {
-        rPlatform!!.submitList(data.specifications[4].specs)
-        rDisplay!!.submitList(data.specifications[3].specs)
-        rMemory!!.submitList(data.specifications[5].specs)
-        rBattery!!.submitList(data.specifications[11].specs)
-        rBody!!.submitList(data.specifications[2].specs)
-        rLaunch!!.submitList(data.specifications[1].specs)
-        rMainCam!!.submitList(data.specifications[6].specs)
-        rSelfCam!!.submitList(data.specifications[7].specs)
-        rComms!!.submitList(data.specifications[9].specs)
-    }
+     private fun loadContentVisible() {
+          binding.mainLayout.visibility = VISIBLE
+          binding.shimmerLayout.stopShimmer()
+          binding.shimmerLayout.visibility = GONE
+     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        rPlatform = null
-        rMemory = null
-        rBattery = null
-        rBody = null
-        rLaunch = null
-        rMainCam = null
-        rSelfCam = null
-    }
+     private fun loadShimmerVisible() {
+          binding.mainLayout.visibility = GONE
+          binding.shimmerLayout.visibility = VISIBLE
+          binding.shimmerLayout.startShimmer()
+     }
+
+     private fun submitRecyclerViewItems(data: Data) {
+          rPlatform!!.submitList(data.specifications[4].specs)
+          rDisplay!!.submitList(data.specifications[3].specs)
+          rMemory!!.submitList(data.specifications[5].specs)
+          rBattery!!.submitList(data.specifications[11].specs)
+          rBody!!.submitList(data.specifications[2].specs)
+          rLaunch!!.submitList(data.specifications[1].specs)
+          rMainCam!!.submitList(data.specifications[6].specs)
+          rSelfCam!!.submitList(data.specifications[7].specs)
+          rComms!!.submitList(data.specifications[9].specs)
+     }
+
+     override fun onDestroy() {
+          super.onDestroy()
+          rPlatform = null
+          rMemory = null
+          rBattery = null
+          rBody = null
+          rLaunch = null
+          rMainCam = null
+          rSelfCam = null
+     }
 
 }

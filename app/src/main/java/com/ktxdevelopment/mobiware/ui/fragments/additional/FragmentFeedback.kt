@@ -115,12 +115,7 @@ class FragmentFeedback : BaseFragment(),  LinkedImageAdapter.OnLinkedImageClickL
           if (result.resultCode == AppCompatActivity.RESULT_OK && result.data != null) {
                tryEr {
                     result.data!!.data?.let {
-                         if (!BaseClient.checkIfUriExistsInList(
-                                   activity!!.contentResolver,
-                                   it,
-                                   photoList
-                              )
-                         ) {
+                         if (!BaseClient.checkIfUriExistsInList(activity!!.contentResolver, it, photoList)) {
                               photoList.add(it)
                               mAdapter.submitList(photoList)
                               mAdapter.notifyItemInserted(photoList.size - 1)

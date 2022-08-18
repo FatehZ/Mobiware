@@ -1,56 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
-    app:startDestination="@id/fragmentHardware">
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:id="@+id/nav_graph"
+     app:startDestination="@id/fragmentHardware">
 
-    <fragment
-        android:id="@+id/fragmentLatest"
-        android:name="com.ktxdevelopment.mobiware.ui.fragments.main.FragmentLatest"
-        android:label="FragmentLatest"
-        tools:layout="@layout/fragment_latest" >
-    </fragment>
-    <fragment
-        android:id="@+id/fragmentHardware"
-        android:name="com.ktxdevelopment.mobiware.ui.fragments.main.FragmentHardware"
-        android:label="fragment_hardware"
-        tools:layout="@layout/fragment_hardware" />
-    <fragment
-        android:id="@+id/fragmentMyDevices"
-        android:name="com.ktxdevelopment.mobiware.ui.fragments.main.FragmentMyDevices"
-        android:label="FragmentMyDevices" >
-    </fragment>
-    <fragment
-        android:id="@+id/fragmentSecondaryHardware"
-        android:name="com.ktxdevelopment.mobiware.ui.fragments.main.FragmentSecondaryHardware"
-        android:label="FragmentSecondaryHardware" >
-    </fragment>
-    <fragment
-         android:id="@+id/fragmentSettings"
-         android:name="com.ktxdevelopment.mobiware.ui.fragments.main.FragmentSettings"
-         android:label="fragment_settings"
-         tools:layout="@layout/fragment_settings" />
+     <fragment
+          android:id="@+id/fragmentLatest"
+          android:name="com.ktxdevelopment.mobiware.ui.fragments.main.FragmentLatest"
+          android:label="FragmentLatest"
+          tools:layout="@layout/fragment_latest" >
+          <action
+               android:id="@+id/action_fragmentLatest_to_fragmentSecondaryHardware"
+               app:destination="@id/fragmentSecondaryHardware" />
+     </fragment>
+     <fragment
+          android:id="@+id/fragmentHardware"
+          android:name="com.ktxdevelopment.mobiware.ui.fragments.main.FragmentHardware"
+          android:label="fragment_hardware"
+          tools:layout="@layout/fragment_hardware" >
+          <action
+               android:id="@+id/action_fragmentHardware_to_fragmentBrandPhones"
+               app:destination="@id/fragmentBrandPhones" />
+     </fragment>
+     <fragment
+          android:id="@+id/fragmentMyDevices"
+          android:name="com.ktxdevelopment.mobiware.ui.fragments.main.FragmentMyDevices"
+          android:label="FragmentMyDevices" >
+          <action
+               android:id="@+id/action_fragmentMyDevices_to_fragmentSecondaryHardware"
+               app:destination="@id/fragmentSecondaryHardware" />
+     </fragment>
+     <fragment
+          android:id="@+id/fragmentSecondaryHardware"
+          android:name="com.ktxdevelopment.mobiware.ui.fragments.main.FragmentSecondaryHardware"
+          android:label="FragmentSecondaryHardware" >
+     </fragment>
+     <fragment
+          android:id="@+id/fragmentSettings"
+          android:name="com.ktxdevelopment.mobiware.ui.fragments.main.FragmentSettings"
+          android:label="fragment_settings"
+          tools:layout="@layout/fragment_settings" />
+     <fragment
+          android:id="@+id/fragmentBrands"
+          android:name="com.ktxdevelopment.mobiware.ui.fragments.main.FragmentBrands"
+          android:label="fragment_brands"
+          tools:layout="@layout/fragment_brands" >
+          <action
+               android:id="@+id/action_fragmentBrands_to_fragmentBrandPhones"
+               app:destination="@id/fragmentBrandPhones" />
+     </fragment>
 
-    <action
-        android:id="@+id/actionToLatest"
-        app:destination="@id/fragmentLatest">
-    </action>
+     <action
+          android:id="@+id/actionToLatest"
+          app:destination="@id/fragmentLatest">
+     </action>
 
-    <action
-        android:id="@+id/actionToHardware"
-        app:destination="@id/fragmentHardware" />
+     <action
+          android:id="@+id/actionToHardware"
+          app:destination="@id/fragmentHardware" />
 
-    <action
-        android:id="@+id/actionToMyDevices"
-        app:destination="@id/fragmentMyDevices" />
+     <action
+          android:id="@+id/actionToMyDevices"
+          app:destination="@id/fragmentMyDevices" />
 
-    <action
-        android:id="@+id/actionToSecondaryHardware"
-        app:destination="@id/fragmentSecondaryHardware" />
+     <!--    <action-->
+     <!--        android:id="@+id/actionToSecondaryHardware"-->
+     <!--        app:destination="@id/fragmentSecondaryHardware" />-->
 
-    <action
-        android:id="@+id/actionToSettings"
-        app:destination="@id/fragmentSettings" />
+     <action
+          android:id="@+id/actionToSettings"
+          app:destination="@id/fragmentSettings" />
+
+     <action
+          android:id="@+id/actionToBrands"
+          app:destination="@id/fragmentBrands" />
+     <fragment
+          android:id="@+id/fragmentBrandPhones"
+          android:name="com.ktxdevelopment.mobiware.ui.fragments.main.FragmentBrandPhones"
+          android:label="FragmentBrandPhones" >
+          <action
+               android:id="@+id/action_fragmentBrandPhones_to_fragmentSecondaryHardware"
+               app:destination="@id/fragmentSecondaryHardware" />
+     </fragment>
+
 
 </navigation>

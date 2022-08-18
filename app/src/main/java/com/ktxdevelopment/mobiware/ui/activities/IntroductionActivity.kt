@@ -86,12 +86,12 @@ class IntroductionActivity : BaseActivity() {
           (getSystemService(Context.UI_MODE_SERVICE) as UiModeManager).setApplicationNightMode(UiModeManager.MODE_NIGHT_AUTO)
           Firebase.auth.signOut()
      }
+
+     private fun splashCheck(function: () -> Unit) {
+          if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+               Handler(Looper.getMainLooper()).postDelayed(3000) { function() }
+          }else function()
+     }
 }
 
 
-
-fun splashCheck(function: () -> Unit) {
-     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
-          Handler(Looper.getMainLooper()).postDelayed(3000) { function() }
-     }else function()
-}

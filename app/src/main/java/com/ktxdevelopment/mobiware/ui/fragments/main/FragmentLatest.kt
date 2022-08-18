@@ -1,6 +1,5 @@
 package com.ktxdevelopment.mobiware.ui.fragments.main
 
-import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -10,14 +9,12 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.core.os.postDelayed
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ktxdevelopment.mobiware.R
 import com.ktxdevelopment.mobiware.databinding.FragmentLatestBinding
 import com.ktxdevelopment.mobiware.models.rest.Resource
-import com.ktxdevelopment.mobiware.models.rest.search.Phone
 import com.ktxdevelopment.mobiware.ui.recview.LatestMobileAdapter
 import com.ktxdevelopment.mobiware.util.Constants
 import com.ktxdevelopment.mobiware.viewmodel.RetroViewModel
@@ -29,7 +26,6 @@ class FragmentLatest : BaseFragment(), LatestMobileAdapter.OnMobileClickListener
     private lateinit var binding: FragmentLatestBinding
     private lateinit var restViewModel: RetroViewModel
     private var errorMessageShown = false
-    private lateinit var myMobiles: MutableLiveData<ArrayList<Phone>>
     private val TAG = "LTS_TAG"
 
 
@@ -38,7 +34,6 @@ class FragmentLatest : BaseFragment(), LatestMobileAdapter.OnMobileClickListener
 
         latestMobileAdapter = LatestMobileAdapter(this)
         restViewModel = ViewModelProvider(requireActivity())[RetroViewModel::class.java]
-        myMobiles = MutableLiveData()
 
         binding.rvLatest.apply {
             layoutManager = GridLayoutManager(requireContext(), 2)
@@ -73,7 +68,7 @@ class FragmentLatest : BaseFragment(), LatestMobileAdapter.OnMobileClickListener
 
     override fun onPosClick(pos: Int) {
         val bundle = Bundle().apply { putString(Constants.PHONE_EXTRA, latestMobileAdapter.currentList[pos].slug) }
-        findNavController().navigate(R.id.actionToSecondaryHardware, bundle)
+        findNavController().navigate(R.id.action_fragmentLatest_to_fragmentSecondaryHardware, bundle)
     }
 
     override fun onDetach() {

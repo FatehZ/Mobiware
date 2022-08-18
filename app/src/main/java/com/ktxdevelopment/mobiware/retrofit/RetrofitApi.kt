@@ -25,4 +25,10 @@ interface RetrofitApi {
 
     @GET(Constants.LATEST_URL)
     suspend fun searchLatest() : Response<SearchResponse>
+
+    @GET(Constants.BRANDS_URL)
+    suspend fun searchByBrand(
+        @Url brandSlug: String,
+        @Query("page") page: Int
+    ) : Response<SearchResponse>
 }

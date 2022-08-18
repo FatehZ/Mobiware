@@ -9,7 +9,6 @@ import com.ktxdevelopment.mobiware.models.rest.product.GetResponse
 import com.ktxdevelopment.mobiware.models.rest.search.SearchResponse
 import com.ktxdevelopment.mobiware.repositories.RetrofitRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,32 +16,48 @@ import javax.inject.Inject
 @HiltViewModel
 class RetroViewModel @Inject constructor(private var restRepo: RetrofitRepository, application: Application) : AndroidViewModel(application) {
 
-    var searchResponse: MutableLiveData<Resource<SearchResponse>> = MutableLiveData()
-    var getResponse: MutableLiveData<Resource<GetResponse>> = MutableLiveData()
-    var getMyDeviceResponse: MutableLiveData<Resource<GetResponse>> = MutableLiveData()
 
-    fun searchMobile(query: String) {
-        viewModelScope.launch {
-            searchResponse.postValue(restRepo.searchMobile(query))
-        }
-    }
+     private val _devicesByBrand =  MutableLiveData<Resource<SearchResponse>>()
+     val devicesByBrand = _devicesByBrand
 
-    fun getMobile(url: String) {
-        viewModelScope.launch {
-            getResponse.postValue(restRepo.getMobile(url))
-        }
-    }
+     fun searchByBrand(brandSlug: String, page: Int) {
+          viewModelScope.launch {
+               restRepo.searchByBrand(brandSlug, page).collect{
+                    _devicesByBrand.value = it
+               }
+          }
+     }
 
-    fun searchLatest() {
-        viewModelScope.launch {
-            searchResponse.postValue(restRepo.searchLatest())
-        }
-    }
 
-    fun getMyDevices(url: String) {
-        viewModelScope.launch {
-            getMyDeviceResponse.postValue(restRepo.getMyDevices(url))
-        }
-    }
+     var searchResponse: MutableLiveData<Resource<SearchResponse>> = MutableLiveData()
+     fun searchMobile(query: String) {
+          viewModelScope.launch {
+               searchResponse.postValue(restRepo.searchMobile(query))
+          }
+     }
+
+
+     var getResponse: MutableLiveData<Resource<GetResponse>> = MutableLiveData()
+     fun getMobile(url: String) {
+          viewModelScope.launch {
+               getResponse.postValue(restRepo.getMobile(url))
+          }
+     }
+
+     fun searchLatest() {
+          viewModelScope.launch {
+               searchResponse.postValue(restRepo.searchLatest())
+          }
+     }
+
+
+
+
+     var getMyDeviceResponse: MutableLiveData<Resource<GetResponse>> = MutableLiveData()
+     fun getMyDevices(url: String) {
+          viewModelScope.launch {
+               getMyDeviceResponse.postValue(restRepo.getMyDevices(url))
+          }
+     }
 
 }

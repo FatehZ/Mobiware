@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="main_card_spec_radius">@dimen/_10sdp</dimen>
-    <dimen name="cv_margin_settings">@dimen/_1sdp</dimen>
-    <dimen name="layout_padding_horizontal_settings">@dimen/_7sdp</dimen>
-    <dimen name="cv_text_margin_settings">@dimen/_4sdp</dimen>
-    <dimen name="settings_text_size">@dimen/_15sdp</dimen>
+     <dimen name="main_card_spec_radius">@dimen/_10sdp</dimen>
+     <dimen name="cv_margin_settings">@dimen/_1sdp</dimen>
+     <dimen name="layout_padding_horizontal_settings">@dimen/_7sdp</dimen>
+     <dimen name="cv_text_margin_settings">@dimen/_4sdp</dimen>
+     <dimen name="settings_text_size">@dimen/_15sdp</dimen>
      <dimen name="settings_dark_dialog_end_margin">@dimen/_10sdp</dimen>
      <dimen name="theme_dialog_text_size">@dimen/_13sdp</dimen>
      <dimen name="hardware_cv_stroke">@dimen/_1sdp</dimen>
@@ -14,5 +14,8 @@
      <dimen name="text_about_secondary_size">@dimen/_12ssp</dimen>
      <dimen name="about_dialog_cv_text_distance">@dimen/_12sdp</dimen>
      <dimen name="text_about_tertiary_size">@dimen/_2sdp</dimen>
+     <!-- Default screen margins, per the Android Design guidelines. -->
+     <dimen name="fragment_horizontal_margin">16dp</dimen>
+     <dimen name="fragment_vertical_margin">16dp</dimen>
 
 </resources>

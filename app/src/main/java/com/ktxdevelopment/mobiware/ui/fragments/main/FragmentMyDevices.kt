@@ -24,7 +24,7 @@ import com.ktxdevelopment.mobiware.ui.recview.LatestMobileAdapter
 import com.ktxdevelopment.mobiware.util.Constants
 import com.ktxdevelopment.mobiware.viewmodel.RetroViewModel
 
-class FragmentMyDevices: BaseFragment(), LatestMobileAdapter.OnMobileClickListener{
+class FragmentMyDevices : BaseFragment(), LatestMobileAdapter.OnMobileClickListener {
 
      private lateinit var topAdapter: LatestMobileAdapter
      private lateinit var binding: FragmentMyDevicesBinding
@@ -33,7 +33,11 @@ class FragmentMyDevices: BaseFragment(), LatestMobileAdapter.OnMobileClickListen
      private lateinit var myMobiles: MutableLiveData<ArrayList<Phone>>
      private val TAG = "LTS_TAG"
 
-     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+     override fun onCreateView(
+          inflater: LayoutInflater,
+          container: ViewGroup?,
+          savedInstanceState: Bundle?
+     ): View {
           binding = FragmentMyDevicesBinding.inflate(inflater)
           return binding.root
      }
@@ -42,21 +46,17 @@ class FragmentMyDevices: BaseFragment(), LatestMobileAdapter.OnMobileClickListen
           super.onViewCreated(view, savedInstanceState)
           restViewModel = ViewModelProvider(requireActivity())[RetroViewModel::class.java]
           topAdapter = LatestMobileAdapter(this)
+          myMobiles = MutableLiveData()
           binding.rvLatest.apply {
                layoutManager = GridLayoutManager(requireContext(), 2)
-               adapter = topAdapter }
-
-          binding.shimmerLayout.stopShimmer()
-          binding.shimmerLayout.visibility = GONE
-          binding.rvLatest.visibility = VISIBLE
-
-          (activity as MainActivity).getMobile().observe(viewLifecycleOwner) {
-               if (it != null) {
-                    launchMyMobiles(it)
-               }
+               adapter = topAdapter
           }
 
-          myMobiles = MutableLiveData()
+
+          (activity as MainActivity).getMobile().observe(viewLifecycleOwner) {
+               if (it != null) launchMyMobiles(it)
+          }
+
           myMobiles.observe(viewLifecycleOwner) {
                if (it.isNotEmpty()) {
                     topAdapter.submitList(it)
@@ -69,9 +69,17 @@ class FragmentMyDevices: BaseFragment(), LatestMobileAdapter.OnMobileClickListen
           if (myMobiles.value!![pos].slug != PreferenceClient.getCurrentPhoneSlug(context!!)) {
                Log.i(TAG, "onPosClick: ${PreferenceClient.getCurrentPhoneSlug(context!!)}")
                Log.i(TAG, "onPosClick: ${myMobiles.value!![pos].slug}")
-               val bundle = Bundle().apply { putString(Constants.PHONE_EXTRA, myMobiles.value!![pos].detail) }
-               findNavController().navigate(R.id.actionToSecondaryHardware, bundle)
-          }else{
+               val bundle = Bundle().apply {
+                    putString(
+                         Constants.PHONE_EXTRA,
+                         myMobiles.value!![pos].detail
+                    )
+               }
+               findNavController().navigate(
+                    R.id.action_fragmentMyDevices_to_fragmentSecondaryHardware,
+                    bundle
+               )
+          } else {
                findNavController().navigate(R.id.actionToHardware)
           }
      }
@@ -82,7 +90,7 @@ class FragmentMyDevices: BaseFragment(), LatestMobileAdapter.OnMobileClickListen
      }
 
      private fun launchMyMobiles(mob: RoomPhoneModel) {
-          myMobiles.value = arrayListOf(convertDataToPhone(mob.data, mob.slug))
+          myMobiles.value!!.add(convertDataToPhone(mob.data, mob.slug))
           (activity as MainActivity).getLocalUser().observe(viewLifecycleOwner) {
                if (it?.mobileId != null && it.mobileId.isNotEmpty()) {
                     it.mobileId.remove(mob.slug)
@@ -92,19 +100,20 @@ class FragmentMyDevices: BaseFragment(), LatestMobileAdapter.OnMobileClickListen
      }
 
 
-
      private fun onMobileListDerived(mobileIdList: ArrayList<String>) {
           Log.i(TAG, "mobile size : ${mobileIdList.size}")
-          for (i in mobileIdList) {
-               Log.i(TAG, "onMobileListDerived: $i")
-               if (!checkIfUrlExistsInPhones(i, myMobiles.value!!)) {
-                    postNewMobiles(i)
+          if (mobileIdList.size != 0) mainLayoutVisible()
+          else
+               for (i in mobileIdList) {
+                    Log.i(TAG, "onMobileListDerived: $i")
+                    if (!checkIfUrlExistsInPhones(i, myMobiles.value!!)) {
+                         postNewMobile(i)
+                    }
                }
-          }
      }
 
 
-     private fun postNewMobiles(url: String) {
+     private fun postNewMobile(url: String) {
           val viewModel = ViewModelProvider(requireActivity())[RetroViewModel::class.java]
           viewModel.getMyDevices(url)
 
@@ -117,5 +126,11 @@ class FragmentMyDevices: BaseFragment(), LatestMobileAdapter.OnMobileClickListen
                     }
                }
           }
+     }
+
+     fun mainLayoutVisible() {
+          binding.shimmerLayout.stopShimmer()
+          binding.shimmerLayout.visibility = GONE
+          binding.rvLatest.visibility = VISIBLE
      }
 }
