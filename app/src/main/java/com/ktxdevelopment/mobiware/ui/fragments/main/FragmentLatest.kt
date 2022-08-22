@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ktxdevelopment.mobiware.R
-import com.ktxdevelopment.mobiware.databinding.FragmentLatestBinding
+import com.ktxdevelopment.mobiware.databinding.FragmentPhoneListBinding
 import com.ktxdevelopment.mobiware.models.rest.Resource
 import com.ktxdevelopment.mobiware.ui.recview.LatestMobileAdapter
 import com.ktxdevelopment.mobiware.util.Constants
@@ -23,22 +23,18 @@ import com.ktxdevelopment.mobiware.viewmodel.RetroViewModel
 class FragmentLatest : BaseFragment(), LatestMobileAdapter.OnMobileClickListener {
 
     private lateinit var latestMobileAdapter: LatestMobileAdapter
-    private lateinit var binding: FragmentLatestBinding
+    private lateinit var binding: FragmentPhoneListBinding
     private lateinit var restViewModel: RetroViewModel
     private var errorMessageShown = false
-    private val TAG = "LTS_TAG"
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initializeUI()
+        retrieveLatestDevices()
+    }
 
-        latestMobileAdapter = LatestMobileAdapter(this)
-        restViewModel = ViewModelProvider(requireActivity())[RetroViewModel::class.java]
-
-        binding.rvLatest.apply {
-            layoutManager = GridLayoutManager(requireContext(), 2)
-            adapter = latestMobileAdapter }
-
+    private fun retrieveLatestDevices() {
         restViewModel.searchLatest()
         restViewModel.searchResponse.observe(requireActivity()) {
             when (it) {
@@ -56,8 +52,18 @@ class FragmentLatest : BaseFragment(), LatestMobileAdapter.OnMobileClickListener
         }
     }
 
+    private fun initializeUI() {
+        setActionBarTitle(getString(R.string.latest_devices))
+        latestMobileAdapter = LatestMobileAdapter(this)
+        restViewModel = ViewModelProvider(requireActivity())[RetroViewModel::class.java]
+
+        binding.rvLatest.apply {
+            layoutManager = GridLayoutManager(requireContext(), 2)
+            adapter = latestMobileAdapter }
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentLatestBinding.inflate(inflater)
+        binding = FragmentPhoneListBinding.inflate(inflater)
         return binding.root
     }
 

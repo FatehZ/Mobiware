@@ -38,7 +38,7 @@
                               android:id="@+id/cv1_main"
                               android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
-                              app:layout_constraintBottom_toTopOf="@id/ivMainLogo"
+                              app:layout_constraintBottom_toTopOf="@id/cvMainLogo"
                               android:layout_marginTop="@dimen/_5sdp"
                               android:layout_weight="1"
                               app:cardCornerRadius="@dimen/_8sdp"
@@ -59,23 +59,33 @@
                          </androidx.cardview.widget.CardView>
 
 
-                         <ImageView
-                              android:layout_marginVertical="@dimen/_6sdp"
-                              android:id="@+id/ivMainLogo"
-                              android:layout_width="match_parent"
+                         <com.google.android.material.card.MaterialCardView
+                              android:id="@+id/cvMainLogo"
+                              android:layout_width="0dp"
                               android:layout_height="wrap_content"
-                              app:layout_constraintBottom_toTopOf="@id/tvMainModel"
-                              android:layout_marginTop="@dimen/_5sdp"
-                              android:adjustViewBounds="true"
-                              android:contentDescription="@string/profile_image"
-                              android:maxHeight="@dimen/_25sdp"
-                              android:paddingHorizontal="@dimen/_15sdp"
-                              android:scaleType="fitCenter"
-                              android:src="@drawable/samsung"
+                              app:cardBackgroundColor="@color/cv_hardware_logo_back"
+                              android:layout_marginVertical="@dimen/_3sdp"
                               android:visibility="visible"
-                              app:layout_constraintEnd_toEndOf="parent"
-                              app:layout_constraintStart_toStartOf="parent"
-                              app:layout_constraintTop_toBottomOf="@id/cv1_main" />
+                              android:background="?attr/selectableItemBackground"
+                              android:focusable="true"
+                              app:cardCornerRadius="@dimen/_8sdp"
+                              app:layout_constraintBottom_toTopOf="@id/tvMainModel"
+                              app:layout_constraintEnd_toEndOf="@+id/cv1_main"
+                              app:layout_constraintStart_toStartOf="@+id/cv1_main"
+                              app:layout_constraintTop_toBottomOf="@id/cv1_main">
+
+                              <ImageView
+                                   android:id="@+id/ivMainLogo"
+                                   android:layout_width="match_parent"
+                                   android:layout_height="wrap_content"
+                                   android:layout_marginVertical="@dimen/_5sdp"
+                                   android:adjustViewBounds="true"
+                                   android:contentDescription="@string/profile_image"
+                                   android:maxHeight="@dimen/_25sdp"
+                                   android:paddingHorizontal="@dimen/_10sdp"
+                                   android:scaleType="fitCenter"/>
+
+                         </com.google.android.material.card.MaterialCardView>
 
                          <TextView
                               android:id="@+id/tvMainModel"
@@ -91,7 +101,7 @@
                               app:layout_constraintBottom_toBottomOf="parent"
                               app:layout_constraintEnd_toEndOf="parent"
                               app:layout_constraintStart_toStartOf="parent"
-                              app:layout_constraintTop_toBottomOf="@+id/ivMainLogo" />
+                              app:layout_constraintTop_toBottomOf="@+id/cvMainLogo" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

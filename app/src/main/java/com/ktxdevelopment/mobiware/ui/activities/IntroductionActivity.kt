@@ -30,8 +30,6 @@ class IntroductionActivity : BaseActivity() {
      private lateinit var retroViewModel: RetroViewModel
      private lateinit var roomViewModel: LocalViewModel
      private lateinit var navController: NavController
-     private var duration = 3000L
-     private val hl = Handler(Looper.getMainLooper())
 
      override fun onCreate(savedInstanceState: Bundle?) {
           super.onCreate(savedInstanceState)
@@ -86,6 +84,12 @@ class IntroductionActivity : BaseActivity() {
           (getSystemService(Context.UI_MODE_SERVICE) as UiModeManager).setApplicationNightMode(UiModeManager.MODE_NIGHT_AUTO)
           Firebase.auth.signOut()
      }
+
+
+
+
+
+
 
      private fun splashCheck(function: () -> Unit) {
           if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {

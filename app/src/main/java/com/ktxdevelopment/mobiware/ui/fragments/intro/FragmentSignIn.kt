@@ -32,7 +32,6 @@ class FragmentSignIn : BaseFragment(), SelectionAdapter.OnMobileClickListener {
 
      private lateinit var binding: FragmentSignInBinding
      private lateinit var restViewModel: RetroViewModel
-     private val TAG = "SIGN_IN_TAG"
      private lateinit var mobileAdapter: SelectionAdapter
 
      private var phones: ArrayList<Phone> = ArrayList()
@@ -42,7 +41,6 @@ class FragmentSignIn : BaseFragment(), SelectionAdapter.OnMobileClickListener {
      override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
           binding = FragmentSignInBinding.inflate(inflater, container, false)
           setupSignInUI()
-
 
           if (arguments?.getParcelableArrayList<Phone>(Constants.PHONE_LIST) != null) {
                phones = arguments?.getParcelableArrayList(Constants.PHONE_LIST)!!
@@ -63,6 +61,11 @@ class FragmentSignIn : BaseFragment(), SelectionAdapter.OnMobileClickListener {
           }
 
           return binding.root
+     }
+
+     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+          super.onViewCreated(view, savedInstanceState)
+          setupSignInUI()
      }
 
 

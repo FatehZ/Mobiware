@@ -8,6 +8,10 @@ import com.ktxdevelopment.mobiware.util.tryEr
 
 open class BaseFragment : Fragment() {
 
+     fun setActionBarTitle(title: String) {
+          tryEr { (activity as BaseActivity).supportActionBar?.apply { if (this.title != title) this.title = title } }
+     }
+
      fun showProgressDialog() {
           tryEr {
                (activity as BaseActivity).showProgressDialog()

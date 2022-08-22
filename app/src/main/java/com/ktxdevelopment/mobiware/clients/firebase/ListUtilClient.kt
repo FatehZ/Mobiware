@@ -42,7 +42,7 @@ object ListUtilClient {
                (Constants.SONY) -> R.drawable.sony
                (Constants.NOKIA) -> R.drawable.nokia
                (Constants.GOOGLE) -> R.drawable.google
-               else -> 0
+               else -> R.drawable.samsung
           }
      }
 

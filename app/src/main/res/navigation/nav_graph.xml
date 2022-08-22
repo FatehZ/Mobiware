@@ -9,7 +9,7 @@
           android:id="@+id/fragmentLatest"
           android:name="com.ktxdevelopment.mobiware.ui.fragments.main.FragmentLatest"
           android:label="FragmentLatest"
-          tools:layout="@layout/fragment_latest" >
+          tools:layout="@layout/fragment_phone_list" >
           <action
                android:id="@+id/action_fragmentLatest_to_fragmentSecondaryHardware"
                app:destination="@id/fragmentSecondaryHardware" />

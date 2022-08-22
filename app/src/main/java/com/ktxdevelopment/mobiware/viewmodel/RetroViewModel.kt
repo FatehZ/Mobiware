@@ -55,9 +55,4 @@ class RetroViewModel @Inject constructor(private var restRepo: RetrofitRepositor
                getMyDeviceResponse.postValue(restRepo.getMyDevices(url))
           }
      }
-
-     fun getMultiplePhones(list: ArrayList<String>) {
-
-     }
-
 }

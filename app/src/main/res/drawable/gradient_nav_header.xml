@@ -4,6 +4,6 @@
         android:startColor="@color/gradient_end_nav"
         android:centerColor="@color/gradient_main_nav"
         android:endColor="@color/gradient_main_nav"
-        android:centerY="0.3"
+        android:centerY="0.2"
         android:angle="90"/>
 </shape>

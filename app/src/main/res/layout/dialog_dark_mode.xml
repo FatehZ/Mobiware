@@ -5,9 +5,9 @@
      android:layout_height="wrap_content"
      app:cardBackgroundColor="@color/white"
      app:cardCornerRadius="@dimen/_10sdp"
-     app:cardElevation="0dp">
-<!--     app:strokeColor="@color/cyan"-->
-<!--     app:strokeWidth="@dimen/_2sdp"-->
+     app:cardElevation="@dimen/_60sdp"
+     app:strokeColor="@color/cyan"
+     app:strokeWidth="@dimen/_2sdp" >
 
 
      <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,7 +44,7 @@
                     android:paddingHorizontal="@dimen/_10sdp"
                     android:layout_height="wrap_content"
                     android:letterSpacing="0.02"
-                    android:text="@string/application_theme"
+                    android:text="@string/dark_mode"
                     android:textColor="@color/dark_text"
                     android:textSize="@dimen/theme_dialog_text_size"
                     app:layout_constraintBottom_toBottomOf="parent"

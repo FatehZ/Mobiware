@@ -11,6 +11,7 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.core.os.postDelayed
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -25,6 +26,7 @@ import com.ktxdevelopment.mobiware.models.rest.product.Data
 import com.ktxdevelopment.mobiware.ui.activities.MainActivity
 import com.ktxdevelopment.mobiware.ui.recview.MobileSpecsAdapter
 import com.ktxdevelopment.mobiware.util.Constants
+import com.ktxdevelopment.mobiware.util.tryEr
 import com.ktxdevelopment.mobiware.viewmodel.RetroViewModel
 
 
@@ -32,7 +34,6 @@ class FragmentHardware : BaseFragment() {
      private lateinit var binding: FragmentHardwareBinding
      private lateinit var mobile: Data
      private lateinit var viewModel: RetroViewModel
-     private val TAG = "HRD_TAG"
 
      private var rPlatform: MobileSpecsAdapter? = null
      private var rDisplay: MobileSpecsAdapter? = null
@@ -52,25 +53,38 @@ class FragmentHardware : BaseFragment() {
 
      override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
           super.onViewCreated(view, savedInstanceState)
+          initializeUI()
+          retrieveMobileHardwareData()
+     }
+
+     private fun initializeUI() {
+          setActionBarTitle(getString(R.string.app_name))
           viewModel = ViewModelProvider(requireActivity())[RetroViewModel::class.java]
           loadShimmerVisible()
-
           setupRecyclerViews()
+          binding.cvMainLogo.setOnClickListener {
+               val currentBrandModel = try { (activity as MainActivity).getBrandList().filter { it.brand_name.lowercase() == mobile.brand.lowercase() }[0] } catch (e: Exception) { null }
+               if (currentBrandModel != null) {
+                    val bundle = Bundle().apply { putParcelable(Constants.BRAND_EXTRA, currentBrandModel) }
+                    findNavController().navigate(R.id.action_fragmentHardware_to_fragmentBrandPhones, bundle)
+               }
+          }
+     }
 
+     private fun retrieveMobileHardwareData() {
           if (arguments?.getString(Constants.PHONE_EXTRA) != null) {
                viewModel.getMobile(arguments!!.getString(Constants.PHONE_EXTRA)!!)
                viewModel.getResponse.observe(requireActivity()) {
                     if (it is Resource.Success && it.data != null) {
-                         checkThenSetDataInUI(it.data.data)
+                         setObtainedDataInUI(it.data.data)
                          loadContentVisible()
                     }
                }
-
           } else {
                (activity as MainActivity).getMobile().observe(requireActivity()) {
                     if (it != null) {
                          mobile = it.data
-                         checkThenSetDataInUI(it.data)
+                         setObtainedDataInUI(it.data)
                          Handler(Looper.getMainLooper()).postDelayed(800) {
                               loadContentVisible()
                          }
@@ -79,66 +93,51 @@ class FragmentHardware : BaseFragment() {
           }
      }
 
-     private fun checkThenSetDataInUI(data: Data) {
-          try {
-               setDataInUI(data)
-          } catch (e: Exception) { }
-     }
+     private fun setObtainedDataInUI(data: Data) {
+          tryEr {
+               mobile = data
+               Glide.with(requireActivity())
+                    .load(mobile.thumbnail)
+                    .placeholder(R.color.white)
+                    .into(binding.ivMainPhone)
 
-     private fun setDataInUI(data: Data) {
-          mobile = data
-          Glide.with(requireActivity())
-               .load(mobile.thumbnail)
-               .placeholder(R.color.white)
-               .into(binding.ivMainPhone)
+               Glide.with(requireActivity())
+                    .load(getDeviceModelLogo(mobile.brand))
+                    .listener(object : RequestListener<Drawable> {
+                         override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                              binding.ivMainLogo.visibility = GONE
+                              binding.tvMainModel.text = (data.brand + " " + data.phone_name)
+                              return false
+                         }
 
-          Glide.with(requireActivity())
-               .load(getDeviceModelLogo(mobile.brand))
-               .listener(object : RequestListener<Drawable> {
-                    override fun onLoadFailed(
-                         e: GlideException?,
-                         model: Any?,
-                         target: Target<Drawable>?,
-                         isFirstResource: Boolean
-                    ): Boolean {
-                         binding.ivMainLogo.visibility = GONE
-                         binding.tvMainModel.text = (data.brand + " " + data.phone_name)
-                         return false
+                         override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                              binding.tvMainModel.text = (data.phone_name)
+                              return false
+                         }
+                    })
+                    .placeholder(R.color.white)
+                    .into(binding.ivMainLogo)
+
+
+               for (i in data.specifications[4].specs) {
+                    if (i.key.lowercase() == Constants.CHIPSET) {
+                         binding.tvMainCPU.text = (i.`val`[0])
+                         break
                     }
+               }
 
-                    override fun onResourceReady(
-                         resource: Drawable?,
-                         model: Any?,
-                         target: Target<Drawable>?,
-                         dataSource: DataSource?,
-                         isFirstResource: Boolean
-                    ): Boolean {
-                         binding.tvMainModel.text = (data.phone_name)
-                         return false
+               for (i in data.specifications[3].specs) {
+                    if (i.key.lowercase() == Constants.DISPLAY) {
+                         binding.tvMainCPU.text = (i.`val`[0])
+                         break
                     }
-               })
-               .placeholder(R.color.white)
-               .into(binding.ivMainLogo)
-
-
-          for (i in data.specifications[4].specs) {
-               if (i.key.lowercase() == Constants.CHIPSET) {
-                    binding.tvMainCPU.text = (i.`val`[0])
-                    break
                }
+
+               binding.tvMainOS.text = (data.os)
+               binding.tvMainDisplay.text = (data.specifications[3].specs[0].`val`[0])
+
+               submitRecyclerViewItems(data)
           }
-
-          for (i in data.specifications[3].specs) {
-               if (i.key.lowercase() == Constants.DISPLAY) {
-                    binding.tvMainCPU.text = (i.`val`[0])
-                    break
-               }
-          }
-
-          binding.tvMainOS.text = (data.os)
-          binding.tvMainDisplay.text = (data.specifications[3].specs[0].`val`[0])
-
-          submitRecyclerViewItems(data)
      }
 
      private fun setupRecyclerViews() {

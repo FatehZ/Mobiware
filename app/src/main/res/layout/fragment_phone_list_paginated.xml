@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:background="@color/white"
+     tools:context=".ui.fragments.main.FragmentLatest">
+
+     <androidx.constraintlayout.widget.ConstraintLayout
+          android:id="@+id/mainContentLayout"
+          android:visibility="gone"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+
+          <androidx.recyclerview.widget.RecyclerView
+               android:id="@+id/rvLatest"
+               android:layout_width="match_parent"
+               android:layout_height="0dp"
+               android:layout_marginTop="@dimen/_10sdp"
+               android:orientation="vertical"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:layout_constraintTop_toTopOf="parent" />
+
+          <androidx.constraintlayout.widget.ConstraintLayout
+               app:layout_constraintTop_toBottomOf="@id/rvLatest"
+               android:layout_width="match_parent"
+               android:layout_height="@dimen/_40sdp" />
+
+
+          <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginBottom="@dimen/_3sdp"
+               app:layout_constraintBottom_toBottomOf="parent"
+               android:text="@string/_1"
+               android:textStyle="bold"
+               android:textColor="@color/white_"
+               android:id="@+id/fabPageCounter"
+               android:textAlignment="center"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintEnd_toEndOf="parent" />
+
+
+          <com.google.android.material.floatingactionbutton.FloatingActionButton
+               android:layout_width="wrap_content"
+               android:src="@drawable/ic_previous"
+               android:layout_height="wrap_content"
+               app:backgroundTint="@color/blue_"
+               app:tint="@color/cyan_"
+               android:contentDescription="@string/previous"
+               android:visibility="gone"
+               android:id="@+id/btnPreviousPage"
+               app:fabSize="mini"
+               app:layout_constraintBottom_toBottomOf="parent"
+               android:layout_marginStart="@dimen/_5sdp"
+               android:layout_marginBottom="@dimen/_5sdp"
+               app:layout_constraintStart_toStartOf="parent" />
+
+          <com.google.android.material.floatingactionbutton.FloatingActionButton
+               android:layout_width="wrap_content"
+               android:layout_marginEnd="@dimen/_5sdp"
+               android:layout_marginBottom="@dimen/_5sdp"
+               app:backgroundTint="@color/blue_"
+               android:contentDescription="@string/next"
+               app:tint="@color/cyan_"
+               app:fabSize="mini"
+               android:layout_height="wrap_content"
+               android:id="@+id/btnNextPage"
+               android:src="@drawable/ic_next"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintBottom_toBottomOf="parent" />
+
+
+     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+     <com.facebook.shimmer.ShimmerFrameLayout
+          android:id="@+id/shimmerLayout"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:animateLayoutChanges="true"
+          android:animationCache="true"
+          app:layout_constraintTop_toTopOf="parent"
+          app:shimmer_repeat_mode="restart"
+          app:shimmer_shape="linear">
+
+
+          <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:baselineAligned="false"
+               android:weightSum="2">
+
+               <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/shimmer_details" />
+
+                    <include layout="@layout/shimmer_details" />
+
+                    <include layout="@layout/shimmer_details" />
+
+                    <include layout="@layout/shimmer_details" />
+
+                    <include layout="@layout/shimmer_details" />
+               </LinearLayout>
+
+               <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/shimmer_details" />
+
+                    <include layout="@layout/shimmer_details" />
+
+                    <include layout="@layout/shimmer_details" />
+
+                    <include layout="@layout/shimmer_details" />
+
+                    <include layout="@layout/shimmer_details" />
+               </LinearLayout>
+          </LinearLayout>
+
+     </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

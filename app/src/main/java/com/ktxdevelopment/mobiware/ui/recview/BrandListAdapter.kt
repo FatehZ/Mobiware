@@ -10,7 +10,7 @@ import com.ktxdevelopment.mobiware.models.main.BrandModel
 
 
 class BrandListAdapter(private val onBrandClickListener: OnBrandClickListener) : RecyclerView.Adapter<BrandListAdapter.ViewHolder>() {
-     private lateinit var list: ArrayList<BrandModel>
+     private var list: ArrayList<BrandModel> = ArrayList()
 
      override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
           return ViewHolder(ItemBrandListBinding.inflate(LayoutInflater.from(parent.context), parent, false))

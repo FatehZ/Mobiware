@@ -25,6 +25,7 @@ import com.ktxdevelopment.mobiware.clients.main.TextInputClient
 import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient
 import com.ktxdevelopment.mobiware.databinding.FragmentProfileBinding
 import com.ktxdevelopment.mobiware.models.local.LocalUser
+import com.ktxdevelopment.mobiware.ui.activities.BaseActivity
 import com.ktxdevelopment.mobiware.ui.fragments.main.BaseFragment
 import com.ktxdevelopment.mobiware.util.Constants
 import com.ktxdevelopment.mobiware.util.Constants.READ_STORAGE_CODE
@@ -44,6 +45,13 @@ class FragmentProfile : BaseFragment() {
 
      override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
           super.onViewCreated(view, savedInstanceState)
+          loadLocalAndOnlineData()
+          initializeUI()
+
+     }
+
+     private fun loadLocalAndOnlineData() {
+          setActionBarTitle(getString(R.string.profile))
           tryEr {
                roomViewModel = ViewModelProvider(this)[LocalViewModel::class.java]
                roomViewModel.getLocalUser(context!!)
@@ -52,9 +60,10 @@ class FragmentProfile : BaseFragment() {
                     setUserDataInUI(it)
                }
           }
-
           tryEr { if (hasInternetConnection(context!!)) FirebaseClient.loadUserData(this) }
+     }
 
+     private fun initializeUI() {
           binding.civProfile.setOnClickListener {
                tryEr {
                     if (PermissionClient.hasGalleryPermissions(context!!)) showImageChooser()
@@ -78,8 +87,9 @@ class FragmentProfile : BaseFragment() {
           binding.etEmailProfile.setOnClickListener {
                tryEr { showErrorSnackbar(getString(R.string.email_cannot_change)) }
           }
-
      }
+
+
 
      private fun showImageChooser() {
           val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)

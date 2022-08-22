@@ -176,20 +176,4 @@ object BaseClient {
           }
           return false
      }
-
-
-
-     fun checkIfUrlExistsInPhones(i: String, list: ArrayList<Phone>): Boolean {
-          if (list.size == 0) {
-               return false
-          } else {
-               for (c in list) {
-                    if (i == c.slug) {
-                         return true
-                    }
-               }
-          }
-          return false
-     }
-
 }

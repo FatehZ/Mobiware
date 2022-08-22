@@ -51,6 +51,8 @@
           app:itemIconTint="@color/orange"
           app:itemBackground="@color/gradient_main_nav"
           app:itemTextColor="@color/text_main_color"
+          app:itemMaxLines="1"
+          android:overScrollMode="never"
           app:dividerInsetStart="@dimen/_25sdp"
           android:layout_height="match_parent"
           android:layout_gravity="start"

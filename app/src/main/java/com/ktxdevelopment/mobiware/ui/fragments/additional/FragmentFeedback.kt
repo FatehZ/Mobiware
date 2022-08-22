@@ -24,6 +24,7 @@ import com.ktxdevelopment.mobiware.clients.main.TextInputClient
 import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient
 import com.ktxdevelopment.mobiware.databinding.FragmentFeedbackBinding
 import com.ktxdevelopment.mobiware.models.firebase.FireFeedback
+import com.ktxdevelopment.mobiware.ui.activities.BaseActivity
 import com.ktxdevelopment.mobiware.ui.fragments.main.BaseFragment
 import com.ktxdevelopment.mobiware.ui.recview.LinkedImageAdapter
 import com.ktxdevelopment.mobiware.util.Constants
@@ -47,30 +48,8 @@ class FragmentFeedback : BaseFragment(),  LinkedImageAdapter.OnLinkedImageClickL
 
      override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
           super.onViewCreated(view, savedInstanceState)
-          val userEmail: String = activity?.intent?.getStringExtra(Constants.USER_EXTRA) ?: getString(R.string.null_email_placeholder_for_feedback)
-
-          viewModel = ViewModelProvider(requireActivity())[LocalViewModel::class.java]
-
-          mAdapter = LinkedImageAdapter(this)
-          binding.rvLinkedImages.apply {
-               layoutManager = LinearLayoutManager(context)
-               adapter = mAdapter
-          }
-          photoList = ArrayList()
-
-          binding.btnSendFeedback.setOnClickListener {
-               if (TextInputClient.validateFilledInput(binding.etFeedback.text.toString()) || photoList.size > 0) {
-                    showProgressDialogCancellable()
-                    FirebaseClient.sendFeedback(this, userEmail, binding.etFeedback.text.toString())
-               } else binding.etFeedback.error = getString(R.string.no_empty_input)
-          }
-
-          binding.cvInsertImage.setOnClickListener {
-               tryEr {
-                    if (PermissionClient.hasGalleryPermissions(context!!)) showImageChooser()
-                    else ActivityCompat.requestPermissions(activity!!, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), Constants.READ_STORAGE_CODE)
-               }
-          }
+          initializeUI()
+          clickListeners()
      }
 
 
@@ -139,5 +118,36 @@ class FragmentFeedback : BaseFragment(),  LinkedImageAdapter.OnLinkedImageClickL
                     }
                }
           }catch (e: Exception) { }
+     }
+
+     private fun initializeUI() {
+          setActionBarTitle(getString(R.string.send_feedback))
+
+          viewModel = ViewModelProvider(requireActivity())[LocalViewModel::class.java]
+
+          mAdapter = LinkedImageAdapter(this)
+          binding.rvLinkedImages.apply {
+               layoutManager = LinearLayoutManager(context)
+               adapter = mAdapter
+          }
+          photoList = ArrayList()
+     }
+
+     private fun clickListeners() {
+          val userEmail: String = activity?.intent?.getStringExtra(Constants.USER_EXTRA) ?: getString(R.string.null_email_placeholder_for_feedback)
+
+          binding.btnSendFeedback.setOnClickListener {
+               if (TextInputClient.validateFilledInput(binding.etFeedback.text.toString()) || photoList.size > 0) {
+                    showProgressDialogCancellable()
+                    FirebaseClient.sendFeedback(this, userEmail, binding.etFeedback.text.toString())
+               } else binding.etFeedback.error = getString(R.string.no_empty_input)
+          }
+
+          binding.cvInsertImage.setOnClickListener {
+               tryEr {
+                    if (PermissionClient.hasGalleryPermissions(context!!)) showImageChooser()
+                    else ActivityCompat.requestPermissions(activity!!, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), Constants.READ_STORAGE_CODE)
+               }
+          }
      }
 }

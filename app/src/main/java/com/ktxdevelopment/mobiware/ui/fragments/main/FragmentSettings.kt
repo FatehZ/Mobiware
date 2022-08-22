@@ -7,13 +7,14 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ShareCompat
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.ktxdevelopment.mobiware.BuildConfig
 import com.ktxdevelopment.mobiware.R
 import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient
 import com.ktxdevelopment.mobiware.clients.main.BaseClient
@@ -27,62 +28,82 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class FragmentSettings : BaseFragment() {
-     private var binding: FragmentSettingsBinding? = null
+     private var _binding: FragmentSettingsBinding? = null
+     private val binding get() = _binding!!
 
      //
      private lateinit var dialog: Dialog
      private lateinit var dialogDark: Dialog
      private lateinit var dialogAbout: Dialog
      //
-     private var confirmBinding: DialogSettingsBinding? = null
-     private var darkBinding: DialogDarkModeBinding? = null
-     private var aboutBinding: DialogSettingsAboutBinding? = null
-     //
+     private var _confirmBinding: DialogSettingsBinding? = null
+     private val confirmBinding get() = _confirmBinding!!
+
+     private var _darkBinding: DialogDarkModeBinding? = null
+     private val darkBinding get() = _darkBinding!!
+
+     private var _aboutBinding: DialogSettingsAboutBinding? = null
+     private val aboutBinding get() = _aboutBinding!!
+
      private lateinit var ui: UiModeManager
 
      override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-          binding = FragmentSettingsBinding.inflate(inflater, container, false)
-          return binding!!.root
+          _binding = FragmentSettingsBinding.inflate(inflater, container, false)
+          return binding.root
      }
 
 
      override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
           super.onViewCreated(view, savedInstanceState)
+          setActionBarTitle(getString(R.string.settings))
           ui = activity!!.getSystemService(Context.UI_MODE_SERVICE) as UiModeManager
           launchDialogLayouts()
           launchClickListeners()
      }
 
      private fun launchClickListeners() {
-          binding!!.cvResetPasswordSettings.setOnClickListener { dialogResetPassword() }
-          binding!!.cvNightModeSettings.setOnClickListener { dialogNightMode() }
-          binding!!.cvDeleteAccountSettings.setOnClickListener { dialogDeleteAccount() }
-          binding!!.cvContactSettings.setOnClickListener { launchContactIntent() }
-          tryEr { binding!!.cvRateAppSettings.setOnClickListener { BaseClient.playStoreIntent(context!!) } }
+          binding.cvResetPasswordSettings.setOnClickListener { dialogResetPassword() }
+          binding.cvNightModeSettings.setOnClickListener { dialogNightMode() }
+          binding.cvDeleteAccountSettings.setOnClickListener { dialogDeleteAccount() }
+          binding.cvContactSettings.setOnClickListener { launchContactIntent() }
+          binding.cvShareAppSettings.setOnClickListener { launchShareIntent() }
+          binding.cvAboutSettings.setOnClickListener { dialogAbout.show() }
+          tryEr { binding.cvRateAppSettings.setOnClickListener { BaseClient.playStoreIntent(context!!) } }
      }
 
      private fun dialogResetPassword() {
-          confirmBinding!!.tvDialogTitle.text = getString(R.string.reset_email_confirm_send)
+          confirmBinding.tvDialogTitle.text = getString(R.string.reset_email_confirm_send)
           dialog.show()
-          confirmBinding!!.btnYes.setOnClickListener { confirmedResetPassword() }
+          confirmBinding.btnYes.setOnClickListener { confirmedResetPassword() }
+     }
+
+
+     private fun launchShareIntent() {
+          tryEr {
+               ShareCompat.IntentBuilder(context!!)
+                    .setType("text/plain")
+                    .setChooserTitle("Share App Link")
+                    .setText("https://play.google.com/store/apps/details?id=${context!!.packageName}")
+                    .startChooser()
+          }
      }
 
 
      private fun dialogNightMode() {
           dialogDark.show()
           when (ui.currentModeType) {
-               UiModeManager.MODE_NIGHT_YES -> darkBinding!!.rgSetDl.check(R.id.radDark)
-               UiModeManager.MODE_NIGHT_NO -> darkBinding!!.rgSetDl.check(R.id.radLight)
-               UiModeManager.MODE_NIGHT_AUTO -> darkBinding!!.rgSetDl.check(R.id.radSysDef)
+               UiModeManager.MODE_NIGHT_YES -> darkBinding.rgSetDl.check(R.id.radDark)
+               UiModeManager.MODE_NIGHT_NO -> darkBinding.rgSetDl.check(R.id.radLight)
+               UiModeManager.MODE_NIGHT_AUTO -> darkBinding.rgSetDl.check(R.id.radSysDef)
           }
      }
 
      private fun dialogDeleteAccount() {
-          confirmBinding!!.tvDialogTitle.text = "Your account will be deleted permanently"
+          confirmBinding.tvDialogTitle.text = "Your account will be deleted permanently"
           dialog.show()
-          confirmBinding!!.btnYes.setOnClickListener { confirmedDeleteAccount() }
-
+          confirmBinding.btnYes.setOnClickListener { confirmedDeleteAccount() }
      }
+
 
      private fun confirmedDeleteAccount() {
           showProgressDialog()
@@ -97,9 +118,7 @@ class FragmentSettings : BaseFragment() {
                (activity as MainActivity).getLocalUser().observe(viewLifecycleOwner) {
                     FirebaseClient.resetPasswordWithEmail(this, it.email)
                }
-          } catch (e: Exception) {
-               hideProgressDialog()
-          }
+          } catch (e: Exception) { hideProgressDialog() }
      }
 
      private fun launchContactIntent() {
@@ -132,16 +151,16 @@ class FragmentSettings : BaseFragment() {
 
 
      private fun launchDialogLayouts() {
-          confirmBinding = DialogSettingsBinding.inflate(layoutInflater).apply { btnNo.setOnClickListener { dialog.dismiss() } }
-          darkBinding = DialogDarkModeBinding.inflate(layoutInflater).apply { btnNo.setOnClickListener { dialogDark.dismiss() } }
-          aboutBinding = DialogSettingsAboutBinding.inflate(layoutInflater).apply { btnDismiss.setOnClickListener { dialogAbout.dismiss() } }
+          _confirmBinding = DialogSettingsBinding.inflate(layoutInflater).apply { btnNo.setOnClickListener { dialog.dismiss() } }
+          _darkBinding = DialogDarkModeBinding.inflate(layoutInflater).apply { btnNo.setOnClickListener { dialogDark.dismiss() } }
+          _aboutBinding = DialogSettingsAboutBinding.inflate(layoutInflater).apply { btnDismiss.setOnClickListener { dialogAbout.dismiss() } }
 
-          dialog = Dialog(requireContext()).apply { window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)); setContentView(confirmBinding!!.root) }
-          dialogDark = Dialog(requireContext()).apply { window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)); setContentView(darkBinding!!.root) }
-          dialogAbout = Dialog(requireContext()).apply { window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)); setContentView(aboutBinding!!.root) }
+          dialog = Dialog(requireContext()).apply { window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)); setContentView(confirmBinding.root) }
+          dialogDark = Dialog(requireContext()).apply { window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)); setContentView(darkBinding.root) }
+          dialogAbout = Dialog(requireContext()).apply { window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)); setContentView(aboutBinding.root) }
 
-          darkBinding!!.btnYes.setOnClickListener {
-               when (darkBinding!!.rgSetDl.checkedRadioButtonId) {
+          darkBinding.btnYes.setOnClickListener {
+               when (darkBinding.rgSetDl.checkedRadioButtonId) {
                     R.id.radSysDef -> {
                          ui.setApplicationNightMode(UiModeManager.MODE_NIGHT_AUTO)
                          dialogDark.dismiss()
@@ -158,17 +177,17 @@ class FragmentSettings : BaseFragment() {
           }
 
 
-          aboutBinding!!.tvVersionAbout.text = Build.VERSION.SDK_INT.toString()
-          aboutBinding!!.cvPrivacyPolicyAbout.setOnClickListener { //todo open privacy policy
+          aboutBinding.tvVersionAbout.text = BuildConfig.VERSION_NAME
+          aboutBinding.cvPrivacyPolicyAbout.setOnClickListener { //todo open privacy policy
           }
      }
 
 
      override fun onDestroyView() {
           super.onDestroyView()
-          aboutBinding = null
-          darkBinding = null
-          confirmBinding = null
-          binding = null
+          _aboutBinding = null
+          _darkBinding = null
+          _confirmBinding = null
+          _binding = null
      }
 }

@@ -1,60 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cvLinkedImage"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/_4sdp"
-    app:cardBackgroundColor="@color/white"
-    app:cardCornerRadius="@dimen/_8sdp"
-    app:cardElevation="0dp">
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     android:id="@+id/cvLinkedImage"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:layout_marginTop="@dimen/_4sdp"
+     app:cardBackgroundColor="@color/white"
+     app:cardCornerRadius="@dimen/_8sdp"
+     app:cardElevation="0dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_6sdp">
+     <androidx.constraintlayout.widget.ConstraintLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginHorizontal="@dimen/_6sdp">
 
-        <ImageView
-            android:id="@+id/image_p"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/app_name"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_image_linked"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+          <ImageView
+               android:id="@+id/image_p"
+               android:layout_width="@dimen/_25sdp"
+               android:layout_height="@dimen/_25sdp"
+               android:background="@android:color/transparent"
+               android:contentDescription="@string/app_name"
+               android:scaleType="fitXY"
+               android:src="@drawable/ic_image_linked"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_linked_image"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_5sdp"
-            android:gravity="center_vertical"
-            android:text="@string/image"
-            android:textSize="@dimen/_12ssp"
-            app:layout_constraintBottom_toBottomOf="@id/image_p"
-            app:layout_constraintStart_toEndOf="@id/image_p"
-            app:layout_constraintTop_toTopOf="@+id/image_p" />
+          <TextView
+               android:id="@+id/tv_linked_image"
+               app:layout_constraintEnd_toStartOf="@id/btn_cancel_image"
+               android:layout_width="0dp"
+               android:layout_height="0dp"
+               android:textColor="@color/feedback_link_text_color"
+               android:layout_marginStart="@dimen/_5sdp"
+               android:gravity="center_vertical"
+               android:lines="1"
+               android:maxLines="1"
+               android:textSize="@dimen/_12ssp"
+               app:layout_constraintBottom_toBottomOf="@id/image_p"
+               app:layout_constraintStart_toEndOf="@id/image_p"
+               app:layout_constraintTop_toTopOf="@+id/image_p" />
 
-        <ImageView
-            android:contentDescription="@string/image"
-            android:id="@+id/btn_cancel_image"
-            android:layout_width="@dimen/_18sdp"
-            android:layout_height="@dimen/_18sdp"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_cancel"
-            android:clickable="true"
-            android:focusable="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tv_linked_image"
-            app:layout_constraintTop_toTopOf="parent" />
+          <ImageView
+               android:id="@+id/btn_cancel_image"
+               android:layout_width="@dimen/_18sdp"
+               android:layout_height="@dimen/_18sdp"
+               android:clickable="true"
+               android:contentDescription="@string/image"
+               android:focusable="true"
+               android:background="?android:attr/selectableItemBackground"
+               android:scaleType="fitXY"
+               app:tint="@color/red_"
+               android:src="@drawable/ic_cancel"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintTop_toTopOf="parent" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

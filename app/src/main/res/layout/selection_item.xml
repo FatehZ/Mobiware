@@ -1,37 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="@dimen/_150sdp"
-    android:layout_height="@dimen/_155sdp"
-    android:layout_alignParentStart="true"
-    android:clickable="true"
-    android:focusable="true"
-    android:paddingHorizontal="@dimen/_10sdp">
+<com.google.android.material.card.MaterialCardView
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     android:layout_width="match_parent"
+     android:layout_height="@dimen/_165sdp"
+     android:layout_margin="@dimen/_4sdp"
+     android:clickable="true"
+     android:focusable="true"
+     app:cardBackgroundColor="@color/white"
+     app:cardCornerRadius="@dimen/_10sdp"
+     app:layout_constraintBottom_toBottomOf="parent"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toTopOf="parent"
+     app:strokeColor="@color/hardware_cv_stroke_color"
+     app:strokeWidth="@dimen/stroke_1dp">
 
 
-    <ImageView
-        android:id="@+id/civSelection"
-        android:layout_width="@dimen/_100sdp"
-        android:layout_height="@dimen/_100sdp"
-        android:contentDescription="@string/app_name"
-        android:src="@mipmap/ic_launcher"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+     <androidx.constraintlayout.widget.ConstraintLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_alignParentStart="true"
+          android:layout_marginTop="@dimen/_5sdp"
+          android:focusable="true"
+          android:paddingHorizontal="@dimen/_10sdp">
 
-    <TextView
-        android:id="@+id/tvSelectionTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:maxLines="2"
-        android:lines="2"
-        android:text="@string/app_name"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_15ssp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/civSelection" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+          <com.google.android.material.card.MaterialCardView
+               android:id="@+id/cvSelectUL"
+               android:layout_width="@dimen/_100sdp"
+               android:clickable="false"
+               android:layout_height="@dimen/_120sdp"
+               app:cardBackgroundColor="@color/cv_phone_image_background"
+               app:cardCornerRadius="@dimen/_6sdp"
+               app:cardElevation="0dp"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toTopOf="parent">
+
+               <ImageView
+                    android:clickable="false"
+                    android:id="@+id/civSelection"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white_"
+                    android:contentDescription="@string/app_name" />
+
+          </com.google.android.material.card.MaterialCardView>
+
+          <TextView
+               android:id="@+id/tvSelectionTitle"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:gravity="center"
+               android:lines="2"
+               android:maxLines="2"
+               android:text="@string/app_name"
+               android:textColor="@color/black"
+               android:textSize="@dimen/_15ssp"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toBottomOf="@+id/cvSelectUL" />
+
+     </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
+
+
+     <!--<androidx.constraintlayout.widget.ConstraintLayout-->
+     <!--     xmlns:android="http://schemas.android.com/apk/res/android"-->
+     <!--     xmlns:app="http://schemas.android.com/apk/res-auto"-->
+     <!--     android:layout_width="match_parent"-->
+     <!--     android:layout_height="@dimen/_155sdp"-->
+     <!--     android:layout_alignParentStart="true"-->
+     <!--     android:clickable="true"-->
+     <!--     android:focusable="true"-->
+     <!--     android:paddingHorizontal="@dimen/_10sdp">-->
+
+
+     <!--     <ImageView-->
+     <!--          android:id="@+id/civSelection"-->
+     <!--          android:layout_width="@dimen/_100sdp"-->
+     <!--          android:layout_height="@dimen/_100sdp"-->
+     <!--          android:contentDescription="@string/app_name"-->
+     <!--          android:src="@mipmap/ic_launcher"-->
+     <!--          app:layout_constraintEnd_toEndOf="parent"-->
+     <!--          app:layout_constraintStart_toStartOf="parent"-->
+     <!--          app:layout_constraintTop_toTopOf="parent" />-->
+
+     <!--     <TextView-->
+     <!--          android:id="@+id/tvSelectionTitle"-->
+     <!--          android:layout_width="match_parent"-->
+     <!--          android:layout_height="wrap_content"-->
+     <!--          android:gravity="center_horizontal"-->
+     <!--          android:maxLines="2"-->
+     <!--          android:lines="2"-->
+     <!--          android:text="@string/app_name"-->
+     <!--          android:textColor="@color/black"-->
+     <!--          android:textSize="@dimen/_15ssp"-->
+     <!--          app:layout_constraintBottom_toBottomOf="parent"-->
+     <!--          app:layout_constraintEnd_toEndOf="parent"-->
+     <!--          app:layout_constraintStart_toStartOf="parent"-->
+     <!--          app:layout_constraintTop_toBottomOf="@+id/civSelection" />-->
+
+     <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+
+

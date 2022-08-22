@@ -96,7 +96,6 @@ object MainActivityClient {
           hl.postDelayed(200) {
                context.findNavController(R.id.navHost)
                     .navigate(R.id.actionToMyDevices)
-               context.supportActionBar?.title = context.getString(R.string.my_devices)
           }
      }
 
@@ -104,7 +103,6 @@ object MainActivityClient {
           hl.postDelayed(200) {
                context.findNavController(R.id.navHost)
                     .navigate(R.id.actionToLatest)
-               context.supportActionBar?.title = context.getString(R.string.latest_devices)
           }
      }
 
@@ -113,21 +111,18 @@ object MainActivityClient {
           hl.postDelayed(200) {
                context.findNavController(R.id.navHost)
                     .navigate(R.id.actionToHardware)
-               context.supportActionBar?.title = context.getString(R.string.app_name)
           }
      }
 
      private fun navigateToSettings(context: MainActivity) {
           hl.postDelayed(200) {
                context.findNavController(R.id.navHost).navigate(R.id.actionToSettings)
-               context.supportActionBar?.title = context.getString(R.string.settings)
           }
      }
 
      private fun navigateToBrands(context: MainActivity) {
           hl.postDelayed(200) {
                context.findNavController(R.id.navHost).navigate(R.id.actionToBrands)
-               context.supportActionBar?.title = context.getString(R.string.brands)
           }
      }
 

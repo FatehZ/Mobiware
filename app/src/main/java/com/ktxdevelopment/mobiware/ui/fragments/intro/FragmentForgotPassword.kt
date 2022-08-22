@@ -21,14 +21,18 @@ class FragmentForgotPassword : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentForgotPasswordBinding.inflate(inflater, container, false)
-        setUpUI()
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setUpUI()
+    }
+
     private fun setUpUI() {
-        binding.toolbarForgotPassword.setNavigationOnClickListener {
-            findNavController().navigate(R.id.action_fragmentForgotPassword_to_fragmentSignIn)
-        }
+        setActionBarTitle(getString(R.string.reset_password))
+
+        binding.toolbarForgotPassword.setNavigationOnClickListener { findNavController().navigate(R.id.action_fragmentForgotPassword_to_fragmentSignIn) }
 
         binding.btnResetPassword.setOnClickListener {
             hideKeyboardInternal()

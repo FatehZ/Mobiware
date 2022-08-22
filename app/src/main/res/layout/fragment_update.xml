@@ -15,7 +15,7 @@
         app:cardElevation="@dimen/_5sdp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:background="@drawable/artboard_1"
+            android:background="@drawable/artboard_main_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

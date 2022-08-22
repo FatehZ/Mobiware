@@ -19,6 +19,7 @@
      <color name="primary_background">#00ff00</color>
      <color name="civ_border">@color/purple_700</color>
      <color name="dark_text">@color/teal_700</color>
+     <color name="cv_phone_image_background">#ccc</color>
 
      <color name="least">#00FF00</color>
      <color name="white">#ffFFFF</color>
@@ -40,13 +41,27 @@
      <color name="hardware_cv_stroke_color">#FFFFFF</color>
      <color name="hardware_title_text_color">#119BA0</color>
      <color name="hardware_spec_text_color">@color/teal_700</color>
-     <color name="cvSelectPhoneColor">#00B5B5</color>
+     <color name="cvSelectPhoneColor">#00f</color>
      <color name="cvProfileBackground">#00f</color>
-     <color name="whiteOnly">#FFFFFF</color>
      <color name="hardware_3_cv_tv_color">#00FFFF</color>
      <color name="cv_settings_background">#fff</color>
      <color name="dialog_text_color">#003232</color>
      <color name="icon_foreground_color">#55f</color>
      <color name="settings_text_color">#3C3C3C</color>
+     <color name="feedback_et_border_color">#0000FF</color>
+
+
+     <color name="white_">#FFFFFF</color>
+     <color name="blue_">#00F</color>
+     <color name="red_">#f00</color>
+     <color name="green_">#0f0</color>
+     <color name="yellow_">#ff0</color>
+     <color name="black_">#000</color>
+     <color name="cyan_">#0ff</color>
+
+
+     <color name="feedback_link_text_color">@color/cyan_</color>
+     <color name="feedback_cv_border_color">@color/white_</color>
+     <color name="cv_hardware_logo_back">#fff</color>
 
 </resources>
