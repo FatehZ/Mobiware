@@ -10,9 +10,9 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.ktxdevelopment.mobiware.R
+import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient
 import com.ktxdevelopment.mobiware.clients.main.BaseClient
 import com.ktxdevelopment.mobiware.clients.main.TextInputClient
-import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient
 import com.ktxdevelopment.mobiware.clients.ui.SignInUpClient
 import com.ktxdevelopment.mobiware.databinding.FragmentSignInBinding
 import com.ktxdevelopment.mobiware.models.local.LocalUser
@@ -26,12 +26,13 @@ import com.ktxdevelopment.mobiware.ui.activities.MainActivity
 import com.ktxdevelopment.mobiware.ui.fragments.main.BaseFragment
 import com.ktxdevelopment.mobiware.ui.recview.SelectionAdapter
 import com.ktxdevelopment.mobiware.util.Constants
-import com.ktxdevelopment.mobiware.viewmodel.RetroViewModel
+import com.ktxdevelopment.mobiware.util.tryEr
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FragmentSignIn : BaseFragment(), SelectionAdapter.OnMobileClickListener {
 
      private lateinit var binding: FragmentSignInBinding
-     private lateinit var restViewModel: RetroViewModel
      private lateinit var mobileAdapter: SelectionAdapter
 
      private var phones: ArrayList<Phone> = ArrayList()
@@ -40,32 +41,26 @@ class FragmentSignIn : BaseFragment(), SelectionAdapter.OnMobileClickListener {
 
      override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
           binding = FragmentSignInBinding.inflate(inflater, container, false)
-          setupSignInUI()
-
-          if (arguments?.getParcelableArrayList<Phone>(Constants.PHONE_LIST) != null) {
-               phones = arguments?.getParcelableArrayList(Constants.PHONE_LIST)!!
-               onPhonesObtainedFromIntentIn()
-          }else{
-               restViewModel.searchResponse.observe(requireActivity()) { res ->
-                    when (res) {
-                         is Resource.Success -> {
-                              binding.gifProgressSignIn.visibility = View.GONE
-                              SignInUpClient.handleSearchSuccessIn(this, binding, res)
-                         }
-                         is Resource.Error -> {
-                              SignInUpClient.handleErrorIn(this,binding, res.error)
-                         }
-                         else -> Unit
-                    }
-               }
-          }
-
           return binding.root
      }
 
      override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
           super.onViewCreated(view, savedInstanceState)
           setupSignInUI()
+
+          tryEr {
+               introActivity.retroViewModel.searchResponse.observe(requireActivity()) { res ->
+                    when (res) {
+                         is Resource.Success -> {
+                              SignInUpClient.handleSearchSuccess(context = this, bindingIn = binding, res = res)
+                         }
+                         is Resource.Error -> {
+                              SignInUpClient.handleSignError(context = this, bindingIn =  binding, error = res.error)
+                         }
+                         else -> Unit
+                    }
+               }
+          }
      }
 
 
@@ -87,11 +82,11 @@ class FragmentSignIn : BaseFragment(), SelectionAdapter.OnMobileClickListener {
      }
 
      fun onSignInSuccess(updatedUser: LocalUser) {
-          val roomViewModel = (activity as IntroductionActivity).getLocalViewModel()
+          val roomViewModel = introActivity.localViewModel
 
-          restViewModel.getResponse.observe(this) { res ->
+          introActivity.retroViewModel.getResponse.observe(this) { res ->
                when (res) {
-                    is Resource.Success -> {
+                    is Resource.Success<*> -> {
                          hideProgressDialog()
                          roomViewModel.writeUserToPreferences(requireContext(), updatedUser, selectedPhoneUrl)
                          roomViewModel.writeMobileToRoomDB(requireContext(), res.data!!.data, selectedPhoneUrl)
@@ -102,9 +97,8 @@ class FragmentSignIn : BaseFragment(), SelectionAdapter.OnMobileClickListener {
                               putExtra(Constants.PHONE_EXTRA, RoomPhoneModel(selectedPhoneUrl, res.data.data))
                               putExtra(Constants.USER_EXTRA, updatedUser)
                          }.also { startActivity(it); activity?.finish() }
-
                     }
-                    is Resource.Error -> {
+                    is Resource.Error<*> -> {
                          hideProgressDialog()
                          Firebase.auth.signOut()
                          SignInUpClient.handleGetError((activity as IntroductionActivity), res.error)
@@ -117,7 +111,7 @@ class FragmentSignIn : BaseFragment(), SelectionAdapter.OnMobileClickListener {
 
      private fun launchSignIn() {
           showProgressDialog()
-          restViewModel.getMobile(selectedPhoneUrl)
+          introActivity.retroViewModel.getMobile(selectedPhoneUrl)
 
           FirebaseClient.signInUserAuth(this,
                binding.etEmailSignIn.text!!,
@@ -127,15 +121,8 @@ class FragmentSignIn : BaseFragment(), SelectionAdapter.OnMobileClickListener {
      }
 
 
-     private fun onPhonesObtainedFromIntentIn() {
-          binding.gifProgressSignIn.visibility = View.GONE
-          mobileAdapter = SelectionAdapter(this)
-          SignInUpClient.initializeRecyclerViewIn(requireContext(), binding, mobileAdapter)
-          binding.cvSignUselessIn.visibility = View.VISIBLE
-          mobileAdapter.setData(phones)
-     }
-
      fun onSearchResponseResult(response: SearchResponse) {
+          binding.gifProgressSignIn.visibility = View.GONE
           phones = BaseClient.whichModelSuits(response.data.phones) as ArrayList<Phone>
           mobileAdapter = SelectionAdapter(this)
           SignInUpClient.initializeRecyclerViewIn(requireContext(), binding, mobileAdapter)
@@ -143,26 +130,16 @@ class FragmentSignIn : BaseFragment(), SelectionAdapter.OnMobileClickListener {
           mobileAdapter.setData(phones)
      }
 
-     private fun launchSignUpIntent() {
-          if (phones.isNotEmpty()) {
-               val bundle = Bundle().apply { putParcelableArrayList(Constants.PHONE_LIST, phones) }
-               findNavController().navigate(R.id.action_fragmentSignIn_to_fragmentSignUp, bundle)
-          }else{
-               findNavController().navigate(R.id.action_fragmentSignIn_to_fragmentSignUp)
-          }
-     }
-
-
-     fun searchAgainIfNoConnection() = restViewModel.searchMobiles(BaseClient.getDeviceModel())
+     private fun launchSignUpIntent() { findNavController().navigate(R.id.action_fragmentSignIn_to_fragmentSignUp) }
 
 
      private fun setupSignInUI() {
-          restViewModel = (activity as IntroductionActivity).getRetroViewModel()
-          restViewModel.searchMobiles(BaseClient.getDeviceModel())
-          binding.btnSignIn.setOnClickListener { signButtonClickListener() }
-          binding.btnSubmitPhoneModelIn.setOnClickListener { submitPhoneSearchAgain(binding.etMobileInsertManuallyIn) }
-          binding.btnNoAccountSignUp.setOnClickListener { launchSignUpIntent() }
-          binding.btnForgotPasswordSignIn.setOnClickListener { launchForgotPassword() }
+          tryEr {
+               binding.btnSignIn.setOnClickListener { signButtonClickListener() }
+               binding.btnSubmitPhoneModelIn.setOnClickListener { submitPhoneSearchAgain(binding.etMobileInsertManuallyIn) }
+               binding.btnNoAccountSignUp.setOnClickListener { launchSignUpIntent() }
+               binding.btnForgotPasswordSignIn.setOnClickListener { launchForgotPassword() }
+          }
      }
 
      private fun launchForgotPassword() {
@@ -172,10 +149,15 @@ class FragmentSignIn : BaseFragment(), SelectionAdapter.OnMobileClickListener {
 
      private fun submitPhoneSearchAgain(et: TextInputEditText) {
           if (TextInputClient.validatePhoneModel(et)){
-               restViewModel.searchMobiles(et.text.toString())
+               introActivity.retroViewModel.searchMobiles(et.text.toString())
                SignInUpClient.phoneNotFoundLayoutDisappear(binding)
           }
      }
 
      private fun hideKeyboardInternal() = (activity as IntroductionActivity).hideKeyboard(binding.etEmailSignIn, binding.etPasswordSignIn, binding.etMobileInsertManuallyIn)
+
+     private val introActivity by lazy { activity as IntroductionActivity }
+
+     fun searchAgainIfNoConnection() = introActivity.retroViewModel.searchMobiles(BaseClient.getDeviceModel())
+
 }

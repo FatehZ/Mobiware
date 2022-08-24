@@ -16,6 +16,7 @@ import com.google.firebase.ktx.Firebase
 import com.ktxdevelopment.mobiware.R
 import com.ktxdevelopment.mobiware.clients.main.RemoteClient
 import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient
+import com.ktxdevelopment.mobiware.clients.main.BaseClient
 import com.ktxdevelopment.mobiware.databinding.ActivityIntroductionBinding
 import com.ktxdevelopment.mobiware.util.Constants
 import com.ktxdevelopment.mobiware.viewmodel.LocalViewModel
@@ -27,8 +28,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class IntroductionActivity : BaseActivity() {
 
      private lateinit var binding: ActivityIntroductionBinding
-     private lateinit var retroViewModel: RetroViewModel
-     private lateinit var roomViewModel: LocalViewModel
+     lateinit var retroViewModel: RetroViewModel
+     lateinit var localViewModel: LocalViewModel
      private lateinit var navController: NavController
 
      override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,11 +40,11 @@ class IntroductionActivity : BaseActivity() {
           checkForUpdate()
 
           retroViewModel = ViewModelProvider(this)[RetroViewModel::class.java]
-          roomViewModel = ViewModelProvider(this)[LocalViewModel::class.java]
+          localViewModel = ViewModelProvider(this)[LocalViewModel::class.java]
+
+          retroViewModel.searchMobiles(BaseClient.getDeviceModel())
      }
 
-     fun getRetroViewModel() = retroViewModel
-     fun getLocalViewModel() = roomViewModel
 
      override fun onBackPressed() {
           if (navController.currentDestination?.id == R.id.fragmentForgotPassword) navController.navigateUp()
@@ -80,14 +81,10 @@ class IntroductionActivity : BaseActivity() {
 
      override fun signOut() {
           hideProgressDialog()
-          roomViewModel.clearDatabaseWithWork(this)
+          localViewModel.clearDatabaseWithWork(this)
           (getSystemService(Context.UI_MODE_SERVICE) as UiModeManager).setApplicationNightMode(UiModeManager.MODE_NIGHT_AUTO)
           Firebase.auth.signOut()
      }
-
-
-
-
 
 
 

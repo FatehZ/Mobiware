@@ -17,17 +17,14 @@ import com.ktxdevelopment.mobiware.models.rest.search.SearchResponse
 import com.ktxdevelopment.mobiware.ui.activities.BaseActivity
 import com.ktxdevelopment.mobiware.ui.fragments.intro.FragmentSignIn
 import com.ktxdevelopment.mobiware.ui.fragments.intro.FragmentSignUp
+import com.ktxdevelopment.mobiware.ui.fragments.main.BaseFragment
 import com.ktxdevelopment.mobiware.ui.recview.SelectionAdapter
 import com.ktxdevelopment.mobiware.util.tryEr
 import java.io.IOException
 
 
 object SignInUpClient {
-     fun initializeRecyclerView(
-          context: Context,
-          binding: FragmentSignUpBinding,
-          adapter: SelectionAdapter
-     ) {
+     fun initializeRecyclerView(context: Context, binding: FragmentSignUpBinding, adapter: SelectionAdapter) {
           val lManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
           lManager.stackFromEnd = true
           binding.rvSelectionMobiles.layoutManager = lManager
@@ -51,41 +48,6 @@ object SignInUpClient {
      }
 
 
-     fun handleErrorUp(
-          context: FragmentSignUp,
-          binding: FragmentSignUpBinding,
-          error: Exception?
-     ) {
-          when (error) {
-               is IOException -> Handler(Looper.getMainLooper()).postDelayed(1000) {
-                    context.searchAgainIfNoConnection()
-               }
-               else -> {
-                    (context.activity as BaseActivity).showErrorSnackbar(
-                         context.getString(
-                              R.string.smth_went_wrong
-                         )
-                    )
-                    binding.gifProgressSignUp.visibility = GONE
-               }
-          }
-     }
-
-     fun handleErrorIn(
-          context: FragmentSignIn,
-          binding: FragmentSignInBinding,
-          error: Exception?
-     ) {
-          when (error) {
-               is IOException -> Handler(Looper.getMainLooper()).postDelayed(1000) {
-                    context.searchAgainIfNoConnection()
-               }
-               else -> {
-                    (context.activity as BaseActivity).showErrorSnackbar(context.getString(R.string.smth_went_wrong))
-                    binding.gifProgressSignIn.visibility = GONE
-               }
-          }
-     }
 
      private fun phoneNotFoundLayoutVisible(binding: ViewBinding) {
           if (binding is FragmentSignUpBinding) {
@@ -107,40 +69,42 @@ object SignInUpClient {
           }
      }
 
-     fun handleSearchSuccessUp(context: FragmentSignUp, binding: FragmentSignUpBinding, res: Resource.Success<SearchResponse>) {
+     fun handleSearchSuccess(context: BaseFragment, bindingUp: FragmentSignUpBinding? = null, bindingIn: FragmentSignInBinding? = null, res: Resource.Success<SearchResponse>) {
           if (res.data != null) {
                if (res.data.data.phones.isNotEmpty()) {
-                    context.onSearchResponseResult(res.data)
-               } else { phoneNotFoundLayoutVisible(binding) }
+                    if (context is FragmentSignUp) context.onSearchResponseResult(res.data)
+                    else if (context is FragmentSignIn) context.onSearchResponseResult(res.data)
+               } else {
+                    if (bindingUp == null) phoneNotFoundLayoutVisible(bindingIn!!)
+                    else phoneNotFoundLayoutVisible(bindingUp)
+               }
           } else {
-               (context.activity as BaseActivity).showErrorSnackbar(context.getString(R.string.smth_went_wrong))
-               binding.gifProgressSignUp.visibility = GONE
+               context.showErrorSnackbar(context.getString(R.string.smth_went_wrong))
+               if (bindingUp == null) bindingIn!!.gifProgressSignIn.visibility = GONE
+               else bindingUp.gifProgressSignUp.visibility = GONE
           }
      }
 
-
-     fun handleSearchSuccessIn(
-          context: FragmentSignIn,
-          binding: FragmentSignInBinding,
-          res: Resource.Success<SearchResponse>
+     fun handleSignError(
+          context: BaseFragment,
+          bindingIn: FragmentSignInBinding? = null,
+          bindingUp: FragmentSignUpBinding? = null,
+          error: Exception?
      ) {
-          tryEr {
-               if (res.data != null) {
-                    if (res.data.data.phones.isNotEmpty()) {
-                         context.onSearchResponseResult(res.data)
-                    } else {
-                         phoneNotFoundLayoutVisible(binding)
-                    }
-               } else {
-                    (context.activity as BaseActivity).showErrorSnackbar(
-                         context.getString(
-                              R.string.smth_went_wrong
-                         )
-                    )
-                    binding.gifProgressSignIn.visibility = GONE
+          when (error) {
+               is IOException -> Handler(Looper.getMainLooper()).postDelayed(1000) {
+                    if (context is FragmentSignIn) context.searchAgainIfNoConnection()
+                    else if (context is FragmentSignUp) context.searchAgainIfNoConnection()
+               }
+               else -> {
+                    context.showErrorSnackbar(context.getString(R.string.smth_went_wrong))
+                    if (bindingUp == null) bindingIn!!.gifProgressSignIn.visibility = GONE
+                    else bindingUp.gifProgressSignUp.visibility = GONE
                }
           }
      }
+
+
 
      fun handleGetError(context: BaseActivity, error: Exception?) {
           when (error) {

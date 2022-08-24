@@ -4,3 +4,4 @@ fun tryEr(function: () -> Unit) {
      try { function() }catch (e: Throwable) {}
 }
 
+
