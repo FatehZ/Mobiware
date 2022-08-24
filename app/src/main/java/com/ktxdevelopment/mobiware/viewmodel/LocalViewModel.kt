@@ -17,6 +17,7 @@ import com.ktxdevelopment.mobiware.repositories.LocalRepository
 import com.ktxdevelopment.mobiware.util.Constants
 import com.ktxdevelopment.mobiware.workers.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import com.ktxdevelopment.mobiware.models.rest.product.Data as DataMobile
@@ -54,7 +55,7 @@ class LocalViewModel @Inject constructor(private var localRepo: LocalRepository,
 
      fun writeMobileToRoomDB(context: Context, mobile: DataMobile, slug: String) {
 
-          viewModelScope.launch {
+          viewModelScope.launch(Dispatchers.IO) {
                val data: Data = Data.Builder()
                     .putString(Constants.PHONE_EXTRA, Gson().toJson(mobile))
                     .putString(Constants.SLUG_EXTRA, slug)
@@ -70,7 +71,7 @@ class LocalViewModel @Inject constructor(private var localRepo: LocalRepository,
 
      fun writeMobileToFirestore(context: Context, mobile: DataMobile) {
 
-          viewModelScope.launch {
+          viewModelScope.launch(Dispatchers.IO) {
                val data: Data = Data.Builder()
                     .putString(Constants.PHONE_EXTRA, Gson().toJson(mobile))
                     .build()
@@ -86,7 +87,7 @@ class LocalViewModel @Inject constructor(private var localRepo: LocalRepository,
 
      fun writeUserToPreferences(context: Context, user: LocalUser, slug: String = "") {
 
-          viewModelScope.launch {
+          viewModelScope.launch(Dispatchers.IO) {
                val data = Data.Builder()
                     .putString(Constants.LOCAL_USER, Gson().toJson(user))
                     .putString(Constants.PR_currentSlug, slug)
@@ -103,7 +104,7 @@ class LocalViewModel @Inject constructor(private var localRepo: LocalRepository,
 
      fun writeFeedbackPhotosToFirestore(context: Context, list: ArrayList<Uri>, feedback: FireFeedback) {
 
-          viewModelScope.launch {
+          viewModelScope.launch(Dispatchers.IO) {
 
                for (i in 1..list.size) {
                     val data = Data.Builder()
@@ -122,7 +123,7 @@ class LocalViewModel @Inject constructor(private var localRepo: LocalRepository,
 
      fun deleteUserFromFirestore(context: Context, userId: String) {
 
-          viewModelScope.launch {
+          viewModelScope.launch(Dispatchers.IO) {
                val data: Data = Data.Builder()
                     .putString(Constants.ID_EXTRA, userId)
                     .build()
@@ -132,6 +133,22 @@ class LocalViewModel @Inject constructor(private var localRepo: LocalRepository,
                     .build()
 
                WorkManager.getInstance(context).enqueue(deleteUserRequest)
+          }
+     }
+
+     fun deleteUnusedUserProfileImageFromFirestore(context: Context, imageUrlToDelete: String) {
+
+          viewModelScope.launch(Dispatchers.IO) {
+               val data = Data.Builder()
+                    .putString(Constants.REF_EXTRA, imageUrlToDelete)
+                    .build()
+
+               val deleteImageRequest =
+                    OneTimeWorkRequest.Builder(FirestoreDeleteImageWorker::class.java)
+                         .setInputData(data)
+                         .build()
+
+               WorkManager.getInstance(context).enqueue(deleteImageRequest)
           }
      }
 }

@@ -17,15 +17,14 @@ import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.ktxdevelopment.mobiware.R
+import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient
 import com.ktxdevelopment.mobiware.clients.main.BaseClient.convertFireToLocalUser
 import com.ktxdevelopment.mobiware.clients.main.BaseClient.convertLocalToFireUser
 import com.ktxdevelopment.mobiware.clients.main.BaseClient.hasInternetConnection
 import com.ktxdevelopment.mobiware.clients.main.PermissionClient
 import com.ktxdevelopment.mobiware.clients.main.TextInputClient
-import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient
 import com.ktxdevelopment.mobiware.databinding.FragmentProfileBinding
 import com.ktxdevelopment.mobiware.models.local.LocalUser
-import com.ktxdevelopment.mobiware.ui.activities.BaseActivity
 import com.ktxdevelopment.mobiware.ui.fragments.main.BaseFragment
 import com.ktxdevelopment.mobiware.util.Constants
 import com.ktxdevelopment.mobiware.util.Constants.READ_STORAGE_CODE
@@ -40,14 +39,13 @@ class FragmentProfile : BaseFragment() {
      private var mProfileImageOnlineDBUri: String = ""
      private lateinit var userDetails: LocalUser
      private lateinit var roomViewModel: LocalViewModel
-
+     private var previousImageUrlToDelete = ""
 
 
      override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
           super.onViewCreated(view, savedInstanceState)
           loadLocalAndOnlineData()
           initializeUI()
-
      }
 
      private fun loadLocalAndOnlineData() {
@@ -67,10 +65,9 @@ class FragmentProfile : BaseFragment() {
           binding.civProfile.setOnClickListener {
                tryEr {
                     if (PermissionClient.hasGalleryPermissions(context!!)) showImageChooser()
-                    else { ActivityCompat.requestPermissions(activity!!, arrayOf(READ_EXTERNAL_STORAGE), READ_STORAGE_CODE) }
+                    else ActivityCompat.requestPermissions(activity!!, arrayOf(READ_EXTERNAL_STORAGE), READ_STORAGE_CODE)
                }
           }
-
 
           binding.etUsernameProfile.filters = arrayOf(InputFilter { cs, _, _, _, _, _ ->
                if (cs == "") { return@InputFilter cs }
@@ -80,15 +77,13 @@ class FragmentProfile : BaseFragment() {
           )
 
           binding.btnProfileUpdate.setOnClickListener {
-               if (mSelectedPhotoUri != null) { uploadUserImage() }
-               else { updateUserProfileData() }
+               updateUserProfileData()
           }
 
           binding.etEmailProfile.setOnClickListener {
                tryEr { showErrorSnackbar(getString(R.string.email_cannot_change)) }
           }
      }
-
 
 
      private fun showImageChooser() {
@@ -102,6 +97,7 @@ class FragmentProfile : BaseFragment() {
                     result.data?.let {
                          try {
                               mSelectedPhotoUri = result.data!!.data
+
                               Glide.with(this)
                                    .load(mSelectedPhotoUri)
                                    .centerCrop()
@@ -129,17 +125,19 @@ class FragmentProfile : BaseFragment() {
           if (user.mobileCountryCode.isNotEmpty()) binding.codePicker.setCountryForPhoneCode(user.mobileCountryCode.toInt())
      }
 
-     private fun uploadUserImage() {
+     private fun uploadUserImageThenFetch(userUpdated: HashMap<String, Any>) {
           showProgressDialogCancellable()
+          previousImageUrlToDelete = userDetails.imageOnline
           if (mSelectedPhotoUri != null) {
                tryEr {
-                    val sRef: StorageReference = FirebaseStorage.getInstance().getReference("profile_images").child(
-                              "USER_IMAGE_" + System.currentTimeMillis() + "." + PermissionClient.getFileExtension(activity!!, mSelectedPhotoUri))
-                    sRef.putFile(mSelectedPhotoUri!!).addOnSuccessListener { taskSnapshot -> taskSnapshot.metadata?.reference?.downloadUrl?.addOnSuccessListener { uri ->
-                              mProfileImageOnlineDBUri = uri.toString()
-                              userDetails.image64 = PermissionClient.getBaseImageFromString(mProfileImageOnlineDBUri)
-                              updateUserProfileData()
-                         }
+                    val sRef: StorageReference = FirebaseStorage.getInstance().getReference("profile_images").child("USER_IMAGE_" + System.currentTimeMillis() + "." + PermissionClient.getFileExtension(activity!!, mSelectedPhotoUri))
+                    sRef.putFile(mSelectedPhotoUri!!).addOnSuccessListener { taskSnapshot -> taskSnapshot.metadata?.reference?.downloadUrl?.addOnSuccessListener{ uri ->
+                         mProfileImageOnlineDBUri = uri.toString()
+                         userDetails.image64 = PermissionClient.getBaseImageFromString(mProfileImageOnlineDBUri)
+                         userUpdated[Constants.IMAGE_ONLINE] = mProfileImageOnlineDBUri
+                         fetchUpdatedUserToDB(userUpdated)
+                         roomViewModel.deleteUnusedUserProfileImageFromFirestore(context!!, previousImageUrlToDelete)
+                    }
                     }.addOnFailureListener {
                          showErrorSnackbar(getString(R.string.error_occurred))
                          hideProgressDialog()
@@ -152,11 +150,6 @@ class FragmentProfile : BaseFragment() {
           val userUpdated = HashMap<String, Any>()
           var anyChangesMade = false
           var errorPresent = false
-
-          if (TextInputClient.validateFilledInput(mProfileImageOnlineDBUri)) {
-               userUpdated[Constants.IMAGE_ONLINE] = mProfileImageOnlineDBUri
-               anyChangesMade = true
-          }
 
           if (TextInputClient.validateFilledInput(binding.etUsernameProfile.text.toString()) && binding.etUsernameProfile.text.toString() != userDetails.username) {
                anyChangesMade = true
@@ -175,17 +168,27 @@ class FragmentProfile : BaseFragment() {
                } else { errorPresent = true }
           }
 
+          if (mSelectedPhotoUri != null) anyChangesMade = true
+
           if (!errorPresent) {
                if (anyChangesMade) {
                     tryEr {
                          if (hasInternetConnection(context!!)) {
-                              showProgressDialogCancellable()
-                              FirebaseClient.updateUserProfileData(this, userUpdated)
+
+                              if (mSelectedPhotoUri != null) uploadUserImageThenFetch(userUpdated)
+                              else fetchUpdatedUserToDB(userUpdated)
+
                          } else showErrorSnackbar(getString(R.string.no_connection_error))
                     }
                }else showErrorSnackbar(getString(R.string.no_profile_detail_change))
           }
      }
+
+     private fun fetchUpdatedUserToDB(updatedUser: HashMap<String, Any>) {
+          showProgressDialogCancellable()
+          FirebaseClient.updateUserProfileData(this, updatedUser)
+     }
+
 
      fun onProfileLoadOnlineSuccess(user: LocalUser) {
           userDetails = convertFireToLocalUser(user)

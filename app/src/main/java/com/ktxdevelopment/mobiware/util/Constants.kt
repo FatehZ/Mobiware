@@ -2,6 +2,7 @@ package com.ktxdevelopment.mobiware.util
 
 object Constants {
 
+     const val REF_EXTRA: String = "image_ref"
      const val BRAND_EXTRA: String = "brand_extra"
      const val THEME_MODE: String = "theme_mode"
      const val ID_EXTRA: String = "uid_worker"
