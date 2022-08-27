@@ -5,8 +5,8 @@
      android:layout_height="wrap_content"
      xmlns:app="http://schemas.android.com/apk/res-auto"
      android:gravity="bottom"
-     android:paddingBottom="@dimen/_5sdp"
-     android:background="@color/gradient_main_nav"
+     android:paddingBottom="@dimen/_10sdp"
+     android:background="@drawable/gradient_nav_header"
      android:orientation="vertical"
      android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
@@ -14,8 +14,11 @@
           app:strokeWidth="1dp"
           app:strokeColor="@color/white_"
           android:id="@+id/cvUselessNav"
+          android:clickable="true"
           android:layout_width="@dimen/_110sdp"
           android:layout_height="@dimen/_110sdp"
+          android:focusable="true"
+          android:background="?attr/selectableItemBackground"
           android:layout_marginTop="@dimen/_20sdp"
           app:cardBackgroundColor="@color/gradient_main_nav"
           app:cardCornerRadius="@dimen/_20sdp"

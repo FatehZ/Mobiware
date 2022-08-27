@@ -15,15 +15,21 @@
                app:strokeColor="@color/white_"
                app:strokeWidth="@dimen/hardware_cv_stroke"
                android:layout_marginTop="@dimen/_3sdp"
+               android:focusable="true"
+               android:background="?attr/selectableItemBackground"
+               android:clickable="true"
                app:cardBackgroundColor="@color/white"
                app:cardCornerRadius="@dimen/_18sdp"
                android:padding="@dimen/_3sdp"
-               app:cardElevation="@dimen/_4sdp"
                android:layout_gravity="center_horizontal"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content">
 
                <ImageView
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:selectable="true"
+                    android:background="?attr/selectableItemBackground"
                     android:adjustViewBounds="true"
                     android:id="@+id/civProfile"
                     android:layout_width="@dimen/_120sdp"

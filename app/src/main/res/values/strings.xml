@@ -73,7 +73,7 @@
      <string name="error_mobile_short">At least 9 digits</string>
      <string name="smth_went_wrong_only">Something went wrong</string>
      <string name="check_connection_if_too_long">Check connection, if process took too long</string>
-     <string name="denied_permission">You denied the permission for storage. You can change it from app settings</string>
+     <string name="denied_permission">You denied the permission for storage access. Confirm to open app settings, and change permission</string>
      <string name="feedback_successfully">Feedback sent successfully</string>
      <string name="cpu" translatable="false">CPU</string>
      <string name="ram" translatable="false">RAM</string>

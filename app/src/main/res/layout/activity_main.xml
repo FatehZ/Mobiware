@@ -47,9 +47,10 @@
 
      <com.google.android.material.navigation.NavigationView
           android:id="@+id/navView"
-          android:layout_width="@dimen/_230sdp"
-          app:itemIconTint="@color/orange"
-          app:itemBackground="@color/gradient_main_nav"
+          android:layout_width="@dimen/_240sdp"
+          app:itemTextAppearance="@style/MainNavView"
+          app:itemIconTint="@color/icon_foreground_color"
+          app:itemBackground="@drawable/gradient_nav_header"
           app:itemTextColor="@color/text_main_color"
           app:itemMaxLines="1"
           android:overScrollMode="never"

@@ -61,26 +61,9 @@ class LocalViewModel @Inject constructor(private var localRepo: LocalRepository,
                     .putString(Constants.SLUG_EXTRA, slug)
                     .build()
 
-               val roomMobileRequest = OneTimeWorkRequest.Builder(RoomMobileWorker::class.java)
-                    .setInputData(data).build()
+               val roomMobileRequest = OneTimeWorkRequest.Builder(RoomMobileWorker::class.java).setInputData(data).build()
 
                WorkManager.getInstance(context).enqueue(roomMobileRequest)
-          }
-     }
-
-
-     fun writeMobileToFirestore(context: Context, mobile: DataMobile) {
-
-          viewModelScope.launch(Dispatchers.IO) {
-               val data: Data = Data.Builder()
-                    .putString(Constants.PHONE_EXTRA, Gson().toJson(mobile))
-                    .build()
-
-               val fireMobileRequest = OneTimeWorkRequest.Builder(FirestoreMobileWorker::class.java)
-                    .setInputData(data)
-                    .build()
-
-               WorkManager.getInstance(context).enqueue(fireMobileRequest)
           }
      }
 
@@ -93,9 +76,7 @@ class LocalViewModel @Inject constructor(private var localRepo: LocalRepository,
                     .putString(Constants.PR_currentSlug, slug)
                     .build()
 
-               val preferenceUserWorker = OneTimeWorkRequest.Builder(PreferenceUserWorker::class.java)
-                    .setInputData(data)
-                    .build()
+               val preferenceUserWorker = OneTimeWorkRequest.Builder(PreferenceUserWorker::class.java).setInputData(data).build()
 
                WorkManager.getInstance(context).enqueue(preferenceUserWorker)
           }
@@ -143,8 +124,7 @@ class LocalViewModel @Inject constructor(private var localRepo: LocalRepository,
                     .putString(Constants.REF_EXTRA, imageUrlToDelete)
                     .build()
 
-               val deleteImageRequest =
-                    OneTimeWorkRequest.Builder(FirestoreDeleteImageWorker::class.java)
+               val deleteImageRequest = OneTimeWorkRequest.Builder(FirestoreDeleteImageWorker::class.java)
                          .setInputData(data)
                          .build()
 

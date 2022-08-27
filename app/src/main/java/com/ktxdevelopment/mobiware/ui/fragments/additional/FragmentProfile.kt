@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.provider.Settings
 import android.text.InputFilter
 import android.view.LayoutInflater
 import android.view.View
@@ -61,28 +62,34 @@ class FragmentProfile : BaseFragment() {
           tryEr { if (hasInternetConnection(context!!)) FirebaseClient.loadUserData(this) }
      }
 
+     private val TAG = "TAG"
+     
      private fun initializeUI() {
           binding.civProfile.setOnClickListener {
                tryEr {
-                    if (PermissionClient.hasGalleryPermissions(context!!)) showImageChooser()
-                    else ActivityCompat.requestPermissions(activity!!, arrayOf(READ_EXTERNAL_STORAGE), READ_STORAGE_CODE)
+                    if (PermissionClient.hasGalleryPermissions(context!!))
+                         showImageChooser()
+                    else {
+                         ActivityCompat.requestPermissions(
+                              activity!!,
+                              arrayOf(READ_EXTERNAL_STORAGE),
+                              READ_STORAGE_CODE
+                         )
+                    }
                }
           }
+          
 
-          binding.etUsernameProfile.filters = arrayOf(InputFilter { cs, _, _, _, _, _ ->
-               if (cs == "") { return@InputFilter cs }
-               if (cs.toString().matches(("[a-zA-Z ]+").toRegex())) { cs } else ""
-          },
-               InputFilter.LengthFilter(20)
+          binding.etUsernameProfile.filters = arrayOf(
+               InputFilter { cs, _, _, _, _, _ ->
+                    if (cs == "") return@InputFilter cs
+                    if (cs.toString().matches(("[a-zA-Z ]+").toRegex())) cs
+                    else "" }, InputFilter.LengthFilter(20)
           )
 
-          binding.btnProfileUpdate.setOnClickListener {
-               updateUserProfileData()
-          }
+          binding.btnProfileUpdate.setOnClickListener { updateUserProfileData() }
 
-          binding.etEmailProfile.setOnClickListener {
-               tryEr { showErrorSnackbar(getString(R.string.email_cannot_change)) }
-          }
+          binding.etEmailProfile.setOnClickListener { tryEr { showErrorSnackbar(getString(R.string.email_cannot_change)) } }
      }
 
 
@@ -92,8 +99,9 @@ class FragmentProfile : BaseFragment() {
      }
 
 
-     private val galleryResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-               if (result.resultCode == AppCompatActivity.RESULT_OK) {
+     private val galleryResultLauncher =
+          registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+               if (result.resultCode == AppCompatActivity.RESULT_OK)
                     result.data?.let {
                          try {
                               mSelectedPhotoUri = result.data!!.data
@@ -107,6 +115,10 @@ class FragmentProfile : BaseFragment() {
                               showErrorSnackbar(getString(R.string.smth_went_wrong))
                          }
                     }
+               else {
+                    Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.fromParts("package", context!!.packageName, null)).apply {
+                         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    }.also { startActivity(it) }
                }
           }
 
@@ -130,14 +142,21 @@ class FragmentProfile : BaseFragment() {
           previousImageUrlToDelete = userDetails.imageOnline
           if (mSelectedPhotoUri != null) {
                tryEr {
-                    val sRef: StorageReference = FirebaseStorage.getInstance().getReference("profile_images").child("USER_IMAGE_" + System.currentTimeMillis() + "." + PermissionClient.getFileExtension(activity!!, mSelectedPhotoUri))
-                    sRef.putFile(mSelectedPhotoUri!!).addOnSuccessListener { taskSnapshot -> taskSnapshot.metadata?.reference?.downloadUrl?.addOnSuccessListener{ uri ->
-                         mProfileImageOnlineDBUri = uri.toString()
-                         userDetails.image64 = PermissionClient.getBaseImageFromString(mProfileImageOnlineDBUri)
-                         userUpdated[Constants.IMAGE_ONLINE] = mProfileImageOnlineDBUri
-                         fetchUpdatedUserToDB(userUpdated)
-                         roomViewModel.deleteUnusedUserProfileImageFromFirestore(context!!, previousImageUrlToDelete)
-                    }
+                    val sRef: StorageReference =
+                         FirebaseStorage.getInstance().getReference("profile_images").child(
+                              "USER_IMAGE_" + System.currentTimeMillis() + "." + PermissionClient.getFileExtension(
+                                   activity!!,
+                                   mSelectedPhotoUri
+                              )
+                         )
+                    sRef.putFile(mSelectedPhotoUri!!).addOnSuccessListener { taskSnapshot ->
+                         taskSnapshot.metadata?.reference?.downloadUrl?.addOnSuccessListener { uri ->
+                              mProfileImageOnlineDBUri = uri.toString()
+                              userDetails.image64 = PermissionClient.getBaseImageFromString(mProfileImageOnlineDBUri)
+                              userUpdated[Constants.IMAGE_ONLINE] = mProfileImageOnlineDBUri
+                              fetchUpdatedUserToDB(userUpdated)
+                              roomViewModel.deleteUnusedUserProfileImageFromFirestore(context!!, previousImageUrlToDelete)
+                         }
                     }.addOnFailureListener {
                          showErrorSnackbar(getString(R.string.error_occurred))
                          hideProgressDialog()
@@ -155,17 +174,26 @@ class FragmentProfile : BaseFragment() {
                anyChangesMade = true
                if (TextInputClient.validateUsername(binding.etUsernameProfile)) {
                     userUpdated[Constants.USERNAME] = binding.etUsernameProfile.text.toString()
-               } else { errorPresent = true }
+               } else {
+                    errorPresent = true
+               }
           }
 
           if (TextInputClient.validateFilledInput(binding.etMobileNumberProfile.text.toString())) {
                if (binding.etMobileNumberProfile.text.toString() != userDetails.mobileNumberBase ||
-                    binding.codePicker.selectedCountryCode != userDetails.mobileCountryCode) { anyChangesMade = true }
+                    binding.codePicker.selectedCountryCode != userDetails.mobileCountryCode
+               ) {
+                    anyChangesMade = true
+               }
 
                if (TextInputClient.validateMobileNumber(binding.etMobileNumberProfile)) {
-                    userUpdated[Constants.MOBILE_NUMBER_BASE] = binding.etMobileNumberProfile.text.toString()
-                    userUpdated[Constants.MOBILE_NUMBER_CODE] = binding.codePicker.selectedCountryCode
-               } else { errorPresent = true }
+                    userUpdated[Constants.MOBILE_NUMBER_BASE] =
+                         binding.etMobileNumberProfile.text.toString()
+                    userUpdated[Constants.MOBILE_NUMBER_CODE] =
+                         binding.codePicker.selectedCountryCode
+               } else {
+                    errorPresent = true
+               }
           }
 
           if (mSelectedPhotoUri != null) anyChangesMade = true
@@ -180,7 +208,7 @@ class FragmentProfile : BaseFragment() {
 
                          } else showErrorSnackbar(getString(R.string.no_connection_error))
                     }
-               }else showErrorSnackbar(getString(R.string.no_profile_detail_change))
+               } else showErrorSnackbar(getString(R.string.no_profile_detail_change))
           }
      }
 
@@ -189,31 +217,35 @@ class FragmentProfile : BaseFragment() {
           FirebaseClient.updateUserProfileData(this, updatedUser)
      }
 
-
      fun onProfileLoadOnlineSuccess(user: LocalUser) {
           userDetails = convertFireToLocalUser(user)
           setUserDataInUI(userDetails)
           mProfileImageOnlineDBUri = ""
           mSelectedPhotoUri = null
-          tryEr { roomViewModel.writeUserToPreferences(
-               context!!,
-               convertLocalToFireUser(user)
-          ) }
+          tryEr {
+               roomViewModel.writeUserToPreferences(
+                    context!!,
+                    convertLocalToFireUser(user)
+               )
+          }
      }
 
      fun onProfileUpdateSuccess() {
           mProfileImageOnlineDBUri = ""
           mSelectedPhotoUri = null
           hideProgressDialog()
-          tryEr { roomViewModel.writeUserToPreferences(
-               context!!,
-               convertLocalToFireUser(userDetails),
-          ) }
+          tryEr {
+               roomViewModel.writeUserToPreferences(
+                    context!!,
+                    convertLocalToFireUser(userDetails),
+               )
+          }
      }
 
      fun onProfileUpdateFailure() {
           hideProgressDialog()
-          shortToast(R.string.smth_went_wrong) }
+          shortToast(R.string.smth_went_wrong)
+     }
 
      override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
           binding = FragmentProfileBinding.inflate(inflater, container, false)

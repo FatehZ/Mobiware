@@ -53,8 +53,6 @@ class FragmentFeedback : BaseFragment(),  LinkedImageAdapter.OnLinkedImageClickL
      }
 
 
-
-
      fun onFeedbackError() {
           hideProgressDialog()
           showErrorSnackbar(getString(R.string.smth_went_wrong_check_connection))
@@ -73,14 +71,6 @@ class FragmentFeedback : BaseFragment(),  LinkedImageAdapter.OnLinkedImageClickL
           }
      }
 
-
-     @Deprecated("Deprecated in Java")
-     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-          if (requestCode == Constants.READ_STORAGE_CODE) {
-               if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) showImageChooser()
-               else showErrorSnackbar(getString(R.string.denied_permission))
-          }
-     }
 
 
      private fun showImageChooser() {

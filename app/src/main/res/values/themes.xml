@@ -53,4 +53,11 @@
           <item name="android:clickable">true</item>
      </style>
 
+
+     <style name="MainNavView">
+          <item name="android:textStyle">normal</item>
+          <item name="fontFamily">@font/dosis_bold</item>
+          <item name="android:letterSpacing">0.05</item>
+     </style>
+
 </resources>
