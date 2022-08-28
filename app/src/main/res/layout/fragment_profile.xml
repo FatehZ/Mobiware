@@ -7,7 +7,7 @@
 
      <LinearLayout
           android:layout_width="match_parent"
-          android:layout_height="@dimen/_360sdp"
+          android:layout_height="@dimen/fragment_profile_layout_height"
           android:orientation="vertical"
           app:layout_constraintTop_toTopOf="parent">
 
@@ -32,8 +32,8 @@
                     android:background="?attr/selectableItemBackground"
                     android:adjustViewBounds="true"
                     android:id="@+id/civProfile"
-                    android:layout_width="@dimen/_120sdp"
-                    android:layout_height="@dimen/_120sdp"
+                    android:layout_width="@dimen/fragment_profile_image_size"
+                    android:layout_height="@dimen/fragment_profile_image_size"
                     android:src="@drawable/ic_account_big"
                     android:contentDescription="@string/profile_image" />
 
@@ -87,6 +87,7 @@
 
           <androidx.constraintlayout.widget.ConstraintLayout
                android:layout_width="match_parent"
+               android:layout_marginHorizontal="@dimen/_10sdp"
                android:layout_height="wrap_content"
                android:layout_weight="1">
 
@@ -94,8 +95,9 @@
                     android:id="@+id/codePicker"
                     app:ccp_defaultPhoneCode="994"
                     app:ccp_contentColor="@color/black"
-                    app:layout_constraintVertical_bias="0.36"
+                    app:layout_constraintVertical_bias="@dimen/code_picker_bias"
                     android:layout_width="wrap_content"
+                    app:ccp_textSize="@dimen/default_text_size"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -112,7 +114,6 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:inputType="number"
-                    android:layout_marginEnd="@dimen/_10sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/codePicker">
 
@@ -137,10 +138,9 @@
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_gravity="center_horizontal"
-               android:paddingHorizontal="@dimen/_30sdp"
+               android:paddingHorizontal="@dimen/_20sdp"
                android:paddingVertical="@dimen/_6sdp"
-               android:text="@string/update"
-               android:textSize="@dimen/_14ssp" />
+               android:text="@string/update" />
 
      </LinearLayout>
 

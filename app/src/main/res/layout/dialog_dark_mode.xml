@@ -7,7 +7,7 @@
      app:cardCornerRadius="@dimen/_10sdp"
      app:cardElevation="@dimen/_60sdp"
      app:strokeColor="@color/cyan"
-     app:strokeWidth="@dimen/_2sdp" >
+     app:strokeWidth="@dimen/thin_cv_stroke" >
 
 
      <androidx.constraintlayout.widget.ConstraintLayout
@@ -70,6 +70,7 @@
                style="@style/Theme.SpecialButton"
                android:backgroundTint="@color/red"
                android:layout_margin="@dimen/_10sdp"
+               android:padding="@dimen/button_padding"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:text="@string/cancel"
@@ -82,6 +83,7 @@
                style="@style/Theme.SpecialButton"
                android:text="@string/confirm"
                android:backgroundTint="@color/cyan"
+               android:padding="@dimen/button_padding"
                android:layout_margin="@dimen/_10sdp"
                app:layout_constraintEnd_toEndOf="parent"
                app:layout_constraintStart_toEndOf="@id/btnNo"

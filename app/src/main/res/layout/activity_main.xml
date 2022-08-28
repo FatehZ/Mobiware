@@ -14,7 +14,7 @@
           android:layout_width="match_parent"
           android:layout_height="match_parent">
 
-          <androidx.appcompat.widget.Toolbar
+          <com.google.android.material.appbar.MaterialToolbar
                android:background="@color/white"
                app:layout_constraintStart_toStartOf="parent"
                app:layout_constraintEnd_toEndOf="parent"
@@ -23,7 +23,9 @@
                app:titleTextColor="@color/cyan"
                android:id="@+id/toolbarMainActivity"
                android:layout_width="match_parent"
-               android:layout_height="@dimen/_35sdp"
+               android:layout_height="wrap_content"
+               app:titleMarginStart="@dimen/toolbar_title_margin_start"
+               app:titleTextAppearance="@style/ActionBarTextStyle"
                android:layout_marginHorizontal="@dimen/_10sdp"
                app:navigationIcon="@drawable/ic_menu"
                />
@@ -50,6 +52,7 @@
           android:layout_width="@dimen/_240sdp"
           app:itemTextAppearance="@style/MainNavView"
           app:itemIconTint="@color/icon_foreground_color"
+          android:visibility="gone"
           app:itemBackground="@drawable/gradient_nav_header"
           app:itemTextColor="@color/text_main_color"
           app:itemMaxLines="1"

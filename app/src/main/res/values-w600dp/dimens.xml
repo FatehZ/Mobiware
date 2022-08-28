@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+     <dimen name="toolbar_height">?attr/actionBarSize</dimen>
+
+     <dimen name="settings_text_size">@dimen/_12ssp</dimen>
+
+     <dimen name="toolbar_icon_height">@dimen/_18sdp</dimen>
+     <dimen name="toolbar_icon_width">@dimen/_30sdp</dimen>
+     <dimen name="toolbar_text_size">@dimen/_10ssp</dimen>
+     <dimen name="toolbar_title_margin_start">@dimen/_20sdp</dimen>
+
+     <dimen name="theme_dialog_text_size">@dimen/_11ssp</dimen>
+     <dimen name="thin_cv_stroke">@dimen/_1sdp</dimen>
+
+     <dimen name="button_text_size">@dimen/_10ssp</dimen>
+     <dimen name="default_text_size">@dimen/_10ssp</dimen>
+     <dimen name="edit_text_icon_size">@dimen/_12sdp</dimen>
+     <dimen name="nav_profile_image_size">@dimen/_90sdp</dimen>
+     <dimen name="bigger_text_size">@dimen/_14ssp</dimen>
+
+     <dimen name="feedback_icon_size">@dimen/_25sdp</dimen>
+
+     <dimen name="text_14ssp">@dimen/_12ssp</dimen>
+     <dimen name="text_13ssp">@dimen/_11ssp</dimen>
+
+     <dimen name="feedback_et_padding">@dimen/_16sdp</dimen>
+     <dimen name="text_30ssp">@dimen/_20ssp</dimen>
+     <dimen name="fragment_profile_layout_height">@dimen/_280sdp</dimen>
+     <dimen name="fragment_profile_image_size">@dimen/_90sdp</dimen>
+     <dimen name="text_10ssp">@dimen/_8ssp</dimen>
+
+     <item name="code_picker_bias" type="dimen" format="float">0.45</item>
+
+</resources>

@@ -90,7 +90,6 @@ class FragmentSignIn : BaseFragment(), SelectionAdapter.OnMobileClickListener {
                          hideProgressDialog()
                          roomViewModel.writeUserToPreferences(requireContext(), updatedUser, selectedPhoneUrl)
                          roomViewModel.writeMobileToRoomDB(requireContext(), res.data!!.data, selectedPhoneUrl)
-//                         roomViewModel.writeMobileToFirestore(requireContext(), res.data.data)
 
                          Intent(requireActivity(), MainActivity::class.java).apply {
                               addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP and Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -140,6 +139,8 @@ class FragmentSignIn : BaseFragment(), SelectionAdapter.OnMobileClickListener {
                binding.btnNoAccountSignUp.setOnClickListener { launchSignUpIntent() }
                binding.btnForgotPasswordSignIn.setOnClickListener { launchForgotPassword() }
           }
+
+
      }
 
      private fun launchForgotPassword() {

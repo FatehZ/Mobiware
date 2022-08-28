@@ -1,35 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:background="@color/white">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarAdditional"
-        android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_35sdp"
-        android:layout_marginHorizontal="@dimen/_10sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/ic_back"
-        app:title="@string/send_feedback"
-        app:titleTextColor="@color/cyan" />
+     <com.google.android.material.appbar.MaterialToolbar
+          android:id="@+id/toolbarAdditional"
+          android:layout_width="match_parent"
+          android:background="@color/white"
+          android:layout_height="@dimen/toolbar_height"
+          android:layout_marginHorizontal="@dimen/_10sdp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:navigationIcon="@drawable/ic_back"
+          app:title="@string/send_feedback"
+          app:titleMarginStart="@dimen/toolbar_title_margin_start"
+          app:titleTextAppearance="@style/ActionBarTextStyle"
+          app:titleTextColor="@color/cyan" />
 
-    <fragment
-        android:id="@+id/navHostAdditional"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:navGraph="@navigation/nav_graph_additional"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        app:defaultNavHost="true"
-        app:layout_constraintTop_toBottomOf="@id/toolbarAdditional"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:ignore="FragmentTagUsage" />
+     <fragment
+          android:id="@+id/navHostAdditional"
+          android:name="androidx.navigation.fragment.NavHostFragment"
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          app:defaultNavHost="true"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/toolbarAdditional"
+          app:navGraph="@navigation/nav_graph_additional"
+          tools:ignore="FragmentTagUsage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

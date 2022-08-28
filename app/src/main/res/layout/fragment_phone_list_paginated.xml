@@ -9,7 +9,6 @@
 
      <androidx.constraintlayout.widget.ConstraintLayout
           android:id="@+id/mainContentLayout"
-          android:visibility="gone"
           android:layout_width="match_parent"
           android:layout_height="match_parent">
 
@@ -34,6 +33,7 @@
                android:layout_marginBottom="@dimen/_3sdp"
                app:layout_constraintBottom_toBottomOf="parent"
                android:text="@string/_1"
+               android:textSize="@dimen/text_10ssp"
                android:textStyle="bold"
                android:textColor="@color/white_"
                android:id="@+id/fabPageCounter"

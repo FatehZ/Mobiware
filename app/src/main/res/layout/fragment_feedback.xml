@@ -25,26 +25,40 @@
                android:layout_height="match_parent"
                android:paddingBottom="@dimen/_8sdp">
 
-               <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etFeedback"
+               <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilFeedback"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_240sdp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_10sdp"
-                    android:background="@drawable/edit_text_design"
+                    style="@style/Theme.SpecialTextInputLayout"
                     android:gravity="top"
+                    app:hintEnabled="false"
                     android:textColorHighlight="@color/white_"
-                    android:hint="@string/type_message_feedback"
                     android:importantForAutofill="no"
                     android:textColor="@color/text_main_color"
                     android:inputType="textMultiLine"
                     android:letterSpacing="0.04"
                     android:lineSpacingExtra="@dimen/_2sdp"
+                    app:errorEnabled="true"
                     android:maxLines="20"
-                    android:padding="@dimen/_20sdp"
                     android:textColorHint="#444"
                     android:textSize="@dimen/_14ssp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="LabelFor" />
+                    app:hintAnimationEnabled="false"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                         android:padding="@dimen/feedback_et_padding"
+                         android:textSize="@dimen/default_text_size"
+                         android:hint="@string/type_message_feedback"
+                         android:textColor="@color/black"
+                         android:textColorHint="@color/teal_200"
+                         android:layout_height="@dimen/_240sdp"
+                         android:layout_width="match_parent"
+                         android:gravity="top"
+                         android:id="@+id/etFeedback"/>
+
+
+               </com.google.android.material.textfield.TextInputLayout>
 
                <androidx.cardview.widget.CardView
                     android:id="@+id/cvInsertImage"
@@ -57,18 +71,17 @@
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/_8sdp"
                     app:cardElevation="0dp"
-                    app:layout_constraintStart_toStartOf="@+id/etFeedback"
-                    app:layout_constraintTop_toBottomOf="@id/etFeedback">
+                    app:layout_constraintStart_toStartOf="@+id/tilFeedback"
+                    app:layout_constraintTop_toBottomOf="@id/tilFeedback">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                          android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_marginHorizontal="@dimen/_6sdp">
+                         android:layout_height="wrap_content">
 
                          <ImageView
                               android:id="@+id/image_p1"
-                              android:layout_width="@dimen/_30sdp"
-                              android:layout_height="@dimen/_30sdp"
+                              android:layout_width="@dimen/feedback_icon_size"
+                              android:layout_height="@dimen/feedback_icon_size"
                               android:background="@android:color/transparent"
                               android:contentDescription="@string/app_name"
                               android:scaleType="fitXY"
@@ -82,8 +95,9 @@
                               android:layout_height="0dp"
                               android:layout_marginStart="@dimen/_5sdp"
                               android:gravity="center_vertical"
+                              android:textColor="@color/cyan_"
                               android:text="@string/add_image"
-                              android:textSize="@dimen/_12ssp"
+                              android:textSize="@dimen/default_text_size"
                               app:layout_constraintBottom_toBottomOf="@id/image_p1"
                               app:layout_constraintEnd_toEndOf="parent"
                               app:layout_constraintStart_toEndOf="@id/image_p1"
@@ -109,12 +123,12 @@
                     style="@style/Theme.SpecialButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="@dimen/_40sdp"
-                    android:paddingVertical="@dimen/_6sdp"
+                    android:paddingVertical="@dimen/button_padding"
                     android:text="@string/send"
-                    android:textSize="@dimen/_16sdp"
-                    app:layout_constraintEnd_toEndOf="@+id/etFeedback"
-                    app:layout_constraintStart_toStartOf="@+id/etFeedback"
+                    android:paddingHorizontal="@dimen/_20sdp"
+                    android:textSize="@dimen/button_text_size"
+                    app:layout_constraintEnd_toEndOf="@+id/tilFeedback"
+                    app:layout_constraintStart_toStartOf="@+id/tilFeedback"
                     app:layout_constraintTop_toBottomOf="@+id/rvLinkedImages"
                     app:layout_goneMarginTop="@dimen/_8sdp" />
 

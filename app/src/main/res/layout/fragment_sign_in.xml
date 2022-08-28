@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
      xmlns:app="http://schemas.android.com/apk/res-auto"
-     xmlns:tools="http://schemas.android.com/tools"
      android:layout_width="match_parent"
      android:background="@drawable/artboard_main_background"
      android:layout_height="match_parent">
@@ -19,7 +18,7 @@
                android:gravity="center_horizontal"
                android:text="@string/login"
                android:textColor="@color/orange"
-               android:textSize="@dimen/_30ssp"
+               android:textSize="@dimen/text_30ssp"
                app:layout_constraintTop_toTopOf="parent" />
 
           <androidx.constraintlayout.widget.ConstraintLayout
@@ -48,8 +47,7 @@
                          style="@style/SpecialEdiText"
                          android:layout_width="match_parent"
                          android:layout_height="match_parent"
-                         android:inputType="textEmailAddress"
-                         android:textSize="@dimen/_12ssp" />
+                         android:inputType="textEmailAddress"/>
 
                </com.google.android.material.textfield.TextInputLayout>
 
@@ -64,16 +62,14 @@
                     app:errorEnabled="true"
                     app:layout_constraintTop_toBottomOf="@id/tilUseless9"
                     app:passwordToggleEnabled="true"
-                    app:startIconDrawable="@drawable/ic_lock"
-                    tools:layout_editor_absoluteX="26dp">
+                    app:startIconDrawable="@drawable/ic_lock">
 
                     <com.google.android.material.textfield.TextInputEditText
                          android:id="@+id/etPasswordSignIn"
                          android:layout_width="match_parent"
                          android:layout_height="match_parent"
                          style="@style/SpecialEdiText"
-                         android:inputType="textPassword"
-                         android:textSize="@dimen/_12ssp" />
+                         android:inputType="textPassword" />
 
                </com.google.android.material.textfield.TextInputLayout>
 
@@ -83,7 +79,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/forgot_password"
                     android:textColor="@color/blue"
-                    android:textSize="@dimen/_11ssp"
+                    android:textSize="@dimen/default_text_size"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tilUseless10" />
@@ -95,7 +91,7 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/_6sdp"
                     android:text="@string/login"
-                    android:textSize="@dimen/_15ssp"
+                    android:textSize="@dimen/button_text_size"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/btnForgotPasswordSignIn" />

@@ -8,9 +8,12 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ShareCompat
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -91,10 +94,12 @@ class FragmentSettings : BaseFragment() {
 
      private fun dialogNightMode() {
           dialogDark.show()
-          when (ui.currentModeType) {
-               UiModeManager.MODE_NIGHT_YES -> darkBinding.rgSetDl.check(R.id.radDark)
-               UiModeManager.MODE_NIGHT_NO -> darkBinding.rgSetDl.check(R.id.radLight)
-               UiModeManager.MODE_NIGHT_AUTO -> darkBinding.rgSetDl.check(R.id.radSysDef)
+          Log.i("TAG", "dialogNightMode: ${AppCompatDelegate.getDefaultNightMode()}")
+          when (AppCompatDelegate.getDefaultNightMode()) {
+               AppCompatDelegate.MODE_NIGHT_YES -> darkBinding.rgSetDl.check(R.id.radDark)
+               AppCompatDelegate.MODE_NIGHT_NO -> darkBinding.rgSetDl.check(R.id.radLight)
+               AppCompatDelegate.MODE_NIGHT_UNSPECIFIED -> darkBinding.rgSetDl.check(R.id.radSysDef)
+               AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> darkBinding.rgSetDl.check(R.id.radSysDef)
           }
      }
 
@@ -142,8 +147,7 @@ class FragmentSettings : BaseFragment() {
      fun onDeleteAccountSuccess() {
           hideProgressDialog()
           tryEr {
-               (activity as MainActivity).getLocalViewModel()
-                    .deleteUserFromFirestore(activity!!, Firebase.auth.currentUser!!.uid)
+               (activity as MainActivity).getLocalViewModel().deleteUserFromFirestore(activity!!, Firebase.auth.currentUser!!.uid)
           }
           (activity as MainActivity).signOut()
 

@@ -21,8 +21,9 @@
      <style name="Theme.SpecialButton" parent="ThemeOverlay.Material3.Button">
           <item name="cornerRadius">@dimen/_14sdp</item>
           <item name="android:textStyle">bold</item>
+          <item name="android:textSize">@dimen/button_text_size</item>
           <item name="android:textColor">@color/white_</item>
-          <item name="backgroundTint">@color/cyan</item>
+          <item name="backgroundTint">@color/blue_</item>
      </style>
 
      <style name="Theme.SpecialOutButton" parent="Widget.Material3.Button.OutlinedButton">
@@ -38,10 +39,12 @@
           <item name="boxCornerRadiusBottomEnd">@dimen/_20sdp</item>
           <item name="boxCornerRadiusBottomStart">@dimen/_20sdp</item>
           <item name="colorOnSurface">#fff</item>
+          <item name="hintTextColor">@color/teal_200</item>
      </style>
 
      <style name="SpecialEdiText">
-
+          <item name="android:textSize">@dimen/default_text_size</item>
+          <item name="android:textColor">@color/black</item>
      </style>
 
      <style name="OutlinedCardView">
@@ -58,6 +61,12 @@
           <item name="android:textStyle">normal</item>
           <item name="fontFamily">@font/dosis_bold</item>
           <item name="android:letterSpacing">0.05</item>
+     </style>
+
+     <style name="ActionBarTextStyle">
+          <item name="android:textSize">@dimen/toolbar_text_size</item>
+          <item name="fontFamily">@font/dosis_bold</item>
+          <item name="android:letterSpacing">0.1</item>
      </style>
 
 </resources>

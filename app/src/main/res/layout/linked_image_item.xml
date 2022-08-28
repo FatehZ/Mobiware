@@ -17,8 +17,8 @@
 
           <ImageView
                android:id="@+id/image_p"
-               android:layout_width="@dimen/_25sdp"
-               android:layout_height="@dimen/_25sdp"
+               android:layout_width="@dimen/toolbar_icon_height"
+               android:layout_height="@dimen/toolbar_icon_height"
                android:background="@android:color/transparent"
                android:contentDescription="@string/app_name"
                android:scaleType="fitXY"
@@ -37,7 +37,7 @@
                android:gravity="center_vertical"
                android:lines="1"
                android:maxLines="1"
-               android:textSize="@dimen/_12ssp"
+               android:textSize="@dimen/default_text_size"
                app:layout_constraintBottom_toBottomOf="@id/image_p"
                app:layout_constraintStart_toEndOf="@id/image_p"
                app:layout_constraintTop_toTopOf="@+id/image_p" />

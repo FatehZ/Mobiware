@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-     <!-- Base application theme. -->
+
      <style name="Theme.Mobiware" parent="Theme.MaterialComponents.Light.NoActionBar">
           <!-- Primary brand color. -->
           <item name="fontFamily">@font/dosis_medium</item>
@@ -16,21 +17,7 @@
           <item name="background">?attr/colorPrimaryVariant</item>
           <!-- Customize your theme here. -->
           <item name="colorOnSurface">#fff</item>
-     </style>
-
-
-     <style name="Theme.SpecialButton" parent="ThemeOverlay.Material3.Button">
-          <item name="cornerRadius">@dimen/_14sdp</item>
-          <item name="android:textStyle">bold</item>
-          <item name="android:textColor">@color/white_</item>
-          <item name="backgroundTint">@color/cyan</item>
-     </style>
-
-     <style name="Theme.SpecialOutButton" parent="Widget.Material3.Button.OutlinedButton">
-          <item name="android:textSize">@dimen/_13sdp</item>
-          <item name="android:textColor">@color/blue</item>
-          <item name="strokeWidth">@dimen/_2sdp</item>
-          <item name="strokeColor">@color/blue</item>
+          <item name="android:windowSplashScreenBackground">@color/cyan</item>
      </style>
 
 </resources>

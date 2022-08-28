@@ -4,9 +4,9 @@
      <dimen name="cv_margin_settings">@dimen/_1sdp</dimen>
      <dimen name="layout_padding_horizontal_settings">@dimen/_7sdp</dimen>
      <dimen name="cv_text_margin_settings">@dimen/_4sdp</dimen>
-     <dimen name="settings_text_size">@dimen/_15sdp</dimen>
+     <dimen name="settings_text_size">@dimen/_15ssp</dimen>
      <dimen name="settings_dark_dialog_end_margin">@dimen/_10sdp</dimen>
-     <dimen name="theme_dialog_text_size">@dimen/_13sdp</dimen>
+     <dimen name="theme_dialog_text_size">@dimen/_13ssp</dimen>
      <dimen name="hardware_cv_stroke">@dimen/_1sdp</dimen>
      <dimen name="stroke_1dp">1dp</dimen>
      <dimen name="tv_settings_margin_start">@dimen/_8sdp</dimen>
@@ -14,8 +14,36 @@
      <dimen name="text_about_secondary_size">@dimen/_12ssp</dimen>
      <dimen name="about_dialog_cv_text_distance">@dimen/_12sdp</dimen>
      <dimen name="text_about_tertiary_size">@dimen/_2sdp</dimen>
-     <!-- Default screen margins, per the Android Design guidelines. -->
+
      <dimen name="fragment_horizontal_margin">16dp</dimen>
      <dimen name="fragment_vertical_margin">16dp</dimen>
+     <dimen name="toolbar_height">@dimen/_28sdp</dimen>
 
+     <dimen name="toolbar_icon_height">@dimen/_22sdp</dimen>
+     <dimen name="toolbar_icon_width">@dimen/_38sdp</dimen>
+     <dimen name="toolbar_text_size">@dimen/_12ssp</dimen>
+     <dimen name="toolbar_title_margin_start">@dimen/_1sdp</dimen>
+     <dimen name="thin_cv_stroke">@dimen/_2sdp</dimen>
+
+     <dimen name="button_text_size">@dimen/_12ssp</dimen>
+     <dimen name="button_padding">@dimen/_5sdp</dimen>
+     <dimen name="default_text_size">@dimen/_12ssp</dimen>
+     <dimen name="edit_text_icon_size">@dimen/_20sdp</dimen>
+     <dimen name="nav_profile_image_size">@dimen/_110sdp</dimen>
+     <dimen name="bigger_text_size">@dimen/_16ssp</dimen>
+
+     <dimen name="text_14ssp">@dimen/_14ssp</dimen>
+     <dimen name="text_13ssp">@dimen/_13ssp</dimen>
+
+     <dimen name="feedback_icon_size">@dimen/_30sdp</dimen>
+     <dimen name="feedback_et_padding">@dimen/_24sdp</dimen>
+     <dimen name="text_30ssp">@dimen/_30ssp</dimen>
+     <dimen name="fragment_profile_layout_height">@dimen/_360sdp</dimen>
+     <dimen name="fragment_profile_image_size">@dimen/_120sdp</dimen>
+     <dimen name="text_10ssp">@dimen/_12ssp</dimen>
+
+     <item name="code_picker_bias" type="dimen" format="float">0.35</item>
+
+
+     //
 </resources>

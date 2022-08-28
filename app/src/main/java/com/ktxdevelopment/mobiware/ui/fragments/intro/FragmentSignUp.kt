@@ -61,7 +61,7 @@ class FragmentSignUp : BaseFragment(), SelectionAdapter.OnMobileClickListener {
           }
 
 
-          binding.etUsernameSignIn.filters = arrayOf(InputFilter { cs, _, _, _, _, _ ->
+          binding.etUsernameSignUp.filters = arrayOf(InputFilter { cs, _, _, _, _, _ ->
                if (cs == "") { return@InputFilter cs }
                if (cs.toString().matches(("[0-9a-zA-Z ]+").toRegex())) { cs } else ""
           },
@@ -75,7 +75,7 @@ class FragmentSignUp : BaseFragment(), SelectionAdapter.OnMobileClickListener {
 
      private fun signButtonClickListener() {
           hideKeyboardInternal()
-          if (TextInputClient.validateSignUpInput(binding.etUsernameSignIn, binding.etPasswordSignIn, binding.etEmailSignIn)) {
+          if (TextInputClient.validateSignUpInput(binding.etUsernameSignUp, binding.etPasswordSignIn, binding.etEmailSignIn)) {
                if (BaseClient.hasInternetConnection(requireContext())) {
                     if(selectedPhoneUrl != "") {
                          launchRegistration()
@@ -124,7 +124,7 @@ class FragmentSignUp : BaseFragment(), SelectionAdapter.OnMobileClickListener {
           introActivity.retroViewModel.getMobile(selectedPhoneUrl)
           FirebaseClient.registerUserAuth(
                this,
-               binding.etUsernameSignIn.text!! ,
+               binding.etUsernameSignUp.text!! ,
                binding.etEmailSignIn.text!!,
                binding.etPasswordSignIn.text!!,
                selectedPhoneUrl
@@ -165,7 +165,7 @@ class FragmentSignUp : BaseFragment(), SelectionAdapter.OnMobileClickListener {
      }
 
 
-     private fun hideKeyboardInternal() = tryEr { introActivity.hideKeyboard(binding.etEmailSignIn, binding.etPasswordSignIn, binding.etUsernameSignIn, binding.etMobileInsertManually) }
+     private fun hideKeyboardInternal() = tryEr { introActivity.hideKeyboard(binding.etEmailSignIn, binding.etPasswordSignIn, binding.etUsernameSignUp, binding.etMobileInsertManually) }
 
      private val introActivity by lazy { activity as IntroductionActivity }
 

@@ -90,7 +90,7 @@ class IntroductionActivity : BaseActivity() {
 
      private fun splashCheck(function: () -> Unit) {
           if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
-               Handler(Looper.getMainLooper()).postDelayed(3000) { function() }
+               Handler(Looper.getMainLooper()).postDelayed(2000) { function() }
           }else function()
      }
 }

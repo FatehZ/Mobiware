@@ -5,7 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.provider.Settings
 import android.text.InputFilter
 import android.view.LayoutInflater
 import android.view.View
@@ -62,8 +61,6 @@ class FragmentProfile : BaseFragment() {
           tryEr { if (hasInternetConnection(context!!)) FirebaseClient.loadUserData(this) }
      }
 
-     private val TAG = "TAG"
-     
      private fun initializeUI() {
           binding.civProfile.setOnClickListener {
                tryEr {
@@ -115,11 +112,6 @@ class FragmentProfile : BaseFragment() {
                               showErrorSnackbar(getString(R.string.smth_went_wrong))
                          }
                     }
-               else {
-                    Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.fromParts("package", context!!.packageName, null)).apply {
-                         addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    }.also { startActivity(it) }
-               }
           }
 
      private fun setUserDataInUI(user: LocalUser) {

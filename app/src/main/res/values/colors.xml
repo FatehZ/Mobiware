@@ -42,7 +42,7 @@
      <color name="hardware_cv_stroke_color">#FFFFFF</color>
      <color name="hardware_title_text_color">#119BA0</color>
      <color name="hardware_spec_text_color">@color/teal_700</color>
-     <color name="cvSelectPhoneColor">#00f</color>
+     <color name="cvSelectPhoneColor">#0ff</color>
      <color name="cvProfileBackground">#00f</color>
      <color name="hardware_3_cv_tv_color">#00FFFF</color>
      <color name="cv_settings_background">#fff</color>

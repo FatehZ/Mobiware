@@ -2,12 +2,12 @@ package com.ktxdevelopment.mobiware.ui.fragments.additional
 
 import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.MediaStore
+import android.text.InputFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,13 +18,12 @@ import androidx.core.os.postDelayed
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ktxdevelopment.mobiware.R
+import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient
 import com.ktxdevelopment.mobiware.clients.main.BaseClient
 import com.ktxdevelopment.mobiware.clients.main.PermissionClient
 import com.ktxdevelopment.mobiware.clients.main.TextInputClient
-import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient
 import com.ktxdevelopment.mobiware.databinding.FragmentFeedbackBinding
 import com.ktxdevelopment.mobiware.models.firebase.FireFeedback
-import com.ktxdevelopment.mobiware.ui.activities.BaseActivity
 import com.ktxdevelopment.mobiware.ui.fragments.main.BaseFragment
 import com.ktxdevelopment.mobiware.ui.recview.LinkedImageAdapter
 import com.ktxdevelopment.mobiware.util.Constants
@@ -62,11 +61,7 @@ class FragmentFeedback : BaseFragment(),  LinkedImageAdapter.OnLinkedImageClickL
           hideProgressDialog()
           showSuccessSnackbar(getString(R.string.feedback_successfully))
           tryEr {
-               if (photoList.isNotEmpty()) viewModel.writeFeedbackPhotosToFirestore(
-                    context!!,
-                    photoList,
-                    feedback
-               )
+               if (photoList.isNotEmpty()) viewModel.writeFeedbackPhotosToFirestore(context!!, photoList, feedback)
                Handler(Looper.getMainLooper()).postDelayed(600) { activity!!.finish() }
           }
      }
@@ -121,6 +116,16 @@ class FragmentFeedback : BaseFragment(),  LinkedImageAdapter.OnLinkedImageClickL
                adapter = mAdapter
           }
           photoList = ArrayList()
+
+          binding.etFeedback.filters = arrayOf(InputFilter { cs, _, _, _, _, _ ->
+               if (cs == "") { return@InputFilter cs }
+               if (cs.toString().matches(("[0-9a-zA-Z ]+").toRegex())) {
+                    binding.tilFeedback.error = ""
+                    cs
+               } else ""
+          },
+               InputFilter.LengthFilter(600)
+          )
      }
 
      private fun clickListeners() {
@@ -130,7 +135,7 @@ class FragmentFeedback : BaseFragment(),  LinkedImageAdapter.OnLinkedImageClickL
                if (TextInputClient.validateFilledInput(binding.etFeedback.text.toString()) || photoList.size > 0) {
                     showProgressDialogCancellable()
                     FirebaseClient.sendFeedback(this, userEmail, binding.etFeedback.text.toString())
-               } else binding.etFeedback.error = getString(R.string.no_empty_input)
+               } else binding.tilFeedback.error = getString(R.string.no_empty_input)
           }
 
           binding.cvInsertImage.setOnClickListener {
