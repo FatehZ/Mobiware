@@ -1,28 +1,27 @@
 package com.ktxdevelopment.mobiware.clients.firebase
 
 import com.ktxdevelopment.mobiware.R
-import com.ktxdevelopment.mobiware.models.main.BrandModel
 import com.ktxdevelopment.mobiware.util.Constants
 
 object ListUtilClient {
-     fun getBrandList(): ArrayList<String> {
-          return arrayListOf(
-               Constants.XIAOMI,
-               Constants.REALME,
-               Constants.SAMSUNG,
-               Constants.LG,
-               Constants.APPLE,
-               Constants.HONOR,
-               Constants.HUAWEI,
-               Constants.VIVO,
-               Constants.OPPO,
-               Constants.SONY,
-               Constants.LENOVO,
-               Constants.NOKIA,
-               Constants.PHILIPS,
-               Constants.ONEPLUS
-          ).also { it.sort() }
-     }
+//     fun getBrandList(): ArrayList<String> {
+//          return arrayListOf(
+//               Constants.XIAOMI,
+//               Constants.REALME,
+//               Constants.SAMSUNG,
+//               Constants.LG,
+//               Constants.APPLE,
+//               Constants.HONOR,
+//               Constants.HUAWEI,
+//               Constants.VIVO,
+//               Constants.OPPO,
+//               Constants.SONY,
+//               Constants.LENOVO,
+//               Constants.NOKIA,
+//               Constants.PHILIPS,
+//               Constants.ONEPLUS
+//          ).also { it.sort() }
+//     }
 
 
      fun getDeviceModelLogo(brand: String): Int {
@@ -42,7 +41,7 @@ object ListUtilClient {
                (Constants.SONY) -> R.drawable.sony
                (Constants.NOKIA) -> R.drawable.nokia
                (Constants.GOOGLE) -> R.drawable.google
-               else -> R.drawable.samsung
+               else -> -200
           }
      }
 

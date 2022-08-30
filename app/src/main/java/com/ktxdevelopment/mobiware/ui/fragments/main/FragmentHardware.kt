@@ -106,18 +106,19 @@ class FragmentHardware : BaseFragment() {
                     .listener(object : RequestListener<Drawable> {
                          override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
                               binding.ivMainLogo.visibility = GONE
-                              binding.tvMainModel.text = (data.brand + " " + data.phone_name)
+                              binding.tvMainLogo.visibility = VISIBLE
+                              binding.tvMainLogo.text = data.brand.uppercase()
                               return false
                          }
-
                          override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                              binding.tvMainModel.text = (data.phone_name)
+                              binding.tvMainLogo.visibility = GONE
                               return false
                          }
                     })
                     .placeholder(R.color.white)
                     .into(binding.ivMainLogo)
 
+               binding.tvMainModel.text = (data.phone_name)
 
                for (i in data.specifications[4].specs) {
                     if (i.key.lowercase() == Constants.CHIPSET) {
@@ -135,7 +136,6 @@ class FragmentHardware : BaseFragment() {
 
                binding.tvMainOS.text = (data.os)
                binding.tvMainDisplay.text = (data.specifications[3].specs[0].`val`[0])
-
                submitRecyclerViewItems(data)
           }
      }

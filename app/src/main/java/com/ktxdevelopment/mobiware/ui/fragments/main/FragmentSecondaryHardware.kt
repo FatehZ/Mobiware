@@ -15,7 +15,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.ktxdevelopment.mobiware.R
 import com.ktxdevelopment.mobiware.clients.firebase.ListUtilClient.getDeviceModelLogo
-import com.ktxdevelopment.mobiware.databinding.FragmentSecondaryHardwareBinding
+import com.ktxdevelopment.mobiware.databinding.FragmentHardwareBinding
 import com.ktxdevelopment.mobiware.models.rest.Resource
 import com.ktxdevelopment.mobiware.models.rest.product.Data
 import com.ktxdevelopment.mobiware.ui.activities.MainActivity
@@ -29,7 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FragmentSecondaryHardware : BaseFragment() {
 
-     private lateinit var binding: FragmentSecondaryHardwareBinding
+     private lateinit var binding: FragmentHardwareBinding
 
      private lateinit var mobile: Data
      private lateinit var viewModel: RetroViewModel
@@ -46,7 +46,7 @@ class FragmentSecondaryHardware : BaseFragment() {
 
 
      override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-          binding = FragmentSecondaryHardwareBinding.inflate(layoutInflater)
+          binding = FragmentHardwareBinding.inflate(layoutInflater)
           return binding.root
      }
 
@@ -71,8 +71,8 @@ class FragmentSecondaryHardware : BaseFragment() {
      }
 
      private fun initializeUI() {
-          viewModel = ViewModelProvider(requireActivity())[RetroViewModel::class.java]
           loadShimmerVisible()
+          viewModel = ViewModelProvider(requireActivity())[RetroViewModel::class.java]
           setupRecyclerViews()
           binding.cv1Main.setOnClickListener {
                val currentBrandModel = try { (activity as MainActivity).getBrandList().filter { it.brand_name.lowercase() == mobile.brand.lowercase() }[0] } catch (e: Exception) { null }
@@ -85,7 +85,6 @@ class FragmentSecondaryHardware : BaseFragment() {
 
      private fun setObtainedDataInUI(data: Data) {
           tryEr {
-               setActionBarTitle(data.brand + " " + data.phone_name)
                mobile = data
                Glide.with(requireActivity())
                     .load(mobile.thumbnail)
@@ -95,31 +94,21 @@ class FragmentSecondaryHardware : BaseFragment() {
                Glide.with(requireActivity())
                     .load(getDeviceModelLogo(mobile.brand))
                     .listener(object : RequestListener<Drawable> {
-                         override fun onLoadFailed(
-                              e: GlideException?,
-                              model: Any?,
-                              target: Target<Drawable>?,
-                              isFirstResource: Boolean
-                         ): Boolean {
+                         override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
                               binding.ivMainLogo.visibility = View.GONE
-                              binding.tvMainModel.text = (data.brand + " " + data.phone_name)
+                              binding.tvMainLogo.visibility = View.VISIBLE
+                              binding.tvMainLogo.text = data.brand.uppercase()
                               return false
                          }
-
-                         override fun onResourceReady(
-                              resource: Drawable?,
-                              model: Any?,
-                              target: Target<Drawable>?,
-                              dataSource: DataSource?,
-                              isFirstResource: Boolean
-                         ): Boolean {
-                              binding.tvMainModel.text = (data.phone_name)
+                         override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                              binding.tvMainLogo.visibility = View.GONE
                               return false
                          }
                     })
                     .placeholder(R.color.white)
                     .into(binding.ivMainLogo)
 
+               binding.tvMainModel.text = (data.phone_name)
 
                for (i in data.specifications[4].specs) {
                     if (i.key.lowercase() == Constants.CHIPSET) {

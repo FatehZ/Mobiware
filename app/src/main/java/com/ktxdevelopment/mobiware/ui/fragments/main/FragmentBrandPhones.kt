@@ -77,6 +77,7 @@ class FragmentBrandPhones : BaseFragment(), LatestMobileAdapter.OnMobileClickLis
      }
 
      private fun initializeUI() {
+          loadShimmerVisible()
           binding.fabPageCounter.text = currentPage.toString()
           bmAdapter = LatestMobileAdapter(this)
           restViewModel = ViewModelProvider(requireActivity())[RetroViewModel::class.java]

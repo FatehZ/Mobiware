@@ -41,9 +41,10 @@
      <dimen name="fragment_profile_layout_height">@dimen/_360sdp</dimen>
      <dimen name="fragment_profile_image_size">@dimen/_120sdp</dimen>
      <dimen name="text_10ssp">@dimen/_12ssp</dimen>
+     <dimen name="text_16ssp">@dimen/_16ssp</dimen>
+     <dimen name="text_15ssp">@dimen/_15ssp</dimen>
 
      <item name="code_picker_bias" type="dimen" format="float">0.35</item>
 
 
-     //
 </resources>

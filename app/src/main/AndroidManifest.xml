@@ -23,7 +23,7 @@
           android:supportsRtl="true"
           android:theme="@style/Theme.Mobiware"
           android:usesCleartextTraffic="true"
-          tools:targetApi="32">
+          tools:targetApi="33">
           <activity
                android:name=".ui.activities.MainActivity"
                android:windowSoftInputMode="adjustPan"
