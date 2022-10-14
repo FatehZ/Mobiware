@@ -6,9 +6,10 @@
      android:layout_width="match_parent"
      android:layout_height="match_parent"
      android:orientation="vertical"
-     android:background="@color/white">
+     android:background="@android:color/transparent">
 
      <androidx.constraintlayout.widget.ConstraintLayout
+          android:paddingTop="@dimen/fragments_top_padding_actionbar"
           android:layout_width="match_parent"
           android:layout_height="wrap_content">
 

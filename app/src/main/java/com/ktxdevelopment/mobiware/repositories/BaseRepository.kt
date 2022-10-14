@@ -1,6 +1,5 @@
 package com.ktxdevelopment.mobiware.repositories
 
-import com.ktxdevelopment.mobiware.util.exceptions.RequestUnsuccessfulException
 import com.ktxdevelopment.mobiware.models.rest.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -16,7 +15,7 @@ open class BaseRepository {
                 if (response.isSuccessful) {
                     Resource.Success(data = response.body()!!)
                 }else {
-                    Resource.Error(mError = RequestUnsuccessfulException())
+                    Resource.Error(mError = Exception())
                 }
             } catch (e: Exception) {
                 Resource.Error(e)

@@ -37,7 +37,7 @@ object AppModule {
 
     @Provides
     fun provideSearchApi(): RetrofitApi = Retrofit.Builder()
-        .baseUrl(Constants.BASE_URL)
+        .baseUrl(Constants.BASE_URL_1)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
         .create(RetrofitApi::class.java)

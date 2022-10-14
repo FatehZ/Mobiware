@@ -2,7 +2,7 @@
      xmlns:app="http://schemas.android.com/apk/res-auto"
      android:layout_width="match_parent"
      android:layout_height="match_parent"
-     android:background="@color/splash_background"
+     android:background="@drawable/splash_background"
      android:fitsSystemWindows="true">
 
 
@@ -11,8 +11,8 @@
           android:layout_width="@dimen/_180sdp"
           android:layout_height="@dimen/_180sdp"
           android:contentDescription="@string/app_name"
-          android:scaleX="1.6"
-          android:scaleY="1.6"
+          android:scaleX="1.8"
+          android:scaleY="1.8"
           android:src="@drawable/ic_launcher_foreground"
           app:civ_border_color="@color/white"
           app:civ_border_overlay="false"
@@ -20,45 +20,7 @@
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          app:layout_constraintVertical_bias="0.3" />
+          app:layout_constraintVertical_bias="0.35" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-         android:id="@+id/civ3"
-         android:layout_width="@dimen/_80sdp"
-         android:layout_height="@dimen/_80sdp"
-         android:src="@android:color/transparent"
-         app:civ_border_color="@color/blue"
-         app:civ_border_width="@dimen/_5sdp"
-         app:layout_constraintBottom_toTopOf="@id/civ2"
-         app:layout_constraintEnd_toEndOf="parent"
-         app:layout_constraintHorizontal_bias="0.4"
-         app:layout_constraintStart_toStartOf="parent"
-         app:layout_constraintTop_toBottomOf="@+id/civSplash" />
-
-     <de.hdodenhof.circleimageview.CircleImageView
-          android:id="@+id/civ2"
-          android:layout_width="@dimen/_60sdp"
-          android:layout_height="@dimen/_60sdp"
-          android:src="@android:color/transparent"
-          app:civ_border_color="@color/red_"
-          app:civ_border_width="@dimen/_4sdp"
-          app:layout_constraintBottom_toTopOf="@id/civ1"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintHorizontal_bias="0.6"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/civ3" />
-
-     <de.hdodenhof.circleimageview.CircleImageView
-          android:id="@+id/civ1"
-          android:layout_width="@dimen/_35sdp"
-          android:layout_height="@dimen/_35sdp"
-          android:src="@android:color/transparent"
-          app:civ_border_color="@color/green_"
-          app:civ_border_width="@dimen/_3sdp"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintHorizontal_bias="0.5"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/civ2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.ktxdevelopment.mobiware.clients.firebase
 
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
@@ -17,6 +18,7 @@ object ErrorClient {
             }
             else -> {
                 context.hideProgressDialog()
+                Log.i("_TAG", "registerError : ${ex.message}")
                 context.showErrorSnackbar(context.getString(R.string.error_occurred))
             }
         }
@@ -36,6 +38,7 @@ object ErrorClient {
             }
             else -> {
                 context.hideProgressDialog()
+                Log.i("_TAG", "signError : ${ex.message}")
                 context.showErrorSnackbar(context.getString(R.string.error_occurred))
             }
         }

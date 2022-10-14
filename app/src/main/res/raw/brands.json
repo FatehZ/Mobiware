@@ -24,13 +24,6 @@
       "detail": "http://api-mobilespecs.azharimm.site/v2/brands/asus-phones-46"
     },
     {
-      "brand_id": 36,
-      "brand_name": "BlackBerry",
-      "brand_slug": "blackberry-phones-36",
-      "device_count": 92,
-      "detail": "http://api-mobilespecs.azharimm.site/v2/brands/blackberry-phones-36"
-    },
-    {
       "brand_id": 116,
       "brand_name": "Blackview",
       "brand_slug": "blackview-phones-116",
@@ -44,14 +37,6 @@
       "device_count": 357,
       "detail": "http://api-mobilespecs.azharimm.site/v2/brands/blu-phones-67"
     },
-
-    {
-      "brand_id": 77,
-      "brand_name": "Casio",
-      "brand_slug": "casio-phones-77",
-      "device_count": 5,
-      "detail": "http://api-mobilespecs.azharimm.site/v2/brands/casio-phones-77"
-    },
     {
       "brand_id": 89,
       "brand_name": "Cat",
@@ -59,15 +44,6 @@
       "device_count": 21,
       "detail": "http://api-mobilespecs.azharimm.site/v2/brands/cat-phones-89"
     },
-
-    {
-      "brand_id": 61,
-      "brand_name": "Dell",
-      "brand_slug": "dell-phones-61",
-      "device_count": 20,
-      "detail": "http://api-mobilespecs.azharimm.site/v2/brands/dell-phones-61"
-    },
-
     {
       "brand_id": 106,
       "brand_name": "Energizer",
@@ -90,13 +66,6 @@
       "detail": "http://api-mobilespecs.azharimm.site/v2/brands/honor-phones-121"
     },
     {
-      "brand_id": 41,
-      "brand_name": "HP",
-      "brand_slug": "hp-phones-41",
-      "device_count": 41,
-      "detail": "http://api-mobilespecs.azharimm.site/v2/brands/hp-phones-41"
-    },
-    {
       "brand_id": 45,
       "brand_name": "HTC",
       "brand_slug": "htc-phones-45",
@@ -109,15 +78,6 @@
       "brand_slug": "huawei-phones-58",
       "device_count": 392,
       "detail": "http://api-mobilespecs.azharimm.site/v2/brands/huawei-phones-58"
-    },
-
-
-    {
-      "brand_id": 119,
-      "brand_name": "Infinix",
-      "brand_slug": "infinix-phones-119",
-      "device_count": 90,
-      "detail": "http://api-mobilespecs.azharimm.site/v2/brands/infinix-phones-119"
     },
     {
       "brand_id": 73,
@@ -142,29 +102,12 @@
       "detail": "http://api-mobilespecs.azharimm.site/v2/brands/meizu-phones-74"
     },
     {
-      "brand_id": 66,
-      "brand_name": "Micromax",
-      "brand_slug": "micromax-phones-66",
-      "device_count": 289,
-      "detail": "http://api-mobilespecs.azharimm.site/v2/brands/micromax-phones-66"
-    },
-    {
-      "brand_id": 64,
-      "brand_name": "Microsoft",
-      "brand_slug": "microsoft-phones-64",
-      "device_count": 32,
-      "detail": "http://api-mobilespecs.azharimm.site/v2/brands/microsoft-phones-64"
-    },
-
-
-    {
       "brand_id": 4,
       "brand_name": "Motorola",
       "brand_slug": "motorola-phones-4",
       "device_count": 569,
       "detail": "http://api-mobilespecs.azharimm.site/v2/brands/motorola-phones-4"
     },
-
     {
       "brand_id": 1,
       "brand_name": "Nokia",
@@ -193,31 +136,6 @@
       "device_count": 241,
       "detail": "http://api-mobilespecs.azharimm.site/v2/brands/oppo-phones-82"
     },
-
-    {
-      "brand_id": 6,
-      "brand_name": "Panasonic",
-      "brand_slug": "panasonic-phones-6",
-      "device_count": 123,
-      "detail": "http://api-mobilespecs.azharimm.site/v2/brands/panasonic-phones-6"
-    },
-
-
-    {
-      "brand_id": 11,
-      "brand_name": "Philips",
-      "brand_slug": "philips-phones-11",
-      "device_count": 229,
-      "detail": "http://api-mobilespecs.azharimm.site/v2/brands/philips-phones-11"
-    },
-
-    {
-      "brand_id": 117,
-      "brand_name": "Razer",
-      "brand_slug": "razer-phones-117",
-      "device_count": 2,
-      "detail": "http://api-mobilespecs.azharimm.site/v2/brands/razer-phones-117"
-    },
     {
       "brand_id": 118,
       "brand_name": "Realme",
@@ -233,42 +151,12 @@
       "device_count": 1340,
       "detail": "http://api-mobilespecs.azharimm.site/v2/brands/samsung-phones-9"
     },
-
-    {
-      "brand_id": 23,
-      "brand_name": "Sharp",
-      "brand_slug": "sharp-phones-23",
-      "device_count": 60,
-      "detail": "http://api-mobilespecs.azharimm.site/v2/brands/sharp-phones-23"
-    },
-    {
-      "brand_id": 3,
-      "brand_name": "Siemens",
-      "brand_slug": "siemens-phones-3",
-      "device_count": 94,
-      "detail": "http://api-mobilespecs.azharimm.site/v2/brands/siemens-phones-3"
-    },
-
     {
       "brand_id": 7,
       "brand_name": "Sony",
       "brand_slug": "sony-phones-7",
       "device_count": 154,
       "detail": "http://api-mobilespecs.azharimm.site/v2/brands/sony-phones-7"
-    },
-    {
-      "brand_id": 19,
-      "brand_name": "Sony Ericsson",
-      "brand_slug": "sony_ericsson-phones-19",
-      "device_count": 188,
-      "detail": "http://api-mobilespecs.azharimm.site/v2/brands/sony_ericsson-phones-19"
-    },
-    {
-      "brand_id": 55,
-      "brand_name": "T-Mobile",
-      "brand_slug": "t_mobile-phones-55",
-      "device_count": 59,
-      "detail": "http://api-mobilespecs.azharimm.site/v2/brands/t_mobile-phones-55"
     },
     {
       "brand_id": 123,
@@ -284,8 +172,6 @@
       "device_count": 100,
       "detail": "http://api-mobilespecs.azharimm.site/v2/brands/tecno-phones-120"
     },
-
-
     {
       "brand_id": 124,
       "brand_name": "Ulefone",

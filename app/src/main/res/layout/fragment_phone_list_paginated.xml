@@ -4,7 +4,8 @@
      xmlns:tools="http://schemas.android.com/tools"
      android:layout_width="match_parent"
      android:layout_height="match_parent"
-     android:background="@color/white"
+     android:paddingTop="@dimen/fragments_top_padding_actionbar"
+     android:background="@android:color/transparent"
      tools:context=".ui.fragments.main.FragmentLatest">
 
      <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,12 +22,6 @@
                android:orientation="vertical"
                app:layout_constraintBottom_toBottomOf="parent"
                app:layout_constraintTop_toTopOf="parent" />
-
-          <androidx.constraintlayout.widget.ConstraintLayout
-               app:layout_constraintTop_toBottomOf="@id/rvLatest"
-               android:layout_width="match_parent"
-               android:layout_height="@dimen/_40sdp" />
-
 
           <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                android:layout_width="wrap_content"
@@ -83,6 +78,7 @@
           android:layout_height="wrap_content"
           android:animateLayoutChanges="true"
           android:animationCache="true"
+          android:paddingTop="@dimen/small_shimmer_padding_top"
           app:layout_constraintTop_toTopOf="parent"
           app:shimmer_repeat_mode="restart"
           app:shimmer_shape="linear">

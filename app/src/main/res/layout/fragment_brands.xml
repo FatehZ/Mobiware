@@ -3,11 +3,13 @@
      xmlns:tools="http://schemas.android.com/tools"
      android:layout_width="match_parent"
      android:layout_height="match_parent"
+     android:paddingTop="@dimen/fragments_top_padding_actionbar"
      android:background="@color/white"
      tools:context=".ui.fragments.main.FragmentBrands">
 
      <androidx.recyclerview.widget.RecyclerView
           android:id="@+id/rvBrands"
+          android:paddingTop="@dimen/small_shimmer_padding_top"
           android:layout_width="match_parent"
           android:layout_height="match_parent" />
 

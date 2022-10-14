@@ -22,6 +22,9 @@
           <action
                android:id="@+id/action_fragmentHardware_to_fragmentBrandPhones"
                app:destination="@id/fragmentBrandPhones" />
+          <action
+               android:id="@+id/action_fragmentHardware_to_fragmentSpecInfo"
+               app:destination="@id/fragmentSpecInfo" />
      </fragment>
      <fragment
           android:id="@+id/fragmentMyDevices"
@@ -35,6 +38,12 @@
           android:id="@+id/fragmentSecondaryHardware"
           android:name="com.ktxdevelopment.mobiware.ui.fragments.main.FragmentSecondaryHardware"
           android:label="FragmentSecondaryHardware" >
+          <action
+               android:id="@+id/action_fragmentSecondaryHardware_to_fragmentBrandPhones"
+               app:destination="@id/fragmentBrandPhones" />
+          <action
+               android:id="@+id/action_fragmentSecondaryHardware_to_fragmentSpecInfo"
+               app:destination="@id/fragmentSpecInfo" />
      </fragment>
      <fragment
           android:id="@+id/fragmentSettings"
@@ -83,6 +92,10 @@
                android:id="@+id/action_fragmentBrandPhones_to_fragmentSecondaryHardware"
                app:destination="@id/fragmentSecondaryHardware" />
      </fragment>
+     <fragment
+          android:id="@+id/fragmentSpecInfo"
+          android:name="com.ktxdevelopment.mobiware.ui.fragments.additional.FragmentSpecInfo"
+          android:label="FragmentSpecInfo" />
 
 
 </navigation>

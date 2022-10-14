@@ -9,7 +9,6 @@
      <color name="cyan">#00f</color>
      <color name="shimmer_color">#00ffff</color>
 
-     <color name="splash_background">#00c</color>
      <color name="splash_text_color">#018786</color>
      <color name="yellow">#ff0</color>
 
@@ -48,6 +47,7 @@
      <color name="feedback_cv_border_color">@color/blue_</color>
      <color name="cv_hardware_logo_back">#00f</color>
      <color name="hardware_cv_stroke_color">#00F</color>
+     <color name="action_bar_color">#555</color>
      <color name="cvSelectPhoneColor">#0ff</color>
 
 

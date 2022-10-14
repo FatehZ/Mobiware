@@ -1,6 +1,5 @@
 package com.ktxdevelopment.mobiware.ui.activities
 
-import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -9,13 +8,10 @@ import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import com.ktxdevelopment.mobiware.R
 import com.ktxdevelopment.mobiware.databinding.ActivityAdditionalBinding
 import com.ktxdevelopment.mobiware.databinding.DialogSettingsBinding
-import com.ktxdevelopment.mobiware.ui.fragments.additional.FragmentFeedback
 import com.ktxdevelopment.mobiware.util.Constants
 import com.ktxdevelopment.mobiware.util.Constants.FR_FEEDBACK
 import com.ktxdevelopment.mobiware.util.Constants.FR_PROFILE
@@ -50,6 +46,7 @@ class AdditionalActivity : BaseActivity() {
      }
 
      override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+          super.onRequestPermissionsResult(requestCode, permissions, grantResults)
           if (requestCode == Constants.READ_STORAGE_CODE) {
                if (grantResults.isNotEmpty() && grantResults[0] != PackageManager.PERMISSION_GRANTED) {
                     showPermissionDeniedDialog()

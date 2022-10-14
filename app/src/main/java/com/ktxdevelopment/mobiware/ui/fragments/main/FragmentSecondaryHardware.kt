@@ -2,6 +2,7 @@ package com.ktxdevelopment.mobiware.ui.fragments.main
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +22,6 @@ import com.ktxdevelopment.mobiware.models.rest.product.Data
 import com.ktxdevelopment.mobiware.ui.activities.MainActivity
 import com.ktxdevelopment.mobiware.ui.recview.MobileSpecsAdapter
 import com.ktxdevelopment.mobiware.util.Constants
-import com.ktxdevelopment.mobiware.util.tryEr
 import com.ktxdevelopment.mobiware.viewmodel.RetroViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -74,17 +74,17 @@ class FragmentSecondaryHardware : BaseFragment() {
           loadShimmerVisible()
           viewModel = ViewModelProvider(requireActivity())[RetroViewModel::class.java]
           setupRecyclerViews()
-          binding.cv1Main.setOnClickListener {
-               val currentBrandModel = try { (activity as MainActivity).getBrandList().filter { it.brand_name.lowercase() == mobile.brand.lowercase() }[0] } catch (e: Exception) { null }
+          binding.cvMainLogo.setOnClickListener {
+               val currentBrandModel = try { (activity as MainActivity).brands.filter { it.brand_name.lowercase() == mobile.brand.lowercase() }[0] } catch (e: Exception) { null }
                if (currentBrandModel != null) {
                     val bundle = Bundle().apply { putParcelable(Constants.BRAND_EXTRA, currentBrandModel) }
-                    findNavController().navigate(R.id.action_fragmentHardware_to_fragmentBrandPhones, bundle)
+                    findNavController().navigate(R.id.action_fragmentSecondaryHardware_to_fragmentBrandPhones, bundle)
                }
           }
      }
 
      private fun setObtainedDataInUI(data: Data) {
-          tryEr {
+          try {
                mobile = data
                Glide.with(requireActivity())
                     .load(mobile.thumbnail)
@@ -128,12 +128,19 @@ class FragmentSecondaryHardware : BaseFragment() {
                binding.tvMainDisplay.text = (data.specifications[3].specs[0].`val`[0])
 
                submitRecyclerViewItems(data)
+          }catch (e: Throwable) {
+               //todo check if model class data's properties can be null
+               Log.i(TAG, "setObtainedDataInUI: ${e.message}")
+               Log.i(TAG, "setObtainedDataInUI: ${e.localizedMessage}")
+               Log.i(TAG, "setObtainedDataInUI: $e")
+               Log.i(TAG, "setObtainedDataInUI: ${e.javaClass}")
           }
      }
 
+     private val TAG = "_TAG"
+
 
      private fun setupRecyclerViews() {
-
           rPlatform = MobileSpecsAdapter()
           rMemory = MobileSpecsAdapter()
           rDisplay = MobileSpecsAdapter()
@@ -144,34 +151,15 @@ class FragmentSecondaryHardware : BaseFragment() {
           rMainCam = MobileSpecsAdapter()
           rSelfCam = MobileSpecsAdapter()
 
-
-          binding.rvMainPlatform.apply {
-               layoutManager = LinearLayoutManager(requireContext()); adapter = rPlatform
-          }
-          binding.rvMainDisplay.apply {
-               layoutManager = LinearLayoutManager(requireContext()); adapter = rDisplay
-          }
-          binding.rvMainMemory.apply {
-               layoutManager = LinearLayoutManager(requireContext()); adapter = rMemory
-          }
-          binding.rvMainBattery.apply {
-               layoutManager = LinearLayoutManager(requireContext()); adapter = rBattery
-          }
-          binding.rvMainBody.apply {
-               layoutManager = LinearLayoutManager(requireContext()); adapter = rBody
-          }
-          binding.rvMainComm.apply {
-               layoutManager = LinearLayoutManager(requireContext()); adapter = rComms
-          }
-          binding.rvMainLaunch.apply {
-               layoutManager = LinearLayoutManager(requireContext()); adapter = rLaunch
-          }
-          binding.rvMainMainCamera.apply {
-               layoutManager = LinearLayoutManager(requireContext()); adapter = rMainCam
-          }
-          binding.rvMainSelfieCamera.apply {
-               layoutManager = LinearLayoutManager(requireContext()); adapter = rSelfCam
-          }
+          binding.rvMainPlatform.apply { layoutManager = LinearLayoutManager(requireContext()); adapter = rPlatform }
+          binding.rvMainDisplay.apply { layoutManager = LinearLayoutManager(requireContext()); adapter = rDisplay }
+          binding.rvMainMemory.apply { layoutManager = LinearLayoutManager(requireContext()); adapter = rMemory }
+          binding.rvMainBattery.apply { layoutManager = LinearLayoutManager(requireContext()); adapter = rBattery }
+          binding.rvMainBody.apply { layoutManager = LinearLayoutManager(requireContext()); adapter = rBody }
+          binding.rvMainComm.apply { layoutManager = LinearLayoutManager(requireContext()); adapter = rComms }
+          binding.rvMainLaunch.apply { layoutManager = LinearLayoutManager(requireContext()); adapter = rLaunch }
+          binding.rvMainMainCamera.apply { layoutManager = LinearLayoutManager(requireContext()); adapter = rMainCam }
+          binding.rvMainSelfieCamera.apply { layoutManager = LinearLayoutManager(requireContext()); adapter = rSelfCam }
      }
 
      private fun loadContentVisible() {
@@ -180,9 +168,9 @@ class FragmentSecondaryHardware : BaseFragment() {
           binding.shimmerLayout.visibility = View.GONE
      }
 
-     private fun loadShimmerVisible() {
-          binding.mainLayout.visibility = View.GONE
-          binding.shimmerLayout.visibility = View.VISIBLE
+private fun loadShimmerVisible() {
+     binding.shimmerLayout.visibility = View.VISIBLE
+     binding.mainLayout.visibility = View.GONE
           binding.shimmerLayout.startShimmer()
      }
 

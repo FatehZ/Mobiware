@@ -24,7 +24,6 @@ class FragmentBrandPhones : BaseFragment(), LatestMobileAdapter.OnMobileClickLis
      private lateinit var binding: FragmentPhoneListPaginatedBinding
      private lateinit var bmAdapter: LatestMobileAdapter
      private lateinit var restViewModel: RetroViewModel
-     private var errorMessageShown = false
      private lateinit var brand: BrandModel
      private var currentPage: Int = 0
 
@@ -33,7 +32,6 @@ class FragmentBrandPhones : BaseFragment(), LatestMobileAdapter.OnMobileClickLis
           return binding.root
      }
 
-
      override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
           super.onViewCreated(view, savedInstanceState)
           initializeUI()
@@ -41,17 +39,16 @@ class FragmentBrandPhones : BaseFragment(), LatestMobileAdapter.OnMobileClickLis
      }
 
      private fun launchOnlineSearch() {
-          brand = arguments!!.getParcelable(Constants.BRAND_EXTRA)!!
+          brand = requireArguments().getParcelable(Constants.BRAND_EXTRA)!!
           getPageSizeOfBrand(brand)
           setActionBarTitle(brand.brand_name.replaceFirstChar { it.uppercaseChar() })
           restViewModel.searchByBrand(brand.brand_slug,currentPage)
-
 
           restViewModel.devicesByBrand.observe(requireActivity()) {
                when (it) {
                     is Resource.Success -> {
                          bmAdapter.submitList(it.data!!.data.phones)
-                         Handler(Looper.getMainLooper()).postDelayed(500) { loadMainVisible() }
+                         Handler(Looper.getMainLooper()).postDelayed(800) { loadMainVisible() }
                     }
                     is Resource.Error -> Handler(Looper.getMainLooper()).postDelayed(500) { searchAgain() }
                     else -> Unit
@@ -78,7 +75,7 @@ class FragmentBrandPhones : BaseFragment(), LatestMobileAdapter.OnMobileClickLis
 
      private fun initializeUI() {
           loadShimmerVisible()
-          binding.fabPageCounter.text = currentPage.toString()
+          binding.fabPageCounter.text = (currentPage + 1).toString()
           bmAdapter = LatestMobileAdapter(this)
           restViewModel = ViewModelProvider(requireActivity())[RetroViewModel::class.java]
 
@@ -100,9 +97,8 @@ class FragmentBrandPhones : BaseFragment(), LatestMobileAdapter.OnMobileClickLis
      private fun onPageChanged(page: Int) {
           binding.fabPageCounter.text = (currentPage + 1).toString()
 
-          if (currentPage == 0) {
-               binding.btnPreviousPage.visibility = GONE
-          }else  binding.btnPreviousPage.visibility = VISIBLE
+          if (currentPage == 0) binding.btnPreviousPage.visibility = GONE
+          else  binding.btnPreviousPage.visibility = VISIBLE
 
 
           if (currentPage == getPageSizeOfBrand(brand) - 1) {
@@ -118,11 +114,6 @@ class FragmentBrandPhones : BaseFragment(), LatestMobileAdapter.OnMobileClickLis
           val bundle = Bundle().apply { putString(Constants.PHONE_EXTRA, bmAdapter.currentList[pos].slug) }
           setActionBarTitle(bmAdapter.currentList[pos].brand + bmAdapter.currentList[pos].phone_name)
           findNavController().navigate(R.id.action_fragmentBrandPhones_to_fragmentSecondaryHardware, bundle)
-     }
-
-     override fun onDetach() {
-          super.onDetach()
-          errorMessageShown = false
      }
 
      private fun getPageSizeOfBrand(brand: BrandModel) : Int {

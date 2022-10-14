@@ -39,7 +39,7 @@ object BaseClient {
      }
 
      fun convertDataToPhone(data: Data, detail: String): Phone {
-          return Phone(data.brand, Constants.BASE_URL + detail, data.thumbnail, data.phone_name, detail)
+          return Phone(data.brand, Constants.BASE_URL_1 + detail, data.thumbnail, data.phone_name, detail)
      }
 
 
@@ -52,10 +52,6 @@ object BaseClient {
           lUser.image64 = ""
           return lUser
      }
-
-
-
-
 
      @Suppress("DEPRECATION")
      fun hasInternetConnection(context: Context): Boolean {

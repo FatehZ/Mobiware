@@ -14,8 +14,6 @@ class FirestoreDeleteUserWorker(appContext: Context, params: WorkerParameters) :
           return try {
                FirebaseFirestore.getInstance().collection(id).document().delete()
                Result.success()
-          }catch (e: Exception) {
-               Result.retry()
-          }
+          }catch (e: Exception) { Result.retry() }
      }
 }

@@ -13,8 +13,6 @@ import com.ktxdevelopment.mobiware.ui.fragments.main.BaseFragment
 class FragmentSplash : BaseFragment() {
 
      private lateinit var binding: FragmentSplashBinding
-     private val handler = Handler(Looper.getMainLooper())
-     private var duration = 0L
 
      override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
           binding = FragmentSplashBinding.inflate(inflater,container, false)

@@ -4,6 +4,7 @@
      xmlns:tools="http://schemas.android.com/tools"
      android:layout_width="match_parent"
      android:layout_height="match_parent"
+     android:paddingTop="@dimen/fragments_top_padding_actionbar_bigger"
      android:background="@drawable/artboard_main_background"
      android:orientation="vertical"
      tools:context=".ui.fragments.main.FragmentSettings">

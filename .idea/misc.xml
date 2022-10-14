@@ -7,11 +7,20 @@
         <entry key="../../../../../../layout/custom_preview.xml" value="0.22327898550724637" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable-v24/ic_launcher_background.xml" value="0.1945" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1945" />
+        <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/asus.xml" value="0.154" />
+        <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/blu.xml" value="0.154" />
+        <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/cat.xml" value="0.154" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/gradient_nav_header.xml" value="0.2" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/ic_account.xml" value="0.1455" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/ic_account_big.xml" value="0.185" />
+        <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/ic_action_navigation_menu.xml" value="0.2605" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/ic_back.xml" value="0.1945" />
+        <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.2605" />
+        <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/ic_baseline_whatshot_24.xml" value="0.2605" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/ic_brands.xml" value="0.1855" />
+        <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/ic_info.xml" value="0.2605" />
+        <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/ic_latest.xml" value="0.2605" />
+        <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/ic_link_open.xml" value="0.2605" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/ic_lock.xml" value="0.1855" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/ic_mail.xml" value="0.1945" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/ic_menu.xml" value="0.185" />
@@ -22,11 +31,16 @@
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/ic_previous.xml" value="0.1855" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/ic_theme.xml" value="0.105" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/launcher_vector.xml" value="0.1945" />
+        <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/lg.xml" value="0.154" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/logo_high_dp.xml" value="0.1945" />
+        <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/nothing.xml" value="0.154" />
+        <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/splash_background.xml" value="0.2605" />
+        <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/tcl.xml" value="0.154" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/font/dosis_medium.xml" value="0.24736175601519628" />
-        <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/activity_additional.xml" value="0.1" />
+        <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout-night/item_brand_list.xml" value="0.22573749465583584" />
+        <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/activity_additional.xml" value="0.16" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/activity_introduction.xml" value="0.12048192771084337" />
-        <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/activity_main.xml" value="0.22573749465583584" />
+        <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/dialog_dark_mode.xml" value="0.1" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/dialog_progress.xml" value="0.1" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/dialog_settings.xml" value="0.1" />
@@ -35,17 +49,18 @@
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/fragment_brands.xml" value="0.22573749465583584" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/fragment_feedback.xml" value="0.22573749465583584" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/fragment_forgot_password.xml" value="0.1" />
-        <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/fragment_hardware.xml" value="0.2" />
+        <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/fragment_hardware.xml" value="0.264" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/fragment_latest.xml" value="0.22573749465583584" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/fragment_my_devices.xml" value="0.22573749465583584" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/fragment_phone_list.xml" value="0.22573749465583584" />
-        <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/fragment_phone_list_paginated.xml" value="0.12369791666666667" />
+        <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/fragment_phone_list_paginated.xml" value="0.264" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/fragment_profile.xml" value="0.1375" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/fragment_secondary_hardware.xml" value="0.136" />
-        <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/fragment_settings.xml" value="0.1" />
+        <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/fragment_settings.xml" value="0.2" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/fragment_sign_in.xml" value="0.22573749465583584" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/fragment_sign_up.xml" value="0.2228788518362178" />
-        <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/fragment_splash.xml" value="0.22573749465583584" />
+        <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/fragment_spec_info.xml" value="0.22573749465583584" />
+        <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/fragment_splash.xml" value="0.2" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/fragment_update.xml" value="0.1" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/item_brand_list.xml" value="0.22573749465583584" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/linked_image_item.xml" value="0.22573749465583584" />
@@ -171,7 +186,7 @@
         <entry key="app/src/main/res/layout/activity_feedback.xml" value="0.2877297990594271" />
         <entry key="app/src/main/res/layout/activity_forgot_password.xml" value="0.34791666666666665" />
         <entry key="app/src/main/res/layout/activity_introduction.xml" value="0.27943840579710144" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.3065412569474134" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.2877297990594271" />
         <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.34739583333333335" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.34739583333333335" />

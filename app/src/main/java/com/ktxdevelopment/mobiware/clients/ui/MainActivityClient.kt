@@ -17,11 +17,6 @@ import com.ktxdevelopment.mobiware.util.Constants
 object MainActivityClient {
      private val hl = Handler(Looper.getMainLooper())
 
-     fun toggleDrawer(binding: ActivityMainBinding) {
-          if (binding.drawerLayout.isDrawerOpen(START)) binding.drawerLayout.closeDrawer(START)
-          else binding.drawerLayout.openDrawer(START)
-     }
-
      fun setUpMainNavigationClickListeners(item: MenuItem, context: MainActivity): Boolean {
           return when (item.itemId) {
 

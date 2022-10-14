@@ -34,7 +34,7 @@ class FragmentBrands : BaseFragment(), BrandListAdapter.OnBrandClickListener {
           brandAdapter = BrandListAdapter(this)
 
           binding.rvBrands.apply { this.adapter = brandAdapter; layoutManager = GridLayoutManager(requireContext(), 2) }
-          tryEr { brandList = (activity as MainActivity).getBrandList().also { brandAdapter.setData(it) } }
+          tryEr { brandList = (activity as MainActivity).brands.also { brandAdapter.setData(it) } }
      }
 
 

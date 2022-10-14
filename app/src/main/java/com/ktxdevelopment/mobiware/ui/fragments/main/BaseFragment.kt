@@ -2,14 +2,22 @@ package com.ktxdevelopment.mobiware.ui.fragments.main
 
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.ktxdevelopment.mobiware.ui.activities.AdditionalActivity
 import com.ktxdevelopment.mobiware.ui.activities.BaseActivity
 import com.ktxdevelopment.mobiware.ui.activities.IntroductionActivity
+import com.ktxdevelopment.mobiware.ui.activities.MainActivity
 import com.ktxdevelopment.mobiware.util.tryEr
 
 open class BaseFragment : Fragment() {
 
      fun setActionBarTitle(title: String) {
-          tryEr { (activity as BaseActivity).supportActionBar?.apply { if (this.title != title) this.title = title } }
+          tryEr {
+               when (activity) {
+                    is AdditionalActivity -> (activity as AdditionalActivity).supportActionBar?.apply { if (this.title != title) this.title = title }
+                    is MainActivity -> (activity as MainActivity).setActionBarTitle(title)
+                    else -> Unit
+               }
+          }
      }
 
      fun showProgressDialog() {
@@ -39,7 +47,7 @@ open class BaseFragment : Fragment() {
      }
 
      fun shortToast(m: Int) {
-          tryEr { Toast.makeText(context!!, getString(m), Toast.LENGTH_SHORT).show() }
+          tryEr { Toast.makeText(requireContext(), getString(m), Toast.LENGTH_SHORT).show() }
      }
 
      fun signOut() {

@@ -9,7 +9,6 @@
      <color name="cyan">#00FFFF</color>
      <color name="shimmer_color">#00ffff</color>
 
-     <color name="splash_background">@color/cyan_</color>
      <color name="splash_text_color">#018786</color>
      <color name="yellow">#ff0</color>
 
@@ -64,5 +63,6 @@
      <color name="feedback_link_text_color">@color/cyan_</color>
      <color name="feedback_cv_border_color">@color/white_</color>
      <color name="cv_hardware_logo_back">#fff</color>
+     <color name="action_bar_color">#FAFAFF</color>
 
 </resources>

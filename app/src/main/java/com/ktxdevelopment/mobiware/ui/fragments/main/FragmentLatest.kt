@@ -59,7 +59,8 @@ class FragmentLatest : BaseFragment(), LatestMobileAdapter.OnMobileClickListener
 
         binding.rvLatest.apply {
             layoutManager = GridLayoutManager(requireContext(), 2)
-            adapter = latestMobileAdapter }
+            adapter = latestMobileAdapter
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {

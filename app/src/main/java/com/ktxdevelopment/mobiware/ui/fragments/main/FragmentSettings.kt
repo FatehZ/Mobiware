@@ -7,17 +7,17 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.*
 import androidx.core.app.ShareCompat
+import com.google.firebase.auth.ktx.BuildConfig
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.ktxdevelopment.mobiware.BuildConfig
 import com.ktxdevelopment.mobiware.R
 import com.ktxdevelopment.mobiware.clients.firebase.FirebaseClient
 import com.ktxdevelopment.mobiware.clients.main.BaseClient
@@ -59,7 +59,7 @@ class FragmentSettings : BaseFragment() {
      override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
           super.onViewCreated(view, savedInstanceState)
           setActionBarTitle(getString(R.string.settings))
-          ui = activity!!.getSystemService(Context.UI_MODE_SERVICE) as UiModeManager
+          ui = requireActivity().getSystemService(Context.UI_MODE_SERVICE) as UiModeManager
           launchDialogLayouts()
           launchClickListeners()
      }
@@ -71,7 +71,7 @@ class FragmentSettings : BaseFragment() {
           binding.cvContactSettings.setOnClickListener { launchContactIntent() }
           binding.cvShareAppSettings.setOnClickListener { launchShareIntent() }
           binding.cvAboutSettings.setOnClickListener { dialogAbout.show() }
-          tryEr { binding.cvRateAppSettings.setOnClickListener { BaseClient.playStoreIntent(context!!) } }
+          tryEr { binding.cvRateAppSettings.setOnClickListener { BaseClient.playStoreIntent(requireContext()) } }
      }
 
      private fun dialogResetPassword() {
@@ -83,10 +83,10 @@ class FragmentSettings : BaseFragment() {
 
      private fun launchShareIntent() {
           tryEr {
-               ShareCompat.IntentBuilder(context!!)
+               ShareCompat.IntentBuilder(requireContext())
                     .setType("text/plain")
                     .setChooserTitle("Share App Link")
-                    .setText("https://play.google.com/store/apps/details?id=${context!!.packageName}")
+                    .setText("https://play.google.com/store/apps/details?id=${requireContext().packageName}")
                     .startChooser()
           }
      }
@@ -94,17 +94,18 @@ class FragmentSettings : BaseFragment() {
 
      private fun dialogNightMode() {
           dialogDark.show()
-          Log.i("TAG", "dialogNightMode: ${AppCompatDelegate.getDefaultNightMode()}")
-          when (AppCompatDelegate.getDefaultNightMode()) {
-               AppCompatDelegate.MODE_NIGHT_YES -> darkBinding.rgSetDl.check(R.id.radDark)
-               AppCompatDelegate.MODE_NIGHT_NO -> darkBinding.rgSetDl.check(R.id.radLight)
-               AppCompatDelegate.MODE_NIGHT_UNSPECIFIED -> darkBinding.rgSetDl.check(R.id.radSysDef)
-               AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM -> darkBinding.rgSetDl.check(R.id.radSysDef)
+          Log.i("TAG", "dialogNightMode: ${getDefaultNightMode()}")    //todo
+          when (getDefaultNightMode()) {
+               MODE_NIGHT_YES -> darkBinding.rgSetDl.check(R.id.radDark)
+               MODE_NIGHT_NO -> darkBinding.rgSetDl.check(R.id.radLight)
+               MODE_NIGHT_UNSPECIFIED -> darkBinding.rgSetDl.check(R.id.radSysDef)
+               MODE_NIGHT_FOLLOW_SYSTEM -> darkBinding.rgSetDl.check(R.id.radSysDef)
+               else -> Unit
           }
      }
 
      private fun dialogDeleteAccount() {
-          confirmBinding.tvDialogTitle.text = "Your account will be deleted permanently"
+          confirmBinding.tvDialogTitle.text = getString(R.string.account_deleted_permanently)
           dialog.show()
           confirmBinding.btnYes.setOnClickListener { confirmedDeleteAccount() }
      }
@@ -147,7 +148,7 @@ class FragmentSettings : BaseFragment() {
      fun onDeleteAccountSuccess() {
           hideProgressDialog()
           tryEr {
-               (activity as MainActivity).getLocalViewModel().deleteUserFromFirestore(activity!!, Firebase.auth.currentUser!!.uid)
+               (activity as MainActivity).getLocalViewModel().deleteUserFromFirestore(requireActivity(), Firebase.auth.currentUser!!.uid)
           }
           (activity as MainActivity).signOut()
 
@@ -164,18 +165,35 @@ class FragmentSettings : BaseFragment() {
           dialogAbout = Dialog(requireContext()).apply { window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)); setContentView(aboutBinding.root) }
 
           darkBinding.btnYes.setOnClickListener {
-               when (darkBinding.rgSetDl.checkedRadioButtonId) {
-                    R.id.radSysDef -> {
-                         ui.setApplicationNightMode(UiModeManager.MODE_NIGHT_AUTO)
-                         dialogDark.dismiss()
+               if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    when (darkBinding.rgSetDl.checkedRadioButtonId) {
+                         R.id.radSysDef -> {
+                              ui.setApplicationNightMode(UiModeManager.MODE_NIGHT_AUTO)
+                              dialogDark.dismiss()
+                         }
+                         R.id.radDark -> {
+                              ui.setApplicationNightMode(UiModeManager.MODE_NIGHT_YES)
+                              dialogDark.dismiss()
+                         }
+                         R.id.radLight -> {
+                              ui.setApplicationNightMode(UiModeManager.MODE_NIGHT_NO)
+                              dialogDark.dismiss()
+                         }
                     }
-                    R.id.radDark -> {
-                         ui.setApplicationNightMode(UiModeManager.MODE_NIGHT_YES)
-                         dialogDark.dismiss()
-                    }
-                    R.id.radLight -> {
-                         ui.setApplicationNightMode(UiModeManager.MODE_NIGHT_NO)
-                         dialogDark.dismiss()
+               }else{
+                    when (darkBinding.rgSetDl.checkedRadioButtonId) {
+                         R.id.radSysDef -> {
+                              setDefaultNightMode(MODE_NIGHT_FOLLOW_SYSTEM)
+                              dialogDark.dismiss()
+                         }
+                         R.id.radDark -> {
+                              setDefaultNightMode(MODE_NIGHT_YES)
+                              dialogDark.dismiss()
+                         }
+                         R.id.radLight -> {
+                              setDefaultNightMode(MODE_NIGHT_NO)
+                              dialogDark.dismiss()
+                         }
                     }
                }
           }

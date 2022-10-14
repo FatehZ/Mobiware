@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -63,17 +64,22 @@ class FragmentHardware : BaseFragment() {
           loadShimmerVisible()
           setupRecyclerViews()
           binding.cvMainLogo.setOnClickListener {
-               val currentBrandModel = try { (activity as MainActivity).getBrandList().filter { it.brand_name.lowercase() == mobile.brand.lowercase() }[0] } catch (e: Exception) { null }
+               val currentBrandModel = try {
+                    (activity as MainActivity).brands.filter { it.brand_name.lowercase() == mobile.brand.lowercase() }[0]
+               } catch (e: Exception) { null }
                if (currentBrandModel != null) {
                     val bundle = Bundle().apply { putParcelable(Constants.BRAND_EXTRA, currentBrandModel) }
                     findNavController().navigate(R.id.action_fragmentHardware_to_fragmentBrandPhones, bundle)
                }
           }
+
+
      }
 
+     val TAG = "_TAG"
      private fun retrieveMobileHardwareData() {
           if (arguments?.getString(Constants.PHONE_EXTRA) != null) {
-               viewModel.getMobile(arguments!!.getString(Constants.PHONE_EXTRA)!!)
+               viewModel.getMobile(requireArguments().getString(Constants.PHONE_EXTRA)!!)
                viewModel.getResponse.observe(requireActivity()) {
                     if (it is Resource.Success && it.data != null) {
                          setObtainedDataInUI(it.data.data)
@@ -85,9 +91,7 @@ class FragmentHardware : BaseFragment() {
                     if (it != null) {
                          mobile = it.data
                          setObtainedDataInUI(it.data)
-                         Handler(Looper.getMainLooper()).postDelayed(800) {
-                              loadContentVisible()
-                         }
+                         Handler(Looper.getMainLooper()).postDelayed(800) { loadContentVisible() }
                     }
                }
           }

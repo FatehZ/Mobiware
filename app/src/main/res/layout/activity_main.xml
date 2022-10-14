@@ -11,37 +11,76 @@
      tools:openDrawer="start">
 
      <androidx.constraintlayout.widget.ConstraintLayout
+          android:background="@android:color/transparent"
           android:layout_width="match_parent"
           android:layout_height="match_parent">
 
-          <com.google.android.material.appbar.MaterialToolbar
-               android:background="@color/white"
+          <com.google.android.material.card.MaterialCardView
+               app:cardBackgroundColor="@color/action_bar_color"
+               app:cardCornerRadius="@dimen/_5sdp"
                app:layout_constraintStart_toStartOf="parent"
                app:layout_constraintEnd_toEndOf="parent"
                app:layout_constraintTop_toTopOf="parent"
+               android:clickable="false"
+               android:focusable="false"
                app:title="@string/app_name"
                app:titleTextColor="@color/cyan"
-               android:id="@+id/toolbarMainActivity"
+               android:id="@+id/cvToolbarMain"
                android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               app:titleMarginStart="@dimen/toolbar_title_margin_start"
-               app:titleTextAppearance="@style/ActionBarTextStyle"
-               android:layout_marginHorizontal="@dimen/_10sdp"
-               app:navigationIcon="@drawable/ic_menu"
-               />
+               android:layout_height="@dimen/_30sdp"
+               android:layout_marginHorizontal="@dimen/_11sdp"
+               android:layout_marginVertical="@dimen/_5sdp">
 
+               <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                         android:id="@+id/btnMainToggle"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:src="@drawable/ic_menu"
+                         android:focusable="true"
+                         android:clickable="true"
+                         android:background="?attr/selectableItemBackground"
+                         app:layout_constraintBottom_toBottomOf="parent"
+                         app:layout_constraintEnd_toEndOf="parent"
+                         app:layout_constraintHorizontal_bias="0.03"
+                         app:layout_constraintStart_toStartOf="parent"
+                         app:layout_constraintTop_toTopOf="parent"
+                         tools:ignore="ContentDescription" />
+
+                    <TextView
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:fontFamily="@font/dosis"
+                         android:id="@+id/menuTitle"
+                         android:text="@string/app_name"
+                         android:textSize="@dimen/_13ssp"
+                         app:layout_constraintHorizontal_bias="0.1"
+                         android:textColor="@color/cyan_"
+                         android:letterSpacing="0.1"
+                         app:layout_constraintBottom_toBottomOf="parent"
+                         app:layout_constraintEnd_toEndOf="parent"
+                         app:layout_constraintStart_toEndOf="@id/btnMainToggle"
+                         app:layout_constraintTop_toTopOf="parent" />
+
+               </androidx.constraintlayout.widget.ConstraintLayout>
+
+          </com.google.android.material.card.MaterialCardView>
 
           <fragment
                android:id="@+id/navHost"
-               app:layout_constraintBottom_toBottomOf="parent"
-               app:layout_constraintEnd_toEndOf="parent"
-               app:layout_constraintStart_toStartOf="parent"
-               app:layout_constraintTop_toBottomOf="@+id/toolbarMainActivity"
-               app:navGraph="@navigation/nav_graph"
-               app:defaultNavHost="true"
                android:name="androidx.navigation.fragment.NavHostFragment"
                android:layout_width="0dp"
                android:layout_height="0dp"
+               android:layout_marginTop="@dimen/_2sdp"
+               app:defaultNavHost="true"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toTopOf="parent"
+               app:navGraph="@navigation/nav_graph"
                tools:ignore="FragmentTagUsage" />
 
      </androidx.constraintlayout.widget.ConstraintLayout>
@@ -61,6 +100,7 @@
           android:layout_height="match_parent"
           android:layout_gravity="start"
           app:dividerInsetEnd="@dimen/_20sdp"
+          tools:openDrawer="start"
           android:fitsSystemWindows="false"
           android:background="@drawable/gradient_nav_header"
           app:headerLayout="@layout/nav_header"

@@ -20,7 +20,7 @@
      <dimen name="toolbar_height">@dimen/_28sdp</dimen>
 
      <dimen name="toolbar_icon_height">@dimen/_22sdp</dimen>
-     <dimen name="toolbar_icon_width">@dimen/_38sdp</dimen>
+     <dimen name="toolbar_icon_width">@dimen/_34sdp</dimen>
      <dimen name="toolbar_text_size">@dimen/_12ssp</dimen>
      <dimen name="toolbar_title_margin_start">@dimen/_1sdp</dimen>
      <dimen name="thin_cv_stroke">@dimen/_2sdp</dimen>
@@ -43,6 +43,9 @@
      <dimen name="text_10ssp">@dimen/_12ssp</dimen>
      <dimen name="text_16ssp">@dimen/_16ssp</dimen>
      <dimen name="text_15ssp">@dimen/_15ssp</dimen>
+     <dimen name="fragments_top_padding_actionbar">@dimen/_28sdp</dimen>
+     <dimen name="fragments_top_padding_actionbar_bigger">@dimen/_36sdp</dimen>
+     <dimen name="small_shimmer_padding_top">@dimen/_8sdp</dimen>
 
      <item name="code_picker_bias" type="dimen" format="float">0.35</item>
 

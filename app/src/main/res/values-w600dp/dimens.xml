@@ -5,7 +5,7 @@
      <dimen name="settings_text_size">@dimen/_12ssp</dimen>
 
      <dimen name="toolbar_icon_height">@dimen/_18sdp</dimen>
-     <dimen name="toolbar_icon_width">@dimen/_30sdp</dimen>
+     <dimen name="toolbar_icon_width">@dimen/_27sdp</dimen>
      <dimen name="toolbar_text_size">@dimen/_10ssp</dimen>
      <dimen name="toolbar_title_margin_start">@dimen/_20sdp</dimen>
 
