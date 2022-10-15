@@ -1,14 +1,17 @@
 package com.ktxdevelopment.mobiware.ui.activities
 
-import android.annotation.SuppressLint
 import android.app.UiModeManager
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.view.GravityCompat.START
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+import androidx.core.view.GravityCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -54,12 +57,22 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
           return MainActivityClient.setUpMainNavigationClickListeners(item, this@MainActivity)
      }
 
+     val TAG = "L_TAG"
+
      private fun loadUserAndMobileData() {
           tryEr {
                if (intent.hasExtra(Constants.PHONE_EXTRA)) {
                     mobile.postValue(intent.getParcelableExtra(Constants.PHONE_EXTRA)!!)
-                    user.postValue(BaseClient.convertFireToLocalUser(intent.getParcelableExtra(Constants.USER_EXTRA)!!))
-               } else getUserAndMobile()
+                    user.postValue(
+                         BaseClient.convertFireToLocalUser(
+                              intent.getParcelableExtra(
+                                   Constants.USER_EXTRA
+                              )!!
+                         )
+                    )
+               } else {
+                    getUserAndMobile()
+               }
 
                user.observe(this) { if (it != null) setupNavUI(it) }
           }
@@ -87,8 +100,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
 
      fun closeDrawer() {
-          if (mainBinding.drawerLayout.isDrawerOpen(START)) mainBinding.drawerLayout.closeDrawer(
-               START
+          if (mainBinding.drawerLayout.isDrawerOpen(GravityCompat.START)) mainBinding.drawerLayout.closeDrawer(
+               GravityCompat.START
           )
      }
 
@@ -106,15 +119,20 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
      fun getLocalUser() = user
      fun getLocalViewModel() = viewModel
 
-     @SuppressLint("NewApi")
      override fun signOut() {
           hideProgressDialog()
-          viewModel.clearDatabaseWithWork(this)           
-          (getSystemService(Context.UI_MODE_SERVICE) as UiModeManager).setApplicationNightMode(UiModeManager.MODE_NIGHT_AUTO)
+          viewModel.clearDatabaseWithWork(this)
+          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+               (getSystemService(Context.UI_MODE_SERVICE) as UiModeManager).setApplicationNightMode(
+                    UiModeManager.MODE_NIGHT_AUTO
+               )
+          } else {
+               AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_FOLLOW_SYSTEM)  //todo
+          }
           Firebase.auth.signOut()
-          
           Intent(this, IntroductionActivity::class.java)
                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_ACTIVITY_CLEAR_TOP)
+               .setAction("")
                .also { startActivity(it); finish() }
      }
 
@@ -125,23 +143,23 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
           mainBinding.btnMainToggle.setOnClickListener { toggleDrawer() }
 
           mainBinding.navView.setNavigationItemSelectedListener(this)
-          mainBinding.navView.getHeaderView(0).findViewById<ImageView>(R.id.ivNavProfileImage).setOnClickListener {
+          mainBinding.navView.getHeaderView(0).findViewById<ImageView>(R.id.ivNavProfileImage)
+               .setOnClickListener {
                     closeDrawer()
                     launchProfileIntent(this)
-          }
-          mainBinding.navView.getHeaderView(0).findViewById<TextView>(R.id.tvUserName).setOnClickListener {
+               }
+          mainBinding.navView.getHeaderView(0).findViewById<TextView>(R.id.tvUserName)
+               .setOnClickListener {
                     closeDrawer()
                     launchProfileIntent(this)
-          }
+               }
           brands = Gson().fromJson(resources.openRawResource(R.raw.brands).bufferedReader().use { it.readText() }, BrandsResponse::class.java).data
           viewModel = ViewModelProvider(this)[LocalViewModel::class.java]
      }
 
      private fun toggleDrawer() {
-          mainBinding.drawerLayout.apply {
-               if (this.isDrawerOpen(START)) this.closeDrawer(START)
-               else this.openDrawer(START)
-          }
+          if (mainBinding.drawerLayout.isDrawerOpen(GravityCompat.START)) mainBinding.drawerLayout.closeDrawer(GravityCompat.START)
+          else mainBinding.drawerLayout.openDrawer(GravityCompat.START)
      }
 
      fun setActionBarTitle(title: String) { mainBinding.menuTitle.text = title }
