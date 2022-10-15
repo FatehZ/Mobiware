@@ -10,6 +10,7 @@
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/asus.xml" value="0.154" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/blu.xml" value="0.154" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/cat.xml" value="0.154" />
+        <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/energizer.xml" value="0.154" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/gradient_nav_header.xml" value="0.2" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/ic_account.xml" value="0.1455" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/drawable/ic_account_big.xml" value="0.185" />
@@ -40,7 +41,7 @@
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout-night/item_brand_list.xml" value="0.22573749465583584" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/activity_additional.xml" value="0.16" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/activity_introduction.xml" value="0.12048192771084337" />
-        <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/dialog_dark_mode.xml" value="0.1" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/dialog_progress.xml" value="0.1" />
         <entry key="..\:/Projects/KotlinAndroid/Mobiware/app/src/main/res/layout/dialog_settings.xml" value="0.1" />

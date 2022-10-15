@@ -32,6 +32,7 @@ object PermissionClient {
         val newUrl: URL
         val bitmap: Bitmap
         var base64 = ""
+
         try {
             val policy = ThreadPolicy.Builder().permitAll().build()
             StrictMode.setThreadPolicy(policy)

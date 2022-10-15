@@ -35,7 +35,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <de.hdodenhof.circleimageview.CircleImageView
+                    <ImageView
                          android:id="@+id/btnMainToggle"
                          android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
@@ -64,7 +64,6 @@
                          app:layout_constraintEnd_toEndOf="parent"
                          app:layout_constraintStart_toEndOf="@id/btnMainToggle"
                          app:layout_constraintTop_toTopOf="parent" />
-
                </androidx.constraintlayout.widget.ConstraintLayout>
 
           </com.google.android.material.card.MaterialCardView>
@@ -91,7 +90,6 @@
           android:layout_width="@dimen/_240sdp"
           app:itemTextAppearance="@style/MainNavView"
           app:itemIconTint="@color/icon_foreground_color"
-          android:visibility="gone"
           app:itemBackground="@drawable/gradient_nav_header"
           app:itemTextColor="@color/text_main_color"
           app:itemMaxLines="1"

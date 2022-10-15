@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView
      xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:tools="http://schemas.android.com/tools"
      android:layout_width="match_parent"
      xmlns:app="http://schemas.android.com/apk/res-auto"
      android:layout_margin="@dimen/_5sdp"
@@ -14,6 +15,7 @@
           android:layout_gravity="center"
           android:id="@+id/ivBrandImage"
           android:layout_width="match_parent"
-          android:layout_height="wrap_content" />
+          android:layout_height="wrap_content"
+          tools:ignore="ContentDescription" />
 
 </com.google.android.material.card.MaterialCardView>
