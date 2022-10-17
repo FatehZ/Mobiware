@@ -48,11 +48,8 @@ class RetroViewModel @Inject constructor(private var restRepo: RetrofitRepositor
           }
      }
 
-
-     var getMyDeviceResponse: MutableLiveData<Resource<GetResponse>> = MutableLiveData()
-     fun getMyDevices(url: String) {
-          viewModelScope.launch {
-               getMyDeviceResponse.postValue(restRepo.getMyDevices(url))
-          }
+     var getMyDeviceResponse: MutableLiveData<ArrayList<Resource<GetResponse>>> = MutableLiveData(ArrayList())
+     fun getMyDevices(urlList: ArrayList<String>) {
+          for (i in urlList) { viewModelScope.launch { getMyDeviceResponse.postValue(getMyDeviceResponse.value!!.apply { add(restRepo.getMyDevices(i)) }) } }
      }
 }

@@ -18,7 +18,6 @@ import com.ktxdevelopment.mobiware.models.rest.search.Phone
 import com.ktxdevelopment.mobiware.util.Constants
 
 object BaseClient {
-     const val TAG = "BASE_TAG"
 
      fun playStoreIntent(context: Context) {
           try {
@@ -55,8 +54,7 @@ object BaseClient {
 
      @Suppress("DEPRECATION")
      fun hasInternetConnection(context: Context): Boolean {
-          val connectivityManager =
-               context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+          val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                val activeNetwork = connectivityManager.activeNetwork ?: return false
@@ -161,15 +159,10 @@ object BaseClient {
 
 
      fun checkIfUriExistsInList(rlv: ContentResolver, i: Uri, list: ArrayList<Uri>): Boolean {
-          if (list.size == 0) {
+          if (list.size == 0)
                return false
-          } else {
-               for (c in list) {
-                    if (getImageFileName(rlv, i) == getImageFileName(rlv, c)) {
-                         return true
-                    }
-               }
-          }
+          else
+               for (c in list) { if (getImageFileName(rlv, i) == getImageFileName(rlv, c)) { return true } }
           return false
      }
 }

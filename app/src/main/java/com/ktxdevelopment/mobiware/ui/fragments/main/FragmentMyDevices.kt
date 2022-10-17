@@ -20,6 +20,7 @@ import com.ktxdevelopment.mobiware.models.room.RoomPhoneModel
 import com.ktxdevelopment.mobiware.ui.activities.MainActivity
 import com.ktxdevelopment.mobiware.ui.recview.LatestMobileAdapter
 import com.ktxdevelopment.mobiware.util.Constants
+import com.ktxdevelopment.mobiware.util.tryEr
 import com.ktxdevelopment.mobiware.viewmodel.RetroViewModel
 
 class FragmentMyDevices : BaseFragment(), LatestMobileAdapter.OnMobileClickListener {
@@ -48,17 +49,22 @@ class FragmentMyDevices : BaseFragment(), LatestMobileAdapter.OnMobileClickListe
           myMobiles = MutableLiveData(arrayListOf())
           binding.rvLatest.apply {
                layoutManager = GridLayoutManager(requireContext(), 2)
-               adapter = topAdapter }
+               adapter = topAdapter
+          }
      }
 
-     private fun retrieveMyDevices(){
-          (activity as MainActivity).getMobile().observe(viewLifecycleOwner) { if (it != null) launchMyMobiles(it) }
-          myMobiles.observe(viewLifecycleOwner) { if (it.isNotEmpty()) topAdapter.submitList(it) }
+     private fun retrieveMyDevices() {
+          (activity as MainActivity).getMobile()
+               .observe(viewLifecycleOwner) { if (it != null) launchMyMobiles(it) }
+          myMobiles.observe(viewLifecycleOwner) {
+               if (it.isNotEmpty()) topAdapter.submitList(it)
+          }
      }
+
 
 
      override fun onPosClick(pos: Int) {
-          if (myMobiles.value!![pos].slug != PreferenceClient.getCurrentPhoneSlug(context!!))
+          if (myMobiles.value!![pos].slug != PreferenceClient.getCurrentPhoneSlug(requireContext()))
                findNavController().navigate(
                     R.id.action_fragmentMyDevices_to_fragmentSecondaryHardware,
                     Bundle().apply { putString(Constants.PHONE_EXTRA, myMobiles.value!![pos].detail) }
@@ -90,20 +96,34 @@ class FragmentMyDevices : BaseFragment(), LatestMobileAdapter.OnMobileClickListe
 
      private fun postNewMobiles(urlList: ArrayList<String>) {
 
-          for (url in urlList) {
-               val viewModel = ViewModelProvider(requireActivity())[RetroViewModel::class.java]
-               viewModel.getMyDevices(url)
-               viewModel.getMyDeviceResponse.observe(viewLifecycleOwner) {
-                    if (it is Resource.Success) {
-                         if (it.data?.data != null) {
-                              convertDataToPhone(it.data.data, url).apply {
-                                   myMobiles.value!!.add(this)
-                                   if (urlList.indexOf(url) == (urlList.size - 1)) mainLayoutVisible()
+          val viewModel = ViewModelProvider(requireActivity())[RetroViewModel::class.java]
+          viewModel.getMyDevices(urlList)
+
+          viewModel.getMyDeviceResponse.observe(viewLifecycleOwner) {
+               tryEr {
+                    if (it.size > 0) {
+                         for (i: Int in 0 until it.size) {
+                              if (it[i] is Resource.Success && it[i].data != null) {
+                                   if (!takePhoneNames(myMobiles.value!!).contains(urlList[i])) {
+                                        convertDataToPhone(it[i].data!!.data, urlList[i]).apply { myMobiles.value!!.add(this)
+                                             if (i == (urlList.size - 1)) mainLayoutVisible() }
+                                   }
                               }
                          }
                     }
                }
           }
+     }
+
+     override fun onDestroyView() {
+          super.onDestroyView()
+          tryEr { myMobiles.value!!.clear() }
+     }
+
+     private fun takePhoneNames(list: ArrayList<Phone>): ArrayList<String> {
+          val ls = arrayListOf<String>()
+          for (i in list) ls.add(i.slug)
+          return ls
      }
 
      private fun mainLayoutVisible() {

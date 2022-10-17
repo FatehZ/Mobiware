@@ -1,5 +1,6 @@
 package com.ktxdevelopment.mobiware.ui.activities
 
+import android.annotation.SuppressLint
 import android.app.UiModeManager
 import android.content.Context
 import android.content.Intent
@@ -79,6 +80,8 @@ class IntroductionActivity : BaseActivity() {
           }
      }
 
+
+     @SuppressLint("NewApi")
      override fun signOut() {
           hideProgressDialog()
           localViewModel.clearDatabaseWithWork(this)
