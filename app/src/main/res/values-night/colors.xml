@@ -34,8 +34,8 @@
      <color name="blue_200">#00d</color>
      <color name="text_main_color">#ccf</color>
 
-     <color name="gradient_main_nav">#006060</color>
-     <color name="gradient_end_nav">#044</color>
+     <color name="gradient_main_nav">#004</color>
+     <color name="gradient_end_nav">#008</color>
 
      <color name="hardware_spec_text_color">#fff</color>
      <color name="hardware_3_cv_tv_color">#FFF</color>

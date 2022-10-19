@@ -4,7 +4,6 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -64,9 +63,7 @@ class FragmentHardware : BaseFragment() {
           loadShimmerVisible()
           setupRecyclerViews()
           binding.cvMainLogo.setOnClickListener {
-               val currentBrandModel = try {
-                    (activity as MainActivity).brands.filter { it.brand_name.lowercase() == mobile.brand.lowercase() }[0]
-               } catch (e: Exception) { null }
+               val currentBrandModel = try { (activity as MainActivity).brands.filter { it.brand_name.lowercase() == mobile.brand.lowercase() }[0] } catch (e: Exception) { null }
                if (currentBrandModel != null) {
                     val bundle = Bundle().apply { putParcelable(Constants.BRAND_EXTRA, currentBrandModel) }
                     findNavController().navigate(R.id.action_fragmentHardware_to_fragmentBrandPhones, bundle)
@@ -75,8 +72,6 @@ class FragmentHardware : BaseFragment() {
 
 
      }
-
-     val TAG = "_TAG"
      private fun retrieveMobileHardwareData() {
           if (arguments?.getString(Constants.PHONE_EXTRA) != null) {
                viewModel.getMobile(requireArguments().getString(Constants.PHONE_EXTRA)!!)

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
      xmlns:app="http://schemas.android.com/apk/res-auto"
+     xmlns:tools="http://schemas.android.com/tools"
      android:layout_width="wrap_content"
      android:layout_height="wrap_content"
      app:strokeColor="@color/cyan"
@@ -11,15 +12,15 @@
 
      <androidx.constraintlayout.widget.ConstraintLayout
           android:orientation="vertical"
-          android:layout_width="match_parent"
+          android:layout_width="wrap_content"
           android:gravity="center_horizontal"
           android:layout_height="wrap_content">
 
           <TextView
-               android:layout_width="match_parent"
+               android:layout_width="wrap_content"
+               app:layout_constraintHorizontal_bias="0.15"
                android:layout_height="wrap_content"
                android:layout_marginTop="@dimen/about_dialog_cv_text_distance"
-               android:paddingHorizontal="@dimen/about_dialog_cv_text_distance"
                android:text="@string/application_version"
                android:textSize="@dimen/settings_text_size"
                android:textColor="@color/dialog_text_color"
@@ -32,26 +33,24 @@
                android:paddingTop="@dimen/text_about_tertiary_size"
                android:id="@+id/tvVersionAbout"
                android:layout_width="wrap_content"
+               android:textStyle="bold"
                android:layout_height="wrap_content"
                android:paddingHorizontal="@dimen/_20sdp"
-               android:textStyle="bold"
                android:textColor="@color/teal_700"
                android:textSize="@dimen/text_about_secondary_size"
                app:layout_constraintStart_toStartOf="@+id/tv1AboutUL"
                app:layout_constraintTop_toBottomOf="@+id/tv1AboutUL" />
 
           <TextView
-               android:layout_width="match_parent"
+               android:id="@+id/tv2AboutUL"
+               android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_marginTop="@dimen/about_dialog_cv_text_distance"
-               android:paddingHorizontal="@dimen/about_dialog_cv_text_distance"
                android:text="@string/api_database"
                android:textColor="@color/dialog_text_color"
                android:textSize="@dimen/settings_text_size"
-               app:layout_constraintTop_toBottomOf="@id/tvVersionAbout"
-               app:layout_constraintStart_toStartOf="parent"
-               app:layout_constraintEnd_toEndOf="parent"
-               android:id="@+id/tv2AboutUL"/>
+               app:layout_constraintStart_toStartOf="@+id/tv1AboutUL"
+               app:layout_constraintTop_toBottomOf="@id/tvVersionAbout" />
 
           <TextView
                android:id="@+id/tvAPIAbout"
@@ -67,46 +66,97 @@
 
           <androidx.cardview.widget.CardView
                android:id="@+id/cvPrivacyPolicyAbout"
-               android:layout_width="match_parent"
-               android:layout_marginTop="@dimen/about_dialog_cv_text_distance"
+               android:layout_width="0dp"
                android:layout_height="wrap_content"
+               android:layout_marginTop="@dimen/about_dialog_cv_text_distance"
                android:background="?attr/selectableItemBackground"
                app:cardBackgroundColor="@color/white"
                app:cardElevation="0dp"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toStartOf="@+id/tv2AboutUL"
                app:layout_constraintTop_toBottomOf="@+id/tvAPIAbout">
 
                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:paddingVertical="@dimen/_3sdp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="@dimen/_3sdp">
 
                     <com.google.android.material.textview.MaterialTextView
                          android:id="@+id/tvPrivacyPolicyAbout"
                          android:layout_width="0dp"
                          android:layout_height="match_parent"
                          android:focusable="true"
-                         android:textColor="@color/dialog_text_color"
-                         android:paddingHorizontal="@dimen/about_dialog_cv_text_distance"
+                         android:paddingEnd="@dimen/about_dialog_cv_text_distance"
                          android:text="@string/privacy_policy"
+                         android:textColor="@color/dialog_text_color"
                          android:textSize="@dimen/settings_text_size"
-                         app:layout_constraintStart_toStartOf="parent"/>
+                         app:layout_constraintStart_toStartOf="parent"
+                         tools:ignore="RtlSymmetry" />
 
                     <ImageView
-                         android:contentDescription="@string/common_open_on_phone"
                          android:id="@+id/ivAboutUseless"
                          android:layout_width="wrap_content"
-                         android:paddingTop="@dimen/_3sdp"
                          android:layout_height="0dp"
-                         app:tint="@color/cyan"
+                         android:contentDescription="@string/common_open_on_phone"
+                         android:paddingTop="@dimen/_3sdp"
                          android:src="@drawable/ic_link_open"
                          app:layout_constraintBottom_toBottomOf="@id/tvPrivacyPolicyAbout"
                          app:layout_constraintStart_toEndOf="@+id/tvPrivacyPolicyAbout"
-                         app:layout_constraintTop_toTopOf="@id/tvPrivacyPolicyAbout" />
+                         app:layout_constraintTop_toTopOf="@id/tvPrivacyPolicyAbout"
+                         app:tint="@color/cyan" />
 
                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
           </androidx.cardview.widget.CardView>
+
+
+          <androidx.cardview.widget.CardView
+               android:id="@+id/cvTermsAndConditions"
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="@dimen/about_dialog_cv_text_distance"
+               android:background="?attr/selectableItemBackground"
+               app:cardBackgroundColor="@color/white"
+               app:cardElevation="0dp"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toStartOf="@+id/cvPrivacyPolicyAbout"
+               app:layout_constraintTop_toBottomOf="@+id/cvPrivacyPolicyAbout">
+
+               <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="@dimen/_3sdp">
+
+                    <com.google.android.material.textview.MaterialTextView
+                         android:id="@+id/tvTermsAndConditions"
+                         android:layout_width="0dp"
+                         android:layout_height="match_parent"
+                         android:focusable="true"
+                         android:paddingEnd="@dimen/about_dialog_cv_text_distance"
+                         android:text="@string/terms_and_conditions"
+                         android:textColor="@color/dialog_text_color"
+                         android:textSize="@dimen/settings_text_size"
+                         app:layout_constraintStart_toStartOf="parent"
+                         tools:ignore="RtlSymmetry" />
+
+                    <ImageView
+                         android:id="@+id/ivTermsUseless"
+                         android:layout_width="wrap_content"
+                         android:layout_height="0dp"
+                         android:contentDescription="@string/common_open_on_phone"
+                         android:paddingTop="@dimen/_3sdp"
+                         android:src="@drawable/ic_link_open"
+                         app:layout_constraintBottom_toBottomOf="@id/tvTermsAndConditions"
+                         app:layout_constraintStart_toEndOf="@+id/tvTermsAndConditions"
+                         app:layout_constraintTop_toTopOf="@id/tvTermsAndConditions"
+                         app:tint="@color/cyan" />
+
+               </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+          </androidx.cardview.widget.CardView>
+
 
 
           <Button
@@ -119,11 +169,10 @@
                android:paddingHorizontal="@dimen/_15sdp"
                android:text="@string/close"
                android:textSize="@dimen/button_text_size"
-               android:textColor="@color/blue"
                app:layout_constraintBottom_toBottomOf="parent"
                app:layout_constraintEnd_toEndOf="parent"
                app:layout_constraintStart_toStartOf="parent"
-               app:layout_constraintTop_toBottomOf="@id/cvPrivacyPolicyAbout" />
+               app:layout_constraintTop_toBottomOf="@id/cvTermsAndConditions" />
 
 
      </androidx.constraintlayout.widget.ConstraintLayout>

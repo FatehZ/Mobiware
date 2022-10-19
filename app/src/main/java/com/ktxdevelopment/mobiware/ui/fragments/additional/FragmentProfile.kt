@@ -2,6 +2,7 @@ package com.ktxdevelopment.mobiware.ui.fragments.additional
 
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -12,6 +13,7 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
@@ -52,23 +54,23 @@ class FragmentProfile : BaseFragment() {
           setActionBarTitle(getString(R.string.profile))
           tryEr {
                roomViewModel = ViewModelProvider(this)[LocalViewModel::class.java]
-               roomViewModel.getLocalUser(context!!)
+               roomViewModel.getLocalUser(requireContext())
                roomViewModel.localUser.observe(viewLifecycleOwner) {
                     userDetails = it
                     setUserDataInUI(it)
                }
           }
-          tryEr { if (hasInternetConnection(context!!)) FirebaseClient.loadUserData(this) }
+          tryEr { if (hasInternetConnection(requireContext())) FirebaseClient.loadUserData(this) }
      }
 
      private fun initializeUI() {
           binding.civProfile.setOnClickListener {
                tryEr {
-                    if (PermissionClient.hasGalleryPermissions(context!!))
+                    if (PermissionClient.hasGalleryPermissions(requireContext()))
                          showImageChooser()
                     else {
                          ActivityCompat.requestPermissions(
-                              activity!!,
+                              requireActivity(),
                               arrayOf(READ_EXTERNAL_STORAGE),
                               READ_STORAGE_CODE
                          )
@@ -115,18 +117,26 @@ class FragmentProfile : BaseFragment() {
           }
 
      private fun setUserDataInUI(user: LocalUser) {
-          Glide
-               .with(this)
-               .load(PermissionClient.getBitmapFromBase64(user.image64))
-               .placeholder(R.drawable.ic_account_big)
-               .centerCrop()
-               .into(binding.civProfile)
+          tryEr {
+               //  convert image to bitmap asynchronously, and observe, because Glide cannot work in another thread
+               val image = MutableLiveData<Bitmap>()
+               roomViewModel.runSynchronous { image.postValue(PermissionClient.getBitmapFromBase64(user.image64)) }
+               image.observe(viewLifecycleOwner) {
+                    if (it != null) Glide
+                         .with(this)
+                         .load(image)
+                         .placeholder(R.drawable.ic_account_big)
+                         .centerCrop()
+                         .into(binding.civProfile)
+               }
 
-          user.username.let { if (it.isNotEmpty()) binding.etUsernameProfile.setText(it) }
-          user.email.let { if (it.isNotEmpty()) binding.etEmailProfile.setText(it) }
 
-          if (user.mobileNumberBase.isNotEmpty()) binding.etMobileNumberProfile.setText(user.mobileNumberBase)
-          if (user.mobileCountryCode.isNotEmpty()) binding.codePicker.setCountryForPhoneCode(user.mobileCountryCode.toInt())
+               user.username.let { if (it.isNotEmpty()) binding.etUsernameProfile.setText(it) }
+               user.email.let { if (it.isNotEmpty()) binding.etEmailProfile.setText(it) }
+
+               if (user.mobileNumberBase.isNotEmpty()) binding.etMobileNumberProfile.setText(user.mobileNumberBase)
+               if (user.mobileCountryCode.isNotEmpty()) binding.codePicker.setCountryForPhoneCode(user.mobileCountryCode.toInt())
+          }
      }
 
      private fun uploadUserImageThenFetch(userUpdated: HashMap<String, Any>) {
@@ -137,17 +147,18 @@ class FragmentProfile : BaseFragment() {
                     val sRef: StorageReference =
                          FirebaseStorage.getInstance().getReference("profile_images").child(
                               "USER_IMAGE_" + System.currentTimeMillis() + "." + PermissionClient.getFileExtension(
-                                   activity!!,
+                                   requireActivity(),
                                    mSelectedPhotoUri
                               )
                          )
+
                     sRef.putFile(mSelectedPhotoUri!!).addOnSuccessListener { taskSnapshot ->
                          taskSnapshot.metadata?.reference?.downloadUrl?.addOnSuccessListener { uri ->
                               mProfileImageOnlineDBUri = uri.toString()
                               userDetails.image64 = PermissionClient.getBaseImageFromString(mProfileImageOnlineDBUri)
                               userUpdated[Constants.IMAGE_ONLINE] = mProfileImageOnlineDBUri
                               fetchUpdatedUserToDB(userUpdated)
-                              roomViewModel.deleteUnusedUserProfileImageFromFirestore(context!!, previousImageUrlToDelete)
+                              roomViewModel.deleteUnusedUserProfileImageFromFirestore(requireContext(), previousImageUrlToDelete)
                          }
                     }.addOnFailureListener {
                          showErrorSnackbar(getString(R.string.error_occurred))
@@ -174,18 +185,12 @@ class FragmentProfile : BaseFragment() {
           if (TextInputClient.validateFilledInput(binding.etMobileNumberProfile.text.toString())) {
                if (binding.etMobileNumberProfile.text.toString() != userDetails.mobileNumberBase ||
                     binding.codePicker.selectedCountryCode != userDetails.mobileCountryCode
-               ) {
-                    anyChangesMade = true
-               }
+               ) { anyChangesMade = true }
 
                if (TextInputClient.validateMobileNumber(binding.etMobileNumberProfile)) {
-                    userUpdated[Constants.MOBILE_NUMBER_BASE] =
-                         binding.etMobileNumberProfile.text.toString()
-                    userUpdated[Constants.MOBILE_NUMBER_CODE] =
-                         binding.codePicker.selectedCountryCode
-               } else {
-                    errorPresent = true
-               }
+                    userUpdated[Constants.MOBILE_NUMBER_BASE] = binding.etMobileNumberProfile.text.toString()
+                    userUpdated[Constants.MOBILE_NUMBER_CODE] = binding.codePicker.selectedCountryCode
+               } else { errorPresent = true }
           }
 
           if (mSelectedPhotoUri != null) anyChangesMade = true
@@ -193,7 +198,7 @@ class FragmentProfile : BaseFragment() {
           if (!errorPresent) {
                if (anyChangesMade) {
                     tryEr {
-                         if (hasInternetConnection(context!!)) {
+                         if (hasInternetConnection(requireContext())) {
 
                               if (mSelectedPhotoUri != null) uploadUserImageThenFetch(userUpdated)
                               else fetchUpdatedUserToDB(userUpdated)
@@ -210,15 +215,18 @@ class FragmentProfile : BaseFragment() {
      }
 
      fun onProfileLoadOnlineSuccess(user: LocalUser) {
-          userDetails = convertFireToLocalUser(user)
-          setUserDataInUI(userDetails)
-          mProfileImageOnlineDBUri = ""
-          mSelectedPhotoUri = null
+
           tryEr {
-               roomViewModel.writeUserToPreferences(
-                    context!!,
-                    convertLocalToFireUser(user)
-               )
+               roomViewModel.runSynchronous {
+                    userDetails = convertFireToLocalUser(user)
+                    setUserDataInUI(userDetails)
+                    mProfileImageOnlineDBUri = ""
+                    mSelectedPhotoUri = null
+                    roomViewModel.writeUserToPreferences(
+                         requireContext(),
+                         convertLocalToFireUser(user)
+                    )
+               }
           }
      }
 
@@ -227,10 +235,11 @@ class FragmentProfile : BaseFragment() {
           mSelectedPhotoUri = null
           hideProgressDialog()
           tryEr {
-               roomViewModel.writeUserToPreferences(
-                    context!!,
-                    convertLocalToFireUser(userDetails),
-               )
+               roomViewModel.runSynchronous {
+                    convertLocalToFireUser(userDetails).also {
+                         roomViewModel.writeUserToPreferences(requireContext(), it)
+                    }
+               }
           }
      }
 

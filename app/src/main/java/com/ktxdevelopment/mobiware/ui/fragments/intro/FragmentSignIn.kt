@@ -107,16 +107,11 @@ class FragmentSignIn : BaseFragment(), SelectionAdapter.OnMobileClickListener {
           }
      }
 
-
      private fun launchSignIn() {
           showProgressDialog()
           introActivity.retroViewModel.getMobile(selectedPhoneUrl)
 
-          FirebaseClient.signInUserAuth(this,
-               binding.etEmailSignIn.text!!,
-               binding.etPasswordSignIn.text!!,
-               selectedPhoneUrl
-          )
+          FirebaseClient.signInUserAuth(this, binding.etEmailSignIn.text!!, binding.etPasswordSignIn.text!!, selectedPhoneUrl)
      }
 
 

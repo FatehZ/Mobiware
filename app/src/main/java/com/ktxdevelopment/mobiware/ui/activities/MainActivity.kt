@@ -1,5 +1,6 @@
 package com.ktxdevelopment.mobiware.ui.activities
 
+import android.annotation.SuppressLint
 import android.app.UiModeManager
 import android.content.Context
 import android.content.Intent
@@ -57,22 +58,12 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
           return MainActivityClient.setUpMainNavigationClickListeners(item, this@MainActivity)
      }
 
-     val TAG = "L_TAG"
-
      private fun loadUserAndMobileData() {
           tryEr {
                if (intent.hasExtra(Constants.PHONE_EXTRA)) {
                     mobile.postValue(intent.getParcelableExtra(Constants.PHONE_EXTRA)!!)
-                    user.postValue(
-                         BaseClient.convertFireToLocalUser(
-                              intent.getParcelableExtra(
-                                   Constants.USER_EXTRA
-                              )!!
-                         )
-                    )
-               } else {
-                    getUserAndMobile()
-               }
+                    user.postValue(BaseClient.convertFireToLocalUser(intent.getParcelableExtra(Constants.USER_EXTRA)!!))
+               } else getUserAndMobile()
 
                user.observe(this) { if (it != null) setupNavUI(it) }
           }
@@ -107,28 +98,24 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
      fun getMobile() = mobile
 
-     override fun onBackPressed() =
-          MainActivityClient.onCustomBackPressed(this, mainBinding, findNavController(R.id.navHost))
+     override fun onBackPressed() = MainActivityClient.onCustomBackPressed(this, mainBinding, findNavController(R.id.navHost))
 
 
      fun onUserDataObtainedFromFirestore(mUser: LocalUser) {
-          user.postValue(BaseClient.convertFireToLocalUser(mUser))
+          viewModel.runSynchronous {
+               user.postValue(BaseClient.convertFireToLocalUser(mUser))
+          }
      }
 
 
      fun getLocalUser() = user
      fun getLocalViewModel() = viewModel
 
+     @SuppressLint("NewApi")
      override fun signOut() {
           hideProgressDialog()
           viewModel.clearDatabaseWithWork(this)
-          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-               (getSystemService(Context.UI_MODE_SERVICE) as UiModeManager).setApplicationNightMode(
-                    UiModeManager.MODE_NIGHT_AUTO
-               )
-          } else {
-               AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_FOLLOW_SYSTEM)  //todo
-          }
+          (getSystemService(Context.UI_MODE_SERVICE) as UiModeManager).setApplicationNightMode(UiModeManager.MODE_NIGHT_AUTO)
           Firebase.auth.signOut()
           Intent(this, IntroductionActivity::class.java)
                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -141,6 +128,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
           mainBinding = ActivityMainBinding.inflate(layoutInflater).also { setContentView(it.root) }
           findNavController(R.id.navHost).navigate(R.id.actionToHardware)
           mainBinding.btnMainToggle.setOnClickListener { toggleDrawer() }
+          viewModel = ViewModelProvider(this)[LocalViewModel::class.java]
 
           mainBinding.navView.setNavigationItemSelectedListener(this)
           mainBinding.navView.getHeaderView(0).findViewById<ImageView>(R.id.ivNavProfileImage)
@@ -153,8 +141,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                     closeDrawer()
                     launchProfileIntent(this)
                }
-          brands = Gson().fromJson(resources.openRawResource(R.raw.brands).bufferedReader().use { it.readText() }, BrandsResponse::class.java).data
-          viewModel = ViewModelProvider(this)[LocalViewModel::class.java]
+          viewModel.runSynchronous {
+               brands = Gson().fromJson(resources.openRawResource(R.raw.brands).bufferedReader().use { it.readText() }, BrandsResponse::class.java).data
+          }
      }
 
      private fun toggleDrawer() {

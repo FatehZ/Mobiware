@@ -42,6 +42,11 @@ class LocalViewModel @Inject constructor(private var localRepo: LocalRepository,
      }
 
 
+     fun runSynchronous(function: () -> Unit) {
+          viewModelScope.launch(Dispatchers.Default) {
+               function()
+          }
+     }
 
 
 

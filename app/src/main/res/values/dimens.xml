@@ -46,6 +46,7 @@
      <dimen name="fragments_top_padding_actionbar">@dimen/_28sdp</dimen>
      <dimen name="fragments_top_padding_actionbar_bigger">@dimen/_36sdp</dimen>
      <dimen name="small_shimmer_padding_top">@dimen/_8sdp</dimen>
+     <dimen name="app_bar_size">@dimen/_30sdp</dimen>
 
      <item name="code_picker_bias" type="dimen" format="float">0.35</item>
 

@@ -10,10 +10,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.ktxdevelopment.mobiware.R
 import com.ktxdevelopment.mobiware.models.firebase.FireFeedback
-import com.ktxdevelopment.mobiware.models.firebase.FireMobile
 import com.ktxdevelopment.mobiware.models.firebase.FirePasswordModel
 import com.ktxdevelopment.mobiware.models.local.LocalUser
-import com.ktxdevelopment.mobiware.models.rest.product.Data
 import com.ktxdevelopment.mobiware.ui.activities.*
 import com.ktxdevelopment.mobiware.ui.fragments.additional.FragmentFeedback
 import com.ktxdevelopment.mobiware.ui.fragments.additional.FragmentProfile
@@ -126,17 +124,6 @@ object FirebaseClient {
                          }
                     }
           }
-     }
-
-     fun sendMobileDataInBack(mobile: Data) {
-          val mobiRef = firestore.collection(Constants.MOBILES).document(mobile.phone_name)
-          if (mobiRef.get().result.exists()) {
-               mobiRef.get().addOnSuccessListener {
-                    mobiRef.set(it.toObject(FireMobile::class.java)!!.apply {
-                         userId.add(getCurrentUserId())
-                    })
-               }
-          } else { mobiRef.set(FireMobile(mobile, arrayListOf(getCurrentUserId()))) }
      }
 
 

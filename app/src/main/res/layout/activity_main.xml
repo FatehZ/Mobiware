@@ -27,7 +27,7 @@
                app:titleTextColor="@color/cyan"
                android:id="@+id/cvToolbarMain"
                android:layout_width="match_parent"
-               android:layout_height="@dimen/_30sdp"
+               android:layout_height="@dimen/app_bar_size"
                android:layout_marginHorizontal="@dimen/_11sdp"
                android:layout_marginVertical="@dimen/_5sdp">
 
@@ -35,11 +35,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <ImageView
+                    <com.google.android.material.card.MaterialCardView
+                         android:layout_width="@dimen/app_bar_size"
+                         android:layout_height="@dimen/app_bar_size"
+                         app:cardElevation="0dp"
                          android:id="@+id/btnMainToggle"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:src="@drawable/ic_menu"
+                         app:cardBackgroundColor="@android:color/transparent"
                          android:focusable="true"
                          android:clickable="true"
                          android:background="?attr/selectableItemBackground"
@@ -47,8 +48,18 @@
                          app:layout_constraintEnd_toEndOf="parent"
                          app:layout_constraintHorizontal_bias="0.03"
                          app:layout_constraintStart_toStartOf="parent"
-                         app:layout_constraintTop_toTopOf="parent"
-                         tools:ignore="ContentDescription" />
+                         app:layout_constraintTop_toTopOf="parent">
+
+
+                         <ImageView
+                              android:layout_gravity="center"
+                              android:contentDescription="@string/app_name"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:src="@drawable/ic_menu"
+                              />
+
+                    </com.google.android.material.card.MaterialCardView>
 
                     <TextView
                          android:layout_width="wrap_content"

@@ -25,10 +25,9 @@ class AdditionalActivity : BaseActivity() {
      override fun onCreate(savedInstanceState: Bundle?) {
           super.onCreate(savedInstanceState)
           binding = ActivityAdditionalBinding.inflate(layoutInflater).also { setContentView(it.root) }
+          tryEr { handleDestinationOfIntent(intent) }
           setSupportActionBar(binding.toolbarAdditional)
           supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-          tryEr { handleDestinationOfIntent(intent) }
           binding.toolbarAdditional.setNavigationOnClickListener { finish() }
      }
 

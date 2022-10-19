@@ -2,6 +2,8 @@ package com.ktxdevelopment.mobiware.util
 
 object Constants {
 
+     const val PRIVACY_URL: String = "https://www.app-privacy-policy.com/live.php?token=PYVqQSuwmrkRCvS75XCIocrX18kfypnU"
+     const val TERMS_URL: String = "https://www.app-privacy-policy.com/live.php?token=ACMuSe1XwPthyQEHL9xeqLeZ4o1VZG0T"
      const val NOTHING = "nothing"
      const val TECNO: String = "tecno"
      const val ENERGIZER = "energizer"

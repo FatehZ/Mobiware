@@ -9,7 +9,6 @@ import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +25,7 @@ import com.ktxdevelopment.mobiware.databinding.DialogSettingsAboutBinding
 import com.ktxdevelopment.mobiware.databinding.DialogSettingsBinding
 import com.ktxdevelopment.mobiware.databinding.FragmentSettingsBinding
 import com.ktxdevelopment.mobiware.ui.activities.MainActivity
+import com.ktxdevelopment.mobiware.util.Constants
 import com.ktxdevelopment.mobiware.util.tryEr
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -33,7 +33,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class FragmentSettings : BaseFragment() {
      private var _binding: FragmentSettingsBinding? = null
      private val binding get() = _binding!!
-
      //
      private lateinit var dialog: Dialog
      private lateinit var dialogDark: Dialog
@@ -94,14 +93,7 @@ class FragmentSettings : BaseFragment() {
 
      private fun dialogNightMode() {
           dialogDark.show()
-          Log.i("TAG", "dialogNightMode: ${getDefaultNightMode()}")    //todo
-          when (getDefaultNightMode()) {
-               MODE_NIGHT_YES -> darkBinding.rgSetDl.check(R.id.radDark)
-               MODE_NIGHT_NO -> darkBinding.rgSetDl.check(R.id.radLight)
-               MODE_NIGHT_UNSPECIFIED -> darkBinding.rgSetDl.check(R.id.radSysDef)
-               MODE_NIGHT_FOLLOW_SYSTEM -> darkBinding.rgSetDl.check(R.id.radSysDef)
-               else -> Unit
-          }
+          darkBinding.rgSetDl.check(R.id.radSysDef)
      }
 
      private fun dialogDeleteAccount() {
@@ -113,9 +105,7 @@ class FragmentSettings : BaseFragment() {
 
      private fun confirmedDeleteAccount() {
           showProgressDialog()
-          tryEr {
-               FirebaseClient.deleteCurrentUserAccount(this)
-          }
+          tryEr { FirebaseClient.deleteCurrentUserAccount(this) }
      }
 
      private fun confirmedResetPassword() {
@@ -156,13 +146,27 @@ class FragmentSettings : BaseFragment() {
 
 
      private fun launchDialogLayouts() {
-          _confirmBinding = DialogSettingsBinding.inflate(layoutInflater).apply { btnNo.setOnClickListener { dialog.dismiss() } }
-          _darkBinding = DialogDarkModeBinding.inflate(layoutInflater).apply { btnNo.setOnClickListener { dialogDark.dismiss() } }
-          _aboutBinding = DialogSettingsAboutBinding.inflate(layoutInflater).apply { btnDismiss.setOnClickListener { dialogAbout.dismiss() } }
+          _confirmBinding = DialogSettingsBinding.inflate(layoutInflater)
+               .apply { btnNo.setOnClickListener { dialog.dismiss() } }
+          _darkBinding = DialogDarkModeBinding.inflate(layoutInflater)
+               .apply { btnNo.setOnClickListener { dialogDark.dismiss() } }
+          _aboutBinding = DialogSettingsAboutBinding.inflate(layoutInflater)
+               .apply { btnDismiss.setOnClickListener { dialogAbout.dismiss() } }
 
-          dialog = Dialog(requireContext()).apply { window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)); setContentView(confirmBinding.root) }
-          dialogDark = Dialog(requireContext()).apply { window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)); setContentView(darkBinding.root) }
-          dialogAbout = Dialog(requireContext()).apply { window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)); setContentView(aboutBinding.root) }
+          dialog = Dialog(requireContext()).apply {
+               window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)); setContentView(
+               confirmBinding.root
+          )
+          }
+          dialogDark = Dialog(requireContext()).apply {
+               window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)); setContentView(
+               darkBinding.root
+          )
+          }
+          dialogAbout = Dialog(requireContext()).apply {
+               window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)); setContentView(
+               aboutBinding.root
+          ) }
 
           darkBinding.btnYes.setOnClickListener {
                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -180,7 +184,7 @@ class FragmentSettings : BaseFragment() {
                               dialogDark.dismiss()
                          }
                     }
-               }else{
+               } else {
                     when (darkBinding.rgSetDl.checkedRadioButtonId) {
                          R.id.radSysDef -> {
                               setDefaultNightMode(MODE_NIGHT_FOLLOW_SYSTEM)
@@ -198,13 +202,10 @@ class FragmentSettings : BaseFragment() {
                }
           }
 
-
           aboutBinding.tvVersionAbout.text = BuildConfig.VERSION_NAME
-          aboutBinding.cvPrivacyPolicyAbout.setOnClickListener { //todo open privacy policy
-          }
+          aboutBinding.cvPrivacyPolicyAbout.setOnClickListener { openPrivacyPolicy() }
+          aboutBinding.cvTermsAndConditions.setOnClickListener { openTermsConditions() }
      }
-
-
      override fun onDestroyView() {
           super.onDestroyView()
           _aboutBinding = null
@@ -212,4 +213,9 @@ class FragmentSettings : BaseFragment() {
           _confirmBinding = null
           _binding = null
      }
+
+     private fun openPrivacyPolicy() = tryEr { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(Constants.PRIVACY_URL))) }
+
+     private fun openTermsConditions() = tryEr { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(Constants.TERMS_URL))) }
+
 }
