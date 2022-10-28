@@ -140,7 +140,6 @@ class FragmentHardware : BaseFragment() {
      }
 
      private fun setupRecyclerViews() {
-
           rPlatform = MobileSpecsAdapter()
           rMemory = MobileSpecsAdapter()
           rDisplay = MobileSpecsAdapter()
@@ -151,34 +150,15 @@ class FragmentHardware : BaseFragment() {
           rMainCam = MobileSpecsAdapter()
           rSelfCam = MobileSpecsAdapter()
 
-
-          binding.rvMainPlatform.apply {
-               layoutManager = LinearLayoutManager(requireContext()); adapter = rPlatform
-          }
-          binding.rvMainDisplay.apply {
-               layoutManager = LinearLayoutManager(requireContext()); adapter = rDisplay
-          }
-          binding.rvMainMemory.apply {
-               layoutManager = LinearLayoutManager(requireContext()); adapter = rMemory
-          }
-          binding.rvMainBattery.apply {
-               layoutManager = LinearLayoutManager(requireContext()); adapter = rBattery
-          }
-          binding.rvMainBody.apply {
-               layoutManager = LinearLayoutManager(requireContext()); adapter = rBody
-          }
-          binding.rvMainComm.apply {
-               layoutManager = LinearLayoutManager(requireContext()); adapter = rComms
-          }
-          binding.rvMainLaunch.apply {
-               layoutManager = LinearLayoutManager(requireContext()); adapter = rLaunch
-          }
-          binding.rvMainMainCamera.apply {
-               layoutManager = LinearLayoutManager(requireContext()); adapter = rMainCam
-          }
-          binding.rvMainSelfieCamera.apply {
-               layoutManager = LinearLayoutManager(requireContext()); adapter = rSelfCam
-          }
+          binding.rvMainPlatform.apply { layoutManager = LinearLayoutManager(requireContext()); adapter = rPlatform }
+          binding.rvMainDisplay.apply { layoutManager = LinearLayoutManager(requireContext()); adapter = rDisplay }
+          binding.rvMainMemory.apply { layoutManager = LinearLayoutManager(requireContext()); adapter = rMemory }
+          binding.rvMainBattery.apply { layoutManager = LinearLayoutManager(requireContext()); adapter = rBattery }
+          binding.rvMainBody.apply { layoutManager = LinearLayoutManager(requireContext()); adapter = rBody }
+          binding.rvMainComm.apply { layoutManager = LinearLayoutManager(requireContext()); adapter = rComms }
+          binding.rvMainLaunch.apply { layoutManager = LinearLayoutManager(requireContext()); adapter = rLaunch }
+          binding.rvMainMainCamera.apply { layoutManager = LinearLayoutManager(requireContext()); adapter = rMainCam }
+          binding.rvMainSelfieCamera.apply { layoutManager = LinearLayoutManager(requireContext()); adapter = rSelfCam }
      }
 
 
@@ -216,5 +196,4 @@ class FragmentHardware : BaseFragment() {
           rMainCam = null
           rSelfCam = null
      }
-
 }

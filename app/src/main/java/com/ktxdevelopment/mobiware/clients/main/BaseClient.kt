@@ -37,19 +37,14 @@ object BaseClient {
           } catch (e: Exception) { }
      }
 
-     fun convertDataToPhone(data: Data, detail: String): Phone {
-          return Phone(data.brand, Constants.BASE_URL_1 + detail, data.thumbnail, data.phone_name, detail)
-     }
-
+     fun convertDataToPhone(data: Data, detail: String): Phone { return Phone(data.brand, Constants.BASE_URL_1 + detail, data.thumbnail, data.phone_name, detail) }
 
      fun convertFireToLocalUser(fUser: LocalUser): LocalUser {
-          fUser.image64 = PermissionClient.getBaseImageFromString(fUser.imageOnline)
-          return fUser
+          return fUser.apply { image64 = PermissionClient.getBaseImageFromString(fUser.imageOnline) }
      }
 
      fun convertLocalToFireUser(lUser : LocalUser): LocalUser {
-          lUser.image64 = ""
-          return lUser
+          return lUser.apply { image64 = "" }
      }
 
      @Suppress("DEPRECATION")
