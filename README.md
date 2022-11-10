@@ -25,7 +25,7 @@ Most mobile brands, latest, and hottest mobiles are also represented in sepecifi
 
 <p float="left">
   <img src="https://firebasestorage.googleapis.com/v0/b/public-cb3e3.appspot.com/o/1665780631378.jpg?alt=media&token=72075bbb-052c-4009-af68-1f63646d8101" width="150"/>
-  <img src="https://firebasestorage.googleapis.com/v0/b/mobiware-aafaf.appspot.com/o/app_photos%2F1665780631367.jpg?alt=media&token=9bca89bb-5462-4e64-9677-02245613f36c" width="150" />
+  <img src="https://firebasestorage.googleapis.com/v0/b/public-cb3e3.appspot.com/o/1665780631418.jpg?alt=media&token=0c840b82-3b67-4a7f-bd65-82dec559d6d5" width="150" />
 </p>
 
 Mobiware app also enables users to customize their profiles, customize app settings, send feedbacks in different ways, and change their personal info.
