@@ -1,6 +1,7 @@
 # Mobiware
 
-Now, app is available in the Play Store!
+# Now, app is available in the Play Store!    
+https://play.google.com/store/apps/details?id=com.ktxdevelopment.mobiware
 
 Mobiware Android app is a mobile application written in Kotlin that provides users with all information about mobile devices.
 
