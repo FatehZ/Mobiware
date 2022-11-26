@@ -1,5 +1,7 @@
 # Mobiware
 
+Now, app is available in the Play Store!
+
 Mobiware Android app is a mobile application written in Kotlin that provides users with all information about mobile devices.
 
 Initially, app requires email and password for registration, and authorization with gmail and facebook will also be provided, soon.
@@ -35,5 +37,3 @@ Mobiware app also enables users to customize their profiles, customize app setti
     <img src="https://firebasestorage.googleapis.com/v0/b/public-cb3e3.appspot.com/o/1665780631406.jpg?alt=media&token=0188884b-0d04-4d1b-81aa-7739f405eb22" width="100" />
  
 </p>
-
-App is still development phase, and the first version with some extra features will be published on Play Store in a few weeks.
