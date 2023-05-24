@@ -9,14 +9,20 @@
      <dimen name="toolbar_text_size">@dimen/_10ssp</dimen>
      <dimen name="toolbar_title_margin_start">@dimen/_20sdp</dimen>
 
+     <dimen name="nav_width">@dimen/_180sdp</dimen>
+
      <dimen name="theme_dialog_text_size">@dimen/_11ssp</dimen>
      <dimen name="thin_cv_stroke">@dimen/_1sdp</dimen>
 
      <dimen name="button_text_size">@dimen/_10ssp</dimen>
      <dimen name="default_text_size">@dimen/_10ssp</dimen>
      <dimen name="edit_text_icon_size">@dimen/_12sdp</dimen>
-     <dimen name="nav_profile_image_size">@dimen/_90sdp</dimen>
+     <dimen name="nav_profile_image_size">@dimen/_80sdp</dimen>
      <dimen name="bigger_text_size">@dimen/_14ssp</dimen>
+
+     <dimen name="app_bar_size">@dimen/_22sdp</dimen>
+     <dimen name="nav_text_size">@dimen/_9ssp</dimen>
+     <dimen name="nav_icon_size">@dimen/_12sdp</dimen>
 
      <dimen name="feedback_icon_size">@dimen/_25sdp</dimen>
 

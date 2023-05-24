@@ -70,7 +70,7 @@ object SignInUpClient {
      }
 
      fun handleSearchSuccess(context: BaseFragment, bindingUp: FragmentSignUpBinding? = null, bindingIn: FragmentSignInBinding? = null, res: Resource.Success<SearchResponse>) {
-          if (res.data != null) {
+          if (res.data?.data != null) {
                if (res.data.data.phones.isNotEmpty()) {
                     if (context is FragmentSignUp) context.onSearchResponseResult(res.data)
                     else if (context is FragmentSignIn) context.onSearchResponseResult(res.data)

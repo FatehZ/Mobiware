@@ -63,6 +63,7 @@
      </style>
 
      <style name="MainNavView">
+          <item name="android:textSize">@dimen/nav_text_size</item>
           <item name="android:textStyle">normal</item>
           <item name="fontFamily">@font/dosis_bold</item>
           <item name="android:letterSpacing">0.05</item>

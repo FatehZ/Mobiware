@@ -98,10 +98,12 @@
 
      <com.google.android.material.navigation.NavigationView
           android:id="@+id/navView"
-          android:layout_width="@dimen/_240sdp"
+          android:layout_width="@dimen/nav_width"
           app:itemTextAppearance="@style/MainNavView"
           app:itemIconTint="@color/icon_foreground_color"
-          app:itemBackground="@drawable/gradient_nav_header"
+          app:itemIconSize="@dimen/nav_icon_size"
+          app:itemVerticalPadding="@dimen/_7sdp"
+          app:itemBackground="@color/nav_background"
           app:itemTextColor="@color/text_main_color"
           app:itemMaxLines="1"
           android:overScrollMode="never"
@@ -111,7 +113,7 @@
           app:dividerInsetEnd="@dimen/_20sdp"
           tools:openDrawer="start"
           android:fitsSystemWindows="false"
-          android:background="@drawable/gradient_nav_header"
+          android:background="@color/nav_background"
           app:headerLayout="@layout/nav_header"
           app:menu="@menu/menu_drawer"/>
 

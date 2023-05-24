@@ -26,30 +26,31 @@ class AdditionalActivity : BaseActivity() {
           super.onCreate(savedInstanceState)
           binding = ActivityAdditionalBinding.inflate(layoutInflater).also { setContentView(it.root) }
           tryEr { handleDestinationOfIntent(intent) }
-          setSupportActionBar(binding.toolbarAdditional)
-          supportActionBar?.setDisplayHomeAsUpEnabled(true)
-          binding.toolbarAdditional.setNavigationOnClickListener { finish() }
+
+          binding.btnBack.setOnClickListener { finish() }
+
      }
 
      private fun handleDestinationOfIntent(i: Intent) {
           when (i.action) {
                FR_FEEDBACK -> {
                     findNavController(R.id.navHostAdditional).navigate(R.id.actionToFeedback)
-                    binding.toolbarAdditional.title = getString(R.string.feedback)
+                    binding.titleAdditional.text = getString(R.string.feedback)
                }
                FR_PROFILE -> {
                     findNavController(R.id.navHostAdditional).navigate(R.id.actionToProfile)
-                    binding.toolbarAdditional.title = getString(R.string.profile)
+                    binding.titleAdditional.text = getString(R.string.profile)
                }
           }
      }
 
+
+
+
      override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
           super.onRequestPermissionsResult(requestCode, permissions, grantResults)
           if (requestCode == Constants.READ_STORAGE_CODE) {
-               if (grantResults.isNotEmpty() && grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                    showPermissionDeniedDialog()
-               }
+               if (grantResults.isNotEmpty() && grantResults[0] != PackageManager.PERMISSION_GRANTED) showPermissionDeniedDialog()
           }
      }
 
@@ -69,6 +70,6 @@ class AdditionalActivity : BaseActivity() {
           }.also { startActivity(it) }
      }
 
-
-     override fun onBackPressed() { finish() }
+     @Deprecated("Deprecated in Java", ReplaceWith("finish()"))
+     override fun onBackPressed() = finish()
 }

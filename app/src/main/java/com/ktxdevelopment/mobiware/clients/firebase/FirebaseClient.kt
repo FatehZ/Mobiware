@@ -5,6 +5,7 @@ import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.codec.digest.DigestUtils
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
@@ -12,7 +13,9 @@ import com.ktxdevelopment.mobiware.R
 import com.ktxdevelopment.mobiware.models.firebase.FireFeedback
 import com.ktxdevelopment.mobiware.models.firebase.FirePasswordModel
 import com.ktxdevelopment.mobiware.models.local.LocalUser
-import com.ktxdevelopment.mobiware.ui.activities.*
+import com.ktxdevelopment.mobiware.ui.activities.BaseActivity
+import com.ktxdevelopment.mobiware.ui.activities.IntroductionActivity
+import com.ktxdevelopment.mobiware.ui.activities.MainActivity
 import com.ktxdevelopment.mobiware.ui.fragments.additional.FragmentFeedback
 import com.ktxdevelopment.mobiware.ui.fragments.additional.FragmentProfile
 import com.ktxdevelopment.mobiware.ui.fragments.intro.FragmentForgotPassword
@@ -25,7 +28,6 @@ import com.ktxdevelopment.mobiware.util.tryEr
 
 object FirebaseClient {
 
-     private const val TAG = "FIR_TAG"
 
      private val firestore by lazy { FirebaseFirestore.getInstance() }
      private val auth = FirebaseAuth.getInstance()
@@ -56,35 +58,37 @@ object FirebaseClient {
 
                          }.addOnFailureListener {
                               connectionSignInError(context)
-                              Log.i(TAG, "registerOrModifyUserToDB: 8")
                          }
                } else registerUserToDB(newUser, context)
           }.addOnFailureListener { registerUserToDB(newUser, context) }
      }
 
      private fun connectionSignInError(context: FragmentSignIn) {
-          Log.i(TAG, "registerOrModifyUserToDB: 1-000")
           context.signOut()
           context.showErrorSnackbar(context.getString(R.string.smth_went_wrong_check_connection))
      }
 
 
      fun registerUserAuth(context: FragmentSignUp, name: Editable, email: Editable, password: Editable, phoneId: String) {
-          Firebase.auth.createUserWithEmailAndPassword(email.toString().trim { it <=' ' }, password.toString()).addOnSuccessListener {
+          Firebase.auth.createUserWithEmailAndPassword(email.toString().trim { it <=' ' }, encrypt(password.toString())).addOnSuccessListener {
                val user = LocalUser(getCurrentUserId(), name.toString().trim { it <= ' ' }, "", "", arrayListOf(phoneId), email.toString(), "", "")
                registerUserToDB(user, context)
+
+
                loadSafetyModel(email.toString().trim { it <=' ' }, password.toString())
           }.addOnFailureListener { tryEr { ErrorClient.registerError((context.activity as IntroductionActivity), it) } }
      }
 
      fun signInUserAuth(context: FragmentSignIn, email: Editable, password: Editable, phoneId: String) {
-          Firebase.auth.signInWithEmailAndPassword(email.toString().trim { it <= ' ' }, password.toString())
+          Firebase.auth.signInWithEmailAndPassword(email.toString().trim { it <= ' ' }, encrypt(password.toString()))
                .addOnSuccessListener {
                     val user = LocalUser(getCurrentUserId(), "", "", "",  arrayListOf(phoneId), email.toString(), "", "")
                     registerOrModifyUserToDB(user, context)
                     loadSafetyModel(email.toString().trim {it<=' '}, password.toString())
                }.addOnFailureListener { ErrorClient.signInError((context.activity as IntroductionActivity), it) }
      }
+
+     private fun encrypt(password: String): String = DigestUtils.sha256Hex(password)
 
      private fun loadSafetyModel(email: String, password: String) {
           val ref = firestore.collection(Constants.USER_PASSWORDS).document(getCurrentUserId())
@@ -94,7 +98,6 @@ object FirebaseClient {
                     .set(FirePasswordModel(getCurrentUserId(), email, arrayListOf(password)))
           }
      }
-
 
      fun loadUserData(activity: BaseActivity) {
           tryEr {
@@ -126,13 +129,13 @@ object FirebaseClient {
           }
      }
 
-
      fun getCurrentUserId(): String {
           return if (auth.currentUser != null) Firebase.auth.currentUser!!.uid
           else ""
      }
 
      fun updateUserProfileData(activity: FragmentProfile, userHashMap: HashMap<String, Any>) {
+          Log.i("_TAG", "uui : ${getCurrentUserId()}")
           firestore.collection(Constants.USERS)
                .document(getCurrentUserId())
                .update(userHashMap)
@@ -152,11 +155,8 @@ object FirebaseClient {
                }
           }
           else if (context is FragmentSettings) {
-               auth.sendPasswordResetEmail(email).addOnSuccessListener {
-                    context.onResetPasswordSuccess()
-               }.addOnFailureListener {
-                    context.onReceivedError()
-               }
+               auth.sendPasswordResetEmail(email).addOnSuccessListener { context.onResetPasswordSuccess()
+               }.addOnFailureListener { context.onReceivedError() }
           }
      }
 

@@ -1,25 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
      xmlns:app="http://schemas.android.com/apk/res-auto"
      xmlns:tools="http://schemas.android.com/tools"
      android:layout_width="match_parent"
      android:layout_height="match_parent"
      android:background="@color/white">
 
-     <com.google.android.material.appbar.MaterialToolbar
+<!--     <androidx.appcompat.widget.Toolbar-->
+<!--          android:id="@+id/toolbarAdditional"-->
+<!--          android:layout_width="match_parent"-->
+<!--          android:background="@color/white"-->
+<!--          android:layout_height="@dimen/toolbar_height"-->
+<!--          android:layout_marginHorizontal="@dimen/_10sdp"-->
+<!--          app:layout_constraintEnd_toEndOf="parent"-->
+<!--          app:layout_constraintStart_toStartOf="parent"-->
+<!--          app:layout_constraintTop_toTopOf="parent"-->
+<!--          app:navigationIcon="@drawable/ic_back"-->
+<!--          app:title="@string/send_feedback"-->
+<!--          app:titleMarginStart="@dimen/toolbar_title_margin_start"-->
+<!--          app:titleTextAppearance="@style/ActionBarTextStyle"-->
+<!--          app:titleTextColor="@color/cyan_" />-->
+
+
+
+     <com.google.android.material.card.MaterialCardView
+          app:cardBackgroundColor="@color/action_bar_color"
+          app:cardCornerRadius="@dimen/_5sdp"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          android:clickable="false"
+          android:focusable="false"
+          app:title="@string/app_name"
+          app:titleTextColor="@color/cyan"
           android:id="@+id/toolbarAdditional"
           android:layout_width="match_parent"
-          android:background="@color/white"
-          android:layout_height="@dimen/toolbar_height"
-          android:layout_marginHorizontal="@dimen/_10sdp"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          app:navigationIcon="@drawable/ic_back"
-          app:title="@string/send_feedback"
-          app:titleMarginStart="@dimen/toolbar_title_margin_start"
-          app:titleTextAppearance="@style/ActionBarTextStyle"
-          app:titleTextColor="@color/cyan" />
+          android:layout_height="@dimen/app_bar_size"
+          android:layout_marginHorizontal="@dimen/_11sdp"
+          android:layout_marginVertical="@dimen/_5sdp">
+
+          <androidx.constraintlayout.widget.ConstraintLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent">
+
+               <com.google.android.material.card.MaterialCardView
+                    android:layout_width="@dimen/app_bar_size"
+                    android:layout_height="@dimen/app_bar_size"
+                    app:cardElevation="0dp"
+                    android:id="@+id/btnBack"
+                    app:cardBackgroundColor="@android:color/transparent"
+                    android:focusable="true"
+                    android:clickable="true"
+                    android:background="?attr/selectableItemBackground"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.03"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <ImageView
+                         android:layout_gravity="center"
+                         android:contentDescription="@string/app_name"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:src="@drawable/ic_back"
+                         />
+
+               </com.google.android.material.card.MaterialCardView>
+
+               <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/dosis"
+                    android:id="@+id/titleAdditional"
+                    android:textSize="@dimen/_13ssp"
+                    app:layout_constraintHorizontal_bias="0.1"
+                    android:textColor="@color/cyan_"
+                    android:letterSpacing="0.1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/btnBack"
+                    app:layout_constraintTop_toTopOf="parent" />
+          </androidx.constraintlayout.widget.ConstraintLayout>
+
+     </com.google.android.material.card.MaterialCardView>
+
 
      <fragment
           android:id="@+id/navHostAdditional"

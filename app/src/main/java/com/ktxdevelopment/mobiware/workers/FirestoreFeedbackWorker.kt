@@ -13,7 +13,7 @@ import com.ktxdevelopment.mobiware.clients.main.PermissionClient
 import com.ktxdevelopment.mobiware.models.firebase.FireFeedback
 import com.ktxdevelopment.mobiware.util.Constants
 
-class FirestoreFeedbackWorker(val appContext: Context, params: WorkerParameters) : CoroutineWorker(appContext, params) {
+class FirestoreFeedbackWorker(private val appContext: Context, params: WorkerParameters) : CoroutineWorker(appContext, params) {
 
     override suspend fun doWork(): Result {
 
