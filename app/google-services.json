@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "431649337195",
+    "project_id": "mobiware-aafaf",
+    "storage_bucket": "mobiware-aafaf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:431649337195:android:39c81f254b424f8245262e",
+        "android_client_info": {
+          "package_name": "com.ktxdevelopment.mobiware"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "431649337195-pq3075r6b5ni2lkg7oqaa347d7pirk1c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD17o2p3loKUOw3yY6iG8V50LlsIvmvvyo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "431649337195-pq3075r6b5ni2lkg7oqaa347d7pirk1c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
