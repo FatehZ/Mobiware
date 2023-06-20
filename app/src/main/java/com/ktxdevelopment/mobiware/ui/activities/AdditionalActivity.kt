@@ -1,11 +1,13 @@
 package com.ktxdevelopment.mobiware.ui.activities
 
+import android.annotation.TargetApi
 import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import androidx.navigation.findNavController
@@ -43,8 +45,6 @@ class AdditionalActivity : BaseActivity() {
                }
           }
      }
-
-
 
 
      override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
